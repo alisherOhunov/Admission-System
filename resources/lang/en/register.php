@@ -1,0 +1,28 @@
+<?php
+
+return [
+    'firstName' => 'First Name',
+    'lastName' => 'Last Name',
+    'email' => 'Email Address',
+    'password' => 'Password',
+    'confirmPassword' => 'Confirm Password',
+    'register' => 'Register',
+    'alreadyRegistered' => 'Already registered',
+    'loginHere' => 'Login here',
+    'title' => 'Create your account',
+    'signInOption' => 'sign in to your existing account',
+    'alreadyHaveAccount' => 'Already have an account',
+    'signInHere' => 'Sign in here',
+    'signInExistingAccount' => 'sign in to your existing account',
+    'getStarted' => 'Get started with your application',
+    'passwordNotMatch' => 'Passwords do not match.',
+    'agreeToTerms' => 'I agree to the',
+    'termsOfService' => 'Terms of Service',
+    'privacyPolicy' => 'Privacy Policy',
+    'createAccount' => 'Create Account',
+    'enterYourEmail' => 'Enter your email',
+    'createPassword' => 'Create a password',
+    'confirmYourPassword' => 'Confirm your password',
+    'and' => 'and',
+    'or' => 'Or',
+];
