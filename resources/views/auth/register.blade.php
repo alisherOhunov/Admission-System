@@ -194,14 +194,14 @@
                         <!-- Terms Agreement -->
                         <div class="flex items-start space-x-2">
                             <input type="checkbox" 
-                                   id="agree_to_terms" 
-                                   name="agree_to_terms" 
-                                   x-model="form.agree_to_terms"
+                                   id="terms" 
+                                   name="terms" 
+                                   x-model="form.terms"
                                    value="1"
                                    class="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                                   {{ old('agree_to_terms') ? 'checked' : '' }}
+                                   {{ old('terms') ? 'checked' : '' }}
                                    required />
-                            <label for="agree_to_terms" class="text-sm text-gray-600">
+                            <label for="terms" class="text-sm text-gray-600">
                                 {{__('register.agreeToTerms') }}
                                 <a href="#" class="font-medium text-university-600 hover:text-university-500">
                                     {{__('register.termsOfService') }}
@@ -252,7 +252,7 @@
                     email: '{{ old('email') }}',
                     password: '',
                     password_confirmation: '',
-                    agree_to_terms: {{ old('agree_to_terms') ? 'true' : 'false' }}
+                    terms: {{ old('terms') ? 'true' : 'false' }}
                 },
 
                 get passwordsMatch() {

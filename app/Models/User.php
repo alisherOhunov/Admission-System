@@ -10,8 +10,12 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    const ROLE_APPLICANT = 1;
+    const ROLE_ADMIN = 2;
+
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
         'phone',
@@ -34,25 +38,15 @@ class User extends Authenticatable
         return $this->hasMany(Application::class);
     }
 
-    public function staffNotes()
-    {
-        return $this->hasMany(StaffNote::class, 'staff_id');
-    }
-
     // Role Helpers
     public function isApplicant()
     {
-        return $this->role === 'applicant';
+        return $this->role === self::ROLE_APPLICANT;
     }
 
     public function isAdmin()
     {
-        return $this->role === 'admin';
-    }
-
-    public function isStaff()
-    {
-        return in_array($this->role, ['admin', 'staff']);
+        return $this->role === self::ROLE_ADMIN;
     }
 
     // Get current application for applicant

@@ -13,7 +13,6 @@ class ApplicationsController extends Controller
     {
         $query = Application::with(['user', 'program', 'applicationPeriod']);
 
-        // Apply filters
         if ($request->filled('status')) {
             $query->byStatus($request->status);
         }
@@ -29,7 +28,8 @@ class ApplicationsController extends Controller
         if ($request->filled('search')) {
             $search = $request->search;
             $query->whereHas('user', function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
+                $q->where('first_name', 'like', "%{$search}%")
+                ->where('last_name', 'like', "%{$search}%")
                   ->orWhere('email', 'like', "%{$search}%");
             });
         }
@@ -42,7 +42,7 @@ class ApplicationsController extends Controller
 
     public function show(Application $application)
     {
-        $application->load(['user', 'program', 'applicationPeriod', 'documents', 'staffNotes.user']);
+        $application->load(['user', 'program', 'applicationPeriod', 'documents']);
 
         return view('admin.applications.show', compact('application'));
     }

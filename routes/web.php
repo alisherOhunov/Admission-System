@@ -37,30 +37,30 @@ Route::middleware('guest')->group(function () {
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
 // Applicant Routes
-// Route::middleware(['auth', 'role:applicant'])->prefix('applicant')->name('applicant.')->group(function () {
-    Route::get('/applicant/dashboard', [ApplicantDashboardController::class, 'index'])->name('applicant.dashboard');
+Route::middleware(['auth'])->prefix('applicant')->name('applicant.')->group(function () {
+    Route::get('/dashboard', [ApplicantDashboardController::class, 'index'])->name('dashboard');
     
     // Application Management
-    Route::get('/applicant/application', [ApplicationController::class, 'index'])->name('applicant.application');
-    Route::post('/applicant/application/personal-info', [ApplicationController::class, 'updatePersonalInfo'])->name('applicant.application.personal');
-    Route::post('/applicant/application/contact-info', [ApplicationController::class, 'updateContactInfo'])->name('applicant.application.contact');
-    Route::post('/applicant/application/academic-info', [ApplicationController::class, 'updateAcademicInfo'])->name('applicant.application.academic');
-    Route::post('/applicant/application/program-choice', [ApplicationController::class, 'updateProgramChoice'])->name('applicant.application.program');
-    Route::post('/applicant/application/upload-document', [ApplicationController::class, 'uploadDocument'])->name('applicant.application.upload');
-    Route::post('/applicant/application/submit', [ApplicationController::class, 'submit'])->name('applicant.application.submit');
-// });
+    Route::get('/application', [ApplicationController::class, 'index'])->name('application');
+    Route::post('/application/personal-info', [ApplicationController::class, 'updatePersonalInfo'])->name('application.personal');
+    Route::post('/application/contact-info', [ApplicationController::class, 'updateContactInfo'])->name('application.contact');
+    Route::post('/application/academic-info', [ApplicationController::class, 'updateAcademicInfo'])->name('application.academic');
+    Route::post('/application/program-choice', [ApplicationController::class, 'updateProgramChoice'])->name('application.program');
+    Route::post('/application/upload-document', [ApplicationController::class, 'uploadDocument'])->name('application.upload');
+    Route::post('/application/submit', [ApplicationController::class, 'submit'])->name('application.submit');
+});
 
 // Admin & Staff Routes
-Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
-// Route::middleware(['auth', 'role:admin,staff'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     
     // Application Management
-    Route::get('/admin/applications', [ApplicationsController::class, 'index'])->name('admin.applications.index');
-    Route::get('/admin/applications/{application}', [ApplicationsController::class, 'show'])->name('admin.applications.show');
-    Route::post('/admin/applications/{application}/status', [ApplicationsController::class, 'updateStatus'])->name('admin.applications.status');
-    Route::post('/admin/applications/{application}/notes', [ApplicationsController::class, 'addNote'])->name('admin.applications.notes');
-    Route::get('/admin/applications/export', [ApplicationsController::class, 'export'])->name('admin.applications.export');
-// });
+    Route::get('/applications', [ApplicationsController::class, 'index'])->name('applications.index');
+    Route::get('/applications/{application}', [ApplicationsController::class, 'show'])->name('applications.show');
+    Route::post('/applications/{application}/status', [ApplicationsController::class, 'updateStatus'])->name('applications.status');
+    Route::post('/applications/{application}/notes', [ApplicationsController::class, 'addNote'])->name('applications.notes');
+    Route::get('/applications/export', [ApplicationsController::class, 'export'])->name('applications.export');
+});
 
 // Error Pages
 Route::fallback(function () {

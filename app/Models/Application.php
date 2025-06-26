@@ -68,11 +68,6 @@ class Application extends Model
         return $this->hasMany(Document::class);
     }
 
-    public function staffNotes()
-    {
-        return $this->hasMany(StaffNote::class);
-    }
-
     // Status Helpers
     public function isDraft()
     {
