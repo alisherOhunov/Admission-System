@@ -31,7 +31,7 @@
             <p class="mt-2 text-center text-sm text-gray-600">
                 Or
                 @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="font-medium text-blue-600 hover:text-blue-500">
+                    <a href="{{ route('register') }}" class="font-medium hover:text-gray-500">
                         create a new account
                     </a>
                 @endif
@@ -64,9 +64,9 @@
 
                     <!-- Email Address -->
                     <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
+                        <label for="email" class="block text-sm text-center font-medium text-gray-700">Email address</label>
                         <div class="mt-1">
-                            <input id="email" name="email" type="email" autocomplete="email" required
+                            <input id="email" placeholder="Enter your email" name="email" type="email" autocomplete="email" required
                                    value="{{ old('email') }}"
                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                         </div>
@@ -75,9 +75,9 @@
 
                     <!-- Password -->
                     <div x-data="{ showPassword: false }">
-                        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                        <label for="password" class="block text-sm text-center font-medium text-gray-700">Password</label>
                         <div class="mt-1 relative">
-                            <input id="password" name="password" :type="showPassword ? 'text' : 'password'" 
+                            <input id="password" name="password" placeholder="Enter your password" :type="showPassword ? 'text' : 'password'" 
                                    autocomplete="current-password" required
                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm pr-10">
                             <button type="button" @click="showPassword = !showPassword" class="absolute inset-y-0 right-0 pr-3 flex items-center">
@@ -93,18 +93,11 @@
                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
                     </div>
 
-                    <!-- Remember Me and Forgot Password -->
+                    <!-- Forgot Password -->
                     <div class="flex items-center justify-between">
-                        <div class="flex items-center">
-                            <input id="remember" name="remember" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                            <label for="remember" class="ml-2 block text-sm text-gray-900">
-                                Remember me
-                            </label>
-                        </div>
-
                         <div class="text-sm">
                             @if (Route::has('password.request'))
-                                <a href="{{ route('password.request') }}" class="font-medium text-blue-600 hover:text-blue-500">
+                                <a href="{{ route('password.request') }}" class="font-medium text-gray-600 hover:text-gray-500">
                                     Forgot your password?
                                 </a>
                             @endif
@@ -113,7 +106,7 @@
 
                     <!-- Submit Button -->
                     <div>
-                        <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                             Sign in
                         </button>
                     </div>
