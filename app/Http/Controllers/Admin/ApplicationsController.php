@@ -26,16 +26,26 @@ class ApplicationsController extends Controller
         }
 
         if ($request->filled('search')) {
-            $search = $request->search;
+            $search = $request->get('search');
             $query->whereHas('user', function ($q) use ($search) {
                 $q->where('first_name', 'like', "%{$search}%")
-                ->where('last_name', 'like', "%{$search}%")
+                  ->orWhere('last_name', 'like', "%{$search}%")
                   ->orWhere('email', 'like', "%{$search}%");
-            });
+            })
+             ->orWhereHas('program', function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('department', 'like', "%{$search}%");
+            })
+            ->orWhere('nationality', 'like', "%{$search}%")
+            ->orWhere('id', 'like', "%{$search}%");
         }
 
         $applications = $query->latest('submitted_at')->paginate(20);
         $programs = Program::active()->get();
+
+        if ($request->header('HX-Request')) {
+            return view('admin.applications.partials.table', compact('applications', 'programs'));
+        }
 
         return view('admin.applications.index', compact('applications', 'programs'));
     }
