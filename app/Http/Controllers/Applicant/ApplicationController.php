@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Applicant;
 use App\Http\Controllers\Controller;
 use App\Models\Application;
 use App\Models\ApplicationPeriod;
-use App\Models\Program;
 use App\Models\Document;
+use App\Models\Program;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -23,7 +23,7 @@ class ApplicationController extends Controller
         $currentPeriod = ApplicationPeriod::where('is_active', true)->first();
 
         // Create new application if none exists
-        if (!$application && $currentPeriod) {
+        if (! $application && $currentPeriod) {
             $application = Application::create([
                 'user_id' => $user->id,
                 'application_period_id' => $currentPeriod->id,
@@ -38,6 +38,8 @@ class ApplicationController extends Controller
     public function updatePersonalInfo(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'first_name' => 'required|string|max:50',
+            'last_name' => 'required|string|max:50',
             'nationality' => 'required|string',
             'passport_number' => 'required|string',
             'date_of_birth' => 'required|date',
@@ -52,51 +54,70 @@ class ApplicationController extends Controller
         $user = Auth::user();
         $application = $user->getCurrentApplication();
 
-        if (!$application || !$application->canEdit()) {
+        if (! $application || ! $application->canEdit()) {
             return response()->json(['error' => 'Cannot edit this application'], 403);
         }
+
+        $user->update([
+            'first_name' => $request->input('first_name'),
+            'last_name' => $request->input('last_name'),
+        ]);
 
         $application->update($request->only([
             'nationality',
             'passport_number',
             'date_of_birth',
             'gender',
-            'native_language'
+            'native_language',
         ]));
 
-        return response()->json(['message' => 'Personal information updated successfully']);
+        return view('applicant.partials.contact-info', compact('application'));
     }
 
     public function updateContactInfo(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'phone' => 'required|string',
+            'phone' => 'required|string|max:20',
             'permanent_address' => 'required|array',
-            'permanent_address.street' => 'required|string',
-            'permanent_address.city' => 'required|string',
-            'permanent_address.country' => 'required|string',
-            'permanent_address.postal_code' => 'required|string',
+            'permanent_address.street' => 'required|string|max:255',
+            'permanent_address.city' => 'required|string|max:100',
+            'permanent_address.state' => 'nullable|string|max:100',
+            'permanent_address.country' => 'required|string|max:100',
+            'permanent_address.postal_code' => 'required|string|max:20',
             'current_address' => 'nullable|array',
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
         }
 
         $user = Auth::user();
         $application = $user->getCurrentApplication();
 
-        if (!$application || !$application->canEdit()) {
-            return response()->json(['error' => 'Cannot edit this application'], 403);
+        if (! $application || ! $application->canEdit()) {
+            return response()->json([
+                'error' => 'Cannot edit this application',
+            ], 403);
         }
 
-        $application->update([
-            'phone' => $request->phone,
-            'permanent_address' => $request->permanent_address,
-            'current_address' => $request->current_address ?: $request->permanent_address,
-        ]);
+        try {
+            $application->update([
+                'phone' => $request->phone,
+                'permanent_address' => $request->permanent_address,
+                'current_address' => $request->current_address ?: $request->permanent_address,
+            ]);
 
-        return response()->json(['message' => 'Contact information updated successfully']);
+            return view('applicant.partials.personal-info', compact('application'));
+
+        } catch (\Exception $e) {
+            \Log::error('Failed to update contact info: '.$e->getMessage());
+
+            return response()->json([
+                'error' => 'Failed to update contact information. Please try again.',
+            ], 500);
+        }
     }
 
     public function updateAcademicInfo(Request $request)
@@ -118,7 +139,7 @@ class ApplicationController extends Controller
         $user = Auth::user();
         $application = $user->getCurrentApplication();
 
-        if (!$application || !$application->canEdit()) {
+        if (! $application || ! $application->canEdit()) {
             return response()->json(['error' => 'Cannot edit this application'], 403);
         }
 
@@ -129,7 +150,7 @@ class ApplicationController extends Controller
             'graduation_date',
             'english_test_type',
             'english_test_score',
-            'english_test_date'
+            'english_test_date',
         ]));
 
         return response()->json(['message' => 'Academic information updated successfully']);
@@ -152,7 +173,7 @@ class ApplicationController extends Controller
         $user = Auth::user();
         $application = $user->getCurrentApplication();
 
-        if (!$application || !$application->canEdit()) {
+        if (! $application || ! $application->canEdit()) {
             return response()->json(['error' => 'Cannot edit this application'], 403);
         }
 
@@ -161,7 +182,7 @@ class ApplicationController extends Controller
             'program_id',
             'start_term',
             'funding_interest',
-            'statement_of_purpose'
+            'statement_of_purpose',
         ]));
 
         return response()->json(['message' => 'Program information updated successfully']);
@@ -181,7 +202,7 @@ class ApplicationController extends Controller
         $user = Auth::user();
         $application = $user->getCurrentApplication();
 
-        if (!$application || !$application->canEdit()) {
+        if (! $application || ! $application->canEdit()) {
             return response()->json(['error' => 'Cannot edit this application'], 403);
         }
 
@@ -190,7 +211,7 @@ class ApplicationController extends Controller
 
         // Validate file type based on document type
         $allowedTypes = $this->getAllowedMimeTypes($type);
-        if (!in_array($file->getMimeType(), $allowedTypes)) {
+        if (! in_array($file->getMimeType(), $allowedTypes)) {
             return response()->json(['error' => 'Invalid file type for this document'], 422);
         }
 
@@ -205,8 +226,8 @@ class ApplicationController extends Controller
             }
 
             // Store the new file
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('documents/' . $application->id, $filename, 'public');
+            $filename = time().'_'.$file->getClientOriginalName();
+            $path = $file->storeAs('documents/'.$application->id, $filename, 'public');
 
             // Create document record
             Document::create([
@@ -225,6 +246,7 @@ class ApplicationController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
+
             return response()->json(['error' => 'Failed to upload document'], 500);
         }
     }
@@ -234,7 +256,7 @@ class ApplicationController extends Controller
         $user = Auth::user();
         $application = $user->getCurrentApplication();
 
-        if (!$application || !$application->canEdit()) {
+        if (! $application || ! $application->canEdit()) {
             return response()->json(['error' => 'Cannot submit this application'], 403);
         }
 
@@ -256,7 +278,7 @@ class ApplicationController extends Controller
         foreach ($requiredFields as $field) {
             if (empty($application->$field)) {
                 return response()->json([
-                    'error' => 'Please complete all required fields before submitting'
+                    'error' => 'Please complete all required fields before submitting',
                 ], 422);
             }
         }

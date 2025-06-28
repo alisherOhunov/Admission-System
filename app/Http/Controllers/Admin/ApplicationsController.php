@@ -29,15 +29,15 @@ class ApplicationsController extends Controller
             $search = $request->get('search');
             $query->whereHas('user', function ($q) use ($search) {
                 $q->where('first_name', 'like', "%{$search}%")
-                  ->orWhere('last_name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%");
+                    ->orWhere('last_name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%");
             })
-             ->orWhereHas('program', function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('department', 'like', "%{$search}%");
-            })
-            ->orWhere('nationality', 'like', "%{$search}%")
-            ->orWhere('id', 'like', "%{$search}%");
+                ->orWhereHas('program', function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
+                        ->orWhere('department', 'like', "%{$search}%");
+                })
+                ->orWhere('nationality', 'like', "%{$search}%")
+                ->orWhere('id', 'like', "%{$search}%");
         }
 
         $applications = $query->latest('submitted_at')->paginate(20);

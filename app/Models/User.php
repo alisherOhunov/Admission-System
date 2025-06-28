@@ -11,6 +11,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     const ROLE_APPLICANT = 1;
+
     const ROLE_ADMIN = 2;
 
     protected $fillable = [
@@ -52,7 +53,7 @@ class User extends Authenticatable
     // Get current application for applicant
     public function getCurrentApplication()
     {
-        if (!$this->isApplicant()) {
+        if (! $this->isApplicant()) {
             return null;
         }
 

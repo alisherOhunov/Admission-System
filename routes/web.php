@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Applicant\DashboardController as ApplicantDashboardController;
-use App\Http\Controllers\Applicant\ApplicationController;
-use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\ApplicationsController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Applicant\ApplicationController;
+use App\Http\Controllers\Applicant\DashboardController as ApplicantDashboardController;
+use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +23,7 @@ Route::get('/', function () {
             return redirect()->route('admin.dashboard');
         }
     }
+
     return view('welcome');
 })->name('home');
 
@@ -39,7 +40,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 // Applicant Routes
 Route::middleware(['auth'])->prefix('applicant')->name('applicant.')->group(function () {
     Route::get('/dashboard', [ApplicantDashboardController::class, 'index'])->name('dashboard');
-    
+
     // Application Management
     Route::get('/application', [ApplicationController::class, 'index'])->name('application');
     Route::post('/application/personal-info', [ApplicationController::class, 'updatePersonalInfo'])->name('application.personal');
@@ -53,7 +54,7 @@ Route::middleware(['auth'])->prefix('applicant')->name('applicant.')->group(func
 // Admin & Staff Routes
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
-    
+
     // Application Management
     Route::get('/applications', [ApplicationsController::class, 'index'])->name('applications.index');
     Route::get('/applications/{application}', [ApplicationsController::class, 'show'])->name('applications.show');

@@ -90,7 +90,7 @@ class Document extends Model
 
     public function getFormattedSize()
     {
-        return number_format($this->size / 1024 / 1024, 2) . ' MB';
+        return number_format($this->size / 1024 / 1024, 2).' MB';
     }
 
     public function getDownloadUrl()
@@ -104,7 +104,7 @@ class Document extends Model
             'image/jpeg',
             'image/png',
             'image/gif',
-            'image/webp'
+            'image/webp',
         ]);
     }
 

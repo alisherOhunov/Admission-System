@@ -43,8 +43,8 @@ class Program extends Model
     // Helpers
     public function getDegreeLevelLabel()
     {
-        return $this->degree_level === 'undergraduate' 
-            ? 'Undergraduate (Bachelor\'s)' 
+        return $this->degree_level === 'undergraduate'
+            ? 'Undergraduate (Bachelor\'s)'
             : 'Graduate (Master\'s)';
     }
 }
