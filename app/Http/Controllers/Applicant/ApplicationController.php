@@ -48,12 +48,7 @@ class ApplicationController extends Controller
         ]);
 
         if ($validator->fails()) {
-            // Return JSON response for HTMX requests
-            if ($request->header('HX-Request')) {
-                return response()->json(['errors' => $validator->errors()], 422);
-            }
-
-            return back()->withErrors($validator)->withInput();
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
         $user = Auth::user();
@@ -252,7 +247,7 @@ class ApplicationController extends Controller
             }
 
             // Store the new file
-            $filename = time().'_'.$file->getClientOriginalName();
+            $filename = time().'_'.$file->getClientOriginalName(); //random name ulid
             $path = $file->storeAs('documents/'.$application->id, $filename, 'public');
 
             // Create document record

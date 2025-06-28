@@ -15,37 +15,37 @@ return new class extends Migration
             $table->foreignId('application_period_id')->nullable()->constrained()->onDelete('cascade');
 
             // Personal Information
-            $table->enum('level', ['undergraduate', 'graduate'])->nullable();
-            $table->string('nationality')->nullable();
-            $table->string('passport_number')->nullable();
+            $table->string('level', 64)->nullable();
+            $table->string('nationality', 128)->nullable();
+            $table->string('passport_number', 64)->nullable();
             $table->date('date_of_birth')->nullable();
-            $table->enum('gender', ['male', 'female', 'other'])->nullable();
-            $table->string('native_language')->nullable();
+            $table->smallInteger('gender')->nullable();
+            $table->string('native_language', 64)->nullable();
 
             // Contact Information
-            $table->string('email')->nullable();
-            $table->string('phone')->nullable();
+            $table->string('email', 255)->nullable();
+            $table->string('phone', 32)->nullable();
             $table->json('permanent_address')->nullable();
             $table->json('current_address')->nullable();
 
             // Academic Information
-            $table->string('previous_institution')->nullable();
-            $table->string('previous_gpa')->nullable();
-            $table->string('degree_earned')->nullable();
+            $table->string('previous_institution', 255)->nullable();
+            $table->string('previous_gpa', 64)->nullable();
+            $table->string('degree_earned', 64)->nullable();
             $table->date('graduation_date')->nullable();
 
             // English Proficiency
-            $table->enum('english_test_type', ['IELTS', 'TOEFL', 'Duolingo', 'Other'])->nullable();
-            $table->string('english_test_score')->nullable();
+            $table->string('english_test_type', 64)->nullable();
+            $table->string('english_test_score', 64)->nullable();
             $table->date('english_test_date')->nullable();
 
             // Program Choice
-            $table->string('start_term')->nullable();
+            $table->string('start_term', 255)->nullable();
             $table->boolean('funding_interest')->default(false);
             $table->text('statement_of_purpose')->nullable();
 
             // Application Status
-            $table->enum('status', ['draft', 'submitted', 'review', 'accepted', 'rejected'])->default('draft');
+            $table->string('status', 64)->default('draft');
             $table->timestamp('submitted_at')->nullable();
 
             $table->timestamps();
