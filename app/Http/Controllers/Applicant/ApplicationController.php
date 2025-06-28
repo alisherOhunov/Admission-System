@@ -38,8 +38,8 @@ class ApplicationController extends Controller
     public function updatePersonalInfo(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'first_name' => 'required|string|max:50',
-            'last_name' => 'required|string|max:50',
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
             'nationality' => 'required|string',
             'passport_number' => 'required|string',
             'date_of_birth' => 'required|date',
@@ -48,7 +48,12 @@ class ApplicationController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
+            // Return JSON response for HTMX requests
+            if ($request->header('HX-Request')) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+
+            return back()->withErrors($validator)->withInput();
         }
 
         $user = Auth::user();
@@ -58,20 +63,31 @@ class ApplicationController extends Controller
             return response()->json(['error' => 'Cannot edit this application'], 403);
         }
 
-        $user->update([
-            'first_name' => $request->input('first_name'),
-            'last_name' => $request->input('last_name'),
-        ]);
+        $fields = ['nationality', 'passport_number', 'date_of_birth', 'gender', 'native_language'];
+        $dataToUpdate = [];
 
-        $application->update($request->only([
-            'nationality',
-            'passport_number',
-            'date_of_birth',
-            'gender',
-            'native_language',
-        ]));
+        foreach ($fields as $field) {
+            $newValue = $request->input($field);
+            if ($newValue !== $application->$field) {
+                $dataToUpdate[$field] = $newValue;
+            }
+        }
 
-        return view('applicant.partials.contact-info', compact('application'));
+        if (! empty($dataToUpdate)) {
+            $application->update($dataToUpdate);
+        }
+
+        $defaultAddress = [
+            'street' => '',
+            'city' => '',
+            'state' => '',
+            'country' => '',
+            'postal_code' => '',
+        ];
+
+        $permanentAddress = array_merge($defaultAddress, $application->permanent_address ?? []);
+
+        return view('applicant.partials.contact-info', compact('application', 'permanentAddress'));
     }
 
     public function updateContactInfo(Request $request)
@@ -88,26 +104,36 @@ class ApplicationController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                'errors' => $validator->errors(),
-            ], 422);
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
         $user = Auth::user();
         $application = $user->getCurrentApplication();
 
         if (! $application || ! $application->canEdit()) {
-            return response()->json([
-                'error' => 'Cannot edit this application',
-            ], 403);
+            return response()->json(['error' => 'Cannot edit this application'], 403);
         }
 
         try {
-            $application->update([
-                'phone' => $request->phone,
-                'permanent_address' => $request->permanent_address,
-                'current_address' => $request->current_address ?: $request->permanent_address,
-            ]);
+            $currentAddress = $request->current_address ?: $request->permanent_address;
+
+            $dataToUpdate = [];
+
+            if ($application->phone !== $request->phone) {
+                $dataToUpdate['phone'] = $request->phone;
+            }
+
+            if ($application->permanent_address !== $request->permanent_address) {
+                $dataToUpdate['permanent_address'] = $request->permanent_address;
+            }
+
+            if ($application->current_address !== $currentAddress) {
+                $dataToUpdate['current_address'] = $currentAddress;
+            }
+
+            if (! empty($dataToUpdate)) {
+                $application->update($dataToUpdate);
+            }
 
             return view('applicant.partials.personal-info', compact('application'));
 

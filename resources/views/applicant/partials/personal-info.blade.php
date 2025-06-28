@@ -3,7 +3,7 @@
 @section('title', 'Dashboard - EduAdmit')
 
 @section('content')
-<div class="min-h-screen bg-slate-50" x-data="contactForm()">
+<div class="min-h-screen bg-slate-50" x-data="personalForm()">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Header -->
         <div class="mb-8">
@@ -194,7 +194,7 @@
 </div>
 
 <script>
-function contactForm() {
+function personalForm() {
     return {
         form: {
             first_name: '',
