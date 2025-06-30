@@ -1,4 +1,4 @@
-<form hx-post="{{ route('applicant.application.personal') }}" hx-swap="outerHTML" hx-trigger="submit">
+<form hx-post="{{ route('applicant.application.update',  ['applicationId' => $application->id]) }}" hx-swap="outerHTML" hx-trigger="submit">
     <div x-data="personalForm()">
         @csrf
         <div class="bg-white shadow-sm rounded-lg">

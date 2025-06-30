@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
             $table->foreignId('application_id')->constrained()->onDelete('cascade');
-            $table->string('type', 64); //'passport', 'transcript', 'diploma', 'sop', 'cv', 'english_score', 'portfolio'
+            $table->string('type', 64); // 'passport', 'transcript', 'diploma', 'sop', 'cv', 'english_score', 'portfolio'
             $table->string('filename', 255);
             $table->string('original_name', 255);
             $table->string('mime_type', 64);

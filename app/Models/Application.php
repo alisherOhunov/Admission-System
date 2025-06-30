@@ -68,6 +68,16 @@ class Application extends Model
         return $this->hasMany(Document::class);
     }
 
+    public function permanentAddress()
+    {
+        return $this->belongsTo(Address::class, 'permanent_address_id');
+    }
+
+    public function currentAddress()
+    {
+        return $this->belongsTo(Address::class, 'current_address_id');
+    }
+
     // Status Helpers
     public function isDraft()
     {
@@ -119,21 +129,5 @@ class Application extends Model
         ];
 
         return $statuses[$this->status] ?? $statuses['draft'];
-    }
-
-    // Scopes
-    public function scopeByStatus($query, $status)
-    {
-        return $query->where('status', $status);
-    }
-
-    public function scopeByLevel($query, $level)
-    {
-        return $query->where('level', $level);
-    }
-
-    public function scopeSubmitted($query)
-    {
-        return $query->whereNotNull('submitted_at');
     }
 }

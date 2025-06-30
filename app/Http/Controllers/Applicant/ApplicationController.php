@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Validator;
 
 class ApplicationController extends Controller
 {
-    public function index()
+    public function show()
     {
         $user = Auth::user();
         $application = $user->getCurrentApplication();
@@ -35,182 +35,116 @@ class ApplicationController extends Controller
         return view('applicant.application', compact('application', 'programs', 'currentPeriod'));
     }
 
-    public function updatePersonalInfo(Request $request)
+    public function updateApplication(Request $request, $applicationId)
     {
-        $validator = Validator::make($request->all(), [
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
-            'nationality' => 'required|string',
-            'passport_number' => 'required|string',
-            'date_of_birth' => 'required|date',
-            'gender' => 'nullable|in:male,female,other',
-            'native_language' => 'required|string',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
-
         $user = Auth::user();
-        $application = $user->getCurrentApplication();
+        $application = Application::find($applicationId);
 
-        if (! $application || ! $application->canEdit()) {
+        if ($application->user_id !== $user->id || ! $application->canEdit()) {
             return response()->json(['error' => 'Cannot edit this application'], 403);
         }
 
-        $fields = ['nationality', 'passport_number', 'date_of_birth', 'gender', 'native_language'];
-        $dataToUpdate = [];
-
-        foreach ($fields as $field) {
-            $newValue = $request->input($field);
-            if ($newValue !== $application->$field) {
-                $dataToUpdate[$field] = $newValue;
-            }
-        }
-
-        if (! empty($dataToUpdate)) {
-            $application->update($dataToUpdate);
-        }
-
-        $defaultAddress = [
-            'street' => '',
-            'city' => '',
-            'state' => '',
-            'country' => '',
-            'postal_code' => '',
-        ];
-
-        $permanentAddress = array_merge($defaultAddress, $application->permanent_address ?? []);
-
-        return view('applicant.partials.contact-info', compact('application', 'permanentAddress'));
-    }
-
-    public function updateContactInfo(Request $request)
-    {
         $validator = Validator::make($request->all(), [
-            'phone' => 'required|string|max:20',
-            'permanent_address' => 'required|array',
-            'permanent_address.street' => 'required|string|max:255',
-            'permanent_address.city' => 'required|string|max:100',
-            'permanent_address.state' => 'nullable|string|max:100',
-            'permanent_address.country' => 'required|string|max:100',
-            'permanent_address.postal_code' => 'required|string|max:20',
-            'current_address' => 'nullable|array',
+            'first_name' => 'sometimes|required|string|max:50',
+            'last_name' => 'sometimes|required|string|max:50',
+            'nationality' => 'sometimes|required|string|max:128',
+            'passport_number' => 'sometimes|required|string|max:20',
+            'date_of_birth' => 'sometimes|required|date|before:today',
+            'gender' => 'sometimes|nullable|in:male,female,other',
+            'native_language' => 'sometimes|required|string|max:64',
+            'phone' => 'sometimes|required|string|max:32|regex:/^[\+]?[0-9\s\-\(\)]+$/',
+            'permanent_address' => 'sometimes|required|array',
+            'permanent_address.street' => 'sometimes|required_with:permanent_address|string|max:255',
+            'permanent_address.city' => 'sometimes|required_with:permanent_address|string|max:100',
+            'permanent_address.state' => 'sometimes|nullable|string|max:100',
+            'permanent_address.country' => 'sometimes|required_with:permanent_address|string|max:100',
+            'permanent_address.postal_code' => 'sometimes|required_with:permanent_address|string|max:20',
+            'current_address' => 'sometimes|nullable|array',
+            'current_address.street' => 'sometimes|nullable|string|max:255',
+            'current_address.city' => 'sometimes|nullable|string|max:100',
+            'current_address.state' => 'sometimes|nullable|string|max:100',
+            'current_address.country' => 'sometimes|nullable|string|max:100',
+            'current_address.postal_code' => 'sometimes|nullable|string|max:20',
+            'previous_institution' => 'sometimes|required|string|max:200',
+            'previous_gpa' => 'sometimes|required|string|max:10',
+            'degree_earned' => 'sometimes|required|string|max:64',
+            'graduation_date' => 'sometimes|nullable|date|before_or_equal:today',
+            'english_test_type' => 'sometimes|nullable|in:IELTS,TOEFL,Duolingo,Other',
+            'english_test_score' => 'sometimes|nullable|string|max:20',
+            'english_test_date' => 'sometimes|nullable|date|before_or_equal:today',
+            'level' => 'sometimes|required|in:undergraduate,graduate',
+            'program_id' => 'sometimes|required|exists:programs,id',
+            'start_term' => 'sometimes|required|string|max:50',
+            'funding_interest' => 'sometimes|boolean',
+            'statement_of_purpose' => 'sometimes|required|string|min:100|max:5000',
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
-
-        $user = Auth::user();
-        $application = $user->getCurrentApplication();
-
-        if (! $application || ! $application->canEdit()) {
-            return response()->json(['error' => 'Cannot edit this application'], 403);
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed',
+                'errors' => $validator->errors(),
+            ], 422);
         }
 
         try {
-            $currentAddress = $request->current_address ?: $request->permanent_address;
+            $validatedData = $validator->validated();
 
-            $dataToUpdate = [];
+            if (isset($validatedData['permanent_address'])) {
+                $permanent = $application->permanentAddress ?: new Address;
+                $permanent->fill($validatedData['permanent_address']);
+                $permanent->save();
 
-            if ($application->phone !== $request->phone) {
-                $dataToUpdate['phone'] = $request->phone;
+                $application->permanent_address_id = $permanent->id;
+                unset($validatedData['permanent_address']);
             }
 
-            if ($application->permanent_address !== $request->permanent_address) {
-                $dataToUpdate['permanent_address'] = $request->permanent_address;
+            if (isset($validatedData['current_address'])) {
+                $current = $application->currentAddress ?: new Address;
+                $current->fill($validatedData['current_address']);
+                $current->save();
+
+                $application->current_address_id = $current->id;
+                unset($validatedData['current_address']);
             }
 
-            if ($application->current_address !== $currentAddress) {
-                $dataToUpdate['current_address'] = $currentAddress;
-            }
+            $application->update($validatedData);
 
-            if (! empty($dataToUpdate)) {
-                $application->update($dataToUpdate);
-            }
-
-            return view('applicant.partials.personal-info', compact('application'));
-
-        } catch (\Exception $e) {
-            \Log::error('Failed to update contact info: '.$e->getMessage());
+            $user->update([
+                'first_name' => $request->input('first_name', $user->first_name),
+                'last_name' => $request->input('last_name', $user->last_name),
+            ]);
 
             return response()->json([
-                'error' => 'Failed to update contact information. Please try again.',
+                'success' => true,
+                'message' => 'Application updated successfully',
+                'updated_fields' => array_keys($validatedData),
+                'data' => $application->fresh(),
+            ], 200);
+
+        } catch (\Exception $e) {
+            \Log::error('Failed to update application: '.$e->getMessage(), [
+                'user_id' => $user->id,
+                'application_id' => $application->id,
+                'request_data' => $request->all(),
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to update application. Please try again.',
             ], 500);
         }
     }
 
-    public function updateAcademicInfo(Request $request)
+    public function uploadDocument(Request $request, $applicationId)
     {
-        $validator = Validator::make($request->all(), [
-            'previous_institution' => 'required|string',
-            'previous_gpa' => 'required|string',
-            'degree_earned' => 'required|string',
-            'graduation_date' => 'nullable|date',
-            'english_test_type' => 'nullable|in:IELTS,TOEFL,Duolingo,Other',
-            'english_test_score' => 'nullable|string',
-            'english_test_date' => 'nullable|date',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
-
+        $application = Application::findOrFail($applicationId);
         $user = Auth::user();
-        $application = $user->getCurrentApplication();
 
-        if (! $application || ! $application->canEdit()) {
-            return response()->json(['error' => 'Cannot edit this application'], 403);
+        if ($user->id !== $application->user_id || ! $application->canEdit()) {
+            return response()->json(['error' => 'Unauthorized'], 403);
         }
 
-        $application->update($request->only([
-            'previous_institution',
-            'previous_gpa',
-            'degree_earned',
-            'graduation_date',
-            'english_test_type',
-            'english_test_score',
-            'english_test_date',
-        ]));
-
-        return response()->json(['message' => 'Academic information updated successfully']);
-    }
-
-    public function updateProgramChoice(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'level' => 'required|in:undergraduate,graduate',
-            'program_id' => 'required|exists:programs,id',
-            'start_term' => 'required|string',
-            'funding_interest' => 'boolean',
-            'statement_of_purpose' => 'required|string|min:100',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
-
-        $user = Auth::user();
-        $application = $user->getCurrentApplication();
-
-        if (! $application || ! $application->canEdit()) {
-            return response()->json(['error' => 'Cannot edit this application'], 403);
-        }
-
-        $application->update($request->only([
-            'level',
-            'program_id',
-            'start_term',
-            'funding_interest',
-            'statement_of_purpose',
-        ]));
-
-        return response()->json(['message' => 'Program information updated successfully']);
-    }
-
-    public function uploadDocument(Request $request)
-    {
         $validator = Validator::make($request->all(), [
             'document' => 'required|file|max:25600', // 25MB max
             'type' => 'required|in:passport,transcript,diploma,sop,cv,english_score,portfolio',
@@ -219,9 +153,6 @@ class ApplicationController extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
-
-        $user = Auth::user();
-        $application = $user->getCurrentApplication();
 
         if (! $application || ! $application->canEdit()) {
             return response()->json(['error' => 'Cannot edit this application'], 403);
@@ -239,7 +170,6 @@ class ApplicationController extends Controller
         try {
             DB::beginTransaction();
 
-            // Delete existing document of this type
             $existingDocument = $application->documents()->where('type', $type)->first();
             if ($existingDocument) {
                 Storage::delete($existingDocument->path);
@@ -247,7 +177,7 @@ class ApplicationController extends Controller
             }
 
             // Store the new file
-            $filename = time().'_'.$file->getClientOriginalName(); //random name ulid
+            $filename = time().'_'.$file->getClientOriginalName(); // random name ulid
             $path = $file->storeAs('documents/'.$application->id, $filename, 'public');
 
             // Create document record
@@ -290,7 +220,10 @@ class ApplicationController extends Controller
             'phone',
             'permanent_address',
             'previous_institution',
+            'previous_gpa',
             'degree_earned',
+            'english_test_score',
+            'english_test_date',
             'program_id',
             'start_term',
             'statement_of_purpose',
