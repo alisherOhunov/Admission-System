@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Applicant;
 
 use App\Http\Controllers\Controller;
+use App\Models\Address;
 use App\Models\Application;
 use App\Models\ApplicationPeriod;
 use App\Models\Document;
@@ -45,38 +46,38 @@ class ApplicationController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'first_name' => 'sometimes|required|string|max:50',
-            'last_name' => 'sometimes|required|string|max:50',
-            'nationality' => 'sometimes|required|string|max:128',
-            'passport_number' => 'sometimes|required|string|max:20',
-            'date_of_birth' => 'sometimes|required|date|before:today',
+            'first_name' => 'nullable|string|max:50',
+            'last_name' => 'nullable|string|max:50',
+            'nationality' => 'nullable|string|max:128',
+            'passport_number' => 'nullable|string|max:20',
+            'date_of_birth' => 'nullable|date|before:today',
             'gender' => 'sometimes|nullable|in:male,female,other',
-            'native_language' => 'sometimes|required|string|max:64',
-            'phone' => 'sometimes|required|string|max:32|regex:/^[\+]?[0-9\s\-\(\)]+$/',
-            'permanent_address' => 'sometimes|required|array',
-            'permanent_address.street' => 'sometimes|required_with:permanent_address|string|max:255',
-            'permanent_address.city' => 'sometimes|required_with:permanent_address|string|max:100',
+            'native_language' => 'nullable|string|max:64',
+            'phone' => 'nullable|string|max:32|regex:/^[\+]?[0-9\s\-\(\)]+$/',
+            'permanent_address' => 'nullable|array',
+            'permanent_address.street' => 'nullable|string|max:255',
+            'permanent_address.city' => 'nullable|string|max:100',
             'permanent_address.state' => 'sometimes|nullable|string|max:100',
-            'permanent_address.country' => 'sometimes|required_with:permanent_address|string|max:100',
-            'permanent_address.postal_code' => 'sometimes|required_with:permanent_address|string|max:20',
+            'permanent_address.country' => 'nullable|string|max:100',
+            'permanent_address.postal_code' => 'nullable|string|max:20',
             'current_address' => 'sometimes|nullable|array',
             'current_address.street' => 'sometimes|nullable|string|max:255',
             'current_address.city' => 'sometimes|nullable|string|max:100',
             'current_address.state' => 'sometimes|nullable|string|max:100',
             'current_address.country' => 'sometimes|nullable|string|max:100',
             'current_address.postal_code' => 'sometimes|nullable|string|max:20',
-            'previous_institution' => 'sometimes|required|string|max:200',
-            'previous_gpa' => 'sometimes|required|string|max:10',
-            'degree_earned' => 'sometimes|required|string|max:64',
+            'previous_institution' => 'nullable|string|max:200',
+            'previous_gpa' => 'nullable|string|max:10',
+            'degree_earned' => 'nullable|string|max:64',
             'graduation_date' => 'sometimes|nullable|date|before_or_equal:today',
             'english_test_type' => 'sometimes|nullable|in:IELTS,TOEFL,Duolingo,Other',
             'english_test_score' => 'sometimes|nullable|string|max:20',
             'english_test_date' => 'sometimes|nullable|date|before_or_equal:today',
-            'level' => 'sometimes|required|in:undergraduate,graduate',
-            'program_id' => 'sometimes|required|exists:programs,id',
-            'start_term' => 'sometimes|required|string|max:50',
+            'level' => 'nullable|in:undergraduate,graduate',
+            'program_id' => 'nullable|exists:programs,id',
+            'start_term' => 'nullable|string|max:50',
             'funding_interest' => 'sometimes|boolean',
-            'statement_of_purpose' => 'sometimes|required|string|min:100|max:5000',
+            'statement_of_purpose' => 'nullable|string|min:100|max:5000',
         ]);
 
         if ($validator->fails()) {
