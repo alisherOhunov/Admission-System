@@ -21,8 +21,6 @@ class Application extends Model
         'native_language',
         'email',
         'phone',
-        'permanent_address',
-        'current_address',
         'previous_institution',
         'previous_gpa',
         'degree_earned',
@@ -35,6 +33,11 @@ class Application extends Model
         'statement_of_purpose',
         'status',
         'submitted_at',
+        'permanent_country',
+        'permanent_state',
+        'permanent_city',
+        'permanent_postcode',
+        'permanent_street',
     ];
 
     protected $casts = [
@@ -43,7 +46,6 @@ class Application extends Model
         'english_test_date' => 'date',
         'submitted_at' => 'datetime',
         'funding_interest' => 'boolean',
-        'permanent_address' => 'array',
         'current_address' => 'array',
     ];
 

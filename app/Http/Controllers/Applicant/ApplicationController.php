@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Applicant;
 
 use App\Http\Controllers\Controller;
-use App\Models\Address;
 use App\Models\Application;
 use App\Models\ApplicationPeriod;
 use App\Models\Document;
@@ -51,21 +50,19 @@ class ApplicationController extends Controller
             'nationality' => 'nullable|string|max:128',
             'passport_number' => 'nullable|string|max:20',
             'date_of_birth' => 'nullable|date|before:today',
-            'gender' => 'sometimes|nullable|in:male,female,other',
+            'gender' => 'sometimes|nullable|in:1,2,3',
             'native_language' => 'nullable|string|max:64',
             'phone' => 'nullable|string|max:32|regex:/^[\+]?[0-9\s\-\(\)]+$/',
-            'permanent_address' => 'nullable|array',
-            'permanent_address.street' => 'nullable|string|max:255',
-            'permanent_address.city' => 'nullable|string|max:100',
-            'permanent_address.state' => 'sometimes|nullable|string|max:100',
-            'permanent_address.country' => 'nullable|string|max:100',
-            'permanent_address.postal_code' => 'nullable|string|max:20',
-            'current_address' => 'sometimes|nullable|array',
-            'current_address.street' => 'sometimes|nullable|string|max:255',
-            'current_address.city' => 'sometimes|nullable|string|max:100',
-            'current_address.state' => 'sometimes|nullable|string|max:100',
-            'current_address.country' => 'sometimes|nullable|string|max:100',
-            'current_address.postal_code' => 'sometimes|nullable|string|max:20',
+            'permanent_street' => 'nullable|string|max:255',
+            'permanent_city' => 'nullable|string|max:100',
+            'permanent_state' => 'sometimes|nullable|string|max:100',
+            'permanent_country' => 'nullable|string|max:100',
+            'permanent_postcode' => 'nullable|string|max:20',
+            'current_street' => 'sometimes|nullable|string|max:255',
+            'current_city' => 'sometimes|nullable|string|max:100',
+            'current_state' => 'sometimes|nullable|string|max:100',
+            'current_country' => 'sometimes|nullable|string|max:100',
+            'current_postal_code' => 'sometimes|nullable|string|max:20',
             'previous_institution' => 'nullable|string|max:200',
             'previous_gpa' => 'nullable|string|max:10',
             'degree_earned' => 'nullable|string|max:64',
@@ -90,24 +87,6 @@ class ApplicationController extends Controller
 
         try {
             $validatedData = $validator->validated();
-
-            if (isset($validatedData['permanent_address'])) {
-                $permanent = $application->permanentAddress ?: new Address;
-                $permanent->fill($validatedData['permanent_address']);
-                $permanent->save();
-
-                $application->permanent_address_id = $permanent->id;
-                unset($validatedData['permanent_address']);
-            }
-
-            if (isset($validatedData['current_address'])) {
-                $current = $application->currentAddress ?: new Address;
-                $current->fill($validatedData['current_address']);
-                $current->save();
-
-                $application->current_address_id = $current->id;
-                unset($validatedData['current_address']);
-            }
 
             $application->update($validatedData);
 

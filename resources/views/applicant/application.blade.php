@@ -33,6 +33,7 @@
                 <div class="border-b border-gray-200">
                     <nav class="-mb-px flex space-x-8 overflow-x-auto">
                         <button
+                            type="button"
                             @click="currentStep = 1"
                             :class="getButtonClass(1)"
                             class="group relative min-w-0 flex-1 overflow-hidden py-4 px-1 text-center text-sm font-medium transition-all duration-200"
@@ -65,6 +66,7 @@
     
                         <!-- Step 2 -->
                         <button
+                            type="button"
                             @click="currentStep = 2"
                             :class="getButtonClass(2)"
                             class="group relative min-w-0 flex-1 overflow-hidden py-4 px-1 text-center text-sm font-medium transition-all duration-200"
@@ -97,6 +99,7 @@
     
                         <!-- Step 3 -->
                         <button
+                            type="button"
                             @click="currentStep = 3"
                             :class="getButtonClass(3)"
                             class="group relative min-w-0 flex-1 overflow-hidden py-4 px-1 text-center text-sm font-medium transition-all duration-200"
@@ -129,6 +132,7 @@
     
                         <!-- Step 4 -->
                         <button
+                            type="button"
                             @click="currentStep = 4"
                             :class="getButtonClass(4)"
                             class="group relative min-w-0 flex-1 overflow-hidden py-4 px-1 text-center text-sm font-medium transition-all duration-200"
@@ -161,6 +165,7 @@
     
                         <!-- Step 5 -->
                         <button
+                            type="button"
                             @click="currentStep = 5"
                             :class="getButtonClass(5)"
                             class="group relative min-w-0 flex-1 overflow-hidden py-4 px-1 text-center text-sm font-medium transition-all duration-200"
@@ -240,10 +245,9 @@
                                                 <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
                                                 <select id="gender" name="gender" x-model="form.gender" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                                                     <option value="">Select gender</option>
-                                                    <option value="male">Male</option>
-                                                    <option value="female">Female</option>
-                                                    <option value="other">Other</option>
-                                                    <option value="prefer-not-to-say">Prefer not to say</option>
+                                                    <option value="1">Male</option>
+                                                    <option value="2">Female</option>
+                                                    <option value="3">Other</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -367,7 +371,7 @@
                                             <span>Save Progress</span>
                                         </button>
     
-                                        <button @click="currentStep = 2" class="flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                                        <button type="button" @click="currentStep = 2" class="flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
                                             Next
                                             <svg class="h-4 w-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -461,69 +465,69 @@
     
                                             <!-- Street Address -->
                                             <div class="form-field">
-                                                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 form-label form-label-required" for="permanent_address_street">
+                                                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 form-label form-label-required" for="permanent_street">
                                                     Street Address<span class="text-red-500 ml-1">*</span>
                                                 </label>
                                                 <input 
-                                                    x-model="form.permanent_address.street"
+                                                    x-model="form.permanent_street"
                                                     class="flex h-10 w-full rounded-md border px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm form-input"
-                                                    :class="hasError('permanent_address.street') ? 'border-red-500 bg-red-50' : 'border-input bg-background'"
-                                                    name="permanent_address[street]" 
-                                                    id="permanent_address_street"
+                                                    :class="hasError('permanent_street') ? 'border-red-500 bg-red-50' : 'border-input bg-background'"
+                                                    name="permanent_street" 
+                                                    id="permanent_street"
                                                     placeholder="123 Main Street, Apt 4B"
-                                                    @input="clearError('permanent_address.street')">
+                                                    @input="clearError('permanent_street')">
                                                 
-                                                <template x-if="hasError('permanent_address.street')">
-                                                    <p class="mt-1 text-sm text-red-600" x-text="getError('permanent_address.street')"></p>
+                                                <template x-if="hasError('permanent_street')">
+                                                    <p class="mt-1 text-sm text-red-600" x-text="getError('permanent_street')"></p>
                                                 </template>
                                                 
-                                                @error('permanent_address.street')
+                                                @error('permanent_street')
                                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                                 @enderror
                                             </div>
     
                                             <!-- City -->
                                             <div class="form-field">
-                                                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 form-label form-label-required" for="permanent_address_city">
+                                                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 form-label form-label-required" for="permanent_city">
                                                     City<span class="text-red-500 ml-1">*</span>
                                                 </label>
                                                 <input 
-                                                    x-model="form.permanent_address.city"
+                                                    x-model="form.permanent_city"
                                                     class="flex h-10 w-full rounded-md border px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm form-input"
-                                                    :class="hasError('permanent_address.city') ? 'border-red-500 bg-red-50' : 'border-input bg-background'"
-                                                    name="permanent_address[city]" 
-                                                    id="permanent_address_city"
+                                                    :class="hasError('permanent_city') ? 'border-red-500 bg-red-50' : 'border-input bg-background'"
+                                                    name="permanent_city" 
+                                                    id="permanent_city"
                                                     placeholder="New York"
-                                                    @input="clearError('permanent_address.city')">
+                                                    @input="clearError('permanent_city')">
                                                 
-                                                <template x-if="hasError('permanent_address.city')">
-                                                    <p class="mt-1 text-sm text-red-600" x-text="getError('permanent_address.city')"></p>
+                                                <template x-if="hasError('permanent_city')">
+                                                    <p class="mt-1 text-sm text-red-600" x-text="getError('permanent_city')"></p>
                                                 </template>
                                                 
-                                                @error('permanent_address.city')
+                                                @error('permanent_city')
                                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                                 @enderror
                                             </div>
     
                                             <!-- State/Province -->
                                             <div class="form-field">
-                                                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 form-label" for="permanent_address_state">
+                                                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 form-label" for="permanent_state">
                                                     State/Province
                                                 </label>
                                                 <input 
-                                                    x-model="form.permanent_address.state"
+                                                    x-model="form.permanent_state"
                                                     class="flex h-10 w-full rounded-md border px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm form-input"
-                                                    :class="hasError('permanent_address.state') ? 'border-red-500 bg-red-50' : 'border-input bg-background'"
-                                                    name="permanent_address[state]" 
-                                                    id="permanent_address_state"
+                                                    :class="hasError('permanent_state') ? 'border-red-500 bg-red-50' : 'border-input bg-background'"
+                                                    name="permanent_state" 
+                                                    id="permanent_state"
                                                     placeholder="New York"
-                                                    @input="clearError('permanent_address.state')">
+                                                    @input="clearError('permanent_state')">
                                                 
-                                                <template x-if="hasError('permanent_address.state')">
-                                                    <p class="mt-1 text-sm text-red-600" x-text="getError('permanent_address.state')"></p>
+                                                <template x-if="hasError('permanent_state')">
+                                                    <p class="mt-1 text-sm text-red-600" x-text="getError('permanent_state')"></p>
                                                 </template>
                                                 
-                                                @error('permanent_address.state')
+                                                @error('permanent_state')
                                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                                 @enderror
                                             </div>
@@ -534,11 +538,11 @@
                                                     Country<span class="text-red-500 ml-1">*</span>
                                                 </label>
                                                 <select
-                                                    x-model="form.permanent_address.country"
-                                                    name="permanent_address[country]"
+                                                    x-model="form.permanent_country"
+                                                    name="permanent_country"
                                                     class="mt-1 flex h-10 w-full rounded-md border px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm form-input"
-                                                    :class="hasError('permanent_address.country') ? 'border-red-500 bg-red-50' : 'border-input bg-background'"
-                                                    @change="clearError('permanent_address.country')"
+                                                    :class="hasError('permanent_country') ? 'border-red-500 bg-red-50' : 'border-input bg-background'"
+                                                    @change="clearError('permanent_country')"
                                                 >
                                                     <option value="" class="text-muted-foreground">Select your country</option>
                                                     <option value="US">United States</option>
@@ -548,34 +552,34 @@
                                                     <option value="FR">France</option>
                                                 </select>
                                                 
-                                                <template x-if="hasError('permanent_address.country')">
-                                                    <p class="mt-1 text-sm text-red-600" x-text="getError('permanent_address.country')"></p>
+                                                <template x-if="hasError('permanent_country')">
+                                                    <p class="mt-1 text-sm text-red-600" x-text="getError('permanent_country')"></p>
                                                 </template>
                                                 
-                                                @error('permanent_address.country')
+                                                @error('permanent_country')
                                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                                 @enderror
                                             </div>
     
                                             <!-- Postal Code -->
                                             <div class="form-field">
-                                                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 form-label form-label-required" for="permanent_address_postal_code">
+                                                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 form-label form-label-required" for="permanent_postcode">
                                                     Postal/ZIP Code <span class="text-red-500 ml-1">*</span>
                                                 </label>
                                                 <input 
-                                                    x-model="form.permanent_address.postal_code"
+                                                    x-model="form.permanent_postcode"
                                                     class="flex h-10 w-full rounded-md border px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm form-input"
-                                                    :class="hasError('permanent_address.postal_code') ? 'border-red-500 bg-red-50' : 'border-input bg-background'"
-                                                    name="permanent_address[postal_code]"
-                                                    id="permanent_address_postal_code"
+                                                    :class="hasError('permanent_postcode') ? 'border-red-500 bg-red-50' : 'border-input bg-background'"
+                                                    name="permanent_postcode"
+                                                    id="permanent_postcode"
                                                     placeholder="10001"
-                                                    @input="clearError('permanent_address.postal_code')">
+                                                    @input="clearError('permanent_postcode')">
                                                 
-                                                <template x-if="hasError('permanent_address.postal_code')">
-                                                    <p class="mt-1 text-sm text-red-600" x-text="getError('permanent_address.postal_code')"></p>
+                                                <template x-if="hasError('permanent_postcode')">
+                                                    <p class="mt-1 text-sm text-red-600" x-text="getError('permanent_postcode')"></p>
                                                 </template>
                                                 
-                                                @error('permanent_address.postal_code')
+                                                @error('permanent_postcode')
                                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                                 @enderror
                                             </div>
@@ -726,7 +730,7 @@
     
                                 <!-- Navigation Buttons -->
                                 <div class="flex items-center justify-between pt-8 border-t mt-8">
-                                    <button @click="currentStep = 1" class="flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                                    <button type="button" @click="currentStep = 1" class="flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
                                         <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                                         </svg>
@@ -754,7 +758,7 @@
                                         <span>Save Progress</span>
                                         </button>
     
-                                        <button @click="currentStep = 3" class="flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                                        <button type="button" @click="currentStep = 3" class="flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
                                             Next
                                             <svg class="h-4 w-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -1190,7 +1194,7 @@
     
                                 <!-- Navigation Buttons -->
                                 <div class="flex items-center justify-between pt-8 border-t mt-8">
-                                    <button @click="currentStep = 2" class="flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                                    <button type="button" @click="currentStep = 2" class="flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
                                         <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                                         </svg>
@@ -1218,7 +1222,7 @@
                                         Save Progress
                                         </button>
     
-                                        <button @click="currentStep = 4" class="flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                                        <button type="button" @click="currentStep = 4" class="flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
                                             Next
                                             <svg class="h-4 w-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -1635,9 +1639,6 @@
                                                 </div>
                                             </div>
                                             </div>
-    
-    
-                                            
                                         </div>
                                         </div>
                                     </div>
@@ -1645,7 +1646,7 @@
     
                                 <!-- Navigation Buttons -->
                                 <div class="flex items-center justify-between pt-8 pb-6 px-6 border-t mt-8">
-                                    <button @click="currentStep = 3" class="flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                                    <button type="button" @click="currentStep = 3" class="flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
                                         <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                                         </svg>
@@ -1673,7 +1674,7 @@
                                         Save Progress
                                         </button>
     
-                                        <button @click="currentStep = 5" class="flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                                        <button type="button" @click="currentStep = 5" class="flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
                                             Next
                                             <svg class="h-4 w-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -1714,13 +1715,11 @@
                 gender: '{{ old('gender', $application->gender ?? '') }}',
                 native_language: '{{ old('native_language', $application->native_language ?? '') }}',
                 phone: '{{ old('phone', $application->phone ?? '') }}',
-                permanent_address: {
-                    street: '{{ old('permanent_address.street', $permanentAddress['street'] ?? '') }}',
-                    city: '{{ old('permanent_address.city', $permanentAddress['city'] ?? '') }}',
-                    state: '{{ old('permanent_address.state', $permanentAddress['state'] ?? '') }}',
-                    country: '{{ old('permanent_address.country', $permanentAddress['country'] ?? '') }}',
-                    postal_code: '{{ old('permanent_address.postal_code', $permanentAddress['postal_code'] ?? '') }}'
-                },
+                permanent_street: '{{ old('permanent_street', $application->permanent_street ?? '') }}',
+                permanent_city: '{{ old('permanent_city', $application->permanent_city ?? '') }}',
+                permanent_state: '{{ old('permanent_state', $application->permanent_state ?? '') }}',
+                permanent_country: '{{ old('permanent_country', $application->permanent_country ?? '') }}',
+                permanent_postcode: '{{ old('permanent_postcode', $application->permanent_postcode ?? '') }}',
                 previous_institution: '{{ old('previous_institution', $application->previous_institution ?? '') }}',
                 previous_gpa: '{{ old('previous_gpa', $application->previous_gpa ?? '') }}',
                 degree_earned: '{{ old('degree_earned', $application->degree_earned ?? '') }}',

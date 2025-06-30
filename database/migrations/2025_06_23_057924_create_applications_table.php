@@ -13,8 +13,6 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('program_id')->nullable()->constrained();
             $table->foreignId('application_period_id')->nullable()->constrained();
-            $table->foreignId('permanent_address_id')->nullable()->constrained('addresses');
-            $table->foreignId('current_address_id')->nullable()->constrained('addresses');
             $table->string('level', 64)->nullable();
             $table->string('nationality', 128)->nullable();
             $table->string('passport_number', 64)->nullable();
@@ -35,6 +33,16 @@ return new class extends Migration
             $table->text('statement_of_purpose')->nullable();
             $table->string('status', 64)->default('draft');
             $table->timestamp('submitted_at')->nullable();
+            $table->string('permanent_country', 100)->nullable();
+            $table->string('permanent_state', 100)->nullable();
+            $table->string('permanent_city', 100)->nullable();
+            $table->string('permanent_postcode', 10)->nullable();
+            $table->string('permanent_street', 255)->nullable();
+            $table->string('current_country', 100)->nullable();
+            $table->string('current_state', 100)->nullable();
+            $table->string('current_city', 100)->nullable();
+            $table->string('current_postcode', 10)->nullable();
+            $table->string('current_street', 255)->nullable();
             $table->timestamps();
         });
     }
