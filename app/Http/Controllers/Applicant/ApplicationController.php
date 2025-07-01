@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Applicant;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\SubmitApplicationRequest;
 use App\Http\Requests\UpdateApplicationRequest;
 use App\Http\Requests\UploadDocumentRequest;
-use App\Http\Controllers\Controller;
 use App\Models\Application;
 use App\Models\ApplicationPeriod;
 use App\Models\Document;

@@ -1,15 +1,14 @@
-<form hx-post="{{ route('applicant.application.update', ['applicationId' => $application->id]) }}" hx-swap="outerHTML"
-    hx-trigger="submit">
-    <div x-data="personalForm()">
-        @csrf
+<div x-show="currentStep === {{$step}}" x-transition>
+    <div class="max-w-4xl mx-auto">
         <div class="bg-white shadow-sm rounded-lg">
             <div class="px-6 py-4 border-b border-gray-200">
                 <div class="flex items-center space-x-2">
-                    <span
-                        class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-university-600 text-sm font-medium">1</span>
+                    <span class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-600 text-sm font-medium">1</span>
                     <span class="text-lg font-medium">Personal Information</span>
                 </div>
-                <p class="text-gray-600 mt-1">Basic personal details and identification</p>
+                <p class="text-gray-600 mt-1">
+                    Basic personal details and identification
+                </p>
             </div>
 
             <div class="p-6">
@@ -23,17 +22,13 @@
 
                         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                             <div>
-                                <label for="first_name" class="block text-sm font-medium text-gray-700">First
-                                    Name
-                                    <span class="text-red-500">*</span></label>
-                                <input type="text" id="first_name" name="first_name" required
+                                <label for="first_name" class="block text-sm font-medium text-gray-700">
+                                    First Name<span class="text-red-500">*</span>
+                                </label>
+                                <input type="text" id="first_name" name="first_name"
                                     x-model="form.first_name"
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
-                                    :class="hasError('first_name') ? 'border-red-500 bg-red-50' :
-                                        'border-input bg-background'">
-                                <template x-if="hasError('first_name')">
-                                    <p class="mt-1 text-sm text-red-600" x-text="getError('first_name')"></p>
-                                </template>
+                                >
                                 @error('first_name')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -41,13 +36,9 @@
                             <div>
                                 <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name
                                     <span class="text-red-500">*</span></label>
-                                <input type="text" id="last_name" name="last_name" required x-model="form.last_name"
+                                <input type="text" id="last_name" name="last_name" x-model="form.last_name"
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
-                                    :class="hasError('last_name') ? 'border-red-500 bg-red-50' :
-                                        'border-input bg-background'">
-                                <template x-if="hasError('last_name')">
-                                    <p class="mt-1 text-sm text-red-600" x-text="getError('last_name')"></p>
-                                </template>
+                                >
                                 @error('last_name')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -55,28 +46,13 @@
                         </div>
 
                         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                            @php
-                                $dateOfBirth = old('date_of_birth', $application->date_of_birth ?? '');
-                                if ($dateOfBirth instanceof \Carbon\Carbon) {
-                                    $dateOfBirth = $dateOfBirth->format('Y-m-d');
-                                } elseif (!empty($dateOfBirth) && strtotime($dateOfBirth)) {
-                                    $dateOfBirth = date('Y-m-d', strtotime($dateOfBirth));
-                                }
-                            @endphp
-                            <div x-data="{ form: { date_of_birth: '{{ $dateOfBirth }}' } }">
+                            <div>
                                 <label for="date_of_birth" class="block text-sm font-medium text-gray-700">
                                     Date of Birth <span class="text-red-500">*</span>
                                 </label>
                                 <input type="date" id="date_of_birth" name="date_of_birth"
                                     x-model="form.date_of_birth"
-                                    :class="hasError('phone') ? 'border-red-500 bg-red-50' :
-                                        'border-input bg-background'"
-                                    required
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm">
-
-                                <template x-if="hasError('date_of_birth')">
-                                    <p class="mt-1 text-sm text-red-600" x-text="getError('date_of_birth')"></p>
-                                </template>
                                 @error('date_of_birth')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -85,18 +61,11 @@
                                 <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
                                 <select id="gender" name="gender" x-model="form.gender"
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
-                                    :class="hasError('gender') ? 'border-red-500 bg-red-50' :
-                                        'border-input bg-background'"
                                     @change="clearError('gender')">
                                     <option value="">Select gender</option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                    <option value="other">Other</option>
-                                    <option value="prefer-not-to-say">Prefer not to say</option>
+                                    <option value="1">Male</option>
+                                    <option value="2">Female</option>
                                 </select>
-                                <template x-if="hasError('gender')">
-                                    <p class="mt-1 text-sm text-red-600" x-text="getError('gender')"></p>
-                                </template>
                                 @error('gender')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -107,10 +76,8 @@
                             <div>
                                 <label for="nationality" class="block text-sm font-medium text-gray-700">Nationality
                                     <span class="text-red-500">*</span></label>
-                                <select id="nationality" name="nationality" x-model="form.nationality" required
+                                <select id="nationality" name="nationality" x-model="form.nationality"
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
-                                    :class="hasError('nationality') ? 'border-red-500 bg-red-50' :
-                                        'border-input bg-background'"
                                     @change="clearError('nationality')">
                                     <option value="">Select your nationality</option>
                                     <option value="UZ">Uzbekistan</option>
@@ -120,10 +87,6 @@
                                     <option value="DE">Germany</option>
                                     <option value="FR">France</option>
                                 </select>
-                                <template x-if="hasError('nationality')">
-                                    <p class="mt-1 text-sm text-red-600" x-text="getError('nationality')"></p>
-                                </template>
-
                                 @error('nationality')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -132,15 +95,8 @@
                                 <label for="passport_number" class="block text-sm font-medium text-gray-700">Passport
                                     Number <span class="text-red-500">*</span></label>
                                 <input type="text" id="passport_number" name="passport_number"
-                                    x-model="form.passport_number" required
-                                    :class="hasError('passport_number') ? 'border-red-500 bg-red-50' :
-                                        'border-input bg-background'"
+                                    x-model="form.passport_number"
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm">
-                                <!-- Dynamic error message -->
-                                <template x-if="hasError('passport_number')">
-                                    <p class="mt-1 text-sm text-red-600" x-text="getError('passport_number')">
-                                    </p>
-                                </template>
                                 @error('passport_number')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -151,14 +107,8 @@
                             <label for="native_language" class="block text-sm font-medium text-gray-700">Native
                                 Language <span class="text-red-500">*</span></label>
                             <input type="text" id="native_language" name="native_language"
-                                x-model="form.native_language" required
-                                :class="hasError('native_language') ? 'border-red-500 bg-red-50' :
-                                    'border-input bg-background'"
+                                x-model="form.native_language"
                                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm">
-                            <!-- Dynamic error message -->
-                            <template x-if="hasError('native_language')">
-                                <p class="mt-1 text-sm text-red-600" x-text="getError('native_language')"></p>
-                            </template>
                             @error('native_language')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -179,11 +129,8 @@
                         <div class="bg-white border border-gray-200 rounded-lg shadow-sm h-fit">
                             <div class="px-6 py-4 border-b border-gray-200">
                                 <h3 class="text-lg font-medium flex items-center space-x-2">
-                                    <svg class="h-5 w-5 text-university-600" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
-                                        </path>
+                                    <svg class="h-5 w-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                                     </svg>
                                     <span>Personal Documents</span>
                                 </h3>
@@ -268,7 +215,7 @@
                                                             </svg>
                                                         </div>
                                                         <div class="flex-1 min-w-0">
-                                                            <p class="text-sm font-medium text-green-900"
+                                                            <p class="text-sm font-medium text-green-900 overflow-hidden text-ellipsis"
                                                                 x-text="fileName"></p>
                                                             <p class="text-sm text-green-700">
                                                                 <span x-text="fileSize"></span> •
@@ -319,7 +266,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Tips Section -->
+
                                 <div class="bg-blue-50 border border-blue-200 rounded-md p-3">
                                     <h4 class="text-xs font-medium text-blue-900 mb-1">Upload Tips:</h4>
                                     <ul class="text-xs text-blue-800 space-y-1">
@@ -335,177 +282,43 @@
 
                 <!-- Navigation Buttons -->
                 <div class="flex items-center justify-between pt-8 border-t mt-8">
-                    <button type="button" disabled
-                        class="flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-400 bg-gray-100 cursor-not-allowed">
+                    <button type="button" disabled class="flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-400 bg-gray-100 cursor-not-allowed">
                         <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M15 19l-7-7 7-7" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                         </svg>
                         Previous
                     </button>
 
-                    <button type="submit"
-                        class="flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
-                        Next
-                        <svg class="h-4 w-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </button>
+                    <div class="flex items-center space-x-4">
+                        <button
+                            type="submit"
+                            class="flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+                            >
+                            <svg
+                                class="h-4 w-4 mr-2"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3-3m0 0l-3 3m3-3v12"
+                                ></path>
+                            </svg>
+                            <span>Save Progress</span>
+                        </button>
+
+                        <button type="button" @click="currentStep = 2" class="flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                            Next
+                            <svg class="h-4 w-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <script>
-        function personalForm() {
-            return {
-                form: {
-                    first_name: '{{ old('first_name', Auth::user()->first_name ?? '') }}',
-                    last_name: '{{ old('last_name', Auth::user()->last_name ?? '') }}',
-                    nationality: '{{ old('nationality', $application->nationality ?? '') }}',
-                    passport_number: '{{ old('passport_number', $application->passport_number ?? '') }}',
-                    date_of_birth: '',
-                    gender: '{{ old('gender', $application->gender ?? '') }}',
-                    native_language: '{{ old('native_language', $application->native_language ?? '') }}',
-                },
-                errors: {},
-                clearError(field) {
-                    if (this.errors[field]) {
-                        delete this.errors[field];
-                    }
-                },
-
-                hasError(field) {
-                    return this.errors[field] && this.errors[field].length > 0;
-                },
-
-                getError(field) {
-                    return this.errors[field] ? this.errors[field][0] : '';
-                }
-            }
-        }
-
-        document.body.addEventListener('htmx:afterRequest', function(event) {
-            if (event.detail.xhr.status === 422) {
-                const response = JSON.parse(event.detail.xhr.response);
-                const component = event.target.closest('[x-data]');
-
-                if (component && component._x_dataStack && response.errors) {
-                    const alpineData = component._x_dataStack[0];
-                    alpineData.errors = response.errors;
-                }
-            } else if (event.detail.xhr.status >= 200 && event.detail.xhr.status < 300) {
-                const component = event.target.closest('[x-data]');
-                if (component && component._x_dataStack) {
-                    const alpineData = component._x_dataStack[0];
-                    alpineData.errors = {};
-                }
-            }
-        });
-
-        document.addEventListener('input', function(event) {
-            const component = event.target.closest('[x-data]');
-            if (component && component._x_dataStack) {
-                const fieldName = event.target.name;
-                const alpineData = component._x_dataStack[0];
-
-                if (alpineData.errors && alpineData.errors[fieldName]) {
-                    delete alpineData.errors[fieldName];
-                }
-            }
-        });
-
-        function documentUpload(documentType) {
-            return {
-                documentType: documentType,
-                uploaded: false,
-                uploading: false,
-                isDragging: false,
-                error: false,
-                errorMessage: '',
-                fileName: '',
-                fileSize: '',
-
-                handleFileSelect(event) {
-                    const file = event.target.files[0];
-                    this.uploadFile(file);
-                },
-
-                handleDrop(event) {
-                    this.isDragging = false;
-                    const files = event.dataTransfer.files;
-                    if (files.length > 0) {
-                        const file = files[0];
-                        this.uploadFile(file);
-                    }
-                },
-
-                uploadFile(file) {
-                    // Reset states
-                    this.error = false;
-                    this.errorMessage = '';
-                    this.uploading = true;
-                    this.fileName = file.name;
-                    this.fileSize = this.formatFileSize(file.size);
-
-                    // Create FormData
-                    const formData = new FormData();
-                    formData.append('document', file);
-                    formData.append('type', this.documentType);
-
-                    // Add CSRF token
-                    const csrfToken = document.querySelector('meta[name="csrf-token"]');
-                    if (csrfToken) {
-                        formData.append('_token', csrfToken.getAttribute('content'));
-                    }
-
-                    fetch(`/applicant/application/upload-document/{{$application->id}}`, {
-                            method: 'POST',
-                            body: formData,
-                            headers: {
-                                'X-Requested-With': 'XMLHttpRequest',
-                            }
-                        })
-                        .then(response => {
-                            if (!response.ok) {
-                                return response.json().then(data => {
-                                    throw new Error(data.error || 'Upload failed');
-                                });
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            this.uploading = false;
-                            this.uploaded = true;
-                        })
-                        .catch(error => {
-                            this.uploading = false;
-                            this.error = true;
-                            this.errorMessage = error.message || 'Upload failed. Please try again.';
-                        });
-                },
-
-
-                formatFileSize(bytes) {
-                    if (bytes === 0) return '0 B';
-                    const k = 1024;
-                    const sizes = ['B', 'KB', 'MB'];
-                    const i = Math.floor(Math.log(bytes) / Math.log(k));
-                    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-                },
-
-                removeFile() {
-                    this.uploaded = false;
-                    this.fileName = '';
-                    this.fileSize = '';
-                    this.error = false;
-                    this.errorMessage = '';
-
-                    const fileInput = document.getElementById(`${this.documentType}-file`);
-                    if (fileInput) {
-                        fileInput.value = '';
-                    }
-                }
-            }
-        }
-    </script>
-</form>
+</div>

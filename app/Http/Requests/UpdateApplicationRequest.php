@@ -8,6 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 class UpdateApplicationRequest extends FormRequest
 {
     private ?Application $application = null;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -15,6 +16,7 @@ class UpdateApplicationRequest extends FormRequest
     {
         $applicationId = $this->route('applicationId');
         $this->application = Application::find($applicationId);
+
         return $this->application &&
                auth()->id() === $this->application->user_id &&
                $this->application->canEdit();
