@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class ApplicationController extends Controller
 {
@@ -22,7 +23,6 @@ class ApplicationController extends Controller
         $programs = Program::active()->get()->groupBy('degree_level');
         $currentPeriod = ApplicationPeriod::where('is_active', true)->first();
 
-        // Create new application if none exists
         if (! $application && $currentPeriod) {
             $application = Application::create([
                 'user_id' => $user->id,
@@ -31,8 +31,9 @@ class ApplicationController extends Controller
                 'status' => 'draft',
             ]);
         }
+        $documents = $application ? $application->documents : collect();
 
-        return view('applicant.application', compact('application', 'programs', 'currentPeriod'));
+        return view('applicant.application', compact('application', 'programs', 'currentPeriod', 'documents'));
     }
 
     public function updateApplication(Request $request, $applicationId)
@@ -78,11 +79,7 @@ class ApplicationController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Validation failed',
-                'errors' => $validator->errors(),
-            ], 422);
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
         try {
@@ -116,72 +113,6 @@ class ApplicationController extends Controller
         }
     }
 
-    public function uploadDocument(Request $request, $applicationId)
-    {
-        $application = Application::findOrFail($applicationId);
-        $user = Auth::user();
-
-        if ($user->id !== $application->user_id || ! $application->canEdit()) {
-            return response()->json(['error' => 'Unauthorized'], 403);
-        }
-
-        $validator = Validator::make($request->all(), [
-            'document' => 'required|file|max:25600', // 25MB max
-            'type' => 'required|in:passport,transcript,diploma,sop,cv,english_score,portfolio',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
-
-        if (! $application || ! $application->canEdit()) {
-            return response()->json(['error' => 'Cannot edit this application'], 403);
-        }
-
-        $file = $request->file('document');
-        $type = $request->type;
-
-        // Validate file type based on document type
-        $allowedTypes = $this->getAllowedMimeTypes($type);
-        if (! in_array($file->getMimeType(), $allowedTypes)) {
-            return response()->json(['error' => 'Invalid file type for this document'], 422);
-        }
-
-        try {
-            DB::beginTransaction();
-
-            $existingDocument = $application->documents()->where('type', $type)->first();
-            if ($existingDocument) {
-                Storage::delete($existingDocument->path);
-                $existingDocument->delete();
-            }
-
-            // Store the new file
-            $filename = time().'_'.$file->getClientOriginalName(); // random name ulid
-            $path = $file->storeAs('documents/'.$application->id, $filename, 'public');
-
-            // Create document record
-            Document::create([
-                'application_id' => $application->id,
-                'type' => $type,
-                'filename' => $filename,
-                'original_name' => $file->getClientOriginalName(),
-                'mime_type' => $file->getMimeType(),
-                'size' => $file->getSize(),
-                'path' => $path,
-            ]);
-
-            DB::commit();
-
-            return response()->json(['message' => 'Document uploaded successfully']);
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-
-            return response()->json(['error' => 'Failed to upload document'], 500);
-        }
-    }
-
     public function submit(Request $request)
     {
         $user = Auth::user();
@@ -191,7 +122,6 @@ class ApplicationController extends Controller
             return response()->json(['error' => 'Cannot submit this application'], 403);
         }
 
-        // Validate that all required fields are completed
         $requiredFields = [
             'nationality',
             'passport_number',
@@ -223,6 +153,89 @@ class ApplicationController extends Controller
         ]);
 
         return response()->json(['message' => 'Application submitted successfully']);
+    }
+
+    public function uploadDocument(Request $request, $applicationId)
+    {
+        $application = Application::findOrFail($applicationId);
+        $user = Auth::user();
+
+        if ($user->id !== $application->user_id || ! $application->canEdit()) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'document' => 'required|file|max:25600', // 25MB max
+            'type' => 'required|in:passport,transcript,diploma,sop,cv,english_score,portfolio',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $file = $request->file('document');
+        $type = $request->type;
+
+        $allowedTypes = $this->getAllowedMimeTypes($type);
+        if (! in_array($file->getMimeType(), $allowedTypes)) {
+            return response()->json(['error' => 'Invalid file type for this document'], 422);
+        }
+
+        try {
+            DB::beginTransaction();
+
+            $existingDocument = $application->documents()->where('type', $type)->first();
+            if ($existingDocument) {
+                Storage::delete($existingDocument->path);
+                $existingDocument->delete();
+            }
+
+            $filename = Str::ulid().'.'.$file->getClientOriginalExtension();
+            $path = $file->storeAs('documents/'.$application->id, $filename, 'public');
+
+            Document::create([
+                'application_id' => $application->id,
+                'type' => $type,
+                'filename' => $filename,
+                'original_name' => $file->getClientOriginalName(),
+                'mime_type' => $file->getMimeType(),
+                'size' => $file->getSize(),
+                'path' => $path,
+            ]);
+
+            DB::commit();
+
+            return response()->json(['message' => 'Document uploaded successfully']);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return response()->json(['error' => 'Failed to upload document'], 500);
+        }
+    }
+
+    public function downloadDocument(int $applicationId, string $filename)
+    {
+        $path = 'documents/'.$applicationId.'/'.$filename;
+
+        if (! Storage::disk('public')->exists($path)) {
+            abort(404, 'File not found');
+        }
+
+        return Storage::disk('public')->download($path);
+    }
+
+    public function removeDocument(int $applicationId, string $filename)
+    {
+        $path = 'documents/'.$applicationId.'/'.$filename;
+
+        if (! Storage::disk('public')->exists($path)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'File not found',
+            ], 404);
+        }
+
+        Storage::disk('public')->delete($path);
     }
 
     private function getAllowedMimeTypes($type)

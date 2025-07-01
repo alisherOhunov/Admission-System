@@ -220,61 +220,152 @@
                                     <!-- Left Column -->
                                     <div class="space-y-6">
                                         <h3 class="text-lg font-medium text-gray-900 mb-4">Personal Information</h3>
-                                        <p class="text-sm text-gray-600 mb-6">Please provide your basic personal information as it appears on your passport.</p>
-    
+                                        <p class="text-sm text-gray-600 mb-6">Please provide your basic personal information as
+                                            it
+                                            appears on your passport.</p>
+
                                         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                                             <div>
-                                                <label for="first_name" class="block text-sm font-medium text-gray-700">First Name <span class="text-red-500">*</span></label>
-                                                <input type="text" id="first_name" name="first_name" value="{{ Auth::user()->first_name }}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                                <label for="first_name" class="block text-sm font-medium text-gray-700">First
+                                                    Name
+                                                    <span class="text-red-500">*</span></label>
+                                                <input type="text" id="first_name" name="first_name"
+                                                    x-model="form.first_name"
+                                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
+                                                    :class="hasError('first_name') ? 'border-red-500 bg-red-50' :
+                                                        'border-input bg-background'">
+                                                <template x-if="hasError('first_name')">
+                                                    <p class="mt-1 text-sm text-red-600" x-text="getError('first_name')"></p>
+                                                </template>
+                                                @error('first_name')
+                                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                                @enderror
                                             </div>
                                             <div>
-                                                <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name <span class="text-red-500">*</span></label>
-                                                <input type="text" id="last_name" name="last_name" value="{{ Auth::user()->last_name }}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                                <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name
+                                                    <span class="text-red-500">*</span></label>
+                                                <input type="text" id="last_name" name="last_name" x-model="form.last_name"
+                                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
+                                                    :class="hasError('last_name') ? 'border-red-500 bg-red-50' :
+                                                        'border-input bg-background'">
+                                                <template x-if="hasError('last_name')">
+                                                    <p class="mt-1 text-sm text-red-600" x-text="getError('last_name')"></p>
+                                                </template>
+                                                @error('last_name')
+                                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                                @enderror
                                             </div>
                                         </div>
-    
+
                                         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                                            <div>
+                                            @php
+                                                $dateOfBirth = old('date_of_birth', $application->date_of_birth ?? '');
+                                                if ($dateOfBirth instanceof \Carbon\Carbon) {
+                                                    $dateOfBirth = $dateOfBirth->format('Y-m-d');
+                                                } elseif (!empty($dateOfBirth) && strtotime($dateOfBirth)) {
+                                                    $dateOfBirth = date('Y-m-d', strtotime($dateOfBirth));
+                                                }
+                                            @endphp
+                                            <div x-data="{ form: { date_of_birth: '{{ $dateOfBirth }}' } }">
                                                 <label for="date_of_birth" class="block text-sm font-medium text-gray-700">
                                                     Date of Birth <span class="text-red-500">*</span>
                                                 </label>
-                                                <input type="date" id="date_of_birth" name="date_of_birth" x-model="form.date_of_birth"
-                                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                                <input type="date" id="date_of_birth" name="date_of_birth"
+                                                    x-model="form.date_of_birth"
+                                                    :class="hasError('phone') ? 'border-red-500 bg-red-50' :
+                                                        'border-input bg-background'"
+                                                
+                                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm">
+
+                                                <template x-if="hasError('date_of_birth')">
+                                                    <p class="mt-1 text-sm text-red-600" x-text="getError('date_of_birth')"></p>
+                                                </template>
+                                                @error('date_of_birth')
+                                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                                @enderror
                                             </div>
                                             <div>
                                                 <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
-                                                <select id="gender" name="gender" x-model="form.gender" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                                <select id="gender" name="gender" x-model="form.gender"
+                                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
+                                                    :class="hasError('gender') ? 'border-red-500 bg-red-50' :
+                                                        'border-input bg-background'"
+                                                    @change="clearError('gender')">
                                                     <option value="">Select gender</option>
                                                     <option value="1">Male</option>
                                                     <option value="2">Female</option>
                                                     <option value="3">Other</option>
                                                 </select>
+                                                <template x-if="hasError('gender')">
+                                                    <p class="mt-1 text-sm text-red-600" x-text="getError('gender')"></p>
+                                                </template>
+                                                @error('gender')
+                                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                                @enderror
                                             </div>
                                         </div>
-    
+
                                         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                                             <div>
-                                                <label for="nationality" class="block text-sm font-medium text-gray-700">Nationality <span class="text-red-500">*</span></label>
-                                                <select id="nationality" name="nationality" x-model="form.nationality" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                                <label for="nationality" class="block text-sm font-medium text-gray-700">Nationality
+                                                    <span class="text-red-500">*</span></label>
+                                                <select id="nationality" name="nationality" x-model="form.nationality"
+                                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
+                                                    :class="hasError('nationality') ? 'border-red-500 bg-red-50' :
+                                                        'border-input bg-background'"
+                                                    @change="clearError('nationality')">
                                                     <option value="">Select your nationality</option>
+                                                    <option value="UZ">Uzbekistan</option>
                                                     <option value="US">United States</option>
                                                     <option value="UK">United Kingdom</option>
                                                     <option value="CA">Canada</option>
                                                     <option value="DE">Germany</option>
                                                     <option value="FR">France</option>
                                                 </select>
+                                                <template x-if="hasError('nationality')">
+                                                    <p class="mt-1 text-sm text-red-600" x-text="getError('nationality')"></p>
+                                                </template>
+
+                                                @error('nationality')
+                                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                                @enderror
                                             </div>
                                             <div>
-                                                <label for="passport_number" class="block text-sm font-medium text-gray-700">Passport Number <span class="text-red-500">*</span></label>
-                                                <input type="text" id="passport_number" name="passport_number" x-model="form.passport_number" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                                <label for="passport_number" class="block text-sm font-medium text-gray-700">Passport
+                                                    Number <span class="text-red-500">*</span></label>
+                                                <input type="text" id="passport_number" name="passport_number"
+                                                    x-model="form.passport_number"
+                                                    :class="hasError('passport_number') ? 'border-red-500 bg-red-50' :
+                                                        'border-input bg-background'"
+                                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm">
+                                                <!-- Dynamic error message -->
+                                                <template x-if="hasError('passport_number')">
+                                                    <p class="mt-1 text-sm text-red-600" x-text="getError('passport_number')">
+                                                    </p>
+                                                </template>
+                                                @error('passport_number')
+                                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                                @enderror
                                             </div>
                                         </div>
-    
+
                                         <div>
-                                            <label for="native_language" class="block text-sm font-medium text-gray-700">Native Language <span class="text-red-500">*</span></label>
-                                            <input type="text" id="native_language" name="native_language" x-model="form.native_language" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                            <label for="native_language" class="block text-sm font-medium text-gray-700">Native
+                                                Language <span class="text-red-500">*</span></label>
+                                            <input type="text" id="native_language" name="native_language"
+                                                x-model="form.native_language"
+                                                :class="hasError('native_language') ? 'border-red-500 bg-red-50' :
+                                                    'border-input bg-background'"
+                                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm">
+                                            <!-- Dynamic error message -->
+                                            <template x-if="hasError('native_language')">
+                                                <p class="mt-1 text-sm text-red-600" x-text="getError('native_language')"></p>
+                                            </template>
+                                            @error('native_language')
+                                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                            @enderror
                                         </div>
-    
+
                                         <div class="bg-blue-50 border border-blue-200 rounded-md p-4">
                                             <h4 class="text-sm font-medium text-blue-900 mb-2">Important Notes:</h4>
                                             <ul class="text-sm text-blue-800 space-y-1">
@@ -299,31 +390,131 @@
                                             </div>
     
                                             <div class="p-6 space-y-4">
-                                                <div>
-                                                    <h4 class="text-sm font-medium text-gray-900 mb-3">Required Documents</h4>
-    
-                                                    <div class="border rounded-lg p-4">
-                                                        <div class="mb-3">
-                                                            <div class="flex items-center space-x-2 mb-1">
-                                                                <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                                                </svg>
-                                                                <span class="text-sm font-medium">Passport (Scanned)</span>
-                                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">Required</span>
+                                                <div class="p-6 space-y-4">
+                                                    <div>
+                                                        <div x-data="documentUpload('passport')" class="border rounded-lg p-4">
+                                                            <div class="mb-3">
+                                                                <div class="flex items-center space-x-2 mb-1">
+                                                                    <svg class="h-4 w-4 text-gray-400" fill="none"
+                                                                        stroke="currentColor" viewBox="0 0 24 24">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                                            stroke-width="2"
+                                                                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                                                        </path>
+                                                                    </svg>
+                                                                    <span class="text-sm font-medium">Passport</span>
+                                                                    <span
+                                                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                                                        :class="uploaded ? 'bg-green-100 text-green-800' :
+                                                                            'bg-red-100 text-red-800'"
+                                                                        x-text="uploaded ? 'Uploaded' : 'Required'">
+                                                                    </span>
+                                                                </div>
+                                                                <p class="text-xs text-gray-500 mb-2">Clear scan of your passport photo
+                                                                    page</p>
+                                                                <div class="text-xs text-gray-400">Formats: PDF, JPG, PNG • Max size:
+                                                                    5MB</div>
                                                             </div>
-                                                            <p class="text-xs text-gray-500 mb-2">Clear scan of your passport information page</p>
-                                                            <div class="text-xs text-gray-400">Formats: PDF, JPG, PNG • Max: 5MB</div>
-                                                        </div>
-    
-                                                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-400 transition-colors">
-                                                            <svg class="mx-auto h-6 w-6 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
-                                                            </svg>
-                                                            <label for="passport-file" class="cursor-pointer">
-                                                                <span class="text-sm font-medium text-gray-900">Click to upload</span>
-                                                                <span class="text-sm text-gray-500">or drag and drop</span>
-                                                                <input id="passport-file" name="passport_file" type="file" class="hidden" accept=".pdf,.jpg,.jpeg,.png">
-                                                            </label>
+
+                                                            <div x-show="!uploaded" x-transition
+                                                                class="border-2 border-dashed rounded-lg p-4 text-center transition-colors"
+                                                                :class="isDragging ? 'border-blue-400 bg-blue-50' :
+                                                                    'border-gray-300 hover:border-gray-400'"
+                                                                @dragover.prevent="isDragging = true"
+                                                                @dragleave.prevent="isDragging = false"
+                                                                @drop.prevent="handleDrop($event)">
+
+                                                                <div x-show="!uploading">
+                                                                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                                                        <label for="passport-file" class="cursor-pointer">
+                                                                            <svg class="mx-auto h-10 w-10 text-gray-400 mb-2" fill="none"
+                                                                            stroke="currentColor" viewBox="0 0 24 24">
+                                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2"
+                                                                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                                                                            </path>
+                                                                        </svg>
+                                                                            <span class="text-md font-medium text-gray-900">Click to
+                                                                                upload</span>
+                                                                            <span class="text-sm text-gray-500">or drag and drop</span>
+                                                                            <span class="text-md text-gray-500">PDF, JPG, PNG up to 5MB</span>
+                                                                            <input id="passport-file" name="passport" type="file"
+                                                                                class="hidden" accept=".pdf,.jpg,.jpeg,.png"
+                                                                                @change="handleFileSelect($event)">
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- Loading State -->
+                                                                <div x-show="uploading" class="flex flex-col items-center">
+                                                                    <div
+                                                                        class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mb-2">
+                                                                    </div>
+                                                                    <span class="text-sm text-gray-600">Uploading...</span>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Success State (shown after successful upload) -->
+                                                            <div x-show="uploaded" x-transition
+                                                                class="bg-green-50 border border-green-200 rounded-lg p-4">
+                                                                <div class="flex items-center justify-between">
+                                                                    <div class="flex items-center space-x-3">
+                                                                        <div class="flex-shrink-0">
+                                                                            <svg class="h-8 w-8 text-green-600" fill="currentColor"
+                                                                                viewBox="0 0 24 24">
+                                                                                <path
+                                                                                    d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
+                                                                            </svg>
+                                                                        </div>
+                                                                        <div class="flex-1 min-w-0">
+                                                                            <p class="text-sm font-medium text-green-900 overflow-hidden text-ellipsis"
+                                                                                x-text="fileName"></p>
+                                                                            <p class="text-sm text-green-700">
+                                                                                <span x-text="fileSize"></span> •
+                                                                                <span class="text-green-600">Uploaded
+                                                                                    successfully</span>
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="flex items-center space-x-2">
+                                                                        <!-- Download Button -->
+                                                                        <a 
+                                                                            href="{{ route('applicant.application.downloadDocument', ['applicationId' => $application->id, 'filename' => '1751272972_photo_2025-06-16_16-37-28.jpg']) }}" 
+                                                                            class="text-green-600 hover:text-green-800 transition-colors"
+                                                                        >
+                                                                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                                                                </path>
+                                                                            </svg>
+                                                                        </a>
+                                                                        <!-- Remove Button -->
+                                                                        <a href="{{ route('applicant.application.removeDocument', ['applicationId' => $application->id, 'filename' => '1751272972_photo_2025-06-16_16-37-28.jpg']) }}" @click="removeFile()"
+                                                                            class="text-red-500 hover:text-red-700 transition-colors">
+                                                                            <svg class="h-5 w-5" fill="none" stroke="currentColor"
+                                                                                viewBox="0 0 24 24">
+                                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                                    stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                                                                                </path>
+                                                                            </svg>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Error State -->
+                                                            <div x-show="error" x-transition
+                                                                class="bg-red-50 border border-red-200 rounded-lg p-4 mt-2">
+                                                                <div class="flex items-center">
+                                                                    <svg class="h-5 w-5 text-red-400 mr-2" fill="currentColor"
+                                                                        viewBox="0 0 20 20">
+                                                                        <path fill-rule="evenodd"
+                                                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                                                            clip-rule="evenodd"></path>
+                                                                    </svg>
+                                                                    <span class="text-sm text-red-800" x-text="errorMessage"></span>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1765,5 +1956,99 @@
             }
         }
     });
+
+            function documentUpload(documentType) {
+            return {
+                documentType: documentType,
+                uploaded: false,
+                uploading: false,
+                isDragging: false,
+                error: false,
+                errorMessage: '',
+                fileName: '',
+                fileSize: '',
+
+                handleFileSelect(event) {
+                    const file = event.target.files[0];
+                    this.uploadFile(file);
+                },
+
+                handleDrop(event) {
+                    this.isDragging = false;
+                    const files = event.dataTransfer.files;
+                    if (files.length > 0) {
+                        const file = files[0];
+                        this.uploadFile(file);
+                    }
+                },
+
+                uploadFile(file) {
+                    // Reset states
+                    this.error = false;
+                    this.errorMessage = '';
+                    this.uploading = true;
+                    this.fileName = file.name;
+                    this.fileSize = this.formatFileSize(file.size);
+
+                    // Create FormData
+                    const formData = new FormData();
+                    formData.append('document', file);
+                    formData.append('type', this.documentType);
+
+                    // Add CSRF token
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]');
+                    if (csrfToken) {
+                        formData.append('_token', csrfToken.getAttribute('content'));
+                    }
+
+                    fetch(`/applicant/application/upload-document/{{$application->id}}`, {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest',
+                            }
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                return response.json().then(data => {
+                                    throw new Error(data.error || 'Upload failed');
+                                });
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            this.uploading = false;
+                            this.uploaded = true;
+                        })
+                        .catch(error => {
+                            this.uploading = false;
+                            this.error = true;
+                            this.errorMessage = error.message || 'Upload failed. Please try again.';
+                        });
+                },
+
+
+                formatFileSize(bytes) {
+                    if (bytes === 0) return '0 B';
+                    const k = 1024;
+                    const sizes = ['B', 'KB', 'MB'];
+                    const i = Math.floor(Math.log(bytes) / Math.log(k));
+                    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+                },
+
+                removeFile() {
+                    this.uploaded = false;
+                    this.fileName = '';
+                    this.fileSize = '';
+                    this.error = false;
+                    this.errorMessage = '';
+
+                    const fileInput = document.getElementById(`${this.documentType}-file`);
+                    if (fileInput) {
+                        fileInput.value = '';
+                    }
+                }
+            }
+        }
 </script>
 @endsection

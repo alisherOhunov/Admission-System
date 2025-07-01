@@ -40,10 +40,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 // Applicant Routes
 Route::middleware(['auth'])->prefix('applicant')->name('applicant.')->group(function () {
     Route::get('/dashboard', [ApplicantDashboardController::class, 'index'])->name('dashboard');
-    // Application Management
     Route::get('/application', [ApplicationController::class, 'show'])->name('application');
     Route::post('/application/update/{applicationId}', [ApplicationController::class, 'updateApplication'])->name('application.update');
-    Route::post('/application/upload-document', [ApplicationController::class, 'uploadDocument'])->name('application.upload');
+    Route::post('/application/upload-document/{applicationId}', [ApplicationController::class, 'uploadDocument'])->name('application.upload');
+    Route::get('/application/download-document/{applicationId}/{filename}', [ApplicationController::class, 'downloadDocument'])->name('application.downloadDocument');
+    Route::post('/application/remove-document/{applicationId}/{filename}', [ApplicationController::class, 'removeDocument'])->name('application.removeDocument');
     Route::post('/application/submit', [ApplicationController::class, 'submit'])->name('application.submit');
 });
 
