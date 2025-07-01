@@ -10,6 +10,7 @@ use App\Models\Application;
 use App\Models\ApplicationPeriod;
 use App\Models\Document;
 use App\Models\Program;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -92,7 +93,7 @@ class ApplicationController extends Controller
             DB::beginTransaction();
             $existingDocument = $application->documents()->where('type', $type)->first();
             if ($existingDocument) {
-                Storage::delete($existingDocument->path);
+                Storage::disk('public')->delete($existingDocument->path);
                 $existingDocument->delete();
             }
             $filename = Str::ulid().'.'.$file->getClientOriginalExtension();
@@ -124,9 +125,12 @@ class ApplicationController extends Controller
         }
     }
 
-    public function downloadDocument(int $applicationId, string $filename)
+    public function downloadDocument(int $applicationId, int $file_id)
     {
-        $path = 'documents/'.$applicationId.'/'.$filename;
+        $document = Document::where('application_id', $applicationId)
+            ->where('id', $file_id)
+            ->first();
+        $path = 'documents/'.$applicationId.'/'.$document->filename;
 
         if (! Storage::disk('public')->exists($path)) {
             abort(404, 'File not found');
@@ -135,9 +139,13 @@ class ApplicationController extends Controller
         return Storage::disk('public')->download($path);
     }
 
-    public function removeDocument(int $applicationId, string $filename)
+    public function removeDocument(int $applicationId, int $file_id)
     {
-        $path = 'documents/'.$applicationId.'/'.$filename;
+        $document = Document::where('application_id', $applicationId)
+            ->where('id', $file_id)
+            ->first();
+
+        $path = 'documents/'.$applicationId.'/'.$document->filename;
 
         if (! Storage::disk('public')->exists($path)) {
             return response()->json([
@@ -147,5 +155,8 @@ class ApplicationController extends Controller
         }
 
         Storage::disk('public')->delete($path);
+        $document->delete();
+
+        return response()->noContent(Response::HTTP_OK);
     }
 }

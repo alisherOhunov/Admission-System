@@ -43,8 +43,8 @@ Route::middleware(['auth'])->prefix('applicant')->name('applicant.')->group(func
     Route::get('/application', [ApplicationController::class, 'show'])->name('application');
     Route::post('/application/update/{applicationId}', [ApplicationController::class, 'updateApplication'])->name('application.update');
     Route::post('/application/upload-document/{applicationId}', [ApplicationController::class, 'uploadDocument'])->name('application.upload');
-    Route::get('/application/download-document/{applicationId}/{filename}', [ApplicationController::class, 'downloadDocument'])->name('application.downloadDocument');
-    Route::post('/application/remove-document/{applicationId}/{filename}', [ApplicationController::class, 'removeDocument'])->name('application.removeDocument');
+    Route::get('/application/download-document/{applicationId}/{file_id}', [ApplicationController::class, 'downloadDocument'])->name('application.downloadDocument');
+    Route::post('/application/remove-document/{applicationId}/{file_id}', [ApplicationController::class, 'removeDocument'])->name('application.removeDocument');
     Route::post('/application/submit', [ApplicationController::class, 'submit'])->name('application.submit');
 });
 
