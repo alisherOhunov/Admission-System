@@ -285,99 +285,130 @@
             }
         }
     });
+    function formatSize(bytes) {
+        if (bytes === 0) return '0 B';
+        const k = 1024, sizes = ['B', 'KB', 'MB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
 
-            function documentUpload(documentType) {
-            return {
-                documentType: documentType,
-                uploaded: false,
-                uploading: false,
-                isDragging: false,
-                error: false,
-                errorMessage: '',
-                fileName: '',
-                fileSize: '',
+    function documentUpload(documentType, initialFile = null) {
+        return {
+            documentType,
+            uploaded: initialFile !== null,
+            uploading: false,
+            isDragging: false,
+            error: false,
+            errorMessage: '',
+            fileName: initialFile ? initialFile.filename : '',
+            fileSize: initialFile ? formatSize(initialFile.size) : '',
+            fileId: initialFile ? initialFile.id : null,
 
-                handleFileSelect(event) {
-                    const file = event.target.files[0];
-                    this.uploadFile(file);
-                },
+            handleFileSelect(e) {
+                const file = e.target.files[0];
+                if (file) this.uploadFile(file);
+            },
 
-                handleDrop(event) {
-                    this.isDragging = false;
-                    const files = event.dataTransfer.files;
-                    if (files.length > 0) {
-                        const file = files[0];
-                        this.uploadFile(file);
+            handleDrop(e) {
+                this.isDragging = false;
+                const files = e.dataTransfer.files;
+                if (files.length > 0) this.uploadFile(files[0]);
+            },
+
+            async uploadFile(file) {
+                this.error = false;
+                this.uploading = true;
+                this.fileName = file.name;
+                this.fileSize = formatSize(file.size);
+
+                const formData = new FormData();
+                formData.append('document', file);
+                formData.append('type', this.documentType);
+                
+                const csrfToken = document.querySelector('meta[name="csrf-token"]');
+                if (csrfToken) formData.append('_token', csrfToken.getAttribute('content'));
+
+                try {
+                    const response = await fetch(`/applicant/application/upload-document/{{$application->id}}`, {
+                        method: 'POST',
+                        body: formData,
+                        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                    });
+
+                    if (!response.ok) {
+                        const data = await response.json();
+                        throw new Error(data.error || 'Upload failed');
                     }
-                },
 
-                uploadFile(file) {
-                    // Reset states
-                    this.error = false;
-                    this.errorMessage = '';
-                    this.uploading = true;
-                    this.fileName = file.name;
-                    this.fileSize = this.formatFileSize(file.size);
-
-                    // Create FormData
-                    const formData = new FormData();
-                    formData.append('document', file);
-                    formData.append('type', this.documentType);
-
-                    // Add CSRF token
-                    const csrfToken = document.querySelector('meta[name="csrf-token"]');
-                    if (csrfToken) {
-                        formData.append('_token', csrfToken.getAttribute('content'));
+                    const data = await response.json();
+                    this.uploading = false;
+                    this.uploaded = true;
+                    this.fileId = data.document ? data.document.id : (data.file_id || data.id);
+                    
+                    if (data.document) {
+                        this.fileName = data.document.original_name || data.document.filename;
+                        this.fileSize = formatSize(data.document.size);
+                    } else if (data.filename) {
+                        this.fileName = data.filename;
                     }
+                    if (data.size) this.fileSize = formatSize(data.size);
+                    
+                } catch (error) {
+                    this.uploading = false;
+                    this.error = true;
+                    this.errorMessage = error.message || 'Upload failed. Please try again.';
+                    this.resetFileState();
+                }
+            },
 
-                    fetch(`/applicant/application/upload-document/{{$application->id}}`, {
-                            method: 'POST',
-                            body: formData,
-                            headers: {
-                                'X-Requested-With': 'XMLHttpRequest',
-                            }
-                        })
-                        .then(response => {
-                            if (!response.ok) {
-                                return response.json().then(data => {
-                                    throw new Error(data.error || 'Upload failed');
-                                });
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            this.uploading = false;
-                            this.uploaded = true;
-                        })
-                        .catch(error => {
-                            this.uploading = false;
-                            this.error = true;
-                            this.errorMessage = error.message || 'Upload failed. Please try again.';
-                        });
-                },
+            async removeFile() {
+                if (!this.fileId) {
+                    this.resetFileState();
+                    return;
+                }
 
+                this.uploading = true;
+                this.error = false;
 
-                formatFileSize(bytes) {
-                    if (bytes === 0) return '0 B';
-                    const k = 1024;
-                    const sizes = ['B', 'KB', 'MB'];
-                    const i = Math.floor(Math.log(bytes) / Math.log(k));
-                    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-                },
+                const formData = new FormData();
+                const csrfToken = document.querySelector('meta[name="csrf-token"]');
+                if (csrfToken) formData.append('_token', csrfToken.getAttribute('content'));
 
-                removeFile() {
-                    this.uploaded = false;
-                    this.fileName = '';
-                    this.fileSize = '';
-                    this.error = false;
-                    this.errorMessage = '';
+                try {
+                    const response = await fetch(`/applicant/application/remove-document/{{$application->id}}/${this.fileId}`, {
+                        method: 'POST',
+                        body: formData,
+                        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                    });
 
-                    const fileInput = document.getElementById(`${this.documentType}-file`);
-                    if (fileInput) {
-                        fileInput.value = '';
-                    }
+                    if (!response.ok) throw new Error('Failed to remove file');
+                    
+                    this.uploading = false;
+                    this.resetFileState();
+                } catch (error) {
+                    this.uploading = false;
+                    this.error = true;
+                    this.errorMessage = error.message || 'Failed to remove file. Please try again.';
+                }
+            },
+
+            resetFileState() {
+                this.uploaded = false;
+                this.uploading = false;
+                this.fileName = '';
+                this.fileSize = '';
+                this.fileId = null;
+                this.error = false;
+                this.errorMessage = '';
+                this.isDragging = false;
+
+                const fileInput = document.getElementById(`${this.documentType}-file`);
+                if (fileInput) {
+                    fileInput.value = '';
+                    fileInput.dispatchEvent(new Event('change'));
                 }
             }
         }
+    }
 </script>
 @endsection

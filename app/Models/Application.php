@@ -70,6 +70,14 @@ class Application extends Model
         return $this->hasMany(Document::class);
     }
 
+    public function getImportantDocuments()
+    {
+        return $this->documents()
+            ->whereIn('type', ['passport', 'transcript', 'address_proof', 'diploma', 'sop', 'cv', 'english_score', 'portfolio'])
+            ->get()
+            ->keyBy('type'); // makes it easy to access by type
+    }
+
     public function permanentAddress()
     {
         return $this->belongsTo(Address::class, 'permanent_address_id');

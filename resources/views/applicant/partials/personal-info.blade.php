@@ -1,9 +1,10 @@
-<div x-show="currentStep === {{$step}}" x-transition>
+<div x-show="currentStep === {{ $step }}" x-transition>
     <div class="max-w-4xl mx-auto">
         <div class="bg-white shadow-sm rounded-lg">
             <div class="px-6 py-4 border-b border-gray-200">
                 <div class="flex items-center space-x-2">
-                    <span class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-600 text-sm font-medium">1</span>
+                    <span
+                        class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-600 text-sm font-medium">1</span>
                     <span class="text-lg font-medium">Personal Information</span>
                 </div>
                 <p class="text-gray-600 mt-1">
@@ -25,10 +26,8 @@
                                 <label for="first_name" class="block text-sm font-medium text-gray-700">
                                     First Name<span class="text-red-500">*</span>
                                 </label>
-                                <input type="text" id="first_name" name="first_name"
-                                    x-model="form.first_name"
-                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
-                                >
+                                <input type="text" id="first_name" name="first_name" x-model="form.first_name"
+                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm">
                                 @error('first_name')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -37,8 +36,7 @@
                                 <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name
                                     <span class="text-red-500">*</span></label>
                                 <input type="text" id="last_name" name="last_name" x-model="form.last_name"
-                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
-                                >
+                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm">
                                 @error('last_name')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -129,8 +127,11 @@
                         <div class="bg-white border border-gray-200 rounded-lg shadow-sm h-fit">
                             <div class="px-6 py-4 border-b border-gray-200">
                                 <h3 class="text-lg font-medium flex items-center space-x-2">
-                                    <svg class="h-5 w-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                    <svg class="h-5 w-5 text-blue-600" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                                        </path>
                                     </svg>
                                     <span>Personal Documents</span>
                                 </h3>
@@ -138,130 +139,134 @@
                             </div>
 
                             <div class="p-6 space-y-4">
-                                <div class="p-6 space-y-4">
-                                    <div>
-                                        <div x-data="documentUpload('passport')" class="border rounded-lg p-4">
-                                            <div class="mb-3">
-                                                <div class="flex items-center space-x-2 mb-1">
-                                                    <svg class="h-4 w-4 text-gray-400" fill="none"
-                                                        stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                                                        </path>
-                                                    </svg>
-                                                    <span class="text-sm font-medium">Passport</span>
-                                                    <span
-                                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
-                                                        :class="uploaded ? 'bg-green-100 text-green-800' :
-                                                            'bg-red-100 text-red-800'"
-                                                        x-text="uploaded ? 'Uploaded' : 'Required'">
-                                                    </span>
-                                                </div>
-                                                <p class="text-xs text-gray-500 mb-2">Clear scan of your passport photo
-                                                    page</p>
-                                                <div class="text-xs text-gray-400">Formats: PDF, JPG, PNG • Max size:
-                                                    5MB</div>
+                                <div>
+                                    <div x-data="documentUpload('passport', @js($documents->get('passport')))" class="border rounded-lg p-4">
+                                        <div class="mb-3">
+                                            <div class="flex items-center space-x-2 mb-1">
+                                                <svg class="h-4 w-4 text-gray-400" fill="none"
+                                                    stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                                    </path>
+                                                </svg>
+                                                <span class="text-sm font-medium">Passport</span>
+                                                <span
+                                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                                    :class="uploaded ? 'bg-green-100 text-green-800' :
+                                                        'bg-red-100 text-red-800'"
+                                                    x-text="uploaded ? 'Uploaded' : 'Required'">
+                                                </span>
                                             </div>
+                                            <p class="text-sm text-gray-500 mb-2">Clear scan of your passport photo
+                                                page</p>
+                                            <div class="text-xs text-gray-400">Formats: PDF, JPG, PNG • Max size:
+                                                5MB</div>
+                                        </div>
 
-                                            <div x-show="!uploaded" x-transition
-                                                class="border-2 border-dashed rounded-lg p-4 text-center transition-colors"
-                                                :class="isDragging ? 'border-blue-400 bg-blue-50' :
-                                                    'border-gray-300 hover:border-gray-400'"
-                                                @dragover.prevent="isDragging = true"
-                                                @dragleave.prevent="isDragging = false"
-                                                @drop.prevent="handleDrop($event)">
+                                        <div x-show="!uploaded" x-transition
+                                            class="border-2 border-dashed rounded-lg p-4 text-center transition-colors"
+                                            :class="isDragging ? 'border-blue-400 bg-blue-50' :
+                                                'border-gray-300 hover:border-gray-400'"
+                                            @dragover.prevent="isDragging = true"
+                                            @dragleave.prevent="isDragging = false"
+                                            @drop.prevent="handleDrop($event)">
 
-                                                <div x-show="!uploading">
-                                                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                                        <label for="passport-file" class="cursor-pointer">
-                                                            <svg class="mx-auto h-10 w-10 text-gray-400 mb-2" fill="none"
-                                                            stroke="currentColor" viewBox="0 0 24 24">
+                                            <div x-show="!uploading">
+                                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                                    <label for="passport-file" class="cursor-pointer">
+                                                        <svg class="mx-auto h-10 w-10 text-gray-400 mb-2"
+                                                            fill="none" stroke="currentColor"
+                                                            viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                                 stroke-width="2"
                                                                 d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
                                                             </path>
                                                         </svg>
-                                                            <span class="text-md font-medium text-gray-900">Click to
-                                                                upload</span>
-                                                            <span class="text-sm text-gray-500">or drag and drop</span>
-                                                            <span class="text-md text-gray-500">PDF, JPG, PNG up to 5MB</span>
-                                                            <input id="passport-file" name="passport" type="file"
-                                                                class="hidden" accept=".pdf,.jpg,.jpeg,.png"
-                                                                @change="handleFileSelect($event)">
-                                                        </label>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Loading State -->
-                                                <div x-show="uploading" class="flex flex-col items-center">
-                                                    <div
-                                                        class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mb-2">
-                                                    </div>
-                                                    <span class="text-sm text-gray-600">Uploading...</span>
+                                                        <span class="text-md font-medium text-gray-900">Click to
+                                                            upload</span>
+                                                        <span class="text-sm text-gray-500">or drag and drop</span>
+                                                        <span class="text-md text-gray-500">PDF, JPG, PNG up to
+                                                            5MB</span>
+                                                        <input id="passport-file" name="passport" type="file"
+                                                            class="hidden" accept=".pdf,.jpg,.jpeg,.png"
+                                                            @change="handleFileSelect($event)">
+                                                    </label>
                                                 </div>
                                             </div>
 
-                                            <!-- Success State (shown after successful upload) -->
-                                            <div x-show="uploaded" x-transition
-                                                class="bg-green-50 border border-green-200 rounded-lg p-4">
-                                                <div class="flex items-center justify-between">
-                                                    <div class="flex items-center space-x-3">
-                                                        <div class="flex-shrink-0">
-                                                            <svg class="h-8 w-8 text-green-600" fill="currentColor"
-                                                                viewBox="0 0 24 24">
-                                                                <path
-                                                                    d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
-                                                            </svg>
-                                                        </div>
-                                                        <div class="flex-1 min-w-0">
-                                                            <p class="text-sm font-medium text-green-900 overflow-hidden text-ellipsis"
-                                                                x-text="fileName"></p>
-                                                            <p class="text-sm text-green-700">
-                                                                <span x-text="fileSize"></span> •
-                                                                <span class="text-green-600">Uploaded
-                                                                    successfully</span>
-                                                            </p>
-                                                        </div>
+                                            <!-- Loading State -->
+                                            <div x-show="uploading" class="flex flex-col items-center">
+                                                <div
+                                                    class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mb-2">
+                                                </div>
+                                                <span class="text-sm text-gray-600">Uploading...</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Success State (shown after successful upload) -->
+                                        <div x-show="uploaded" x-transition
+                                            class="bg-green-50 border border-green-200 rounded-lg p-4">
+                                            <div class="flex items-center justify-between">
+                                                <div class="flex items-center space-x-3">
+                                                    <div class="flex-shrink-0">
+                                                        <svg class="h-8 w-8 text-green-600" fill="currentColor"
+                                                            viewBox="0 0 24 24">
+                                                            <path
+                                                                d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
+                                                        </svg>
                                                     </div>
-                                                    <div class="flex items-center space-x-2">
-                                                        <!-- Download Button -->
-                                                        <a 
-                                                            href="{{ route('applicant.application.downloadDocument', ['applicationId' => $application->id, 'filename' => '1751272972_photo_2025-06-16_16-37-28.jpg']) }}" 
-                                                            class="text-green-600 hover:text-green-800 transition-colors"
-                                                        >
-                                                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    <div class="flex-1 min-w-0">
+                                                        <p class="text-sm font-medium text-green-900"
+                                                            x-text="fileName.length > 17 ? fileName.slice(0, 17) + '...' : fileName">
+                                                        </p>
+                                                        <p class="text-sm text-green-700">
+                                                            <span x-text="fileSize"></span><br>
+                                                            <span class="text-green-600">Uploaded
+                                                                successfully</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="flex items-center space-x-2">
+                                                    <!-- Download Button - only show when fileId exists -->
+                                                    <template x-if="fileId">
+                                                        <a :href="`/applicant/application/download-document/{{ $application->id }}/${fileId}`"
+                                                            class="text-green-600 hover:text-green-800 transition-colors">
+                                                            <svg class="h-5 w-5" fill="none"
+                                                                stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round"
+                                                                    stroke-linejoin="round" stroke-width="2"
                                                                     d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
                                                                 </path>
                                                             </svg>
                                                         </a>
-                                                        <!-- Remove Button -->
-                                                        <a href="{{ route('applicant.application.removeDocument', ['applicationId' => $application->id, 'filename' => '1751272972_photo_2025-06-16_16-37-28.jpg']) }}" @click="removeFile()"
-                                                            class="text-red-500 hover:text-red-700 transition-colors">
-                                                            <svg class="h-5 w-5" fill="none" stroke="currentColor"
-                                                                viewBox="0 0 24 24">
-                                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                                    stroke-width="2" d="M6 18L18 6M6 6l12 12">
-                                                                </path>
-                                                            </svg>
-                                                        </a>
-                                                    </div>
+                                                    </template>
+
+                                                    <!-- Remove Button -->
+                                                    <button @click="removeFile()"
+                                                        class="text-red-500 hover:text-red-700 transition-colors"
+                                                        type="button">
+                                                        <svg class="h-5 w-5" fill="none" stroke="currentColor"
+                                                            viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </button>
                                                 </div>
                                             </div>
+                                        </div>
 
-                                            <!-- Error State -->
-                                            <div x-show="error" x-transition
-                                                class="bg-red-50 border border-red-200 rounded-lg p-4 mt-2">
-                                                <div class="flex items-center">
-                                                    <svg class="h-5 w-5 text-red-400 mr-2" fill="currentColor"
-                                                        viewBox="0 0 20 20">
-                                                        <path fill-rule="evenodd"
-                                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                                                            clip-rule="evenodd"></path>
-                                                    </svg>
-                                                    <span class="text-sm text-red-800" x-text="errorMessage"></span>
-                                                </div>
+                                        <!-- Error State -->
+                                        <div x-show="error" x-transition
+                                            class="bg-red-50 border border-red-200 rounded-lg p-4 mt-2">
+                                            <div class="flex items-center">
+                                                <svg class="h-5 w-5 text-red-400 mr-2" fill="currentColor"
+                                                    viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd"
+                                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                                        clip-rule="evenodd"></path>
+                                                </svg>
+                                                <span class="text-sm text-red-800" x-text="errorMessage"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -282,38 +287,32 @@
 
                 <!-- Navigation Buttons -->
                 <div class="flex items-center justify-between pt-8 border-t mt-8">
-                    <button type="button" disabled class="flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-400 bg-gray-100 cursor-not-allowed">
+                    <button type="button" disabled
+                        class="flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-400 bg-gray-100 cursor-not-allowed">
                         <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 19l-7-7 7-7" />
                         </svg>
                         Previous
                     </button>
 
                     <div class="flex items-center space-x-4">
-                        <button
-                            type="submit"
-                            class="flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
-                            >
-                            <svg
-                                class="h-4 w-4 mr-2"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                            >
-                                <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3-3m0 0l-3 3m3-3v12"
-                                ></path>
+                        <button type="submit"
+                            class="flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50">
+                            <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3-3m0 0l-3 3m3-3v12">
+                                </path>
                             </svg>
                             <span>Save Progress</span>
                         </button>
 
-                        <button type="button" @click="currentStep = 2" class="flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                        <button type="button" @click="currentStep = 2"
+                            class="flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
                             Next
                             <svg class="h-4 w-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 5l7 7-7 7"></path>
                             </svg>
                         </button>
                     </div>

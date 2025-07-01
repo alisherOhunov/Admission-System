@@ -33,7 +33,7 @@ class ApplicationController extends Controller
                 'status' => 'draft',
             ]);
         }
-        $documents = $application ? $application->documents : collect();
+        $documents = $application ? $application->getImportantDocuments() : collect();
 
         return view('applicant.application', compact('application', 'programs', 'currentPeriod', 'documents'));
     }
@@ -91,14 +91,20 @@ class ApplicationController extends Controller
 
         try {
             DB::beginTransaction();
+
+            // Remove existing document if it exists
             $existingDocument = $application->documents()->where('type', $type)->first();
             if ($existingDocument) {
                 Storage::disk('public')->delete($existingDocument->path);
                 $existingDocument->delete();
             }
+
+            // Store the new file
             $filename = Str::ulid().'.'.$file->getClientOriginalExtension();
             $path = $file->storeAs('documents/'.$application->id, $filename, 'public');
-            Document::create([
+
+            // Create document record
+            $document = Document::create([
                 'application_id' => $application->id,
                 'type' => $type,
                 'filename' => $filename,
@@ -110,7 +116,17 @@ class ApplicationController extends Controller
 
             DB::commit();
 
-            return response()->json(['message' => 'Document uploaded successfully']);
+            // Return consistent response with document data
+            return response()->json([
+                'message' => 'Document uploaded successfully',
+                'document' => [
+                    'id' => $document->id,
+                    'filename' => $document->filename,
+                    'original_name' => $document->original_name,
+                    'size' => $document->size,
+                    'type' => $document->type,
+                ],
+            ]);
 
         } catch (\Exception $e) {
             DB::rollBack();
@@ -119,44 +135,72 @@ class ApplicationController extends Controller
                 'user_id' => auth()->id(),
                 'application_id' => $application->id,
                 'document_type' => $type,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
             ]);
 
-            return response()->json(['error' => 'Failed to upload document'], 500);
+            return response()->json(['error' => 'Failed to upload document: '.$e->getMessage()], 500);
         }
     }
 
     public function downloadDocument(int $applicationId, int $file_id)
     {
-        $document = Document::where('application_id', $applicationId)
-            ->where('id', $file_id)
-            ->first();
-        $path = 'documents/'.$applicationId.'/'.$document->filename;
+        try {
+            $document = Document::where('application_id', $applicationId)
+                ->where('id', $file_id)
+                ->firstOrFail();
 
-        if (! Storage::disk('public')->exists($path)) {
-            abort(404, 'File not found');
+            $path = 'documents/'.$applicationId.'/'.$document->filename;
+
+            if (! Storage::disk('public')->exists($path)) {
+                abort(404, 'File not found');
+            }
+
+            return Storage::disk('public')->download($path, $document->original_name);
+
+        } catch (\Exception $e) {
+            \Log::error('Failed to download document: '.$e->getMessage(), [
+                'application_id' => $applicationId,
+                'file_id' => $file_id,
+            ]);
+
+            abort(404, 'Document not found');
         }
-
-        return Storage::disk('public')->download($path);
     }
 
     public function removeDocument(int $applicationId, int $file_id)
     {
-        $document = Document::where('application_id', $applicationId)
-            ->where('id', $file_id)
-            ->first();
+        try {
+            $document = Document::where('application_id', $applicationId)
+                ->where('id', $file_id)
+                ->firstOrFail();
 
-        $path = 'documents/'.$applicationId.'/'.$document->filename;
+            $path = 'documents/'.$applicationId.'/'.$document->filename;
 
-        if (! Storage::disk('public')->exists($path)) {
+            // Delete file from storage
+            if (Storage::disk('public')->exists($path)) {
+                Storage::disk('public')->delete($path);
+            }
+
+            // Delete database record
+            $document->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Document removed successfully',
+            ], 200);
+
+        } catch (\Exception $e) {
+            \Log::error('Failed to remove document: '.$e->getMessage(), [
+                'application_id' => $applicationId,
+                'file_id' => $file_id,
+                'error' => $e->getMessage(),
+            ]);
+
             return response()->json([
                 'success' => false,
-                'message' => 'File not found',
-            ], 404);
+                'message' => 'Failed to remove document: '.$e->getMessage(),
+            ], 500);
         }
-
-        Storage::disk('public')->delete($path);
-        $document->delete();
-
-        return response()->noContent(Response::HTTP_OK);
     }
 }

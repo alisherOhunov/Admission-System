@@ -214,167 +214,372 @@
                         </div>
 
                         <div class="p-6 space-y-4">
-                            <div>
-                            <!-- Transcripts Upload -->
-                            <div class="border rounded-lg p-4">
-                                <div class="flex items-start justify-between mb-3">
-                                <div class="flex-1">
+                            <!-- Statement of Purpose Upload -->
+                            <div x-data="documentUpload('sop', @js($documents->get('sop')))" class="border rounded-lg p-4">
+                                <div class="mb-3">
                                     <div class="flex items-center space-x-2 mb-1">
-                                    <span class="text-md font-medium"
-                                        >Statement of Purpose</span
-                                    >
-                                    <span
-                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800"
-                                        >Required</span
-                                    >
+                                        <span class="text-sm font-medium">Statement of Purpose</span>
+                                        <span
+                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                            :class="uploaded ? 'bg-green-100 text-green-800' :
+                                                'bg-red-100 text-red-800'"
+                                            x-text="uploaded ? 'Uploaded' : 'Required'">
+                                        </span>
                                     </div>
-                                    <p class="text-s text-gray-500 mb-2">
-                                    Your personal statement (if separate file)
-                                    </p>
-                                    <div class="text-xs text-gray-400">
-                                    Formats: PDF, DOC, DOCX • Max size: 5MB
-                                    </div>
-                                </div>
+                                    <p class="text-sm text-gray-500 mb-2">Your personal statement (if separate file)</p>
+                                    <div class="text-xs text-gray-400">Formats: PDF, DOC, DOCX • Max size: 5MB</div>
                                 </div>
 
-                                <div
-                                class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-400 transition-colors"
-                                >
-                                <svg
-                                    class="mx-auto h-6 w-6 text-gray-400 mb-2"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                                    ></path>
-                                </svg>
-                                <label for="transcripsts-file" class="cursor-pointer">
-                                    <span class="text-sm font-medium text-gray-900"
-                                    >Click to upload</span
-                                    >
-                                    <span class="text-sm text-gray-500">
-                                    or drag and drop</span
-                                    >
-                                    <input
-                                    id="transcripsts-file"
-                                    type="file"
-                                    class="hidden"
-                                    accept=".pdf,.jpg,.jpeg,.png"
-                                    />
-                                </label>
+                                <div x-show="!uploaded" x-transition
+                                    class="border-2 border-dashed rounded-lg p-4 text-center transition-colors"
+                                    :class="isDragging ? 'border-blue-400 bg-blue-50' :
+                                        'border-gray-300 hover:border-gray-400'"
+                                    @dragover.prevent="isDragging = true"
+                                    @dragleave.prevent="isDragging = false"
+                                    @drop.prevent="handleDrop($event)">
+
+                                    <div x-show="!uploading">
+                                        <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                            <label for="sop-file" class="cursor-pointer">
+                                                <svg class="mx-auto h-10 w-10 text-gray-400 mb-2"
+                                                    fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                                                    </path>
+                                                </svg>
+                                                <span class="text-md font-medium text-gray-900">Click to
+                                                    upload</span>
+                                                <span class="text-sm text-gray-500">or drag and drop</span>
+                                                <span class="text-md text-gray-500">PDF, DOC, DOCX up to
+                                                    5MB</span>
+                                                <input id="sop-file" name="sop" type="file"
+                                                    class="hidden" accept=".pdf,.doc,.docx"
+                                                    @change="handleFileSelect($event)">
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Loading State -->
+                                    <div x-show="uploading" class="flex flex-col items-center">
+                                        <div
+                                            class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mb-2">
+                                        </div>
+                                        <span class="text-sm text-gray-600">Uploading...</span>
+                                    </div>
+                                </div>
+
+                                <!-- Success State (shown after successful upload) -->
+                                <div x-show="uploaded" x-transition
+                                    class="bg-green-50 border border-green-200 rounded-lg p-4">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="flex-shrink-0">
+                                                <svg class="h-8 w-8 text-green-600" fill="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path
+                                                        d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
+                                                </svg>
+                                            </div>
+                                            <div class="flex-1 min-w-0">
+                                                <p class="text-sm font-medium text-green-900"
+                                                    x-text="fileName.length > 17 ? fileName.slice(0, 17) + '...' : fileName">
+                                                </p>
+                                                <p class="text-sm text-green-700">
+                                                    <span x-text="fileSize"></span><br>
+                                                    <span class="text-green-600">Uploaded
+                                                        successfully</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <!-- Download Button - only show when fileId exists -->
+                                            <template x-if="fileId">
+                                                <a :href="`/applicant/application/download-document/{{ $application->id }}/${fileId}`"
+                                                    class="text-green-600 hover:text-green-800 transition-colors">
+                                                    <svg class="h-5 w-5" fill="none"
+                                                        stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                                        </path>
+                                                    </svg>
+                                                </a>
+                                            </template>
+
+                                            <!-- Remove Button -->
+                                            <button @click="removeFile()"
+                                                class="text-red-500 hover:text-red-700 transition-colors"
+                                                type="button">
+                                                <svg class="h-5 w-5" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Error State -->
+                                <div x-show="error" x-transition
+                                    class="bg-red-50 border border-red-200 rounded-lg p-4 mt-2">
+                                    <div class="flex items-center">
+                                        <svg class="h-5 w-5 text-red-400 mr-2" fill="currentColor"
+                                            viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd"
+                                                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                                clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span class="text-sm text-red-800" x-text="errorMessage"></span>
+                                    </div>
                                 </div>
                             </div>
-                            </div>
 
-                            <!-- Diploma certificate Upload -->
-                            <div class="border rounded-lg p-4">
-                                <div class="flex items-start justify-between mb-3">
-                                <div class="flex-1">
+                            <!-- Curriculum Vitae/Resume Upload -->
+                            <div x-data="documentUpload('cv', @js($documents->get('cv')))" class="border rounded-lg p-4">
+                                <div class="mb-3">
                                     <div class="flex items-center space-x-2 mb-1">
-                                    <span class="text-sm font-medium"
-                                        >Curriculum Vitae/Resume</span
-                                    >
-                                    <span
-                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800"
-                                        >Optional</span
-                                    >
+                                        <span class="text-sm font-medium">Curriculum Vitae/Resume</span>
+                                        <span
+                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                            :class="uploaded ? 'bg-green-100 text-green-800' :
+                                                'bg-gray-100 text-gray-800'"
+                                            x-text="uploaded ? 'Uploaded' : 'Optional'">
+                                        </span>
                                     </div>
-                                    <p class="text-s text-gray-500 mb-2">
-                                    Your updated CV or resume
-                                    </p>
-                                    <div class="text-xs text-gray-400">
-                                    Formats: PDF, DOC, DOCX • Max size: 5MB
-                                    </div>
-                                </div>
+                                    <p class="text-sm text-gray-500 mb-2">Your updated CV or resume</p>
+                                    <div class="text-xs text-gray-400">Formats: PDF, DOC, DOCX • Max size: 5MB</div>
                                 </div>
 
-                                <div
-                                class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-400 transition-colors"
-                                >
-                                <svg
-                                    class="mx-auto h-6 w-6 text-gray-400 mb-2"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                                    ></path>
-                                </svg>
-                                <label for="diploma-file" class="cursor-pointer">
-                                    <span class="text-sm font-medium text-gray-900"
-                                    >Click to upload</span
-                                    >
-                                    <span class="text-sm text-gray-500">
-                                    or drag and drop</span
-                                    >
-                                    <input
-                                    id="diploma-file"
-                                    type="file"
-                                    class="hidden"
-                                    accept=".pdf,.jpg,.jpeg,.png"
-                                    />
-                                </label>
+                                <div x-show="!uploaded" x-transition
+                                    class="border-2 border-dashed rounded-lg p-4 text-center transition-colors"
+                                    :class="isDragging ? 'border-blue-400 bg-blue-50' :
+                                        'border-gray-300 hover:border-gray-400'"
+                                    @dragover.prevent="isDragging = true"
+                                    @dragleave.prevent="isDragging = false"
+                                    @drop.prevent="handleDrop($event)">
+
+                                    <div x-show="!uploading">
+                                        <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                            <label for="cv-file" class="cursor-pointer">
+                                                <svg class="mx-auto h-10 w-10 text-gray-400 mb-2"
+                                                    fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                                                    </path>
+                                                </svg>
+                                                <span class="text-md font-medium text-gray-900">Click to
+                                                    upload</span>
+                                                <span class="text-sm text-gray-500">or drag and drop</span>
+                                                <span class="text-md text-gray-500">PDF, DOC, DOCX up to
+                                                    5MB</span>
+                                                <input id="cv-file" name="cv" type="file"
+                                                    class="hidden" accept=".pdf,.doc,.docx"
+                                                    @change="handleFileSelect($event)">
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Loading State -->
+                                    <div x-show="uploading" class="flex flex-col items-center">
+                                        <div
+                                            class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mb-2">
+                                        </div>
+                                        <span class="text-sm text-gray-600">Uploading...</span>
+                                    </div>
+                                </div>
+
+                                <!-- Success State (shown after successful upload) -->
+                                <div x-show="uploaded" x-transition
+                                    class="bg-green-50 border border-green-200 rounded-lg p-4">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="flex-shrink-0">
+                                                <svg class="h-8 w-8 text-green-600" fill="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path
+                                                        d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
+                                                </svg>
+                                            </div>
+                                            <div class="flex-1 min-w-0">
+                                                <p class="text-sm font-medium text-green-900"
+                                                    x-text="fileName.length > 17 ? fileName.slice(0, 17) + '...' : fileName">
+                                                </p>
+                                                <p class="text-sm text-green-700">
+                                                    <span x-text="fileSize"></span><br>
+                                                    <span class="text-green-600">Uploaded
+                                                        successfully</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <!-- Download Button - only show when fileId exists -->
+                                            <template x-if="fileId">
+                                                <a :href="`/applicant/application/download-document/{{ $application->id }}/${fileId}`"
+                                                    class="text-green-600 hover:text-green-800 transition-colors">
+                                                    <svg class="h-5 w-5" fill="none"
+                                                        stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                                        </path>
+                                                    </svg>
+                                                </a>
+                                            </template>
+
+                                            <!-- Remove Button -->
+                                            <button @click="removeFile()"
+                                                class="text-red-500 hover:text-red-700 transition-colors"
+                                                type="button">
+                                                <svg class="h-5 w-5" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Error State -->
+                                <div x-show="error" x-transition
+                                    class="bg-red-50 border border-red-200 rounded-lg p-4 mt-2">
+                                    <div class="flex items-center">
+                                        <svg class="h-5 w-5 text-red-400 mr-2" fill="currentColor"
+                                            viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd"
+                                                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                                clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span class="text-sm text-red-800" x-text="errorMessage"></span>
+                                    </div>
                                 </div>
                             </div>
-                            <!-- Englis Test Score Upload -->
-                            <div class="border rounded-lg p-4">
-                                <div class="flex items-start justify-between mb-3">
-                                <div class="flex-1">
+                            
+                            <!-- Portfolio Upload -->
+                            <div x-data="documentUpload('portfolio', @js($documents->get('portfolio')))" class="border rounded-lg p-4">
+                                <div class="mb-3">
                                     <div class="flex items-center space-x-2 mb-1">
-                                    <span class="text-sm font-medium"
-                                        >Portfolie</span
-                                    >
-                                    <span
-                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800"
-                                        >Optional</span
-                                    >
+                                        <span class="text-sm font-medium">Portfolio</span>
+                                        <span
+                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                            :class="uploaded ? 'bg-green-100 text-green-800' :
+                                                'bg-gray-100 text-gray-800'"
+                                            x-text="uploaded ? 'Uploaded' : 'Optional'">
+                                        </span>
                                     </div>
-                                    <p class="text-s text-gray-500 mb-2">
-                                        Academic or professional portfolio (if applicable)
-                                    </p>
-                                    <div class="text-xs text-gray-400">
-                                    Formats: PDF, ZIP • Max size: 20MB
-                                    </div>
-                                </div>
+                                    <p class="text-sm text-gray-500 mb-2">Academic or professional portfolio (if applicable)</p>
+                                    <div class="text-xs text-gray-400">Formats: PDF, ZIP • Max size: 20MB</div>
                                 </div>
 
-                                <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-400 transition-colors">
-                                <svg
-                                    class="mx-auto h-6 w-6 text-gray-400 mb-2"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                                    ></path>
-                                </svg>
-                                <label for="english-score-file" class="cursor-pointer">
-                                    <span class="text-sm font-medium text-gray-900"
-                                    >Click to upload</span
-                                    >
-                                    <span class="text-sm text-gray-500">
-                                    or drag and drop</span
-                                    >
-                                    <input
-                                    id="english-score-file"
-                                    type="file"
-                                    class="hidden"
-                                    accept=".pdf,.jpg,.jpeg,.png"
-                                    />
-                                </label>
+                                <div x-show="!uploaded" x-transition
+                                    class="border-2 border-dashed rounded-lg p-4 text-center transition-colors"
+                                    :class="isDragging ? 'border-blue-400 bg-blue-50' :
+                                        'border-gray-300 hover:border-gray-400'"
+                                    @dragover.prevent="isDragging = true"
+                                    @dragleave.prevent="isDragging = false"
+                                    @drop.prevent="handleDrop($event)">
+
+                                    <div x-show="!uploading">
+                                        <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                            <label for="portfolio-file" class="cursor-pointer">
+                                                <svg class="mx-auto h-10 w-10 text-gray-400 mb-2"
+                                                    fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                                                    </path>
+                                                </svg>
+                                                <span class="text-md font-medium text-gray-900">Click to
+                                                    upload</span>
+                                                <span class="text-sm text-gray-500">or drag and drop</span>
+                                                <span class="text-md text-gray-500">PDF, ZIP up to
+                                                    20MB</span>
+                                                <input id="portfolio-file" name="portfolio" type="file"
+                                                    class="hidden" accept=".pdf,.zip"
+                                                    @change="handleFileSelect($event)">
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Loading State -->
+                                    <div x-show="uploading" class="flex flex-col items-center">
+                                        <div
+                                            class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mb-2">
+                                        </div>
+                                        <span class="text-sm text-gray-600">Uploading...</span>
+                                    </div>
+                                </div>
+
+                                <!-- Success State (shown after successful upload) -->
+                                <div x-show="uploaded" x-transition
+                                    class="bg-green-50 border border-green-200 rounded-lg p-4">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="flex-shrink-0">
+                                                <svg class="h-8 w-8 text-green-600" fill="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path
+                                                        d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
+                                                </svg>
+                                            </div>
+                                            <div class="flex-1 min-w-0">
+                                                <p class="text-sm font-medium text-green-900"
+                                                    x-text="fileName.length > 17 ? fileName.slice(0, 17) + '...' : fileName">
+                                                </p>
+                                                <p class="text-sm text-green-700">
+                                                    <span x-text="fileSize"></span><br>
+                                                    <span class="text-green-600">Uploaded
+                                                        successfully</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <!-- Download Button - only show when fileId exists -->
+                                            <template x-if="fileId">
+                                                <a :href="`/applicant/application/download-document/{{ $application->id }}/${fileId}`"
+                                                    class="text-green-600 hover:text-green-800 transition-colors">
+                                                    <svg class="h-5 w-5" fill="none"
+                                                        stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                                        </path>
+                                                    </svg>
+                                                </a>
+                                            </template>
+
+                                            <!-- Remove Button -->
+                                            <button @click="removeFile()"
+                                                class="text-red-500 hover:text-red-700 transition-colors"
+                                                type="button">
+                                                <svg class="h-5 w-5" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Error State -->
+                                <div x-show="error" x-transition
+                                    class="bg-red-50 border border-red-200 rounded-lg p-4 mt-2">
+                                    <div class="flex items-center">
+                                        <svg class="h-5 w-5 text-red-400 mr-2" fill="currentColor"
+                                            viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd"
+                                                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                                clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span class="text-sm text-red-800" x-text="errorMessage"></span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -448,5 +653,5 @@
                 </div>
             </div>
         </div>
-    </div>                                
+    </div>
 </div>
