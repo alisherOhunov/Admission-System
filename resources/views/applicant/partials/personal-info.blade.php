@@ -26,8 +26,14 @@
                                 <label for="first_name" class="block text-sm font-medium text-gray-700">
                                     First Name<span class="text-red-500">*</span>
                                 </label>
-                                <input type="text" id="first_name" name="first_name" x-model="form.first_name"
-                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm">
+                                <input
+                                    type="text"
+                                    id="first_name"
+                                    name="first_name"
+                                    placeholder="Enter your first name"
+                                    value="{{ old('first_name', Auth::user()->first_name) }}"
+                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
+                                >
                                 @error('first_name')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -35,8 +41,9 @@
                             <div>
                                 <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name
                                     <span class="text-red-500">*</span></label>
-                                <input type="text" id="last_name" name="last_name" x-model="form.last_name"
-                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm">
+                                <input type="text" id="last_name" name="last_name" placeholder="Enter your last name" value="{{ old('last_name', Auth::user()->last_name) }}"
+                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
+                                >
                                 @error('last_name')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -49,7 +56,7 @@
                                     Date of Birth <span class="text-red-500">*</span>
                                 </label>
                                 <input type="date" id="date_of_birth" name="date_of_birth"
-                                    x-model="form.date_of_birth"
+                                    value="{{ old('date_of_birth', isset($application->date_of_birth) ? $application->date_of_birth->format('Y-m-d') : '') }}"
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm">
                                 @error('date_of_birth')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -57,12 +64,12 @@
                             </div>
                             <div>
                                 <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
-                                <select id="gender" name="gender" x-model="form.gender"
+                                <select id="gender" name="gender"
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
-                                    @change="clearError('gender')">
+                                >
                                     <option value="">Select gender</option>
-                                    <option value="1">Male</option>
-                                    <option value="2">Female</option>
+                                    <option value="1" @selected(old('gender', $application->gender ?? '') == '1')>Male</option>
+                                    <option value="2" @selected(old('gender', $application->gender ?? '') == '2')>Female</option>
                                 </select>
                                 @error('gender')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -74,7 +81,7 @@
                             <div>
                                 <label for="nationality" class="block text-sm font-medium text-gray-700">Nationality
                                     <span class="text-red-500">*</span></label>
-                                <select id="nationality" name="nationality" x-model="form.nationality"
+                                <select id="nationality" name="nationality"
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
                                     @change="clearError('nationality')">
                                     <option value="">Select your nationality</option>
@@ -92,8 +99,8 @@
                             <div>
                                 <label for="passport_number" class="block text-sm font-medium text-gray-700">Passport
                                     Number <span class="text-red-500">*</span></label>
-                                <input type="text" id="passport_number" name="passport_number"
-                                    x-model="form.passport_number"
+                                <input type="text" id="passport_number" name="passport_number" placeholder="Enter your passport number"
+                                    value="{{ old('passport_number', $application->passport_number ?? '') }}"
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm">
                                 @error('passport_number')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -104,8 +111,8 @@
                         <div>
                             <label for="native_language" class="block text-sm font-medium text-gray-700">Native
                                 Language <span class="text-red-500">*</span></label>
-                            <input type="text" id="native_language" name="native_language"
-                                x-model="form.native_language"
+                            <input type="text" id="native_language" name="native_language" placeholder="Enter your native language"
+                                value="{{ old('native_language', $application->native_language ?? '') }}"
                                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm">
                             @error('native_language')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>

@@ -55,39 +55,52 @@
 
                         <div>
                             <label
-                            for="programOfStudy"
-                            class="block text-sm font-medium text-gray-700"
+                                for="programOfStudy"
+                                class="block text-sm font-medium text-gray-700"
                             >Program of Study<span class="text-red-500">*</span></label
                             >
                             <select
-                            id="programOfStudy"
-                            name="programOfStudy"
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                            >
-                            <option value="mastersOfScience">Master of Science in Data Science</option>
-                            <option value="mastersOfBusiness">Master of Business Administration (MBA)</option>
-                            <option value="mastersOfScienceEngineering">Master of Science in Engineering Management</option>
+                                id="program_id"
+                                name="program_id"
+                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            >  
+                                <option value="">Select Program</option>
+                                
+                                @foreach($programs as $programOfStudy => $programList)
+                                    @foreach($programList as $program)
+                                        <option value="{{ $program['id'] }}" @selected(old('program_id', $application->program_id ?? '') == $program['id'])>
+                                            {{ $program['name'] }}
+                                        </option>
+                                    @endforeach
+                                @endforeach
                             </select>
-                            <p class="mt-2 text-gray-500">Choose the specific program that aligns with your academic interests</p>
+                            <p class="mt-2 text-gray-500">Select the program you wish to apply for</p>
+                            @error('program_id')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div>
                             <label
-                            for="startTerm"
+                            for="start_term"
                             class="block text-sm font-medium text-gray-700"
                             >Preferred Start Term<span class="text-red-500">*</span></label
                             >
                             <select
-                            id="startTerm"
-                            name="startTerm"
+                            id="start_term"
+                            name="start_term"
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             >
-                                <option value="sprin2025">Spring 2025</option>
-                                <option value="fall2024">Fall 2024</option>
-                                <option value="fall2025">Fall 2025</option>
-                                <option value="sprin2026">Spring 2026</option>
+                                <option value="">Select Start Term</option>
+                                <option value="spring2025" @selected(old('start_term', $application->start_term ?? '') == 'spring2025')>Spring 2025</option>
+                                <option value="fall2024" @selected(old('start_term', $application->start_term ?? '') == 'fall2024')>Fall 2024</option>
+                                <option value="fall2025" @selected(old('start_term', $application->start_term ?? '') == 'fall2025')>Fall 2025</option>
+                                <option value="spring2026" @selected(old('start_term', $application->start_term ?? '') == 'spring2026')>Spring 2026</option>
                             </select>
                             <p class="mt-2 text-gray-500">When would you like to begin your studies?</p>
+                            @error('start_term')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div class="grid grid-cols-1 gap-6">
                             <div class=" items-start rounded-md border border-blue-200 bg-blue-50 p-4 text-blue-black">
@@ -124,8 +137,8 @@
                         </div>
                         </div>
                         <div 
-                        x-data="{ text: '', min: 100 }" 
-                        class="grid grid-cols-1 gap-4 pb-10"
+                            x-data="{ text: '', min: 100 }" 
+                            class="grid grid-cols-1 gap-4 pb-10"
                         >
                         <div>
                             <p class="text-lg font-semibold text-gray-900">
@@ -133,37 +146,45 @@
                             </p>
                         </div>
 
-                        <div>
-                            <label for="personalStatement" class="block font-medium text-gray-700">
-                            Personal Statement <span class="text-red-500">*</span>
-                            </label>
-                        </div>
+                        <div x-data="{ 
+                            text: '{{ old('statement_of_purpose', $application->statement_of_purpose ?? '') }}', 
+                            min: 100
+                        }">
+                            <div>
+                                <label for="statement_of_purpose" class="block font-medium text-gray-700">
+                                    Personal Statement <span class="text-red-500">*</span>
+                                </label>
+                            </div>
 
-                        <div>
-                            <p class="text-center text-gray-600">
-                            Explain why you want to study this program, your academic and professional background, and your career goals.
-                            This is your opportunity to make a compelling case for your admission.
-                            </p>
-                        </div>
+                            <div>
+                                <p class="text-center text-gray-600">
+                                    Explain why you want to study this program, your academic and professional background, and your career goals.
+                                    This is your opportunity to make a compelling case for your admission.
+                                </p>
+                            </div>
 
-                        <div>
-                            <textarea
-                            id="personalStatement"
-                            name="personalStatement"
-                            placeholder="Begin your statement of purpose here..."
-                            rows="6"
-                            maxlength="1000"
-                            x-model="text"
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                            ></textarea>
+                            <div>
+                                <textarea
+                                    id="statement_of_purpose"
+                                    name="statement_of_purpose"
+                                    placeholder="Begin your statement of purpose here..."
+                                    rows="6"
+                                    maxlength="1000"
+                                    x-model="text"
+                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                ></textarea>
 
-                            <div class="mt-2 text-sm text-right">
-                            <span 
-                                :class="text.length < min ? 'text-orange-500' : 'text-green-600'"
-                                x-text="text.length < min 
-                                ? `${text.length} characters (${min - text.length} more needed)` 
-                                : `${text.length} characters`"
-                            ></span>
+                                <div class="mt-2 text-sm text-right">
+                                    <span 
+                                        :class="text.length < min ? 'text-orange-500' : 'text-green-600'"
+                                        x-text="text.length <= min 
+                                            ? `${text.length}/${min}` 
+                                            : `${text.length} characters`"
+                                    ></span>
+                                    @error('statement_of_purpose')
+                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
                         </div>

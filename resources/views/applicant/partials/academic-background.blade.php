@@ -40,7 +40,7 @@
                                 >Previous Institution <span class="text-red-500">*</span></label
                                 >
                                 <input
-                                    x-model="form.previous_institution"
+                                    value="{{ old('previous_institution', $application->previous_institution ?? '') }}"
                                     type="text"
                                     id="previousInstitution"
                                     name="previous_institution"
@@ -61,7 +61,7 @@
                                 </label
                                 >
                                 <input
-                                    x-model="form.degree_earned"
+                                    value="{{ old('degree_earned', $application->degree_earned ?? '') }}"
                                     type="text"
                                     id="degreeEarned"
                                     name="degree_earned"
@@ -83,8 +83,7 @@
                                 <span class="text-red-500">*</span></label
                                 >
                                 <input
-                                x-data="{ form: { previous_gpa: '{{ old('previous_gpa', $application->previous_gpa ?? '') }}' } }"
-                                x-model="form.previous_gpa"
+                                value="{{ old('previous_gpa', $application->previous_gpa ?? '') }}"
                                 type="text"
                                 id="gpa"
                                 name="previous_gpa"
@@ -100,15 +99,15 @@
                             <div class="grid grid-cols-1 gap-6">
                                 <div>
                                     <label
-                                    for="graduationDate"
+                                    for="graduation_date"
                                     class="block text-sm font-medium text-gray-700"
                                     >Graduation Date (Optional)
                                     </label
                                     >
                                     <input
-                                    x-model="form.graduation_date"
+                                    value="{{ old('graduation_date', isset($application->graduation_date) ? $application->graduation_date->format('Y-m-d') : '') }}"
                                     type="date"
-                                    id="graduationDate"
+                                    id="graduation_date"
                                     name="graduation_date"
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                                     />
@@ -129,17 +128,17 @@
                                     >English Test Type</label
                                     >
                                     <select
-                                    x-model="form.english_test_type"
-                                    id="english-test-type"
-                                    name="english_test_type"
-                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                        id="english-test-type"
+                                        name="english_test_type"
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                                     >
-                                    <option value="IELTS">IELTS Academic</option>
-                                    <option value="TOEFL">TOEFL iBT</option>
-                                    <option value="DUOLINGO">Duolingo English Test</option>
-                                    <option value="CAMBRIDGE">Cambridge English</option>
-                                    <option value="PTE">PTE Academic</option>
-                                    <option value="OTHER">Other</option>
+                                        <option value="">Select English test type</option>
+                                        <option value="IELTS" @selected(old('english_test_type', $application->english_test_type ?? '') == 'IELTS')>IELTS Academic</option>
+                                        <option value="TOEFL" @selected(old('english_test_type', $application->english_test_type ?? '') == 'TOEFL')>TOEFL iBT</option>
+                                        <option value="DUOLINGO" @selected(old('english_test_type', $application->english_test_type ?? '') == 'DUOLINGO')>Duolingo English Test</option>
+                                        <option value="CAMBRIDGE" @selected(old('english_test_type', $application->english_test_type ?? '') == 'CAMBRIDGE')>Cambridge English</option>
+                                        <option value="PTE" @selected(old('english_test_type', $application->english_test_type ?? '') == 'PTE')>PTE Academic</option>
+                                        <option value="OTHER" @selected(old('english_test_type', $application->english_test_type ?? '') == 'OTHER')>Other</option>
                                     </select>
                                     <p class="mt-2 text-gray-500">Select the English proficiency test you have taken or plan to take</p>
                                     @error('english_test_type')
@@ -153,7 +152,7 @@
                                     >Test Score <span class="text-red-500">*</span></label
                                     >
                                     <input
-                                    x-model="form.english_test_score"
+                                    value="{{ old('english_test_score', $application->english_test_score ?? '') }}"
                                     type="text"
                                     id="testScore"
                                     name="english_test_score"
@@ -168,15 +167,15 @@
                                 <div class="grid grid-cols-1 gap-6">
                                     <div>
                                         <label
-                                            for="testDate"
+                                            for="english_test_date"
                                             class="block text-sm font-medium text-gray-700"
                                             >Test Date <span class="text-red-500">*</span>
                                         </label
                                         >
                                         <input
-                                            x-model="form.english_test_date"
+                                            value="{{ old('english_test_date', isset($application->english_test_date) ? $application->english_test_date->format('Y-m-d') : '') }}"
                                             type="date"
-                                            id="testDate"
+                                            id="english_test_date"
                                             name="english_test_date"
                                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                                         />

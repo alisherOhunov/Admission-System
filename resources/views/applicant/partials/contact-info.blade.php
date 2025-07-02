@@ -58,7 +58,8 @@
                                         d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
                                     </path>
                                 </svg>
-                                <input x-model="form.phone"
+                                <input 
+                                    value="{{ old('phone', $application->phone ?? '') }}"
                                     class="flex h-10 w-full rounded-md border px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm form-input pl-10"
                                     name="phone" placeholder="+(998)91 123-4567">
                                 @error('phone')
@@ -94,7 +95,8 @@
                                     for="permanent_street">
                                     Street Address<span class="text-red-500 ml-1">*</span>
                                 </label>
-                                <input x-model="form.permanent_street"
+                                <input 
+                                    value="{{ old('permanent_street', $application->permanent_street ?? '') }}"
                                     class="flex h-10 w-full rounded-md border px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm form-input"
                                     name="permanent_street" id="permanent_street" placeholder="123 Main Street, Apt 4B">
                                 @error('permanent_street')
@@ -109,7 +111,8 @@
                                     for="permanent_city">
                                     City<span class="text-red-500 ml-1">*</span>
                                 </label>
-                                <input x-model="form.permanent_city"
+                                <input 
+                                    value="{{ old('permanent_city', $application->permanent_city ?? '') }}"
                                     class="flex h-10 w-full rounded-md border px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm form-input"
                                     name="permanent_city" id="permanent_city" placeholder="New York">
                                 @error('permanent_city')
@@ -124,7 +127,8 @@
                                     for="permanent_state">
                                     State/Province
                                 </label>
-                                <input x-model="form.permanent_state"
+                                <input 
+                                    value="{{ old('permanent_state', $application->permanent_state ?? '') }}"
                                     class="flex h-10 w-full rounded-md border px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm form-input"
                                     name="permanent_state" id="permanent_state" placeholder="New York">
                                 @error('permanent_state')
@@ -138,12 +142,12 @@
                                     class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 form-label form-label-required">
                                     Country<span class="text-red-500 ml-1">*</span>
                                 </label>
-                                <select x-model="form.permanent_country" name="permanent_country"
+                                <select name="permanent_country"
                                     class="mt-1 flex h-10 w-full rounded-md border px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm form-input"
-                                    @change="clearError('permanent_country')">
+                                >
                                     <option value="" class="text-muted-foreground">Select your country</option>
                                     @foreach (config('countries') as $code => $name)
-                                        <option value="{{ $code }}" {{ old('permanent_country') == $code ? 'selected' : '' }}>{{ $name }}</option>
+                                        <option value="{{ $code }}" @selected(old('permanent_country', $application->permanent_country ?? '') == $code)>{{ $name }}</option>
                                     @endforeach
                                 </select>
                                 @error('permanent_country')
@@ -158,7 +162,8 @@
                                     for="permanent_postcode">
                                     Postal/ZIP Code <span class="text-red-500 ml-1">*</span>
                                 </label>
-                                <input x-model="form.permanent_postcode"
+                                <input 
+                                    value="{{ old('permanent_postcode', $application->permanent_postcode ?? '') }}"
                                     class="flex h-10 w-full rounded-md border px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm form-input"
                                     name="permanent_postcode" id="permanent_postcode" placeholder="10001">
                                 @error('permanent_postcode')

@@ -42,34 +42,14 @@ class ApplicationController extends Controller
     {
         $user = Auth::user();
         $application = $request->getApplication();
+        $validatedData = $request->validated();
+        $application->update($validatedData);
+        $user->update([
+            'first_name' => $request->input('first_name', $user->first_name),
+            'last_name' => $request->input('last_name', $user->last_name),
+        ]);
 
-        try {
-            $validatedData = $request->validated();
-            $application->update($validatedData);
-            $user->update([
-                'first_name' => $request->input('first_name', $user->first_name),
-                'last_name' => $request->input('last_name', $user->last_name),
-            ]);
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Application updated successfully',
-                'updated_fields' => array_keys($validatedData),
-                'data' => $application->fresh(),
-            ], 200);
-
-        } catch (\Exception $e) {
-            \Log::error('Failed to update application: '.$e->getMessage(), [
-                'user_id' => $user->id,
-                'application_id' => $application->id,
-                'request_data' => $request->all(),
-            ]);
-
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to update application. Please try again.',
-            ], 500);
-        }
+        return back();
     }
 
     public function submit(SubmitApplicationRequest $request)
