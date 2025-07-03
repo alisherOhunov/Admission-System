@@ -45,7 +45,7 @@ Route::middleware(['auth'])->prefix('applicant')->name('applicant.')->group(func
     Route::post('/application/upload-document/{applicationId}', [ApplicationController::class, 'uploadDocument'])->name('application.upload');
     Route::get('/application/download-document/{applicationId}/{file_id}', [ApplicationController::class, 'downloadDocument'])->name('application.downloadDocument');
     Route::post('/application/remove-document/{applicationId}/{file_id}', [ApplicationController::class, 'removeDocument'])->name('application.removeDocument');
-    Route::post('/application/submit', [ApplicationController::class, 'submit'])->name('application.submit');
+    Route::post('/application/submit/{applicationId}', [ApplicationController::class, 'submit'])->name('application.submit');
 });
 
 // Admin & Staff Routes

@@ -81,17 +81,17 @@
                             <div>
                                 <label for="nationality" class="block text-sm font-medium text-gray-700">Nationality
                                     <span class="text-red-500">*</span></label>
-                                <select id="nationality" name="nationality"
-                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
-                                    @change="clearError('nationality')">
-                                    <option value="">Select your nationality</option>
-                                    <option value="UZ">Uzbekistan</option>
-                                    <option value="US">United States</option>
-                                    <option value="UK">United Kingdom</option>
-                                    <option value="CA">Canada</option>
-                                    <option value="DE">Germany</option>
-                                    <option value="FR">France</option>
-                                </select>
+                                    <select id="nationality" name="nationality"
+                                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
+                                            @change="clearError('nationality')">
+                                        <option value="">Select your nationality</option>
+                                        <option value="UZ" @selected($application->nationality == 'UZ')>Uzbekistan</option>
+                                        <option value="US" @selected($application->nationality == 'US')>United States</option>
+                                        <option value="UK" @selected($application->nationality == 'UK')>United Kingdom</option>
+                                        <option value="CA" @selected($application->nationality == 'CA')>Canada</option>
+                                        <option value="DE" @selected($application->nationality == 'DE')>Germany</option>
+                                        <option value="FR" @selected($application->nationality == 'FR')>France</option>
+                                    </select>
                                 @error('nationality')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -314,7 +314,7 @@
                             <span>Save Progress</span>
                         </button>
 
-                        <button type="button" @click="currentStep = 2"
+                        <button @click="currentStep = 2"
                             class="flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
                             Next
                             <svg class="h-4 w-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

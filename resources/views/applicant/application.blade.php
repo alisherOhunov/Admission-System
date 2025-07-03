@@ -210,7 +210,8 @@
                 </div>
             </div>
         </div>
-        <div id="loading-overlay" class="htmx-indicator fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center" style="z-index: 9999;">
+    </form>
+        <div id="loading-overlay" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center" style="z-index: 9999;">
             <div class="rounded p-6 flex flex-col items-center">
                 <div class="relative">
                     <div class="h-24 w-24 rounded-full border-t-8 border-b-8 border-gray-200"></div>
@@ -218,12 +219,8 @@
                 </div>
             </div>
         </div>
-    </form>
 </div>
 <style>
-.htmx-indicator {
-    display: none;
-}
 
 .htmx-request {
     display: flex;
@@ -232,7 +229,7 @@
 <script>
     function tabStepper() {
         return {
-            currentStep: 1,
+            currentStep: parseInt(sessionStorage.getItem('currentStep')) || 1,
 
             buttonActive: 'border-blue-500 text-blue-600 border-b-2 opacity-100',
             buttonInactive: 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 border-b-2 opacity-50',
@@ -240,6 +237,12 @@
             circleInactive: 'border-gray-300 bg-white',
             textActive: 'text-blue-600',
             textInactive: 'text-gray-500',
+            
+            init() {
+                this.$watch('currentStep', value => {
+                    sessionStorage.setItem('currentStep', value);
+                });
+            },
             
             getButtonClass(step) { return this.currentStep === step ? this.buttonActive : this.buttonInactive; },
             getCircleClass(step) { return this.currentStep === step ? this.circleActive : this.circleInactive; },

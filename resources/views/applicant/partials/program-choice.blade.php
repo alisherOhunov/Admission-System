@@ -102,6 +102,24 @@
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
+                        <div class="mt-4">
+                            <div class="flex items-center">
+                                <input
+                                    id="funding_interest"
+                                    name="funding_interest"
+                                    type="checkbox"
+                                    value="1"
+                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
+                                    @checked(old('funding_interest', $application->funding_interest ?? false))
+                                >
+                                <label for="funding_interest" class="ml-2 block text-sm text-gray-700">
+                                    I am interested in scholarships and financial aid opportunities
+                                </label>
+                            </div>
+                            @error('funding_interest')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
                         <div class="grid grid-cols-1 gap-6">
                             <div class=" items-start rounded-md border border-blue-200 bg-blue-50 p-4 text-blue-black">
                             <div class="flex items-center space-x-3 mb-10">
@@ -177,8 +195,8 @@
                                 <div class="mt-2 text-sm text-right">
                                     <span 
                                         :class="text.length < min ? 'text-orange-500' : 'text-green-600'"
-                                        x-text="text.length <= min 
-                                            ? `${text.length}/${min}` 
+                                        x-text="text.length < min 
+                                            ? `${text.length} characters (${100 - text.length} more needed)` 
                                             : `${text.length} characters`"
                                     ></span>
                                     @error('statement_of_purpose')
@@ -664,7 +682,7 @@
                         Save Progress
                         </button>
 
-                        <button type="button" @click="currentStep = 5" class="flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                        <button @click="currentStep = 5" class="flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
                             Next
                             <svg class="h-4 w-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
