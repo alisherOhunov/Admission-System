@@ -96,7 +96,7 @@ class Application extends Model
 
     public function isSubmitted()
     {
-        return in_array($this->status, ['submitted', 'review', 'accepted', 'rejected']);
+        return in_array($this->status, ['submitted', 'under_review', 'accepted', 'rejected']);
     }
 
     public function canEdit()
@@ -133,11 +133,27 @@ class Application extends Model
         $statuses = [
             'draft' => ['label' => 'Draft', 'color' => 'bg-gray-100 text-gray-800'],
             'submitted' => ['label' => 'Submitted', 'color' => 'bg-blue-100 text-blue-800'],
-            'review' => ['label' => 'Under Review', 'color' => 'bg-yellow-100 text-yellow-800'],
+            'under_review' => ['label' => 'Under Review', 'color' => 'bg-yellow-100 text-yellow-800'],
             'accepted' => ['label' => 'Accepted', 'color' => 'bg-green-100 text-green-800'],
             'rejected' => ['label' => 'Rejected', 'color' => 'bg-red-100 text-red-800'],
         ];
 
         return $statuses[$this->status] ?? $statuses['draft'];
+    }
+
+    // Scopes
+    public function scopeByStatus($query, $status)
+    {
+        return $query->where('status', $status);
+    }
+
+    public function scopeByLevel($query, $level)
+    {
+        return $query->where('level', $level);
+    }
+
+    public function scopeSubmitted($query)
+    {
+        return $query->whereNotNull('submitted_at');
     }
 }

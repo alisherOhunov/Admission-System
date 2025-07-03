@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Application;
 use App\Models\Program;
+use App\Models\StaffNote;
 use Illuminate\Http\Request;
 
 class ApplicationsController extends Controller
@@ -50,36 +51,47 @@ class ApplicationsController extends Controller
         return view('admin.applications.index', compact('applications', 'programs'));
     }
 
-    public function show(Application $application)
+    public function show(int $application_id)
     {
+        $application = Application::findOrFail($application_id);
         $application->load(['user', 'program', 'applicationPeriod', 'documents']);
+        $staffNotes = StaffNote::where('application_id', $application->id)
+            ->with('user')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-        return view('admin.applications.show', compact('application'));
+        return view('admin.applications.show', compact('application', 'staffNotes'));
     }
 
-    public function updateStatus(Request $request, Application $application)
+    public function updateStatus(Request $request, int $application_id)
     {
+        $application = Application::findOrFail($application_id);
         $request->validate([
-            'status' => 'required|in:submitted,review,accepted,rejected',
+            'status' => 'required|in:under_review,accepted,rejected',
         ]);
 
         $application->update(['status' => $request->status]);
 
-        return response()->json(['message' => 'Status updated successfully']);
+        return response()->json([
+            'success' => true,
+            'status' => $application->status,
+            'message' => 'Status updated successfully!',
+        ]);
     }
 
-    public function addNote(Request $request, Application $application)
+    public function addNote(Request $request, int $application_id)
     {
         $request->validate([
-            'note' => 'required|string',
+            'note' => 'required|string|max:500',
         ]);
 
-        $application->staffNotes()->create([
-            'staff_id' => auth()->id(),
+        StaffNote::create([
+            'application_id' => $application_id,
+            'staff_id' => $request->user()->id,
             'note' => $request->note,
         ]);
 
-        return response()->json(['message' => 'Note added successfully']);
+        return back();
     }
 
     public function export(Request $request)

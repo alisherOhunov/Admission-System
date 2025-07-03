@@ -64,7 +64,7 @@
 
                     <!-- Email Address -->
                     <div>
-                        <label for="email" class="block text-sm text-center font-medium text-gray-700">Email address</label>
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
                         <div class="mt-1">
                             <input id="email" placeholder="Enter your email" name="email" type="email" autocomplete="email" required
                                    value="{{ old('email') }}"
@@ -75,7 +75,7 @@
 
                     <!-- Password -->
                     <div x-data="{ showPassword: false }">
-                        <label for="password" class="block text-sm text-center font-medium text-gray-700">Password</label>
+                        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
                         <div class="mt-1 relative">
                             <input id="password" name="password" placeholder="Enter your password" :type="showPassword ? 'text' : 'password'" 
                                    autocomplete="current-password" required

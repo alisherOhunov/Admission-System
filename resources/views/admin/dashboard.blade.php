@@ -90,8 +90,10 @@
                                         <h4 class="font-medium text-gray-900">{{ $application->user->first_name .' '. $application->user->last_name }}</h4>
                                         <p class="text-sm text-gray-500">{{ $application->program->name ?? 'Program Not Selected' }}</p>
                                         <p class="text-xs text-gray-400">
-                                            ID: {{ $application->id }} • 
-                                            Submitted {{ $application->submitted_at ? $application->submitted_at->format('M j, Y') : 'Not submitted' }}
+                                            ID: {{ $application->id }}
+                                            @if($application->submitted_at) 
+                                                • Submitted {{ $application->submitted_at->format('M j, Y') }}
+                                            @endif
                                         </p>
                                     </div>
                                     <div class="flex items-center space-x-2">
@@ -99,7 +101,7 @@
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $statusData['color'] }}">
                                             {{ $statusData['label'] }}
                                         </span>
-                                        <a href="{{ route('admin.applications.show', $application) }}" class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-xl text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                        <a href="{{ route('admin.applications.show', $application->id) }}" class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-xl text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                                             View
                                         </a>
                                     </div>

@@ -12,7 +12,7 @@ class DashboardController extends Controller
         $stats = [
             'total_applications' => Application::count(),
             'new_applications' => Application::where('created_at', '>=', now()->subDays(7))->count(),
-            'under_review' => Application::byStatus('review')->count(),
+            'under_review' => Application::byStatus('under_review')->count(),
             'accepted' => Application::byStatus('accepted')->count(),
             'rejected' => Application::byStatus('rejected')->count(),
             'submitted' => Application::byStatus('submitted')->count(),

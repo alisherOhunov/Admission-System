@@ -8,7 +8,7 @@
         <!-- Header -->
         <div class="mb-8">
             <h1 class="text-3xl font-bold text-gray-900">Applications</h1>
-            <p class="mt-2 text-gray-600">Manage and review student applications</p>
+            <p class="mt-2 text-gray-600">Manage and Review student applications</p>
         </div>
 
         <!-- Filters and Actions -->
@@ -47,7 +47,7 @@
                                 hx-swap="innerHTML">
                             <option value="">All Status</option>
                             <option value="submitted" {{ request('status') == 'submitted' ? 'selected' : '' }}>Submitted</option>
-                            <option value="review" {{ request('status') == 'review' ? 'selected' : '' }}>Under Review</option>
+                            <option value="under_review" {{ request('status') == 'under_review' ? 'selected' : '' }}>Under Review</option>
                             <option value="accepted" {{ request('status') == 'accepted' ? 'selected' : '' }}>Accepted</option>
                             <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
                         </select>
