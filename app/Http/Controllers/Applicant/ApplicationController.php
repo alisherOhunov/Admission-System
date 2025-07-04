@@ -10,7 +10,6 @@ use App\Models\Application;
 use App\Models\ApplicationPeriod;
 use App\Models\Document;
 use App\Models\Program;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -90,6 +89,7 @@ class ApplicationController extends Controller
             ]);
 
             DB::commit();
+
             return response()->json([
                 'message' => 'Document uploaded successfully',
                 'document' => [
