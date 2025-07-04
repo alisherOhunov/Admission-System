@@ -43,6 +43,7 @@ return new class extends Migration
             $table->string('current_city', 100)->nullable();
             $table->string('current_postcode', 10)->nullable();
             $table->string('current_street', 255)->nullable();
+            $table->text('admin_resubmission_comment')->nullable();
             $table->timestamps();
         });
     }

@@ -55,22 +55,23 @@ class ApplicationsController extends Controller
     {
         $application = Application::findOrFail($application_id);
         $application->load(['user', 'program', 'applicationPeriod', 'documents']);
-        $staffNotes = StaffNote::where('application_id', $application->id)
-            ->with('user')
-            ->orderBy('created_at', 'desc')
-            ->get();
 
-        return view('admin.applications.show', compact('application', 'staffNotes'));
+        return view('admin.applications.show', compact('application'));
     }
 
     public function updateStatus(Request $request, int $application_id)
     {
         $application = Application::findOrFail($application_id);
+
         $request->validate([
-            'status' => 'required|in:under_review,accepted,rejected',
+            'status' => 'required|in:under_review,accepted,rejected,require_resubmit',
+            'admin_resubmission_comment' => 'required_if:status,require_resubmit|max:500',
         ]);
 
-        $application->update(['status' => $request->status]);
+        $application->update([
+            'status' => $request->status,
+            'admin_resubmission_comment' => $request->admin_resubmission_comment,
+        ]);
 
         return response()->json([
             'success' => true,

@@ -38,7 +38,7 @@ Route::middleware('guest')->group(function () {
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
 // Applicant Routes
-Route::middleware(['auth'])->prefix('applicant')->name('applicant.')->group(function () {
+Route::middleware(['auth', 'applicant'])->prefix('applicant')->name('applicant.')->group(function () {
     Route::get('/dashboard', [ApplicantDashboardController::class, 'index'])->name('dashboard');
     Route::get('/application', [ApplicationController::class, 'show'])->name('application');
     Route::post('/application/update/{applicationId}', [ApplicationController::class, 'updateApplication'])->name('application.update');
@@ -49,9 +49,8 @@ Route::middleware(['auth'])->prefix('applicant')->name('applicant.')->group(func
 });
 
 // Admin & Staff Routes
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
-    // Application Management
     Route::get('/applications', [ApplicationsController::class, 'index'])->name('applications.index');
     Route::get('/applications/{application_id}', [ApplicationsController::class, 'show'])->name('applications.show');
     Route::post('/applications/{application_id}/status', [ApplicationsController::class, 'updateStatus'])->name('applications.status');

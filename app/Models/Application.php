@@ -38,6 +38,7 @@ class Application extends Model
         'permanent_city',
         'permanent_postcode',
         'permanent_street',
+        'admin_resubmission_comment',
     ];
 
     protected $casts = [
@@ -75,7 +76,7 @@ class Application extends Model
         return $this->documents()
             ->whereIn('type', ['passport', 'transcript', 'address_proof', 'diploma', 'sop', 'cv', 'english_score', 'portfolio'])
             ->get()
-            ->keyBy('type'); // makes it easy to access by type
+            ->keyBy('type');
     }
 
     public function permanentAddress()
@@ -133,6 +134,7 @@ class Application extends Model
         $statuses = [
             'draft' => ['label' => 'Draft', 'color' => 'bg-gray-100 text-gray-800'],
             'submitted' => ['label' => 'Submitted', 'color' => 'bg-blue-100 text-blue-800'],
+            'require_resubmit' => ['label' => 'Require Resubmit', 'color' => 'bg-blue-100 text-blue-800'],
             'under_review' => ['label' => 'Under Review', 'color' => 'bg-yellow-100 text-yellow-800'],
             'accepted' => ['label' => 'Accepted', 'color' => 'bg-green-100 text-green-800'],
             'rejected' => ['label' => 'Rejected', 'color' => 'bg-red-100 text-red-800'],

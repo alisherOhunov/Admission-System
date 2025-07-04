@@ -37,6 +37,7 @@
                                     'draft' => 'bg-gray-200 text-gray-800 hover:bg-gray-300',
                                     'under_review' => 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200',
                                     'submitted' => 'bg-blue-100 text-blue-800 hover:bg-blue-200',
+                                    'require_resubmit' => 'bg-blue-100 text-blue-800 hover:bg-blue-200',
                                     'accepted' => 'bg-green-100 text-green-800 hover:bg-green-200',
                                 ];
 
@@ -44,24 +45,24 @@
                             @endphp
 
                             <div id="status-badge"
-                                class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent {{ $statusClasses[$status] ?? 'bg-gray-100 text-gray-800' }}">
+                                class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent {{ $statusClasses[$status] }}">
                                 {{ ucwords(str_replace('_', ' ', $status)) }}
                             </div>
 
                             <div class="relative" x-data="{ open: false }">
-                                <div x-data="{ showModal: false, newStatus: 'under_review' }">
+                                <div x-data="{ showModal: false, newStatus: 'under_review', showNotesField: false, errorMessage: '' }">
                                     <button @click="showModal = true"
                                         class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2
-                                        @if ($status === 'accepted') bg-gray-100 text-gray-400 cursor-not-allowed @endif"
+                                        @if ($status === 'require_resubmit' || $status === 'accepted') bg-gray-100 text-gray-400 cursor-not-allowed @endif"
                                         id="update-status-button">
-                                        @if ($status === 'accepted')
+                                        @if ($status === 'accepted' || $status === 'require_resubmit')
                                             Status Locked
                                         @else
                                             Update Status
                                         @endif
                                     </button>
 
-                                    @if ($status !== 'accepted')
+                                    @if ($status !== 'accepted' && $status !== 'require_resubmit')
                                         <div x-show="showModal" x-transition
                                             class="fixed inset-0 z-40 flex items-center justify-center bg-black bg-opacity-50">
                                             <div @click.away="showModal = false"
@@ -74,8 +75,7 @@
                                                 </div>
                                                 <p class="text-sm text-gray-600 mb-6">
                                                     Change the status of this application. This action will be recorded and
-                                                    may trigger notifications to
-                                                    the applicant.
+                                                    may trigger notifications to the applicant.
                                                 </p>
                                                 <div class="mb-4">
                                                     <label class="block text-sm font-medium text-gray-700 mb-1">Current
@@ -94,19 +94,40 @@
                                                             class="block text-sm font-medium text-gray-700 mb-1">New
                                                             Status</label>
                                                         <select id="newStatus" name="status" x-model="newStatus"
+                                                            @change="showNotesField = (newStatus === 'require_resubmit')"
                                                             class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
                                                             required>
                                                             <option value="under_review">Under Review</option>
                                                             <option value="accepted">Accepted</option>
                                                             <option value="rejected">Rejected</option>
+                                                            <option value="require_resubmit">Require Resubmit</option>
                                                         </select>
                                                     </div>
+                                                    <div x-show="showNotesField" x-transition class="mb-4">
+                                                        <label for="statusNote"
+                                                            class="block text-sm font-medium text-gray-700 mb-1">
+                                                            Notes <span class="text-red-500">*</span>
+                                                        </label>
+                                                        <textarea id="statusNote" name="admin_resubmission_comment"
+                                                            placeholder="Please provide reason for resubmission requirement..."
+                                                            class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                                                            rows="3" :required="newStatus === 'require_resubmit'" @input="errorMessage = ''"></textarea>
+                                                        <p class="text-xs text-gray-500 mt-1">This note will be visible to
+                                                            the applicant.</p>
+                                                    </div>
+
+                                                    <div x-show="errorMessage" x-transition class="mb-4">
+                                                        <div class="bg-red-50 border border-red-200 rounded-lg p-3">
+                                                            <p class="text-sm text-red-600" x-text="errorMessage"></p>
+                                                        </div>
+                                                    </div>
+
                                                     <div class="flex justify-end space-x-3">
                                                         <button type="button" @click="showModal = false"
                                                             class="px-4 py-2 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-100">
                                                             Cancel
                                                         </button>
-                                                        <button type="submit" @click="showModal = false"
+                                                        <button type="submit"
                                                             class="px-4 py-2 rounded-md text-white bg-blue-500 hover:bg-blue-600">
                                                             Update Status
                                                         </button>
@@ -138,9 +159,9 @@
                     <div class="bg-white rounded-xl shadow-sm border">
                         <div class="px-6 py-6">
                             <h3 class="text-2xl font-semibold leading-none tracking-tight flex items-center space-x-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="lucide lucide-user h-5 w-5">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user h-5 w-5">
                                     <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
                                     <circle cx="12" cy="7" r="4"></circle>
                                 </svg>
@@ -347,10 +368,11 @@
                                         <p class="text-sm font-medium text-gray-900">Application Submitted</p>
                                         <p class="text-xs text-gray-500">
                                             @if ($application->submitted_at)
-                                                {{ $application->submitted_at->format('Y/m/d') }}</p>
-                                            @else
-                                                Not Submitted Yet
-                                            @endif
+                                                {{ $application->submitted_at->format('Y/m/d') }}
+                                        </p>
+                                    @else
+                                        Not Submitted Yet
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="flex">
@@ -408,66 +430,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="bg-white rounded-xl shadow-sm border">
-                        <div class="px-6 py-6">
-                            <h3 class="text-2xl font-semibold leading-none tracking-tight flex items-center space-x-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round"
-                                    class="lucide lucide-message-square h-5 w-5">
-                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                                </svg>
-                                <span>Staff Comments</span>
-                            </h3>
-                        </div>
-                        <div class="p-6 space-y-4">
-                            <div id="staff-notes">
-                                @if ($staffNotes->isEmpty())
-                                    <p class="text-sm text-gray-500 p-3">No comments yet. Add your comments below.</p>
-                                @else
-                                    @foreach ($staffNotes as $note)
-                                        <div class="bg-gray-50 rounded-xl p-4 mb-4">
-                                            <p class="text-sm text-gray-700 mb-2">{{ $note->note }}</p>
-                                            <div class="flex justify-between text-xs text-gray-500">
-                                                <p>{{ $application->user->first_name }}</p>
-                                                <p>{{ $note->created_at->format('m/d/Y') }}</p>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                @endif
-                            </div>
-                            <div class="mt-4">
-                                <form
-                                    hx-post="{{ route('admin.applications.notes', ['application_id' => $application->id]) }}"
-                                    hx-select="#staff-notes" hx-target="#staff-notes" hx-swap="innerHTML"
-                                    hx-on::after-request="if(event.detail.successful) this.reset()">
-                                    @csrf
-                                    <textarea name="note" placeholder="Enter comment about this application..."
-                                        class="w-full p-3 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                        rows="3" required></textarea>
-
-                                    <button type="submit"
-                                        class="mt-2 inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background 
-                                        transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring 
-                                        focus-visible:ring-offset-2 disabled:pointer-events-none 
-                                        disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 
-                                        bg-blue-500 text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-3 w-full text-white">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round"
-                                            class="lucide lucide-save h-4 w-4 mr-2">
-                                            <path
-                                                d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z">
-                                            </path>
-                                            <path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"></path>
-                                            <path d="M7 3v4a1 1 0 0 0 1 1h7"></path>
-                                        </svg>
-                                        Add Comment
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -484,6 +446,7 @@
                     const statusClasses = {
                         'rejected': 'bg-red-100 text-red-800 hover:bg-red-200',
                         'under_review': 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200',
+                        'require_resubmit': 'bg-blue-100 text-blue-800 hover:bg-blue-200',
                         'accepted': 'bg-green-100 text-green-800 hover:bg-green-200'
                     };
 
@@ -502,16 +465,25 @@
                         currentStatusDisplay.textContent = newStatus;
                     }
 
-                    if (response.status === 'accepted') {
+                    if (response.status === 'accepted' || response.status === 'require_resubmit') {
                         const updateButton = document.getElementById('update-status-button');
                         if (updateButton) {
                             updateButton.disabled = true;
                             updateButton.textContent = 'Status Locked';
-                            updateButton.classList.add('bg-gray-100 text-gray-400 cursor-not-allowed');
                         }
                     }
+                    document.dispatchEvent(new CustomEvent('close-status-modal'));
                 }
             }
         }
+
+        document.addEventListener('close-status-modal', function() {
+            const modalComponent = document.querySelector('[x-data*="showModal"]');
+            if (modalComponent && modalComponent._x_dataStack) {
+                modalComponent._x_dataStack[0].showModal = false;
+                modalComponent._x_dataStack[0].errorMessage = '';
+                modalComponent._x_dataStack[0].showNotesField = false;
+            }
+        });
     </script>
 @endsection
