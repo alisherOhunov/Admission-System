@@ -18,10 +18,10 @@ use Illuminate\Support\Str;
 
 class ApplicationController extends Controller
 {
-    public function show()
+    public function show(int $application_id)
     {
         $user = Auth::user();
-        $application = $user->getCurrentApplication();
+        $application = Application::where('id', $application_id)->first();
         $programs = Program::active()->get()->groupBy('degree_level');
         $currentPeriod = ApplicationPeriod::where('is_active', true)->first();
 
@@ -123,14 +123,14 @@ class ApplicationController extends Controller
         }
     }
 
-    public function downloadDocument(int $applicationId, int $file_id)
+    public function downloadDocument(int $application_id, int $file_id)
     {
         try {
-            $document = Document::where('application_id', $applicationId)
+            $document = Document::where('application_id', $application_id)
                 ->where('id', $file_id)
                 ->firstOrFail();
 
-            $path = 'documents/'.$applicationId.'/'.$document->filename;
+            $path = 'documents/'.$application_id.'/'.$document->filename;
 
             if (! Storage::disk('public')->exists($path)) {
                 abort(404, 'File not found');
@@ -140,7 +140,7 @@ class ApplicationController extends Controller
 
         } catch (\Exception $e) {
             \Log::error('Failed to download document: '.$e->getMessage(), [
-                'application_id' => $applicationId,
+                'application_id' => $application_id,
                 'file_id' => $file_id,
             ]);
 
@@ -148,14 +148,14 @@ class ApplicationController extends Controller
         }
     }
 
-    public function removeDocument(int $applicationId, int $file_id)
+    public function removeDocument(int $application_id, int $file_id)
     {
         try {
-            $document = Document::where('application_id', $applicationId)
+            $document = Document::where('application_id', $application_id)
                 ->where('id', $file_id)
                 ->firstOrFail();
 
-            $path = 'documents/'.$applicationId.'/'.$document->filename;
+            $path = 'documents/'.$application_id.'/'.$document->filename;
 
             // Delete file from storage
             if (Storage::disk('public')->exists($path)) {
@@ -172,7 +172,7 @@ class ApplicationController extends Controller
 
         } catch (\Exception $e) {
             \Log::error('Failed to remove document: '.$e->getMessage(), [
-                'application_id' => $applicationId,
+                'application_id' => $application_id,
                 'file_id' => $file_id,
                 'error' => $e->getMessage(),
             ]);

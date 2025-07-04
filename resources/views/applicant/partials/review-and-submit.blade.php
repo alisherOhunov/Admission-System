@@ -300,7 +300,7 @@
           </button>
           <button 
                 type="button"
-                hx-post="{{ route('applicant.application.submit', ['applicationId' => $application->id]) }}"
+                hx-post="{{ route('applicant.application.submit', ['application_id' => $application->id]) }}"
                 hx-include="form"
                 class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2"
             >

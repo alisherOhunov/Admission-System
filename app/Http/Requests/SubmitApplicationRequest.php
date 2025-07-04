@@ -14,8 +14,8 @@ class SubmitApplicationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $applicationId = $this->route('applicationId');
-        $this->application = Application::find($applicationId);
+        $application_id = $this->route('application_id');
+        $this->application = Application::find($application_id);
 
         return $this->application &&
                auth()->id() === $this->application->user_id &&

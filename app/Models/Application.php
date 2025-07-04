@@ -115,11 +115,15 @@ class Application extends Model
             $this->native_language,
             $this->email,
             $this->phone,
-            $this->permanent_address,
             $this->previous_institution,
             $this->degree_earned,
             $this->start_term,
             $this->statement_of_purpose,
+            $this->permanent_country,
+            $this->permanent_state,
+            $this->permanent_city,
+            $this->permanent_postcode,
+            $this->permanent_street,
         ];
 
         $completed = collect($requiredFields)->filter()->count();

@@ -22,7 +22,7 @@
         </div>
     </div>
     <form 
-        hx-post="{{ route('applicant.application.update', ['applicationId' => $application->id]) }}"
+        hx-post="{{ route('applicant.application.update', ['application_id' => $application->id]) }}"
         hx-select="#form-content"
         hx-indicator="#loading-overlay"
     >
@@ -325,7 +325,7 @@
                 if (csrfToken) formData.append('_token', csrfToken.getAttribute('content'));
 
                 try {
-                    const response = await fetch(`/applicant/application/upload-document/{{$application->id}}`, {
+                    const response = await fetch(`/applicant/application/{{$application->id}}/upload-document`, {
                         method: 'POST',
                         body: formData,
                         headers: { 'X-Requested-With': 'XMLHttpRequest' }
@@ -371,7 +371,7 @@
                 if (csrfToken) formData.append('_token', csrfToken.getAttribute('content'));
 
                 try {
-                    const response = await fetch(`/applicant/application/remove-document/{{$application->id}}/${this.fileId}`, {
+                    const response = await fetch(`/applicant/application/{{$application->id}}/remove-document/${this.fileId}`, {
                         method: 'POST',
                         body: formData,
                         headers: { 'X-Requested-With': 'XMLHttpRequest' }

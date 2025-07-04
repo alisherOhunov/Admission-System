@@ -65,7 +65,7 @@
                                 </div>
 
                                 <div class="pt-4 border-t">
-                                    <a href="{{ route('applicant.application') }}" class="w-full inline-flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                    <a href="{{ route('applicant.application', ['application_id' => $application->id]) }}" class="w-full inline-flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                                         View Application Details
                                     </a>
                                 </div>
@@ -81,7 +81,7 @@
                                 <h3 class="mt-4 text-xl font-medium text-gray-900">Start your application</h3>
                                 <p class="text-slate-600 text-md mb-8 max-w-md mx-auto">Begin your university application journey. We'll guide you through each step to make the process as smooth as possible.</p>                                
                                 <div class="mt-6">
-                                    <a href="{{ route('applicant.application') }}">
+                                    <a href="{{ route('applicant.application', ['application_id' => $application->id]) }}">
                                         <button class="bg-blue-500 hover:bg-blue-500/90 inline-flex items-center text-white justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 btn-primary-professional"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus h-4 w-4 mr-2"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
                                             Start Application<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right h-4 w-4 ml-2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
                                         </button>
@@ -120,7 +120,16 @@
                                     <span>Personal Info</span>
                                 </div>
                                 <div class="flex items-center space-x-2">
-                                    <div class="h-2 w-2 rounded-full {{ $application->permanent_address ? 'bg-green-500' : 'bg-gray-300' }}"></div>
+                                    @php
+                                        $hasAddressInfo = $application->permanent_country
+                                        && $application->permanent_state
+                                        && $application->permanent_city
+                                        && $application->permanent_postcode
+                                        && $application->permanent_street;
+                                    @endphp
+
+                                    <div class="h-2 w-2 rounded-full {{ $hasAddressInfo ? 'bg-green-500' : 'bg-gray-300' }}"></div>
+
                                     <span>Contact Info</span>
                                 </div>
                                 <div class="flex items-center space-x-2">
@@ -134,7 +143,7 @@
                             </div>
 
                             <div class="pt-4 border-t">
-                                <a href="{{ route('applicant.application') }}" class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                <a href="{{ route('applicant.application', ['application_id' => $application->id]) }}" class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                                     Continue Application
                                 </a>
                             </div>
@@ -196,7 +205,7 @@
                     </div>
                     <div class="p-6">
                         <div class="space-y-3">
-                            <a href="{{ route('applicant.application') }}" class="w-full inline-flex items-center justify-start px-4 py-2 border shadow-sm text-sm font-medium rounded-lg text-white bg-blue-500 hover:bg-blue-500/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                            <a href="{{ route('applicant.application', ['application_id' => $application->id]) }}" class="w-full inline-flex items-center justify-start px-4 py-2 border shadow-sm text-sm font-medium rounded-lg text-white bg-blue-500 hover:bg-blue-500/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text h-4 w-4 mr-5"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
                                 {{ $application && $application->isSubmitted() ? 'View Application' : 'Start Application' }}
                             </a>

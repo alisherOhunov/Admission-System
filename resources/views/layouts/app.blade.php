@@ -65,7 +65,7 @@
                                     </svg>
                                     <span>Dashboard</span>
                                 </a>
-                                <a href="{{ route('applicant.application') }}"
+                                <a href="{{ route('applicant.application', ['application_id' => $application->id]) }}"
                                     class="flex items-center space-x-2 text-gray-600 hover:text-gray-900 {{ request()->routeIs('applicant.application') ? 'text-blue-600 font-medium' : '' }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -197,7 +197,7 @@
                         @if (auth()->user()->isApplicant())
                             <a href="{{ route('applicant.dashboard') }}"
                                 class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">Dashboard</a>
-                            <a href="{{ route('applicant.application') }}"
+                            <a href="{{ route('applicant.application', ['application_id' => $application->id]) }}"
                                 class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">My
                                 Application</a>
                         @else

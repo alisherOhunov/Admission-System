@@ -40,12 +40,12 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 // Applicant Routes
 Route::middleware(['auth', 'applicant'])->prefix('applicant')->name('applicant.')->group(function () {
     Route::get('/dashboard', [ApplicantDashboardController::class, 'index'])->name('dashboard');
-    Route::get('/application', [ApplicationController::class, 'show'])->name('application');
-    Route::post('/application/update/{applicationId}', [ApplicationController::class, 'updateApplication'])->name('application.update');
-    Route::post('/application/upload-document/{applicationId}', [ApplicationController::class, 'uploadDocument'])->name('application.upload');
-    Route::get('/application/download-document/{applicationId}/{file_id}', [ApplicationController::class, 'downloadDocument'])->name('application.downloadDocument');
-    Route::post('/application/remove-document/{applicationId}/{file_id}', [ApplicationController::class, 'removeDocument'])->name('application.removeDocument');
-    Route::post('/application/submit/{applicationId}', [ApplicationController::class, 'submit'])->name('application.submit');
+    Route::get('/application/{application_id}', [ApplicationController::class, 'show'])->name('application');
+    Route::post('/application/{application_id}/update', [ApplicationController::class, 'updateApplication'])->name('application.update');
+    Route::post('/application/{application_id}/upload-document', [ApplicationController::class, 'uploadDocument'])->name('application.upload');
+    Route::get('/application/{application_id}/download-document/{file_id}', [ApplicationController::class, 'downloadDocument'])->name('application.downloadDocument');
+    Route::post('/application/{application_id}/remove-document/{file_id}', [ApplicationController::class, 'removeDocument'])->name('application.removeDocument');
+    Route::post('/application/{application_id}/submit', [ApplicationController::class, 'submit'])->name('application.submit');
 });
 
 // Admin & Staff Routes
@@ -55,7 +55,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/applications/{application_id}', [ApplicationsController::class, 'show'])->name('applications.show');
     Route::post('/applications/{application_id}/status', [ApplicationsController::class, 'updateStatus'])->name('applications.status');
     Route::post('/applications/{application_id}/notes', [ApplicationsController::class, 'addNote'])->name('applications.notes');
-    Route::get('/applications/export', [ApplicationsController::class, 'export'])->name('applications.export');
 });
 
 // Error Pages

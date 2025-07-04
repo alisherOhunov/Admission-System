@@ -94,11 +94,4 @@ class ApplicationsController extends Controller
 
         return back();
     }
-
-    public function export(Request $request)
-    {
-        // Export functionality would go here
-        // This could generate CSV, Excel, or PDF exports
-        return response()->json(['message' => 'Export functionality to be implemented']);
-    }
 }

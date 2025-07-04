@@ -334,7 +334,7 @@
                                             <div class="flex items-center space-x-2">
                                                 <!-- Download Button - only show when fileId exists -->
                                                 <template x-if="fileId">
-                                                    <a :href="`/applicant/application/download-document/{{ $application->id }}/${fileId}`"
+                                                    <a :href="`/applicant/application/{{ $application->id }}/download-document/${fileId}`"
                                                         class="text-green-600 hover:text-green-800 transition-colors">
                                                         <svg class="h-5 w-5" fill="none"
                                                             stroke="currentColor" viewBox="0 0 24 24">
@@ -456,7 +456,7 @@
                                             <div class="flex items-center space-x-2">
                                                 <!-- Download Button - only show when fileId exists -->
                                                 <template x-if="fileId">
-                                                    <a :href="`/applicant/application/download-document/{{ $application->id }}/${fileId}`"
+                                                    <a :href="`/applicant/application/{{ $application->id }}/download-document/${fileId}`"
                                                         class="text-green-600 hover:text-green-800 transition-colors">
                                                         <svg class="h-5 w-5" fill="none"
                                                             stroke="currentColor" viewBox="0 0 24 24">
@@ -581,7 +581,7 @@
                                             <div class="flex items-center space-x-2">
                                                 <!-- Download Button - only show when fileId exists -->
                                                 <template x-if="fileId">
-                                                    <a :href="`/applicant/application/download-document/{{ $application->id }}/${fileId}`"
+                                                    <a :href="`/applicant/application/{{ $application->id }}/download-document/${fileId}`"
                                                         class="text-green-600 hover:text-green-800 transition-colors">
                                                         <svg class="h-5 w-5" fill="none"
                                                             stroke="currentColor" viewBox="0 0 24 24">
