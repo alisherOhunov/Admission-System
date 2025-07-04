@@ -309,15 +309,17 @@
                                                     </template>
 
                                                      <!-- Remove Button -->
-                                                    <button @click="removeFile()"
-                                                        class="text-red-500 hover:text-red-700 transition-colors"
-                                                        type="button">
-                                                        <svg class="h-5 w-5" fill="none" stroke="currentColor"
-                                                            viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                                        </svg>
-                                                    </button>
+                                                    @if($application->status !== 'submitted' && $application->status !== 'accepted')
+                                                        <button @click="removeFile()"
+                                                            class="text-red-500 hover:text-red-700 transition-colors"
+                                                            type="button">
+                                                            <svg class="h-5 w-5" fill="none" stroke="currentColor"
+                                                                viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                            </svg>
+                                                        </button>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>

@@ -32,20 +32,12 @@
                         </div>
                         <div class="flex items-center space-x-4">
                             @php
-                                $statusClasses = [
-                                    'rejected' => 'bg-red-100 text-red-800 hover:bg-red-200',
-                                    'draft' => 'bg-gray-200 text-gray-800 hover:bg-gray-300',
-                                    'under_review' => 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200',
-                                    'submitted' => 'bg-blue-100 text-blue-800 hover:bg-blue-200',
-                                    'require_resubmit' => 'bg-blue-100 text-blue-800 hover:bg-blue-200',
-                                    'accepted' => 'bg-green-100 text-green-800 hover:bg-green-200',
-                                ];
-
+                                $statusData = $application->getStatusData();
                                 $status = strtolower($application->status);
                             @endphp
 
                             <div id="status-badge"
-                                class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent {{ $statusClasses[$status] }}">
+                                class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent {{ $statusData['color'] }}">
                                 {{ ucwords(str_replace('_', ' ', $status)) }}
                             </div>
 
@@ -81,7 +73,7 @@
                                                     <label class="block text-sm font-medium text-gray-700 mb-1">Current
                                                         Status</label>
                                                     <span id="current-status-display"
-                                                        class="inline-block text-sm font-semibold px-3 py-1 rounded-full {{ $statusClasses[$status] ?? 'bg-gray-100 text-gray-800' }}">
+                                                        class="inline-block text-sm font-semibold px-3 py-1 rounded-full {{ $statusData['color'] ?? 'bg-gray-100 text-gray-800' }}">
                                                         {{ ucwords(str_replace('_', ' ', $status)) }}
                                                     </span>
                                                 </div>

@@ -353,7 +353,6 @@
                     this.uploading = false;
                     this.error = true;
                     this.errorMessage = error.message || 'Upload failed. Please try again.';
-                    this.resetFileState();
                 }
             },
 

@@ -72,18 +72,13 @@ class ApplicationController extends Controller
         try {
             DB::beginTransaction();
 
-            // Remove existing document if it exists
             $existingDocument = $application->documents()->where('type', $type)->first();
             if ($existingDocument) {
                 Storage::disk('public')->delete($existingDocument->path);
                 $existingDocument->delete();
             }
-
-            // Store the new file
             $filename = Str::ulid().'.'.$file->getClientOriginalExtension();
             $path = $file->storeAs('documents/'.$application->id, $filename, 'public');
-
-            // Create document record
             $document = Document::create([
                 'application_id' => $application->id,
                 'type' => $type,
@@ -95,8 +90,6 @@ class ApplicationController extends Controller
             ]);
 
             DB::commit();
-
-            // Return consistent response with document data
             return response()->json([
                 'message' => 'Document uploaded successfully',
                 'document' => [
@@ -156,13 +149,9 @@ class ApplicationController extends Controller
                 ->firstOrFail();
 
             $path = 'documents/'.$application_id.'/'.$document->filename;
-
-            // Delete file from storage
             if (Storage::disk('public')->exists($path)) {
                 Storage::disk('public')->delete($path);
             }
-
-            // Delete database record
             $document->delete();
 
             return response()->json([
