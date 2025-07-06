@@ -32,6 +32,7 @@
                 <div class="mb-8">
                     <div class="border-b border-gray-200">
                         <nav class="-mb-px flex space-x-8 overflow-x-auto">
+                            <!-- Step 1 -->
                             <button
                                 type="button"
                                 @click="currentStep = 1"
@@ -42,7 +43,7 @@
                                     <div class="relative">
                                         <div
                                             :class="getCircleClass(1)"
-                                            class="flex items-center justify-center w-8 h-8 rounded-full border-2"
+                                            class="flex items-center justify-center w-8 h-8 rounded-full border-2 transition-all duration-200"
                                         >
                                             <span 
                                                 :class="getTextClass(1)"
@@ -63,7 +64,7 @@
                                     </div>
                                 </div>
                             </button>
-        
+
                             <!-- Step 2 -->
                             <button
                                 type="button"
@@ -75,7 +76,7 @@
                                     <div class="relative">
                                         <div
                                             :class="getCircleClass(2)"
-                                            class="flex items-center justify-center w-8 h-8 rounded-full border-2"
+                                            class="flex items-center justify-center w-8 h-8 rounded-full border-2 transition-all duration-200"
                                         >
                                             <span 
                                                 :class="getTextClass(2)"
@@ -96,7 +97,7 @@
                                     </div>
                                 </div>
                             </button>
-        
+
                             <!-- Step 3 -->
                             <button
                                 type="button"
@@ -108,7 +109,7 @@
                                     <div class="relative">
                                         <div
                                             :class="getCircleClass(3)"
-                                            class="flex items-center justify-center w-8 h-8 rounded-full border-2"
+                                            class="flex items-center justify-center w-8 h-8 rounded-full border-2 transition-all duration-200"
                                         >
                                             <span 
                                                 :class="getTextClass(3)"
@@ -129,7 +130,7 @@
                                     </div>
                                 </div>
                             </button>
-        
+
                             <!-- Step 4 -->
                             <button
                                 type="button"
@@ -141,7 +142,7 @@
                                     <div class="relative">
                                         <div
                                             :class="getCircleClass(4)"
-                                            class="flex items-center justify-center w-8 h-8 rounded-full border-2"
+                                            class="flex items-center justify-center w-8 h-8 rounded-full border-2 transition-all duration-200"
                                         >
                                             <span 
                                                 :class="getTextClass(4)"
@@ -162,7 +163,7 @@
                                     </div>
                                 </div>
                             </button>
-        
+
                             <!-- Step 5 -->
                             <button
                                 type="button"
@@ -174,7 +175,7 @@
                                     <div class="relative">
                                         <div
                                             :class="getCircleClass(5)"
-                                            class="flex items-center justify-center w-8 h-8 rounded-full border-2"
+                                            class="flex items-center justify-center w-8 h-8 rounded-full border-2 transition-all duration-200"
                                         >
                                             <span 
                                                 :class="getTextClass(5)"
@@ -202,11 +203,21 @@
         
                 <!-- Main Form Content -->
                 <div class="tab-content">
-                    @include('applicant.partials.personal-info', ['step' => 1])
-                    @include('applicant.partials.contact-info', ['step' => 2])
-                    @include('applicant.partials.academic-background', ['step' => 3])
-                    @include('applicant.partials.program-choice', ['step' => 4])
-                    @include('applicant.partials.review-and-submit', ['step' => 5])
+                    <div data-step="1">
+                        @include('applicant.partials.personal-info', ['step' => 1])
+                    </div>
+                    <div data-step="2">
+                        @include('applicant.partials.contact-info', ['step' => 2])
+                    </div>
+                    <div data-step="3">
+                        @include('applicant.partials.academic-background', ['step' => 3])
+                    </div>
+                    <div data-step="4">
+                        @include('applicant.partials.program-choice', ['step' => 4])
+                    </div>
+                    <div data-step="5">
+                        @include('applicant.partials.review-and-submit', ['step' => 5])
+                    </div>
                 </div>
             </div>
         </div>
@@ -233,10 +244,13 @@
 
             buttonActive: 'border-blue-500 text-blue-600 border-b-2 opacity-100',
             buttonInactive: 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 border-b-2 opacity-50',
+            buttonError: 'border-red-500 text-red-600 border-b-2 opacity-100',
             circleActive: 'border-blue-600 bg-white',
             circleInactive: 'border-gray-300 bg-white',
+            circleError: 'border-red-600 bg-red-50',
             textActive: 'text-blue-600',
             textInactive: 'text-gray-500',
+            textError: 'text-red-600',
             
             init() {
                 this.$watch('currentStep', value => {
@@ -244,43 +258,28 @@
                 });
             },
             
-            getButtonClass(step) { return this.currentStep === step ? this.buttonActive : this.buttonInactive; },
-            getCircleClass(step) { return this.currentStep === step ? this.circleActive : this.circleInactive; },
-            getTextClass(step) { return this.currentStep === step ? this.textActive : this.textInactive; },
-
-            errors: {},
-            clearError(field) {
-                if (this.errors[field]) {
-                    delete this.errors[field];
-                }
+            hasErrors(step) {
+                const stepElement = document.querySelector(`[data-step="${step}"]`);
+                return stepElement ? stepElement.querySelector('.text-red-600') !== null : false;
             },
-
-            hasError(field) {
-                return this.errors[field] && this.errors[field].length > 0;
+            
+            getButtonClass(step) {
+                if (this.hasErrors(step)) return this.buttonError;
+                return this.currentStep === step ? this.buttonActive : this.buttonInactive;
             },
-
-            getError(field) {
-                return this.errors[field] ? this.errors[field][0] : '';
-            }
+            
+            getCircleClass(step) {
+                if (this.hasErrors(step)) return this.circleError;
+                return this.currentStep === step ? this.circleActive : this.circleInactive;
+            },
+            
+            getTextClass(step) {
+                if (this.hasErrors(step)) return this.textError;
+                return this.currentStep === step ? this.textActive : this.textInactive;
+            },
         }
     }
-    document.body.addEventListener('htmx:afterRequest', function(event) {
-        if (event.detail.xhr.status === 422) {
-            const response = JSON.parse(event.detail.xhr.response);
-            const component = event.target.closest('[x-data]');
 
-            if (component && component._x_dataStack && response.errors) {
-                const alpineData = component._x_dataStack[0];
-                alpineData.errors = response.errors;
-            }
-        } else if (event.detail.xhr.status >= 200 && event.detail.xhr.status < 300) {
-            const component = event.target.closest('[x-data]');
-            if (component && component._x_dataStack) {
-                const alpineData = component._x_dataStack[0];
-                alpineData.errors = {};
-            }
-        }
-    });
     function formatSize(bytes) {
         if (bytes === 0) return '0 B';
         const k = 1024, sizes = ['B', 'KB', 'MB'];

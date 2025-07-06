@@ -14,6 +14,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class ApplicationController extends Controller
@@ -49,18 +50,85 @@ class ApplicationController extends Controller
             'last_name' => $request->input('last_name', $user->last_name),
         ]);
 
-        return back();
+        // Get all the required data for the view using your existing logic
+        $programs = Program::active()->get()->groupBy('degree_level');
+        $currentPeriod = ApplicationPeriod::where('is_active', true)->first();
+
+        if (! $application && $currentPeriod) {
+            $application = Application::create([
+                'user_id' => $user->id,
+                'application_period_id' => $currentPeriod->id,
+                'email' => $user->email,
+                'status' => 'draft',
+            ]);
+        }
+        $documents = $application ? $application->getImportantDocuments() : collect();
+
+        return response()
+            ->view('applicant.application', compact('application', 'programs', 'currentPeriod', 'documents'))
+            ->header('X-CSRF-TOKEN', csrf_token());
     }
 
     public function submit(SubmitApplicationRequest $request)
     {
         $application = $request->getApplication();
+        $requiredFields = [
+            'nationality' => 'Nationality',
+            'passport_number' => 'Passport Number',
+            'date_of_birth' => 'Date of Birth',
+            'native_language' => 'Native Language',
+            'phone' => 'Phone',
+            'permanent_street' => 'Permanent Street Address',
+            'previous_institution' => 'Previous Institution',
+            'previous_gpa' => 'Previous GPA',
+            'degree_earned' => 'Degree Earned',
+            'english_test_score' => 'English Test Score',
+            'english_test_date' => 'English Test Date',
+            'program_id' => 'Program',
+            'start_term' => 'Start Term',
+            'statement_of_purpose' => 'Statement of Purpose',
+        ];
+
+        $validator = Validator::make([], []);
+
+        // Validate required fields
+        foreach ($requiredFields as $field => $label) {
+            if (empty($application->$field)) {
+                $validator->errors()->add($field, "The {$label} field is required before submitting.");
+            }
+        }
+
+        // Validate required documents
+        $this->validateRequiredDocuments($application, $validator);
+
+        if ($validator->errors()->count() > 0) {
+            return back()->withErrors($validator)->withInput();
+        }
+
         $application->update([
             'status' => 'submitted',
             'submitted_at' => now(),
         ]);
 
         return response()->json(['message' => 'Application submitted successfully']);
+    }
+
+    /**
+     * Validate that all required documents are uploaded
+     */
+    private function validateRequiredDocuments(Application $application, $validator)
+    {
+        $documentTypes = Document::getDocumentTypes();
+        $uploadedDocuments = $application->documents()->pluck('type')->toArray();
+
+        foreach ($documentTypes as $type => $config) {
+            if ($config['required'] && ! in_array($type, $uploadedDocuments)) {
+                $validator->errors()->add(
+                    "document_{$type}",
+                    "The {$config['label']} document is required before submitting."
+                );
+            }
+        }
     }
 
     public function uploadDocument(UploadDocumentRequest $request)

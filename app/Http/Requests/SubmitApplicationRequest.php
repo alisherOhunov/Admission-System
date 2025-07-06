@@ -33,49 +33,6 @@ class SubmitApplicationRequest extends FormRequest
     }
 
     /**
-     * Prepare the data for validation.
-     */
-    protected function prepareForValidation(): void
-    {
-        $application = auth()->user()->getCurrentApplication();
-
-        if (! $application) {
-            return;
-        }
-
-        $requiredFields = [
-            'nationality',
-            'passport_number',
-            'date_of_birth',
-            'native_language',
-            'phone',
-            'permanent_address',
-            'previous_institution',
-            'previous_gpa',
-            'degree_earned',
-            'english_test_score',
-            'english_test_date',
-            'program_id',
-            'start_term',
-            'statement_of_purpose',
-        ];
-
-        $missingFields = [];
-        foreach ($requiredFields as $field) {
-            if (empty($application->$field)) {
-                $missingFields[] = $field;
-            }
-        }
-
-        if (! empty($missingFields)) {
-            // Add validation errors for missing fields
-            $this->getValidatorInstance()->after(function ($validator) use ($missingFields) {
-                $validator->errors()->add('required_fields', 'Please complete all required fields before submitting: '.implode(', ', $missingFields));
-            });
-        }
-    }
-
-    /**
      * Get custom error messages for validator errors.
      */
     public function messages(): array
