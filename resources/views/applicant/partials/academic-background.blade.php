@@ -268,16 +268,6 @@
                                         <div class="text-xs text-gray-400">Formats: PDF, • Max size:
                                             10MB</div>
                                     </div>
-                                    @error('document_transcript')
-                                        <div class="mb-3 p-3 bg-red-50 border border-red-200 rounded-md">
-                                            <div class="flex items-center">
-                                                <svg class="h-4 w-4 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
-                                                </svg>
-                                                <p class="text-sm text-red-600">{{ $message }}</p>
-                                            </div>
-                                        </div>
-                                    @enderror
                                     <div x-show="!uploaded" x-transition
                                         class="border-2 border-dashed rounded-lg p-4 text-center transition-colors"
                                         :class="isDragging ? 'border-blue-400 bg-blue-50' :
@@ -316,7 +306,16 @@
                                             <span class="text-sm text-gray-600">Uploading...</span>
                                         </div>
                                     </div>
-
+                                    @error('document_transcript')
+                                        <div class="my-3 p-3 bg-red-50 border border-red-200 rounded-md">
+                                            <div class="flex items-center">
+                                                <svg class="h-4 w-4 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                                                </svg>
+                                                <p class="text-sm text-red-600">{{ $message }}</p>
+                                            </div>
+                                        </div>
+                                    @enderror
                                     <!-- Success State (shown after successful upload) -->
                                     <div x-show="uploaded" x-transition
                                         class="bg-green-50 border border-green-200 rounded-lg p-4">
@@ -401,16 +400,6 @@
                                         <p class="text-sm text-gray-500 mb-2">Your degree certificate or diploma</p>
                                         <div class="text-xs text-gray-400">PDF, JPG, PNG • Max size: 5MB</div>
                                     </div>
-                                    @error('document_diploma')
-                                        <div class="mb-3 p-3 bg-red-50 border border-red-200 rounded-md">
-                                            <div class="flex items-center">
-                                                <svg class="h-4 w-4 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
-                                                </svg>
-                                                <p class="text-sm text-red-600">{{ $message }}</p>
-                                            </div>
-                                        </div>
-                                    @enderror
                                     <div x-show="!uploaded" x-transition
                                         class="border-2 border-dashed rounded-lg p-4 text-center transition-colors"
                                         :class="isDragging ? 'border-blue-400 bg-blue-50' :
@@ -449,7 +438,16 @@
                                             <span class="text-sm text-gray-600">Uploading...</span>
                                         </div>
                                     </div>
-
+                                    @error('document_diploma')
+                                        <div class="my-3 p-3 bg-red-50 border border-red-200 rounded-md">
+                                            <div class="flex items-center">
+                                                <svg class="h-4 w-4 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                                                </svg>
+                                                <p class="text-sm text-red-600">{{ $message }}</p>
+                                            </div>
+                                        </div>
+                                    @enderror
                                     <!-- Success State (shown after successful upload) -->
                                     <div x-show="uploaded" x-transition
                                         class="bg-green-50 border border-green-200 rounded-lg p-4">
@@ -534,16 +532,6 @@
                                         <p class="text-sm text-gray-500 mb-2">Official IELTS, TOEFL, or other English test results</p>
                                         <div class="text-xs text-gray-400">Formats: PDF • Max size: 5MB</div>
                                     </div>
-                                    @error('document_english_score')
-                                        <div class="mb-3 p-3 bg-red-50 border border-red-200 rounded-md">
-                                            <div class="flex items-center">
-                                                <svg class="h-4 w-4 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
-                                                </svg>
-                                                <p class="text-sm text-red-600">{{ $message }}</p>
-                                            </div>
-                                        </div>
-                                    @enderror
                                     <div x-show="!uploaded" x-transition
                                         class="border-2 border-dashed rounded-lg p-4 text-center transition-colors"
                                         :class="isDragging ? 'border-blue-400 bg-blue-50' :
@@ -585,7 +573,16 @@
                                             <span class="text-sm text-gray-600">Uploading...</span>
                                         </div>
                                     </div>
-
+                                    @error('document_english_score')
+                                        <div class="my-3 p-3 bg-red-50 border border-red-200 rounded-md">
+                                            <div class="flex items-center">
+                                                <svg class="h-4 w-4 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                                                </svg>
+                                                <p class="text-sm text-red-600">{{ $message }}</p>
+                                            </div>
+                                        </div>
+                                    @enderror
                                     <!-- Success State (shown after successful upload) -->
                                     <div x-show="uploaded" x-transition
                                         class="bg-green-50 border border-green-200 rounded-lg p-4">

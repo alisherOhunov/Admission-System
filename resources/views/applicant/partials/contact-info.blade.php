@@ -47,6 +47,7 @@
 
                             <div class="relative">
                                 <label
+                                    for="phone"
                                     class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 form-label form-label-required">
                                     Phone Number <span class="text-red-500 ml-1">*</span>
                                 </label>
@@ -59,9 +60,10 @@
                                     </path>
                                 </svg>
                                 <input 
+                                    id="phone"
                                     value="{{ old('phone', $application->phone ?? '') }}"
                                     class="flex h-10 w-full rounded-md border px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm form-input pl-10"
-                                    name="phone" placeholder="+(998)91 123-4567">
+                                    name="phone" placeholder="+(998)91 123-4567" autocomplete="phone">
                                 @error('phone')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -139,10 +141,11 @@
                             <!-- Country -->
                             <div class="form-field">
                                 <label
+                                    for="country"
                                     class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 form-label form-label-required">
                                     Country<span class="text-red-500 ml-1">*</span>
                                 </label>
-                                <select name="permanent_country"
+                                <select name="permanent_country" id="country" autocomplete="country"
                                     class="mt-1 flex h-10 w-full rounded-md border px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm form-input"
                                 >
                                     <option value="" class="text-muted-foreground">Select your country</option>

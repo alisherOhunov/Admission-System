@@ -294,12 +294,14 @@
                             </div>
 
                             <div class="flex items-center space-x-2">
-                                <input type="checkbox" checked readonly
+                              <input type="checkbox" disabled 
+                                    {{ $application->funding_interest ? 'checked' : '' }} 
+                                    readonly
                                     class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                                <span class="text-sm text-gray-700">
-                                    Interested in scholarships and financial aid
-                                </span>
-                            </div>
+                              <span class="text-sm text-gray-700">
+                                  Interested in scholarships and financial aid
+                              </span>
+                          </div>
                         </div>
                     </div>
                 </div>

@@ -61,7 +61,7 @@ class Document extends Model
             'sop' => [
                 'label' => 'Statement of Purpose',
                 'description' => 'Your written statement of purpose (if uploaded separately)',
-                'required' => false,
+                'required' => true,
                 'formats' => ['PDF', 'DOC', 'DOCX'],
                 'max_size' => '5MB',
             ],

@@ -23,6 +23,17 @@ class UpdateApplicationRequest extends FormRequest
     }
 
     /**
+     * Prepare the data for validation.
+     * This runs BEFORE validation, so we can ensure funding_interest is always present.
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'funding_interest' => $this->has('funding_interest'),
+        ]);
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      */
     public function rules(): array
@@ -56,7 +67,7 @@ class UpdateApplicationRequest extends FormRequest
             'level' => 'nullable|in:undergraduate,graduate',
             'program_id' => 'nullable|exists:programs,id',
             'start_term' => 'nullable|string|max:50',
-            'funding_interest' => 'sometimes|boolean',
+            'funding_interest' => 'boolean',
             'statement_of_purpose' => 'nullable|string|min:100|max:5000',
         ];
     }
