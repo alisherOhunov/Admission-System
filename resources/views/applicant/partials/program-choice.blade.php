@@ -159,7 +159,7 @@
                             class="grid grid-cols-1 gap-4 pb-10"
                         >
                         <div>
-                            <p class="text-lg font-semibold text-gray-900">
+                            <p class="text-lg font-semibold text-gray-900 break-words">
                             Statement of Purpose <span class="text-red-500">*</span>
                             </p>
                         </div>

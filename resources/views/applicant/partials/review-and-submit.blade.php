@@ -54,6 +54,21 @@
                     </div>
                 </div>
             @endif
+      @if($errors->any())
+        <div class="p-4 rounded-lg border flex items-start space-x-3 bg-red-50 border-red-200 text-red-800 mb-4">
+            <svg class="w-5 h-5 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+            </svg>
+            <div class="text-left">
+                <h4 class="font-semibold mb-1">Please Complete all fields with valid inputs</h4>
+                <ul class="list-disc list-inside space-y-1 text-sm">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+      @endif
 
             <!-- Review Sections Grid -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -349,23 +364,57 @@
                     Back to Program Selection
                 </button>
 
-                <div class="flex flex-col sm:flex-row gap-3">
-                    <button
-                        class="bg-white hover:bg-gray-50 border border-gray-300 text-gray-700 font-medium py-2.5 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2">
-                        Save Progress
-                    </button>
-                    <button type="button"
-                        hx-post="{{ route('applicant.application.submit', ['application_id' => $application->id]) }}"
-                        hx-include="form"
-                        class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2">
-                        @if ($application->status === 'require_resubmit')
-                            Resubmit Application
-                        @else
-                            Submit Application
-                        @endif
-                    </button>
-                </div>
-            </div>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <button class="bg-white hover:bg-gray-50 border border-gray-300 text-gray-700 font-medium py-2.5 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2">
+            Save Progress
+          </button>
+          <button 
+            type="button"
+            id="submit-btn"
+            hx-post="{{ route('applicant.application.update', ['applicationId' => $application->id]) }}"
+            hx-target="#form-content"
+            hx-headers='{"X-Submit-Action": "true"}'
+            class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2"
+          >
+              Submit Application
+          </button>
         </div>
+      </div>
     </div>
 </div>
+<script>
+
+let isSubmitting = false;
+
+document.body.addEventListener('htmx:afterSwap', function(event) {
+    if (event.detail.requestConfig.path.includes('update') && 
+        event.detail.requestConfig.headers && 
+        event.detail.requestConfig.headers['X-Submit-Action'] === 'true') {
+        
+        if (isSubmitting) {
+            console.log('Already submitting, ignoring duplicate request');
+            return;
+        }
+        
+        const freshToken = event.detail.xhr.getResponseHeader('X-CSRF-TOKEN');
+        
+        if (!freshToken) {
+            console.log('No fresh token found, update likely failed. Skipping submit.');
+            return;
+        }
+        
+        isSubmitting = true;
+        
+        htmx.ajax('POST', '{{ route('applicant.application.submit', ['applicationId' => $application->id]) }}', {
+            element: '#form-content', 
+            headers: {
+                'X-CSRF-TOKEN': freshToken
+            }
+        }).then(() => {
+            isSubmitting = false;
+        }).catch((error) => {
+            isSubmitting = false;
+        });
+    }
+});
+</script>

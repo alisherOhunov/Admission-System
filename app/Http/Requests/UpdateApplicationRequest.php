@@ -62,21 +62,6 @@ class UpdateApplicationRequest extends FormRequest
     }
 
     /**
-     * Get custom error messages for validator errors.
-     */
-    public function messages(): array
-    {
-        return [
-            'date_of_birth.before' => 'Date of birth must be before today.',
-            'graduation_date.before_or_equal' => 'Graduation date cannot be in the future.',
-            'english_test_date.before_or_equal' => 'English test date cannot be in the future.',
-            'statement_of_purpose.min' => 'Statement of purpose must be at least 100 characters.',
-            'statement_of_purpose.max' => 'Statement of purpose cannot exceed 5000 characters.',
-            'phone.regex' => 'Please enter a valid phone number.',
-        ];
-    }
-
-    /**
      * Handle a failed authorization attempt.
      */
     protected function failedAuthorization()
