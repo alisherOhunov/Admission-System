@@ -306,19 +306,11 @@
                 </div>
 
                 <!-- Navigation Buttons -->
-                <div class="flex items-center justify-between pt-8 border-t mt-8">
-                    <button type="button" disabled
-                        class="flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-400 bg-gray-100 cursor-not-allowed">
-                        <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M15 19l-7-7 7-7" />
-                        </svg>
-                        {{ __('applicant/personal-info.previous')}}
-                    </button>
-
+                <div class="flex justify-end pt-8 border-t mt-8">
                     <div class="flex items-center space-x-4">
                         <button type="submit"
-                            class="flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50">
+                                class="flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:enabled:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400 disabled:border-gray-200"
+                                :disabled="['submitted', 'accepted', 'rejected'].includes(applicationStatus)">
                             <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3-3m0 0l-3 3m3-3v12">
@@ -327,7 +319,7 @@
                             <span>{{ __('applicant/personal-info.save_progress')}}</span>
                         </button>
 
-                        <button @click="currentStep = 2"
+                        <button @click="currentStep = 2" type="button"
                             class="flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
                             {{ __('applicant/personal-info.next')}}
                             <svg class="h-4 w-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

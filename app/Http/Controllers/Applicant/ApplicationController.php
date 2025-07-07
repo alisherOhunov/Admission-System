@@ -49,7 +49,6 @@ class ApplicationController extends Controller
             'last_name' => $request->input('last_name', $user->last_name),
         ]);
 
-        // Get all the required data for the view using your existing logic
         $programs = Program::active()->get()->groupBy('degree_level');
         $currentPeriod = ApplicationPeriod::where('is_active', true)->first();
 
@@ -64,8 +63,7 @@ class ApplicationController extends Controller
         $documents = $application ? $application->getImportantDocuments() : collect();
 
         return response()
-            ->view('applicant.application', compact('application', 'programs', 'currentPeriod', 'documents'))
-            ->header('X-CSRF-TOKEN', csrf_token());
+            ->view('applicant.application', compact('application', 'programs', 'currentPeriod', 'documents'));
     }
 
     public function submit(SubmitApplicationRequest $request)
@@ -109,7 +107,7 @@ class ApplicationController extends Controller
             'submitted_at' => now(),
         ]);
 
-        return response()->json(['message' => 'Application submitted successfully']);
+        return back()->with('success', 'Application submitted successfully!');
     }
 
     /**

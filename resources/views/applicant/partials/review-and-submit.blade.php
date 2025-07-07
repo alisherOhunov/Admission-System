@@ -60,6 +60,19 @@
                     </div>
                 </div>
             @endif
+            @if (session('success'))
+                <div class="p-4 rounded-lg border flex items-start space-x-3 bg-green-50 border-green-200 text-green-800 mb-4">
+                    <svg class="w-5 h-5 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    <div class="text-left">
+                        <h4 class="font-semibold mb-1">Success!</h4>
+                        <p class="text-sm">{{ session('success') }}</p>
+                    </div>
+                </div>
+            @endif
 
             <!-- Review Sections Grid -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -355,23 +368,43 @@
             <!-- Action Buttons -->
             <div class="flex flex-col sm:flex-row gap-4 justify-between">
                 <button type="button" @click="currentStep = 4"
-                    class="bg-white hover:bg-gray-50 border border-gray-300 text-gray-700 font-medium py-2.5 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2">
-                    {{ __('applicant/review-and-submit.back_to_program_selection') }}
+                    class="flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                    <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                    Previous
                 </button>
 
                 <div class="flex flex-col sm:flex-row gap-3">
-                    <button
-                        class="bg-white hover:bg-gray-50 border border-gray-300 text-gray-700 font-medium py-2.5 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2">
-                        {{ __('applicant/review-and-submit.save_progress') }}
+                    <button type="submit"
+                            class="flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:enabled:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400 disabled:border-gray-200"
+                            :disabled="['submitted', 'accepted', 'rejected'].includes(applicationStatus)">
+                        <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3-3m0 0l-3 3m3-3v12">
+                            </path>
+                        </svg>
+                        <span>{{ __('applicant/review-and-submit.save_progress') }}</span>
                     </button>
-                    <button type="button" id="submit-btn"
-                        hx-post="{{ route('applicant.application.update', ['application_id' => $application->id]) }}"
-                        hx-target="#form-content" hx-headers='{"X-Submit-Action": "true"}'
-                        class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2">
-                        {{ __('applicant/review-and-submit.submit_application') }}
+                    <button type="button" 
+                        hx-post="{{ route('applicant.application.submit', ['application_id' => $application->id]) }}"
+                        hx-target="#form-content"
+                        hx-select="#form-content"
+                        hx-indicator="#loading-overlay"
+                        :disabled="['submitted', 'accepted', 'rejected'].includes(applicationStatus)"
+                        class="bg-blue-600 hover:enabled:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-400 disabled:text-gray-200 disabled:hover:bg-gray-400">
+                        @if ($application->status === 'require_resubmit')
+                            {{ __('applicant/review-and-submit.submit_application') }}
+                        @else
+                            {{ __('applicant/review-and-submit.submit_application') }}
+                        @endif
                     </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+
+</script>

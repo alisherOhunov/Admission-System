@@ -263,39 +263,5 @@
             }
         }
     }
-    let isSubmitting = false;
-
-    document.body.addEventListener('htmx:afterSwap', function(event) {
-        if (event.detail.requestConfig.path.includes('update') &&
-            event.detail.requestConfig.headers &&
-            event.detail.requestConfig.headers['X-Submit-Action'] === 'true') {
-
-            if (isSubmitting) {
-                console.log('Already submitting, ignoring duplicate request');
-                return;
-            }
-
-            const freshToken = event.detail.xhr.getResponseHeader('X-CSRF-TOKEN');
-
-            if (!freshToken) {
-                console.log('No fresh token found, update likely failed. Skipping submit.');
-                return;
-            }
-
-            isSubmitting = true;
-
-            htmx.ajax('POST',
-                '{{ route('applicant.application.submit', ['application_id' => $application->id]) }}', {
-                    element: '#form-content',
-                    headers: {
-                        'X-CSRF-TOKEN': freshToken
-                    }
-                }).then(() => {
-                isSubmitting = false;
-            }).catch((error) => {
-                isSubmitting = false;
-            });
-        }
-    });
 </script>
 @endsection
