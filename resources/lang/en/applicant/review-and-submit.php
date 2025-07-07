@@ -51,4 +51,5 @@ return [
     'previous' => 'Previous',
     'save_progress' => 'Save Progress',
     'submit_application' => 'Submit Application',
+    'not_submitted_yet' => 'not submitted yet',
 ];

@@ -277,8 +277,9 @@
                                 <span class="text-gray-500">•</span>
                                 <span class="text-gray-900">{{ __('applicant/review-and-submit.score') }}: {{ $application->english_test_score }}</span>
                                 <span class="text-gray-500">•</span>
-                                <span
-                                    class="text-gray-700">{{ $application->english_test_date->format('Y/m/d') }}</span>
+                                <span class="text-gray-700">
+                                    {{ optional($application->english_test_date)->format('Y/m/d') ?? __('applicant/review-and-submit.not_submitted_yet') }}
+                                </span>
                             </div>
                         </div>
                     </div>

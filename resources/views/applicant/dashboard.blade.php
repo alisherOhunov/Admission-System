@@ -65,7 +65,7 @@
                                 </div>
 
                                 <div class="pt-4 border-t">
-                                    <a href="{{ route('applicant.application', ['application_id' => $application->id]) }}" class="w-full inline-flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                    <a href="{{ route('applicant.application') }}" class="w-full inline-flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                                         {{ __('applicant/dashboard.view_application_details') }}
                                     </a>
                                 </div>
@@ -81,7 +81,7 @@
                                 <h3 class="mt-4 text-xl font-medium text-gray-900">{{ __('applicant/dashboard.start_your_application') }}</h3>
                                 <p class="text-slate-600 text-md mb-8 max-w-md mx-auto">{{ __('applicant/dashboard.start_application_desc') }}</p>
                                 <div class="mt-6">
-                                    <a href="{{ route('applicant.application', ['application_id' => $application->id]) }}">
+                                    <a href="{{ route('applicant.application') }}">
                                         <button class="bg-blue-500 hover:bg-blue-500/90 inline-flex items-center text-white justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-colors h-10 px-4 py-2">
                                             <svg class="lucide lucide-plus h-4 w-4 mr-2" ...></svg>
                                             {{ __('applicant/dashboard.start_application') }}
@@ -145,7 +145,7 @@
                             </div>
 
                             <div class="pt-4 border-t">
-                                <a href="{{ route('applicant.application', ['application_id' => $application->id]) }}" class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                <a href="{{ route('applicant.application') }}" class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                                     {{ __('applicant/dashboard.continue_application') }}
                                 </a>
                             </div>
@@ -205,7 +205,7 @@
                     </div>
                     <div class="p-6">
                         <div class="space-y-3">
-                            <a href="{{ route('applicant.application', ['application_id' => $application->id]) }}" class="w-full inline-flex items-center justify-start px-4 py-2 border shadow-sm text-sm font-medium rounded-lg text-white bg-blue-500 hover:bg-blue-500/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                            <a href="{{ route('applicant.application') }}" class="w-full inline-flex items-center justify-start px-4 py-2 border shadow-sm text-sm font-medium rounded-lg text-white bg-blue-500 hover:bg-blue-500/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text h-4 w-4 mr-5">
                                     <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
                                     <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>

@@ -18,10 +18,10 @@ use Illuminate\Support\Str;
 
 class ApplicationController extends Controller
 {
-    public function show(int $application_id)
+    public function show()
     {
         $user = Auth::user();
-        $application = Application::where('id', $application_id)->first();
+        $application = $user->getCurrentApplication();
         $programs = Program::active()->get()->groupBy('degree_level');
         $currentPeriod = ApplicationPeriod::where('is_active', true)->first();
 
