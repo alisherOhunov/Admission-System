@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'title' => 'Personal Info',
     'step_title' => 'Personal Information',
     'step_description' => 'Basic personal details and identification',
     'section_title' => 'Personal Information',

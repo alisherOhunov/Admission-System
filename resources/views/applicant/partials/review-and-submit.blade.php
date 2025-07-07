@@ -4,8 +4,13 @@
         <div class="bg-white px-6 py-4 border-b border-gray-200">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-2">
-                    <span
-                        class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-600 text-sm font-medium">5</span>
+                    <span class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-blue-100 text-blue-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                            <path d="M12 8.5l.95 1.93 2.13.31-1.54 1.5.36 2.1-1.9-1-1.9 1 .36-2.1-1.54-1.5 2.13-.31L12 8.5z"/>
+                        </svg>
+                    </span>
+
                     <span class="text-2xl font-medium">{{ __('applicant/review-and-submit.page_title') }}</span>
                 </div>
             </div>
@@ -105,7 +110,7 @@
                                     {{ __('applicant/review-and-submit.date_of_birth') }}
                                 </p>
                                 <p class="text-gray-900">
-                                    {{ $application->date_of_birth ? $application->date_of_birth->format('d F Y') : __('applicant/review-and-submit.not_specified') }}
+                                    {{ $application->date_of_birth ? $application->date_of_birth->format('Y/m/d') : __('applicant/review-and-submit.not_specified') }}
                                 </p>
                             </div>
                             <div>
@@ -259,7 +264,7 @@
                                 {{ __('applicant/review-and-submit.graduation_date') }}
                             </p>
                             <p class="text-gray-900">
-                                {{ $application->graduation_date ? $application->graduation_date->format('d F Y') : __('applicant/review-and-submit.not_specified') }}
+                                {{ $application->graduation_date ? $application->graduation_date->format('Y/m/d') : __('applicant/review-and-submit.not_specified') }}
                             </p>
                         </div>
 
@@ -273,7 +278,7 @@
                                 <span class="text-gray-900">{{ __('applicant/review-and-submit.score') }}: {{ $application->english_test_score }}</span>
                                 <span class="text-gray-500">•</span>
                                 <span
-                                    class="text-gray-700">{{ $application->english_test_date->format('d F Y') }}</span>
+                                    class="text-gray-700">{{ $application->english_test_date->format('Y/m/d') }}</span>
                             </div>
                         </div>
                     </div>
@@ -379,7 +384,7 @@
                 <div class="flex flex-col sm:flex-row gap-3">
                     <button type="submit"
                             class="flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:enabled:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400 disabled:border-gray-200"
-                            @disabled(in_array($application->status, ['submitted', 'accepted', 'rejected']))>
+                            @disabled(in_array($application->status, ['submitted', 're_submitted', 'accepted', 'rejected']))>
                         <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3-3m0 0l-3 3m3-3v12">
@@ -392,7 +397,7 @@
                         hx-target="#form-content"
                         hx-select="#form-content"
                         hx-indicator="#loading-overlay"
-                        @disabled(in_array($application->status, ['submitted', 'accepted', 'rejected']))
+                        @disabled(in_array($application->status, ['submitted', 're_submitted', 'accepted', 'rejected']))
                         class="bg-blue-600 hover:enabled:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-400 disabled:text-gray-200 disabled:hover:bg-gray-400">
                         @if ($application->status === 'require_resubmit')
                             {{ __('applicant/review-and-submit.submit_application') }}

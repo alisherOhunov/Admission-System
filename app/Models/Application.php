@@ -97,12 +97,12 @@ class Application extends Model
 
     public function isSubmitted()
     {
-        return in_array($this->status, ['submitted', 'under_review', 'accepted', 'rejected']);
+        return in_array($this->status, ['submitted', 'under_review', 'accepted', 'rejected', 'require_resubmit', 're_submitted']);
     }
 
     public function canEdit()
     {
-        return $this->status === 'draft';
+        return in_array($this->status, ['draft', 'require_resubmit']);
     }
 
     // Progress Calculation
@@ -139,6 +139,7 @@ class Application extends Model
             'draft' => ['label' => 'Draft', 'color' => 'bg-gray-100 text-gray-800'],
             'submitted' => ['label' => 'Submitted', 'color' => 'bg-blue-100 text-blue-800'],
             'require_resubmit' => ['label' => 'Require Resubmit', 'color' => 'bg-blue-100 text-blue-800'],
+            're_submitted' => ['label' => 'ReSubmitted', 'color' => 'bg-blue-100 text-blue-800'],
             'under_review' => ['label' => 'Under Review', 'color' => 'bg-yellow-100 text-yellow-800'],
             'accepted' => ['label' => 'Accepted', 'color' => 'bg-green-100 text-green-800'],
             'rejected' => ['label' => 'Rejected', 'color' => 'bg-red-100 text-red-800'],

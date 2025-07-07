@@ -16,6 +16,7 @@ class DashboardController extends Controller
             'accepted' => Application::byStatus('accepted')->count(),
             'rejected' => Application::byStatus('rejected')->count(),
             'submitted' => Application::byStatus('submitted')->count(),
+            're_submitted' => Application::byStatus('re_submitted')->count(),
         ];
 
         $recentApplications = Application::with(['user', 'program'])

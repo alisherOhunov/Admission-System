@@ -3,8 +3,10 @@
         <div class="bg-white shadow-sm rounded-lg">
             <div class="px-6 py-4 border-b border-gray-200">
                 <div class="flex items-center space-x-2">
-                    <span
-                        class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-600 text-sm font-medium">2</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin h-5 w-5 text-brand-600">
+                        <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
                     <span class="text-lg font-medium">{{ __('applicant/contact-info.step_title') }}</span>
                 </div>
                 <p class="text-gray-600 mt-1">
@@ -17,9 +19,18 @@
                     <!-- Left Column - Form Fields -->
                     <div class="space-y-6">
                         <div>
-                            <h3 class="text-lg font-medium text-gray-900 mb-4">
-                                {{ __('applicant/contact-info.contact_information') }}
-                            </h3>
+                            <div class="flex items-center space-x-2 mb-4">
+                                <span class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-blue-100 text-blue-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail h-6 w-6">
+                                        <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                                    </svg>
+                                </span>
+
+                                <h3 class="text-lg font-medium text-gray-900">
+                                    {{ __('applicant/contact-info.contact_information') }}
+                                </h3>
+                            </div>
                             <p class="text-sm text-gray-600 mb-6">
                                 {{ __('applicant/contact-info.contact_description') }}
                             </p>
@@ -342,10 +353,10 @@
 
                                 <!-- Upload Tips -->
                                 <div class="bg-blue-50 border border-blue-200 rounded-md p-3">
-                                    <h4 class="text-xs font-medium text-blue-900 mb-1">
+                                    <h4 class="text-sm font-medium text-blue-900 mb-1">
                                         {{ __('applicant/contact-info.document_requirements') }}
                                     </h4>
-                                    <ul class="text-xs text-blue-800 space-y-1">
+                                    <ul class="text-sm text-blue-800 space-y-1">
                                         <li>{{ __('applicant/contact-info.req_clear') }}</li>
                                         <li>{{ __('applicant/contact-info.req_original') }}</li>
                                         <li>{{ __('applicant/contact-info.req_translation') }}</li>
@@ -372,7 +383,7 @@
                     <div class="flex items-center space-x-4">
                         <button type="submit"
                                 class="flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:enabled:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400 disabled:border-gray-200"
-                                @disabled(in_array($application->status, ['submitted', 'accepted', 'rejected']))>
+                                @disabled(in_array($application->status, ['submitted', 're_submitted', 'accepted', 'rejected']))>
                             <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3-3m0 0l-3 3m3-3v12">

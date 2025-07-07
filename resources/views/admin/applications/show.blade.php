@@ -386,7 +386,7 @@
                                     <div class="flex-1 text-center">
                                         <p id="timeline-status-badge"
                                             class="current-status-display text-sm font-medium text-gray-900 uppercase">
-                                            {{ $status }}
+                                            {{ ucwords(str_replace('_', ' ', $status)) }}
                                         </p>
                                         <p class="text-xs text-gray-500">{{ __('admin/show.current_status') }}</p>
                                     </div>

@@ -154,7 +154,7 @@
                         <div class="space-y-3">
                             <div class="flex items-center justify-between">
                                 <span class="text-sm text-gray-600">{{ __('admin/dashboard.status_submitted') }}</span>
-                                <span class="font-medium">{{ $stats['submitted'] }}</span>
+                                <span class="font-medium">{{ $stats['submitted'] + $stats['re_submitted'] }}</span>
                             </div>
                             <div class="flex items-center justify-between">
                                 <span class="text-sm text-gray-600">{{ __('admin/dashboard.status_under_review') }}</span>

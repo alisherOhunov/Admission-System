@@ -50,16 +50,7 @@ class ApplicationController extends Controller
         ]);
 
         $programs = Program::active()->get()->groupBy('degree_level');
-        $currentPeriod = ApplicationPeriod::where('is_active', true)->first();
-
-        if (! $application && $currentPeriod) {
-            $application = Application::create([
-                'user_id' => $user->id,
-                'application_period_id' => $currentPeriod->id,
-                'email' => $user->email,
-                'status' => 'draft',
-            ]);
-        }
+        $currentPeriod = $application->applicationPeriod;
         $documents = $application ? $application->getImportantDocuments() : collect();
 
         return response()
@@ -103,7 +94,7 @@ class ApplicationController extends Controller
         }
 
         $application->update([
-            'status' => 'submitted',
+            'status' => $application->status === 'require_resubmit' ? 're_submitted' : 'submitted',
             'submitted_at' => now(),
         ]);
 

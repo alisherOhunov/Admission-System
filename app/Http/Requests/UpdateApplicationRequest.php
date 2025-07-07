@@ -15,7 +15,7 @@ class UpdateApplicationRequest extends FormRequest
     public function authorize(): bool
     {
         $application_id = $this->route('application_id');
-        $this->application = Application::find($application_id);
+        $this->application = Application::with('applicationPeriod')->find($application_id);
 
         return $this->application &&
                auth()->id() === $this->application->user_id &&
