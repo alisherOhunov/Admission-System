@@ -4,233 +4,92 @@
 
 @section('content')
 
-<div class="min-h-screen bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <!-- Header -->
-        <div class="mb-8">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h1 class="text-3xl font-bold text-gray-900">
-                        University Application
-                    </h1>
-                    <p class="mt-2 text-gray-600">
-                        Complete your application step by step
-                    </p>
+    <div class="min-h-screen bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Header -->
+            <div class="mb-8">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-900">
+                            {{ __('applicant/application.heading') }}
+                        </h1>
+                        <p class="mt-2 text-gray-600">
+                            {{ __('applicant/application.subheading') }}
+                        </p>
+                    </div>
                 </div>
-                <div class="flex items-center space-x-4">
             </div>
-        </div>
-    </div>
-    <form 
-        hx-post="{{ route('applicant.application.update', ['application_id' => $application->id]) }}"
-        hx-select="#form-content"
-        hx-indicator="#loading-overlay"
-    >
-        <div id="form-content">
-            @csrf
-            <div x-data="tabStepper()">
-                <div class="mb-8">
-                    <div class="border-b border-gray-200">
-                        <nav class="-mb-px flex space-x-8 overflow-x-auto">
-                            <!-- Step 1 -->
-                            <button
-                                type="button"
-                                @click="currentStep = 1"
-                                :class="getButtonClass(1)"
-                                class="group relative min-w-0 flex-1 overflow-hidden py-4 px-1 text-center text-sm font-medium transition-all duration-200"
-                            >
-                                <div class="flex flex-col items-center space-y-2">
-                                    <div class="relative">
-                                        <div
-                                            :class="getCircleClass(1)"
-                                            class="flex items-center justify-center w-8 h-8 rounded-full border-2 transition-all duration-200"
-                                        >
-                                            <span 
-                                                :class="getTextClass(1)"
-                                                class="text-sm font-medium"
-                                            >1</span>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div 
-                                            :class="getTextClass(1)"
-                                            class="text-sm font-medium"
-                                        >
-                                            Personal Information
-                                        </div>
-                                        <div class="text-xs text-gray-400 hidden sm:block">
-                                            Basic personal details
-                                        </div>
-                                    </div>
-                                </div>
-                            </button>
 
-                            <!-- Step 2 -->
-                            <button
-                                type="button"
-                                @click="currentStep = 2"
-                                :class="getButtonClass(2)"
-                                class="group relative min-w-0 flex-1 overflow-hidden py-4 px-1 text-center text-sm font-medium transition-all duration-200"
-                            >
-                                <div class="flex flex-col items-center space-y-2">
-                                    <div class="relative">
-                                        <div
-                                            :class="getCircleClass(2)"
-                                            class="flex items-center justify-center w-8 h-8 rounded-full border-2 transition-all duration-200"
+            <form 
+                hx-post="{{ route('applicant.application.update', ['application_id' => $application->id]) }}"
+                hx-select="#form-content"
+                hx-indicator="#loading-overlay"
+            >
+                <div id="form-content">
+                    @csrf
+                    <div x-data="tabStepper()">
+                        <div class="mb-8">
+                            <div class="border-b border-gray-200">
+                                <nav class="-mb-px flex space-x-8 overflow-x-auto">
+                                    @foreach(range(1,5) as $i)
+                                        <button
+                                            type="button"
+                                            @click="currentStep = {{ $i }}"
+                                            :class="getButtonClass({{ $i }})"
+                                            class="group relative min-w-0 flex-1 overflow-hidden py-4 px-1 text-center text-sm font-medium transition-all duration-200"
                                         >
-                                            <span 
-                                                :class="getTextClass(2)"
-                                                class="text-sm font-medium"
-                                            >2</span>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div 
-                                            :class="getTextClass(2)"
-                                            class="text-sm font-medium"
-                                        >
-                                            Contact Information
-                                        </div>
-                                        <div class="text-xs text-gray-400 hidden sm:block">
-                                            Address and contact details
-                                        </div>
-                                    </div>
-                                </div>
-                            </button>
+                                            <div class="flex flex-col items-center space-y-2">
+                                                <div class="relative">
+                                                    <div
+                                                        :class="getCircleClass({{ $i }})"
+                                                        class="flex items-center justify-center w-8 h-8 rounded-full border-2 transition-all duration-200"
+                                                    >
+                                                        <span 
+                                                            :class="getTextClass({{ $i }})"
+                                                            class="text-sm font-medium"
+                                                        >{{ $i }}</span>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div 
+                                                        :class="getTextClass({{ $i }})"
+                                                        class="text-sm font-medium"
+                                                    >
+                                                        {{ __('applicant/application.step_'.$i.'_title') }}
+                                                    </div>
+                                                    <div class="text-xs text-gray-400 hidden sm:block">
+                                                        {{ __('applicant/application.step_'.$i.'_desc') }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </button>
+                                    @endforeach
+                                </nav>
+                            </div>
+                        </div>
 
-                            <!-- Step 3 -->
-                            <button
-                                type="button"
-                                @click="currentStep = 3"
-                                :class="getButtonClass(3)"
-                                class="group relative min-w-0 flex-1 overflow-hidden py-4 px-1 text-center text-sm font-medium transition-all duration-200"
-                            >
-                                <div class="flex flex-col items-center space-y-2">
-                                    <div class="relative">
-                                        <div
-                                            :class="getCircleClass(3)"
-                                            class="flex items-center justify-center w-8 h-8 rounded-full border-2 transition-all duration-200"
-                                        >
-                                            <span 
-                                                :class="getTextClass(3)"
-                                                class="text-sm font-medium"
-                                            >3</span>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div 
-                                            :class="getTextClass(3)"
-                                            class="text-sm font-medium"
-                                        >
-                                            Academic Background
-                                        </div>
-                                        <div class="text-xs text-gray-400 hidden sm:block">
-                                            Education background
-                                        </div>
-                                    </div>
-                                </div>
-                            </button>
-
-                            <!-- Step 4 -->
-                            <button
-                                type="button"
-                                @click="currentStep = 4"
-                                :class="getButtonClass(4)"
-                                class="group relative min-w-0 flex-1 overflow-hidden py-4 px-1 text-center text-sm font-medium transition-all duration-200"
-                            >
-                                <div class="flex flex-col items-center space-y-2">
-                                    <div class="relative">
-                                        <div
-                                            :class="getCircleClass(4)"
-                                            class="flex items-center justify-center w-8 h-8 rounded-full border-2 transition-all duration-200"
-                                        >
-                                            <span 
-                                                :class="getTextClass(4)"
-                                                class="text-sm font-medium"
-                                            >4</span>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div 
-                                            :class="getTextClass(4)"
-                                            class="text-sm font-medium"
-                                        >
-                                            Program Choice
-                                        </div>
-                                        <div class="text-xs text-gray-400 hidden sm:block">
-                                            Program selection
-                                        </div>
-                                    </div>
-                                </div>
-                            </button>
-
-                            <!-- Step 5 -->
-                            <button
-                                type="button"
-                                @click="currentStep = 5"
-                                :class="getButtonClass(5)"
-                                class="group relative min-w-0 flex-1 overflow-hidden py-4 px-1 text-center text-sm font-medium transition-all duration-200"
-                            >
-                                <div class="flex flex-col items-center space-y-2">
-                                    <div class="relative">
-                                        <div
-                                            :class="getCircleClass(5)"
-                                            class="flex items-center justify-center w-8 h-8 rounded-full border-2 transition-all duration-200"
-                                        >
-                                            <span 
-                                                :class="getTextClass(5)"
-                                                class="text-sm font-medium"
-                                            >5</span>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div 
-                                            :class="getTextClass(5)"
-                                            class="text-sm font-medium"
-                                        >
-                                            Review & Submit
-                                        </div>
-                                        <div class="text-xs text-gray-400 hidden sm:block">
-                                            Review & submit
-                                        </div>
-                                    </div>
-                                </div>
-                            </button>
-                        </nav>
+                        <!-- Main Form Content -->
+                        <div class="tab-content">
+                            <div data-step="1">@include('applicant.partials.personal-info', ['step' => 1])</div>
+                            <div data-step="2">@include('applicant.partials.contact-info', ['step' => 2])</div>
+                            <div data-step="3">@include('applicant.partials.academic-background', ['step' => 3])</div>
+                            <div data-step="4">@include('applicant.partials.program-choice', ['step' => 4])</div>
+                            <div data-step="5">@include('applicant.partials.review-and-submit', ['step' => 5])</div>
+                        </div>
                     </div>
                 </div>
-        
-        
-                <!-- Main Form Content -->
-                <div class="tab-content">
-                    <div data-step="1">
-                        @include('applicant.partials.personal-info', ['step' => 1])
-                    </div>
-                    <div data-step="2">
-                        @include('applicant.partials.contact-info', ['step' => 2])
-                    </div>
-                    <div data-step="3">
-                        @include('applicant.partials.academic-background', ['step' => 3])
-                    </div>
-                    <div data-step="4">
-                        @include('applicant.partials.program-choice', ['step' => 4])
-                    </div>
-                    <div data-step="5">
-                        @include('applicant.partials.review-and-submit', ['step' => 5])
+            </form>
+
+            <div id="loading-overlay" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center" style="z-index: 9999;">
+                <div class="rounded p-6 flex flex-col items-center">
+                    <div class="relative">
+                        <div class="h-24 w-24 rounded-full border-t-8 border-b-8 border-gray-200"></div>
+                        <div class="absolute top-0 left-0 h-24 w-24 rounded-full border-t-8 border-b-8 border-blue-500 animate-spin"></div>
                     </div>
                 </div>
             </div>
         </div>
-    </form>
-        <div id="loading-overlay" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center" style="z-index: 9999;">
-            <div class="rounded p-6 flex flex-col items-center">
-                <div class="relative">
-                    <div class="h-24 w-24 rounded-full border-t-8 border-b-8 border-gray-200"></div>
-                    <div class="absolute top-0 left-0 h-24 w-24 rounded-full border-t-8 border-b-8 border-blue-500 animate-spin"></div>
-                </div>
-            </div>
-        </div>
-</div>
+    </div>
 <style>
 
 .htmx-request {

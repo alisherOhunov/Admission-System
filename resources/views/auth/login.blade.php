@@ -5,14 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Sign In - EduAdmit</title>
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-        <!-- Tailwind CSS -->
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
+
 <body class="bg-gray-50">
     <div class="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
@@ -25,14 +27,15 @@
                     <span class="text-2xl font-bold text-gray-900">EduAdmit</span>
                 </div>
             </div>
+
             <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-                Sign in to your account
+                {{ __('auth.sign_in_existing_account') }}
             </h2>
             <p class="mt-2 text-center text-sm text-gray-600">
-                Or
+                {{ __('auth.or') }}
                 @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="font-medium hover:text-gray-500">
-                        create a new account
+                    <a href="{{ route('register') }}" class="font-medium text-university-600 hover:text-university-500">
+                        {{ __('auth.create_account') }}
                     </a>
                 @endif
             </p>
@@ -40,13 +43,12 @@
 
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
             <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-                <!-- Session Status -->
+
                 <x-auth-session-status class="mb-4" :status="session('status')" />
 
                 <form class="space-y-6" method="POST" action="{{ route('login') }}">
                     @csrf
 
-                    <!-- Display validation errors -->
                     @if ($errors->any())
                         <div class="bg-red-50 border border-red-200 rounded-md p-4">
                             <div class="flex">
@@ -62,23 +64,26 @@
                         </div>
                     @endif
 
-                    <!-- Email Address -->
                     <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
+                        <label for="email" class="block text-sm font-medium text-gray-700">
+                            {{ __('auth.email') }}
+                        </label>
                         <div class="mt-1">
-                            <input id="email" placeholder="Enter your email" name="email" type="email" autocomplete="email" required
+                            <input id="email" name="email" type="email" autocomplete="email" required
                                    value="{{ old('email') }}"
+                                   placeholder="{{ __('auth.enter_your_email') }}"
                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                         </div>
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                     </div>
 
-                    <!-- Password -->
                     <div x-data="{ showPassword: false }">
-                        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                        <label for="password" class="block text-sm font-medium text-gray-700">
+                            {{ __('auth.password') }}
+                        </label>
                         <div class="mt-1 relative">
-                            <input id="password" name="password" placeholder="Enter your password" :type="showPassword ? 'text' : 'password'" 
-                                   autocomplete="current-password" required
+                            <input id="password" name="password" :type="showPassword ? 'text' : 'password'" autocomplete="current-password" required
+                                   placeholder="{{ __('auth.create_password') }}"
                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm pr-10">
                             <button type="button" @click="showPassword = !showPassword" class="absolute inset-y-0 right-0 pr-3 flex items-center">
                                 <svg x-show="!showPassword" class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -93,7 +98,6 @@
                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
                     </div>
 
-                    <!-- Forgot Password -->
                     <div class="flex items-center justify-between">
                         <div class="text-sm">
                             @if (Route::has('password.request'))
@@ -104,10 +108,10 @@
                         </div>
                     </div>
 
-                    <!-- Submit Button -->
                     <div>
-                        <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                            Sign in
+                        <button type="submit"
+                                class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            {{ __('auth.sign_in_here') }}
                         </button>
                     </div>
                 </form>

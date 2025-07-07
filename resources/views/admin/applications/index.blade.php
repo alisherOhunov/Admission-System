@@ -7,8 +7,8 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header -->
         <div class="mb-8">
-            <h1 class="text-3xl font-bold text-gray-900">Applications</h1>
-            <p class="mt-2 text-gray-600">Manage and Review student applications</p>
+            <h1 class="text-3xl font-bold text-gray-900">{{ __('admin/index.heading')}}</h1>
+            <p class="mt-2 text-gray-600">{{ __('admin/index.subheading')}}</p>
         </div>
 
         <!-- Filters and Actions -->
@@ -26,7 +26,7 @@
                             <input type="text" 
                                    name="search" 
                                    value="{{ request('search') }}" 
-                                   placeholder="Search applications..." 
+                                   placeholder="{{ __('admin/index.search_placeholder') }}" 
                                    class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                                    hx-get="{{ route('admin.applications.index') }}"
                                    hx-trigger="keyup changed delay:300ms, search"
@@ -45,11 +45,11 @@
                                 hx-include="[name='search'], [name='level']"
                                 hx-indicator="#loading-indicator"
                                 hx-swap="innerHTML">
-                            <option value="">All Status</option>
-                            <option value="submitted" {{ request('status') == 'submitted' ? 'selected' : '' }}>Submitted</option>
-                            <option value="under_review" {{ request('status') == 'under_review' ? 'selected' : '' }}>Under Review</option>
-                            <option value="accepted" {{ request('status') == 'accepted' ? 'selected' : '' }}>Accepted</option>
-                            <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
+                            <option value="">{{ __('admin/index.status_all')}}</option>
+                            <option value="submitted" {{ request('status') == 'submitted' ? 'selected' : '' }}>{{ __('admin/index.status_submitted')}}</option>
+                            <option value="under_review" {{ request('status') == 'under_review' ? 'selected' : '' }}>{{ __('admin/index.status_under_review')}}</option>
+                            <option value="accepted" {{ request('status') == 'accepted' ? 'selected' : '' }}>{{ __('admin/index.status_accepted')}}</option>
+                            <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>{{ __('admin/index.status_rejected')}}</option>
                         </select>
 
                         <!-- Level Filter -->
@@ -61,9 +61,9 @@
                                 hx-include="[name='search'], [name='status']"
                                 hx-indicator="#loading-indicator"
                                 hx-swap="innerHTML">
-                            <option value="">All Levels</option>
-                            <option value="undergraduate" {{ request('level') == 'undergraduate' ? 'selected' : '' }}>Undergraduate</option>
-                            <option value="graduate" {{ request('level') == 'graduate' ? 'selected' : '' }}>Graduate</option>
+                            <option value="">{{ __('admin/index.level_all')}}</option>
+                            <option value="undergraduate" {{ request('level') == 'undergraduate' ? 'selected' : '' }}>{{ __('admin/index.level_undergraduate')}}</option>
+                            <option value="graduate" {{ request('level') == 'graduate' ? 'selected' : '' }}>{{ __('admin/index.level_graduate')}}</option>
                         </select>
 
                         <!-- Loading Indicator -->
@@ -80,7 +80,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-filter h-4 w-4 mr-2">
                                 <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
                             </svg>
-                            More Filters
+                            {{ __('admin/index.filter_more')}}
                         </button>
                         <button type="button" class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-offset-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download h-4 w-4 mr-2">
@@ -88,7 +88,7 @@
                                 <polyline points="7 10 12 15 17 10"></polyline>
                                 <line x1="12" x2="12" y1="15" y2="3"></line>
                             </svg>
-                            Export
+                            {{ __('admin/index.export')}}
                         </button>
                     </div>
                 </div>

@@ -8,11 +8,11 @@
                         class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-600 text-sm font-medium"
                         >3</span
                         >
-                        <span class="text-lg font-medium">Academic</span>
+                        <span class="text-lg font-medium">{{ __('applicant/academic-background.step_title') }}</span>
                     </div>
                 </div>
                 <p class="text-gray-600 mt-1">
-                Education background
+                {{ __('applicant/academic-background.step_description') }}
                 </p>
             </div>
             <div class="p-6">
@@ -21,33 +21,33 @@
                         <div class="border-b border-gray-200">
                             <div class="flex items-center space-x-3 mb-4">
                                 <h3 class="text-lg font-medium text-gray-900 mb-4">
-                                Academic Background
+                                {{ __('applicant/academic-background.academic_background') }}
                                 </h3>
                             </div>
                             <p class="text-lg text-gray-600 mb-6">
-                                Provide details about your previous education and English language proficiency to help us evaluate your academic readiness.
+                                {{ __('applicant/academic-background.academic_description') }}
                             </p>
                         </div>
 
                         <div class="grid grid-cols-1 gap-6">
                             <div>
-                                <p class="text-lg font-semibold text-gray-900">Previous Education</p>
+                                <p class="text-lg font-semibold text-gray-900">{{ __('applicant/academic-background.previous_education') }}</p>
                             </div>
                             <div>
                                 <label
                                 for="previousInstitution"
                                 class="block text-sm font-medium text-gray-700"
-                                >Previous Institution <span class="text-red-500">*</span></label
+                                >{{ __('applicant/academic-background.previous_institution') }} <span class="text-red-500">*</span></label
                                 >
                                 <input
                                     value="{{ old('previous_institution', $application->previous_institution ?? '') }}"
                                     type="text"
                                     id="previousInstitution"
                                     name="previous_institution"
-                                    placeholder="e.g., University of California, Berkeley"
+                                    placeholder="{{ __('applicant/academic-background.previous_institution_placeholder') }}"
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                                 />
-                                <p class="mt-2 text-gray-500">Enter the full name of your most recent educational institution</p>
+                                <p class="mt-2 text-gray-500">{{ __('applicant/academic-background.previous_institution_help') }}</p>
                                 @error('previous_institution')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -57,7 +57,7 @@
                                 <label
                                     for="degreeEarned"
                                     class="block text-sm font-medium text-gray-700"
-                                    >Degree/Certificate Earned <span class="text-red-500">*</span>
+                                    >{{ __('applicant/academic-background.degree_earned') }} <span class="text-red-500">*</span>
                                 </label
                                 >
                                 <input
@@ -65,7 +65,7 @@
                                     type="text"
                                     id="degreeEarned"
                                     name="degree_earned"
-                                    placeholder="e.g., Bachelor of Science in Computer Science"
+                                    placeholder="{{ __('applicant/academic-background.degree_earned_placeholder') }}"
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                                 />
                                 @error('degree_earned')
@@ -79,7 +79,7 @@
                                 <label
                                 for="gpa"
                                 class="block text-sm font-medium text-gray-700"
-                                >GPA/GRADE
+                                >{{ __('applicant/academic-background.gpa_grade') }}
                                 <span class="text-red-500">*</span></label
                                 >
                                 <input
@@ -87,10 +87,10 @@
                                 type="text"
                                 id="gpa"
                                 name="previous_gpa"
-                                placeholder="e.g., 3.8/4.0 or First Class"
+                                placeholder="{{ __('applicant/academic-background.gpa_placeholder') }}"
                                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                                 />
-                                <p class="mt-2 text-gray-500">Use the grading system from your institution</p>
+                                <p class="mt-2 text-gray-500">{{ __('applicant/academic-background.gpa_help') }}</p>
                                 @error('previous_gpa')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -101,7 +101,7 @@
                                     <label
                                     for="graduation_date"
                                     class="block text-sm font-medium text-gray-700"
-                                    >Graduation Date (Optional)
+                                    >{{ __('applicant/academic-background.graduation_date') }}
                                     </label
                                     >
                                     <input
@@ -111,7 +111,7 @@
                                     name="graduation_date"
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                                     />
-                                    <p class="mt-2 text-gray-500">When did you graduate or when do you expect to graduate?</p>
+                                    <p class="mt-2 text-gray-500">{{ __('applicant/academic-background.graduation_date_help') }}</p>
                                     @error('graduation_date')
                                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
@@ -119,28 +119,28 @@
                             </div>
                             <div class="grid grid-cols-1 gap-6">
                                 <div>
-                                    <p class="text-lg font-semibold text-gray-900">English Language Proficiency</p>
+                                    <p class="text-lg font-semibold text-gray-900">{{ __('applicant/academic-background.english_proficiency') }}</p>
                                 </div>
                                 <div>
                                     <label
                                     for="english-test-type"
                                     class="block text-sm font-medium text-gray-700"
-                                    >English Test Type</label
+                                    >{{ __('applicant/academic-background.english_test_type') }}</label
                                     >
                                     <select
                                         id="english-test-type"
                                         name="english_test_type"
                                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                                     >
-                                        <option value="">Select English test type</option>
-                                        <option value="IELTS" @selected(old('english_test_type', $application->english_test_type ?? '') == 'IELTS')>IELTS Academic</option>
-                                        <option value="TOEFL" @selected(old('english_test_type', $application->english_test_type ?? '') == 'TOEFL')>TOEFL iBT</option>
-                                        <option value="DUOLINGO" @selected(old('english_test_type', $application->english_test_type ?? '') == 'DUOLINGO')>Duolingo English Test</option>
-                                        <option value="CAMBRIDGE" @selected(old('english_test_type', $application->english_test_type ?? '') == 'CAMBRIDGE')>Cambridge English</option>
-                                        <option value="PTE" @selected(old('english_test_type', $application->english_test_type ?? '') == 'PTE')>PTE Academic</option>
-                                        <option value="OTHER" @selected(old('english_test_type', $application->english_test_type ?? '') == 'OTHER')>Other</option>
+                                        <option value="">{{ __('applicant/academic-background.select_test_type') }}</option>
+                                        <option value="IELTS" @selected(old('english_test_type', $application->english_test_type ?? '') == 'IELTS')>{{ __('applicant/academic-background.ielts_academic') }}</option>
+                                        <option value="TOEFL" @selected(old('english_test_type', $application->english_test_type ?? '') == 'TOEFL')>{{ __('applicant/academic-background.toefl_ibt') }}</option>
+                                        <option value="DUOLINGO" @selected(old('english_test_type', $application->english_test_type ?? '') == 'DUOLINGO')>{{ __('applicant/academic-background.duolingo') }}</option>
+                                        <option value="CAMBRIDGE" @selected(old('english_test_type', $application->english_test_type ?? '') == 'CAMBRIDGE')>{{ __('applicant/academic-background.cambridge') }}</option>
+                                        <option value="PTE" @selected(old('english_test_type', $application->english_test_type ?? '') == 'PTE')>{{ __('applicant/academic-background.pte_academic') }}</option>
+                                        <option value="OTHER" @selected(old('english_test_type', $application->english_test_type ?? '') == 'OTHER')>{{ __('applicant/academic-background.other') }}</option>
                                     </select>
-                                    <p class="mt-2 text-gray-500">Select the English proficiency test you have taken or plan to take</p>
+                                    <p class="mt-2 text-gray-500">{{ __('applicant/academic-background.english_test_type_help') }}</p>
                                     @error('english_test_type')
                                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
@@ -149,14 +149,14 @@
                                     <label
                                     for="testScore"
                                     class="block text-sm font-medium text-gray-700"
-                                    >Test Score <span class="text-red-500">*</span></label
+                                    >{{ __('applicant/academic-background.test_score') }} <span class="text-red-500">*</span></label
                                     >
                                     <input
                                     value="{{ old('english_test_score', $application->english_test_score ?? '') }}"
                                     type="text"
                                     id="testScore"
                                     name="english_test_score"
-                                    placeholder="Enter your score"
+                                    placeholder="{{ __('applicant/academic-background.test_score_placeholder') }}"
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                                     />
                                     @error('english_test_score')
@@ -169,7 +169,7 @@
                                         <label
                                             for="english_test_date"
                                             class="block text-sm font-medium text-gray-700"
-                                            >Test Date <span class="text-red-500">*</span>
+                                            >{{ __('applicant/academic-background.test_date') }} <span class="text-red-500">*</span>
                                         </label
                                         >
                                         <input
@@ -193,7 +193,7 @@
                                         </svg>
                                         </div>
                                         <div class="text-left ml-3">
-                                        <h4 class="font-semibold mb-2">IELTS Academic Score Information</h4>
+                                        <h4 class="font-semibold mb-2">{{ __('applicant/academic-background.ielts_info_title') }}</h4>
                                         <p class="text-sm"></p>
                                     </div>
                                 </div>
@@ -210,14 +210,12 @@
 
                                     <div class="ml-3 text-left">
                                         <h4 class="text-sm font-medium mb-2">
-                                            Academic Requirements:
+                                            {{ __('applicant/academic-background.requirements_title') }}
                                         </h4>
                                         <ul class="text-sm space-y-1">
-                                            <li>• Upload official transcripts from all institutions attended</li>
-                                            <li>• English test scores must be from the last 2 years</li>
-                                            <li>• Provide exact scores as they appear on official reports</li>
-                                            <li>• Graduate programs may have higher GPA and test score requirements</li>
-                                            <li>• All documents must be in English or include certified translations</li>
+                                            @foreach(__('applicant/academic-background.requirements') as $requirement)
+                                                <li>• {{ $requirement }}</li>
+                                            @endforeach
                                         </ul>
                                     </div>
                                 </div>
@@ -244,10 +242,10 @@
                                     d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                                     ></path>
                                 </svg>
-                                <span>Academic Documents</span>
+                                <span>{{ __('applicant/academic-background.academic_documents') }}</span>
                                 </h3>
                                 <p class="text-sm text-gray-600 mt-1">
-                                Upload required and optional documents for this step
+                                {{ __('applicant/academic-background.academic_documents_description') }}
                                 </p>
                             </div>
 
@@ -256,17 +254,16 @@
                                 <div x-data="documentUpload('transcript', @js($documents->get('transcript')))" class="border rounded-lg p-4">
                                     <div class="mb-3">
                                         <div class="flex items-center space-x-2 mb-1">
-                                            <span class="text-sm font-medium">Official Transcripts</span>
+                                            <span class="text-md font-medium">{{ __('applicant/academic-background.official_transcripts') }}</span>
                                             <span
                                                 class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                                                 :class="uploaded ? 'bg-green-100 text-green-800' :
                                                         'bg-red-100 text-red-800'"
-                                                    x-text="uploaded ? 'Uploaded' : 'Required'">
+                                                    x-text="uploaded ? '{{ __('applicant/academic-background.uploaded') }}' : '{{ __('applicant/academic-background.required') }}'">
                                             </span>
                                         </div>
-                                        <p class="block text-xs text-gray-500 mb-2">Complete academic transcripts from all institutions</p>
-                                        <div class="text-xs text-gray-400">Formats: PDF, • Max size:
-                                            10MB</div>
+                                        <p class="block text-xs text-gray-500 mb-2">{{ __('applicant/academic-background.transcripts_description') }}</p>
+                                        <div class="text-xs text-gray-400">{{ __('applicant/academic-background.file_formats') }}</div>
                                     </div>
                                     <div x-show="!uploaded" x-transition
                                         class="border-2 border-dashed rounded-lg p-4 text-center transition-colors"
@@ -287,10 +284,9 @@
                                                             d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
                                                         </path>
                                                     </svg>
-                                                    <span class="text-md font-medium text-gray-900">Click to
-                                                        upload</span>
-                                                    <span class="text-sm text-gray-500">or drag and drop</span>
-                                                    <span class="block text-md text-gray-500">PDF up to 10MB</span>
+                                                    <span class="text-md font-medium text-gray-900">{{ __('applicant/academic-background.click_to_upload') }}</span>
+                                                    <span class="text-sm text-gray-500">{{ __('applicant/academic-background.drag_drop') }}</span>
+                                                    <span class="block text-md text-gray-500">{{ __('applicant/academic-background.pdf_max_size') }}</span>
                                                     <input id="transcript-file" name="transcript" type="file"
                                                         class="hidden" accept=".pdf"
                                                         @change="handleFileSelect($event)">
@@ -303,7 +299,7 @@
                                             <div
                                                 class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mb-2">
                                             </div>
-                                            <span class="text-sm text-gray-600">Uploading...</span>
+                                            <span class="text-sm text-gray-600">{{ __('applicant/academic-background.uploading') }}</span>
                                         </div>
                                     </div>
                                     @error('document_transcript')
@@ -334,8 +330,7 @@
                                                     </p>
                                                     <p class="text-sm text-green-700">
                                                         <span x-text="fileSize"></span><br>
-                                                        <span class="text-green-600">Uploaded
-                                                            successfully</span>
+                                                        <span class="text-green-600">{{ __('applicant/academic-background.uploaded_successfully') }}</span>
                                                     </p>
                                                 </div>
                                             </div>
@@ -389,16 +384,16 @@
                                  <div x-data="documentUpload('diploma', @js($documents->get('diploma')))" class="border rounded-lg p-4">
                                     <div class="mb-3">
                                         <div class="flex items-center space-x-2 mb-1">
-                                            <span class="text-sm font-medium">Diploma/Certificate</span>
+                                            <span class="text-md font-medium">{{ __('applicant/academic-background.diploma_certificate') }}</span>
                                             <span
                                                 class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                                                 :class="uploaded ? 'bg-green-100 text-green-800' :
                                                         'bg-red-100 text-red-800'"
-                                                    x-text="uploaded ? 'Uploaded' : 'Required'">
+                                                    x-text="uploaded ? '{{ __('applicant/academic-background.uploaded') }}' : '{{ __('applicant/academic-background.required') }}'">
                                             </span>
                                         </div>
-                                        <p class="text-sm text-gray-500 mb-2">Your degree certificate or diploma</p>
-                                        <div class="text-xs text-gray-400">PDF, JPG, PNG • Max size: 5MB</div>
+                                        <p class="text-sm text-gray-500 mb-2">{{ __('applicant/academic-background.diploma_description') }}</p>
+                                        <div class="text-xs text-gray-400">{{ __('applicant/academic-background.diploma_formats') }}</div>
                                     </div>
                                     <div x-show="!uploaded" x-transition
                                         class="border-2 border-dashed rounded-lg p-4 text-center transition-colors"
@@ -419,10 +414,9 @@
                                                             d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
                                                         </path>
                                                     </svg>
-                                                    <span class="text-md font-medium text-gray-900">Click to
-                                                        upload</span>
-                                                    <span class="text-sm text-gray-500">or drag and drop</span>
-                                                    <span class="block text-md text-gray-500">Formats: PDF, JPG, PNG up to 5MB</span>
+                                                    <span class="text-md font-medium text-gray-900">{{ __('applicant/academic-background.click_to_upload') }}</span>
+                                                    <span class="text-sm text-gray-500">{{ __('applicant/academic-background.drag_and_drop') }}</span>
+                                                    <span class="block text-md text-gray-500">{{ __('applicant/academic-background.diploma_format_text') }}</span>
                                                     <input id="diploma-file" name="diploma" type="file"
                                                         class="hidden" accept=".pdf,.jpg,.jpeg,.png"
                                                         @change="handleFileSelect($event)">
@@ -435,7 +429,7 @@
                                             <div
                                                 class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mb-2">
                                             </div>
-                                            <span class="text-sm text-gray-600">Uploading...</span>
+                                            <span class="text-sm text-gray-600">{{ __('applicant/academic-background.uploading') }}</span>
                                         </div>
                                     </div>
                                     @error('document_diploma')
@@ -466,8 +460,7 @@
                                                     </p>
                                                     <p class="text-sm text-green-700">
                                                         <span x-text="fileSize"></span><br>
-                                                        <span class="text-green-600">Uploaded
-                                                            successfully</span>
+                                                        <span class="text-green-600">{{ __('applicant/academic-background.uploaded_successfully') }}</span>
                                                     </p>
                                                 </div>
                                             </div>
@@ -521,16 +514,16 @@
                                 <div x-data="documentUpload('english_score', @js($documents->get('english_score')))" class="border rounded-lg p-4">
                                     <div class="mb-3">
                                         <div class="flex items-center space-x-2 mb-1">
-                                            <span class="text-sm font-medium">English Test Score</span>
+                                            <span class="text-md font-medium">{{ __('applicant/academic-background.english_test_score') }}</span>
                                             <span
                                                 class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                                                 :class="uploaded ? 'bg-green-100 text-green-800' :
                                                         'bg-red-100 text-red-800'"
-                                                    x-text="uploaded ? 'Uploaded' : 'Required'">
+                                                    x-text="uploaded ? '{{ __('applicant/academic-background.uploaded') }}' : '{{ __('applicant/academic-background.required') }}'">
                                             </span>
                                         </div>
-                                        <p class="text-sm text-gray-500 mb-2">Official IELTS, TOEFL, or other English test results</p>
-                                        <div class="text-xs text-gray-400">Formats: PDF • Max size: 5MB</div>
+                                        <p class="text-sm text-gray-500 mb-2">{{ __('applicant/academic-background.english_score_description') }}</p>
+                                        <div class="text-xs text-gray-400">{{ __('applicant/academic-background.english_score_formats') }}</div>
                                     </div>
                                     <div x-show="!uploaded" x-transition
                                         class="border-2 border-dashed rounded-lg p-4 text-center transition-colors"
@@ -551,10 +544,9 @@
                                                             d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
                                                         </path>
                                                     </svg>
-                                                    <span class="text-md font-medium text-gray-900">Click to
-                                                        upload</span>
-                                                    <span class="text-sm text-gray-500">or drag and drop</span>
-                                                    <span class="block text-md text-gray-500">PDF up to 5MB</span>
+                                                    <span class="text-md font-medium text-gray-900">{{ __('applicant/academic-background.click_to_upload') }}</span>
+                                                    <span class="text-sm text-gray-500">{{ __('applicant/academic-background.drag_and_drop') }}</span>
+                                                    <span class="block text-md text-gray-500">{{ __('applicant/academic-background.english_score_format_text') }}</span>
                                                     <input id="english_score-file" name="english_score" type="file"
                                                         class="hidden" accept=".pdf"
                                                         @change="handleFileSelect($event)">
@@ -570,7 +562,7 @@
                                             <div
                                                 class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mb-2">
                                             </div>
-                                            <span class="text-sm text-gray-600">Uploading...</span>
+                                            <span class="text-sm text-gray-600">{{ __('applicant/academic-background.uploading') }}</span>
                                         </div>
                                     </div>
                                     @error('document_english_score')
@@ -601,8 +593,7 @@
                                                     </p>
                                                     <p class="text-sm text-green-700">
                                                         <span x-text="fileSize"></span><br>
-                                                        <span class="text-green-600">Uploaded
-                                                            successfully</span>
+                                                        <span class="text-green-600">{{ __('applicant/academic-background.uploaded_successfully') }}</span>
                                                     </p>
                                                 </div>
                                             </div>
@@ -665,14 +656,14 @@
 
                                     <div class="ml-3 text-left">
                                         <h4 class="text-sm font-medium mb-2">
-                                            Document Requirements:
+                                            {{ __('applicant/academic-background.document_requirements') }}
                                         </h4>
                                         <ul class="text-sm space-y-1">
-                                            <li>• All documents must be clear and legible</li>
-                                            <li>• Official documents should be in original language</li>
-                                            <li>• Translations must be certified if documents are not in English</li>
-                                            <li>• File names should be descriptive and professional</li>
-                                            <li>• Ensure all pages are included for multi-page documents</li>
+                                            <li>{{ __('applicant/academic-background.requirement_clear') }}</li>
+                                            <li>{{ __('applicant/academic-background.requirement_original') }}</li>
+                                            <li>{{ __('applicant/academic-background.requirement_translation') }}</li>
+                                            <li>{{ __('applicant/academic-background.requirement_filename') }}</li>
+                                            <li>{{ __('applicant/academic-background.requirement_pages') }}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -687,7 +678,7 @@
                         <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                         </svg>
-                        Previous
+                        {{ __('applicant/academic-background.previous') }}
                     </button>
 
                     <div class="flex items-center space-x-4">
@@ -708,11 +699,11 @@
                             d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3-3m0 0l-3 3m3-3v12"
                             ></path>
                         </svg>
-                        Save Progress
+                        {{ __('applicant/academic-background.save_progress') }}
                         </button>
 
                         <button @click="currentStep = 4" class="flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
-                            Next
+                            {{ __('applicant/academic-background.next') }}
                             <svg class="h-4 w-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                             </svg>

@@ -6,12 +6,11 @@
                 <div class="flex items-center space-x-2">
                     <span
                         class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-600 text-sm font-medium">5</span>
-                    <span class="text-2xl font-medium">Review Your Application</span>
+                    <span class="text-2xl font-medium">{{ __('applicant/review-and-submit.page_title') }}</span>
                 </div>
             </div>
             <p class="text-gray-600 text-md mt-1">
-                Please review all the information below before submitting your
-                application. Make sure everything is accurate and complete.
+                {{ __('applicant/review-and-submit.page_description') }}
             </p>
         </div>
         <div class="bg-white shadow-sm space-y-8 p-6">
@@ -29,7 +28,7 @@
                           17zm1-4h-2V7h2v6z" />
                                 </svg>
                                 <span class="ml-1">
-                                    Application Resubmission Comment
+                                    {{ __('applicant/review-and-submit.resubmission_title') }}
                                 </span>
                             </h4>
                         </div>
@@ -52,7 +51,7 @@
                             clip-rule="evenodd" />
                     </svg>
                     <div class="text-left">
-                        <h4 class="font-semibold mb-1">Please Complete all fields with valid inputs</h4>
+                        <h4 class="font-semibold mb-1">{{ __('applicant/review-and-submit.error_title') }}</h4>
                         <ul class="list-disc list-inside space-y-1 text-sm">
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
@@ -69,7 +68,7 @@
                     <div class="p-6 pb-4">
                         <div class="flex items-center space-x-3">
                             <h4 class="text-lg font-semibold text-gray-900">
-                                Personal Information
+                                {{ __('applicant/review-and-submit.personal_information') }}
                             </h4>
                         </div>
                     </div>
@@ -77,12 +76,12 @@
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <p class="text-sm font-medium text-gray-700 mb-1">
-                                    First Name
+                                    {{ __('applicant/review-and-submit.first_name') }}
                                 </p>
                                 <p class="text-gray-900">{{ Auth::user()->first_name }}</p>
                             </div>
                             <div>
-                                <p class="text-sm font-medium text-gray-700 mb-1">Last Name</p>
+                                <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.last_name') }}</p>
                                 <p class="text-gray-900">{{ Auth::user()->last_name }}</p>
                             </div>
                         </div>
@@ -90,16 +89,16 @@
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <p class="text-sm font-medium text-gray-700 mb-1">
-                                    Date of Birth
+                                    {{ __('applicant/review-and-submit.date_of_birth') }}
                                 </p>
                                 <p class="text-gray-900">
-                                    {{ $application->date_of_birth ? $application->date_of_birth->format('d F Y') : 'not specified' }}
+                                    {{ $application->date_of_birth ? $application->date_of_birth->format('d F Y') : __('applicant/review-and-submit.not_specified') }}
                                 </p>
                             </div>
                             <div>
-                                <p class="text-sm font-medium text-gray-700 mb-1">Gender</p>
+                                <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.gender') }}</p>
                                 <p class="text-gray-900 capitalize">
-                                    {{ $application->gender == 1 ? 'male' : ($application->gender == 2 ? 'female' : 'not specified') }}
+                                    {{ $application->gender == 1 ? __('applicant/review-and-submit.male') : ($application->gender == 2 ? __('applicant/review-and-submit.female') : __('applicant/review-and-submit.not_specified')) }}
                                 </p>
                             </div>
                         </div>
@@ -107,27 +106,34 @@
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <p class="text-sm font-medium text-gray-700 mb-1">
-                                    Nationality
+                                    {{ __('applicant/review-and-submit.nationality') }}
                                 </p>
                                 <p class="text-gray-900">
-                                    {{ $application->nationality ? $application->nationality : 'not specified' }}</p>
+                                    @if ($application->nationality)
+                                        @foreach (config('countries') as $code => $name)
+                                            <p class="text-gray-900">{{ $application->nationality == $code ? $name : '' }}
+                                            </p>
+                                        @endforeach
+                                    @else
+                                    {{ __('applicant/review-and-submit.not_specified') }}</p>
+                                    @endif
                             </div>
                             <div>
                                 <p class="text-sm font-medium text-gray-700 mb-1">
-                                    Passport Number
+                                    {{ __('applicant/review-and-submit.passport_number') }}
                                 </p>
                                 <p class="text-gray-900">
-                                    {{ $application->passport_number ? $application->passport_number : 'not specified' }}
+                                    {{ $application->passport_number ? $application->passport_number : __('applicant/review-and-submit.not_specified') }}
                                 </p>
                             </div>
                         </div>
 
                         <div>
                             <p class="text-sm font-medium text-gray-700 mb-1">
-                                Native Language
+                                {{ __('applicant/review-and-submit.native_language') }}
                             </p>
                             <p class="text-gray-900">
-                                {{ $application->native_language ? $application->native_language : 'not specified' }}
+                                {{ $application->native_language ? $application->native_language : __('applicant/review-and-submit.not_specified') }}
                             </p>
                         </div>
                     </div>
@@ -138,61 +144,61 @@
                     <div class="p-6 pb-4">
                         <div class="flex items-center space-x-3">
                             <h4 class="text-lg font-semibold text-gray-900">
-                                Contact Information
+                                {{ __('applicant/review-and-submit.contact_information') }}
                             </h4>
                         </div>
                     </div>
                     <div class="p-6 pt-2 space-y-4">
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <p class="text-sm font-medium text-gray-700 mb-1">Email</p>
+                                <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.email') }}</p>
                                 <p class="text-gray-900">{{ Auth::user()->email }}</p>
                             </div>
                             <div>
-                                <p class="text-sm font-medium text-gray-700 mb-1">Phone</p>
+                                <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.phone') }}</p>
                                 <p class="text-gray-900">
-                                    {{ $application->phone ? $application->phone : 'not specified' }}</p>
+                                    {{ $application->phone ? $application->phone : __('applicant/review-and-submit.not_specified') }}</p>
                             </div>
                         </div>
 
                         <div>
-                            <p class="text-sm font-medium text-gray-700 mb-2">Permanent Address</p>
+                            <p class="text-sm font-medium text-gray-700 mb-2">{{ __('applicant/review-and-submit.permanent_address') }}</p>
 
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
-                                    <p class="text-sm font-medium text-gray-700 mb-1">Street</p>
+                                    <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.street') }}</p>
                                     <p class="text-gray-900">
-                                        {{ $application->permanent_street ? $application->permanent_street : 'not specified' }}
+                                        {{ $application->permanent_street ? $application->permanent_street : __('applicant/review-and-submit.not_specified') }}
                                     </p>
                                 </div>
                                 <div>
-                                    <p class="text-sm font-medium text-gray-700 mb-1">City</p>
+                                    <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.city') }}</p>
                                     <p class="text-gray-900">
-                                        {{ $application->permanent_city ? $application->permanent_city : 'not specified' }}
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-2 gap-4 mt-3">
-                                <div>
-                                    <p class="text-sm font-medium text-gray-700 mb-1">State</p>
-                                    <p class="text-gray-900">
-                                        {{ $application->permanent_state ? $application->permanent_state : 'not specified' }}
-                                    </p>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-medium text-gray-700 mb-1">Country</p>
-                                    <p class="text-gray-900">
-                                        {{ $application->permanent_country ? config('countries')[$application->permanent_country] ?? 'not specified' : 'not specified' }}
+                                        {{ $application->permanent_city ? $application->permanent_city : __('applicant/review-and-submit.not_specified') }}
                                     </p>
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-2 gap-4 mt-3">
                                 <div>
-                                    <p class="text-sm font-medium text-gray-700 mb-1">Postcode</p>
+                                    <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.state') }}</p>
                                     <p class="text-gray-900">
-                                        {{ $application->permanent_postcode ? $application->permanent_postcode : 'not specified' }}
+                                        {{ $application->permanent_state ? $application->permanent_state : __('applicant/review-and-submit.not_specified') }}
+                                    </p>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.country') }}</p>
+                                    <p class="text-gray-900">
+                                        {{ $application->permanent_country ? config('countries')[$application->permanent_country] ?? __('applicant/review-and-submit.not_specified') : __('applicant/review-and-submit.not_specified') }}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4 mt-3">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.postcode') }}</p>
+                                    <p class="text-gray-900">
+                                        {{ $application->permanent_postcode ? $application->permanent_postcode : __('applicant/review-and-submit.not_specified') }}
                                     </p>
                                 </div>
                             </div>
@@ -205,53 +211,53 @@
                     <div class="p-6 pb-4">
                         <div class="flex items-center space-x-3">
                             <h4 class="text-lg font-semibold text-gray-900">
-                                Academic Background
+                                {{ __('applicant/review-and-submit.academic_background') }}
                             </h4>
                         </div>
                     </div>
                     <div class="p-6 pt-2 space-y-4">
                         <div>
                             <p class="text-sm font-medium text-gray-700 mb-1">
-                                Previous Institution
+                                {{ __('applicant/review-and-submit.previous_institution') }}
                             </p>
                             <p class="text-gray-900">
-                                {{ $application->previous_institution ? $application->previous_institution : 'not specified' }}
+                                {{ $application->previous_institution ? $application->previous_institution : __('applicant/review-and-submit.not_specified') }}
                             </p>
                         </div>
 
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <p class="text-sm font-medium text-gray-700 mb-1">
-                                    Degree Earned
+                                    {{ __('applicant/review-and-submit.degree_earned') }}
                                 </p>
                                 <p class="text-gray-900">
-                                    {{ $application->degree_earned ? $application->degree_earned : 'not specified' }}
+                                    {{ $application->degree_earned ? $application->degree_earned : __('applicant/review-and-submit.not_specified') }}
                                 </p>
                             </div>
                             <div>
-                                <p class="text-sm font-medium text-gray-700 mb-1">GPA/Grade</p>
+                                <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.gpa_grade') }}</p>
                                 <p class="text-gray-900">
-                                    {{ $application->previous_gpa ? $application->previous_gpa : 'not specified' }}</p>
+                                    {{ $application->previous_gpa ? $application->previous_gpa : __('applicant/review-and-submit.not_specified') }}</p>
                             </div>
                         </div>
 
                         <div>
                             <p class="text-sm font-medium text-gray-700 mb-1">
-                                Graduation Date
+                                {{ __('applicant/review-and-submit.graduation_date') }}
                             </p>
                             <p class="text-gray-900">
-                                {{ $application->graduation_date ? $application->graduation_date->format('d F Y') : 'not specified' }}
+                                {{ $application->graduation_date ? $application->graduation_date->format('d F Y') : __('applicant/review-and-submit.not_specified') }}
                             </p>
                         </div>
 
                         <div class="space-y-2">
                             <p class="text-sm font-medium text-gray-700">
-                                English Proficiency
+                                {{ __('applicant/review-and-submit.english_proficiency') }}
                             </p>
                             <div class="flex items-center space-x-4 text-sm">
                                 <span class="text-gray-900">{{ $application->english_test_type }}</span>
                                 <span class="text-gray-500">•</span>
-                                <span class="text-gray-900">Score: {{ $application->english_test_score }}</span>
+                                <span class="text-gray-900">{{ __('applicant/review-and-submit.score') }}: {{ $application->english_test_score }}</span>
                                 <span class="text-gray-500">•</span>
                                 <span
                                     class="text-gray-700">{{ $application->english_test_date->format('d F Y') }}</span>
@@ -265,7 +271,7 @@
                     <div class="p-6 pb-4">
                         <div class="flex items-center space-x-3">
                             <h4 class="text-lg font-semibold text-gray-900">
-                                Program Selection
+                                {{ __('applicant/review-and-submit.program_selection') }}
                             </h4>
                         </div>
                     </div>
@@ -273,24 +279,24 @@
                         <div class="space-y-4">
                             <div>
                                 <p class="text-sm font-medium text-gray-700 mb-1">
-                                    Selected Program
+                                    {{ __('applicant/review-and-submit.selected_program') }}
                                 </p>
                                 <p class="text-lg font-semibold text-gray-900">
-                                    Master of Science in Computer Science
+                                    {{ __('applicant/review-and-submit.program_name') }}
                                 </p>
-                                <p class="text-gray-600">School of Engineering</p>
+                                <p class="text-gray-600">{{ __('applicant/review-and-submit.school_name') }}</p>
                             </div>
 
                             <div class="flex items-center space-x-4">
                                 <span
-                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">Masters</span>
+                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">{{ __('applicant/review-and-submit.masters_badge') }}</span>
                             </div>
 
                             <div>
                                 <p class="text-sm font-medium text-gray-700 mb-1">
-                                    Start Term
+                                    {{ __('applicant/review-and-submit.start_term') }}
                                 </p>
-                                <p class="text-gray-900">Fall 2024</p>
+                                <p class="text-gray-900">{{ __('applicant/review-and-submit.fall_2024') }}</p>
                             </div>
 
                             <div class="flex items-center space-x-2">
@@ -298,10 +304,10 @@
                                     {{ $application->funding_interest ? 'checked' : '' }} 
                                     readonly
                                     class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                              <span class="text-sm text-gray-700">
-                                  Interested in scholarships and financial aid
-                              </span>
-                          </div>
+                                <span class="text-sm text-gray-700">
+                                    {{ __('applicant/review-and-submit.scholarship_interest') }}
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -312,19 +318,19 @@
                 <div class="p-6 pb-4">
                     <div class="flex items-center space-x-3">
                         <h4 class="text-lg font-semibold text-gray-900">
-                            Statement of Purpose
+                            {{ __('applicant/review-and-submit.statement_of_purpose') }}
                         </h4>
                     </div>
                 </div>
                 <div class="p-6 pt-2">
                     <div class="max-w-none">
                         <p class="text-gray-700 leading-relaxed">
-                            {{ $application->statement_of_purpose ? $application->statement_of_purpose : 'not specified' }}
+                            {{ $application->statement_of_purpose ? $application->statement_of_purpose : __('applicant/review-and-submit.not_specified') }}
                         </p>
                     </div>
                     <div class="mt-4 text-sm text-gray-500">
                         {{ $application->statement_of_purpose ? strlen($application->statement_of_purpose) : 0 }}
-                        characters
+                        {{ __('applicant/review-and-submit.characters') }}
                     </div>
                 </div>
             </div>
@@ -335,18 +341,13 @@
                     <i data-lucide="alert-triangle" class="h-5 w-5"></i>
                 </div>
                 <div class="text-left">
-                    <h4 class="font-semibold mb-2">Before Submitting</h4>
+                    <h4 class="font-semibold mb-2">{{ __('applicant/review-and-submit.before_submitting') }}</h4>
                     <ul class="text-sm space-y-1">
-                        <li>• Review all information carefully for accuracy</li>
-                        <li>• Ensure all required documents have been uploaded</li>
-                        <li>
-                            • Double-check contact information for communication purposes
-                        </li>
-                        <li>
-                            • Once submitted, you cannot make changes without contacting
-                            admissions
-                        </li>
-                        <li>• You will receive a confirmation email after submission</li>
+                        <li>• {{ __('applicant/review-and-submit.review_notice_1') }}</li>
+                        <li>• {{ __('applicant/review-and-submit.review_notice_2') }}</li>
+                        <li>• {{ __('applicant/review-and-submit.review_notice_3') }}</li>
+                        <li>• {{ __('applicant/review-and-submit.review_notice_4') }}</li>
+                        <li>• {{ __('applicant/review-and-submit.review_notice_5') }}</li>
                     </ul>
                 </div>
             </div>
@@ -355,25 +356,22 @@
             <div class="flex flex-col sm:flex-row gap-4 justify-between">
                 <button type="button" @click="currentStep = 4"
                     class="bg-white hover:bg-gray-50 border border-gray-300 text-gray-700 font-medium py-2.5 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2">
-                    Back to Program Selection
+                    {{ __('applicant/review-and-submit.back_to_program_selection') }}
                 </button>
 
                 <div class="flex flex-col sm:flex-row gap-3">
                     <button
                         class="bg-white hover:bg-gray-50 border border-gray-300 text-gray-700 font-medium py-2.5 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2">
-                        Save Progress
+                        {{ __('applicant/review-and-submit.save_progress') }}
                     </button>
                     <button type="button" id="submit-btn"
                         hx-post="{{ route('applicant.application.update', ['application_id' => $application->id]) }}"
                         hx-target="#form-content" hx-headers='{"X-Submit-Action": "true"}'
                         class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2">
-                        Submit Application
+                        {{ __('applicant/review-and-submit.submit_application') }}
                     </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script>
-    
-</script>

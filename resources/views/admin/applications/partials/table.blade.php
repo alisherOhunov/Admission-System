@@ -8,7 +8,7 @@
                 <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
                 <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
             </svg>
-            <h3 class="ml-1 mt-0.5 text-2xl font-bold text-gray-900">Applications ({{ $applications->total() }})</h3>
+            <h3 class="ml-1 mt-0.5 text-2xl font-bold text-gray-900">{{ __('admin/index.table_title', ['count' => $applications->total()]) }}</h3>
         </div>
     </div>
 
@@ -16,13 +16,13 @@
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-white">
                 <tr>
-                    <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">Applicant</th>
-                    <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">Program</th>
-                    <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">Level</th>
-                    <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">Country</th>
-                    <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">Status</th>
-                    <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">Submitted</th>
-                    <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">Actions</th>
+                    <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">{{ __('admin/index.th_applicant') }}</th>
+                    <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">{{ __('admin/index.th_program') }}</th>
+                    <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">{{ __('admin/index.th_level') }}</th>
+                    <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">{{ __('admin/index.th_country') }}</th>
+                    <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">{{ __('admin/index.th_status') }}</th>
+                    <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">{{ __('admin/index.th_submitted') }}</th>
+                    <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">{{ __('admin/index.th_actions') }}</th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
@@ -32,12 +32,12 @@
                             <div>
                                 <div class="text-sm font-medium text-gray-900">{{ $application->user->first_name .' '. $application->user->last_name}}</div>
                                 <div class="text-sm text-gray-500">{{ $application->user->email }}</div>
-                                <div class="text-xs text-gray-400">ID: {{ $application->id }}</div>
+                                <div class="text-xs text-gray-400">{{ __('admin/index.application_id') }} {{ $application->id }}</div>
                             </div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm font-medium text-gray-900">
-                                {{ $application->program->name ?? 'Not Selected' }}
+                                {{ $application->program->name ?? __('not_selected') }}
                             </div>
                             @if($application->program)
                                 <div class="text-sm text-gray-500">{{ $application->program->department }}</div>
@@ -45,7 +45,7 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground capitalize">
-                                {{ $application->level ?? 'Not specified' }}
+                                {{ $application->level ?? __('not_specified') }}
                             </div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
@@ -55,7 +55,7 @@
                                     </p>
                                 @endforeach
                             @else
-                                <p class="text-gray-900">Not specified</p>
+                                <p class="text-gray-900">{{ __('admin/index.not_specified') }}</p>
                             @endif
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
@@ -65,11 +65,11 @@
                             </span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {{ $application->submitted_at ? $application->submitted_at->format('M j, Y') : 'Not submitted' }}
+                            {{ $application->submitted_at ? $application->submitted_at->format('M j, Y') : __('not_submitted') }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="flex items-center justify-end space-x-2">
-                                <a href="{{ route('admin.applications.show', $application->id) }}">
+                                <a href="{{ route('admin.applications.show', $application->id) }}" title="{{ __('admin/index.view') }}">
                                     <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye h-4 w-4">
                                             <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path>
@@ -77,7 +77,7 @@
                                         </svg>
                                     </button>
                                 </a>
-                                <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3">
+                                <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3" title="{{ __('admin/index.more') }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis h-4 w-4">
                                         <circle cx="12" cy="12" r="1"></circle>
                                         <circle cx="19" cy="12" r="1"></circle>
@@ -94,8 +94,8 @@
                                 <svg class="h-12 w-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                 </svg>
-                                <p class="text-gray-500 text-sm">No applications found</p>
-                                <p class="text-gray-400 text-xs mt-1">Try adjusting your search criteria</p>
+                                <p class="text-gray-500 text-sm">{{ __('admin/index.no_results') }}</p>
+                                <p class="text-gray-400 text-xs mt-1">{{ __('admin/index.try_adjusting') }}</p>
                             </div>
                         </td>
                     </tr>
@@ -111,7 +111,7 @@
                 <div class="flex-1 flex justify-between sm:hidden">
                     @if ($applications->onFirstPage())
                         <span class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default rounded-md">
-                            Previous
+                            {{ __('admin/index.pagination_previous') }}
                         </span>
                     @else
                         <a href="{{ $applications->appends(request()->query())->previousPageUrl() }}" 
@@ -119,7 +119,7 @@
                            hx-get="{{ $applications->appends(request()->query())->previousPageUrl() }}"
                            hx-target="#applications-container"
                            hx-push-url="true">
-                            Previous
+                            {{ __('admin/index.pagination_previous') }}
                         </a>
                     @endif
                     
@@ -129,11 +129,11 @@
                            hx-get="{{ $applications->appends(request()->query())->nextPageUrl() }}"
                            hx-target="#applications-container"
                            hx-push-url="true">
-                            Next
+                            {{ __('admin/index.pagination_next') }}
                         </a>
                     @else
                         <span class="ml-3 relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default rounded-md">
-                            Next
+                            {{ __('admin/index.pagination_next') }}
                         </span>
                     @endif
                 </div>
@@ -141,20 +141,20 @@
                 <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                     <div>
                         <p class="text-sm text-gray-700">
-                            Showing
+                            {{ __('admin/index.pagination_showing') }}
                             <span class="font-medium">{{ $applications->firstItem() }}</span>
-                            to
+                            {{ __('admin/index.pagination_to') }}
                             <span class="font-medium">{{ $applications->lastItem() }}</span>
-                            of
+                            {{ __('admin/index.pagination_of') }}
                             <span class="font-medium">{{ $applications->total() }}</span>
-                            results
+                            {{ __('admin/index.pagination_results') }}
                         </p>
                     </div>
                     <div>
                         <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
                             @if ($applications->onFirstPage())
                                 <span class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 cursor-default">
-                                    <span class="sr-only">Previous</span>
+                                    <span class="sr-only">{{ __('admin/index.pagination_previous') }}</span>
                                     <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                         <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
                                     </svg>
@@ -165,7 +165,7 @@
                                    hx-get="{{ $applications->appends(request()->query())->previousPageUrl() }}"
                                    hx-target="#applications-container"
                                    hx-push-url="true">
-                                    <span class="sr-only">Previous</span>
+                                    <span class="sr-only">{{ __('admin/index.pagination_previous') }}</span>
                                     <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                         <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
                                     </svg>
@@ -194,14 +194,14 @@
                                    hx-get="{{ $applications->appends(request()->query())->nextPageUrl() }}"
                                    hx-target="#applications-container"
                                    hx-push-url="true">
-                                    <span class="sr-only">Next</span>
+                                    <span class="sr-only">{{ __('admin/index.pagination_next') }}</span>
                                     <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                         <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                                     </svg>
                                 </a>
                             @else
                                 <span class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 cursor-default">
-                                    <span class="sr-only">Next</span>
+                                    <span class="sr-only">{{ __('admin/index.pagination_next') }}</span>
                                     <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                         <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                                     </svg>

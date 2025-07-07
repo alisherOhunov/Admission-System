@@ -8,11 +8,11 @@
                     class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-600 text-sm font-medium"
                     >4</span
                     >
-                    <span class="text-2xl font-medium">Program</span>
+                    <span class="text-2xl font-medium">{{ __('applicant/program-choice.program_title')}}</span>
                 </div>
                 </div>
                 <p class="text-gray-600 text-lg mt-1">
-                Program selection
+                    {{ __('applicant/program-choice.program_selection') }}
                 </p>
             </div>
 
@@ -24,47 +24,47 @@
                         <div class="border-b border-gray-200">
                         <div class="flex items-center space-x-3 mb-4">
                             <h3 class="text-2xl font-medium text-gray-900 mb-4">
-                                Program Selection
+                            {{ __('applicant/program-choice.program_selection')}}
                             </h3>
                         </div>
                         <p class="text-lg text-gray-600 mb-6">
-                            Choose your desired degree level and program of study. This will help us understand your academic goals and provide appropriate guidance.
+                            {{ __('applicant/program-choice.program_description')}}
                         </p>
                         </div>
 
                         <div class="grid grid-cols-1 pb-10 gap-6 border-b border-gray-200">
                         <div>
-                            <p class="text-lg font-semibold text-gray-900">Academic Program</p>
+                            <p class="text-lg font-semibold text-gray-900">{{ __('applicant/program-choice.academic_program')}}</p>
                         </div>
                         <div>
                             <label
                             for="degreeLevel"
                             class="block text-sm font-medium text-gray-700"
-                            >Degree Level<span class="text-red-500">*</span></label
+                            >{{ __('applicant/program-choice.degree_level')}}<span class="text-red-500">*</span></label
                             >
                             <select
                             id="degreeLevel"
                             name="degreeLevel"
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             >
-                            <option value="masters">Graduate (Master's)</option>
-                            <option value="undergraduate">Undergraduate (Bachelor's)</option>
+                            <option value="masters">{{ __('applicant/program-choice.graduate')}}</option>
+                            <option value="undergraduate">{{ __('applicant/program-choice.undergraduate')}}</option>
                             </select>
-                            <p class="mt-2 text-gray-500">Select the level of degree you wish to pursue</p>
+                            <p class="mt-2 text-gray-500">{{ __('applicant/program-choice.degree_level_placeholder')}}</p>
                         </div>
 
                         <div>
                             <label
                                 for="programOfStudy"
                                 class="block text-sm font-medium text-gray-700"
-                            >Program of Study<span class="text-red-500">*</span></label
+                            >{{ __('applicant/program-choice.program_of_study')}}<span class="text-red-500">*</span></label
                             >
                             <select
                                 id="programOfStudy"
                                 name="program_id"
                                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             >  
-                                <option value="">Select Program</option>
+                                <option value="">{{ __('applicant/program-choice.select_program')}}</option>
                                 
                                 @foreach($programs as $programOfStudy => $programList)
                                     @foreach($programList as $program)
@@ -74,7 +74,7 @@
                                     @endforeach
                                 @endforeach
                             </select>
-                            <p class="mt-2 text-gray-500">Select the program you wish to apply for</p>
+                            <p class="mt-2 text-gray-500">{{ __('applicant/program-choice.program_of_study_placeholder')}}</p>
                             @error('program_id')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -84,20 +84,20 @@
                             <label
                             for="start_term"
                             class="block text-sm font-medium text-gray-700"
-                            >Preferred Start Term<span class="text-red-500">*</span></label
+                            >{{ __('applicant/program-choice.start_term')}}<span class="text-red-500">*</span></label
                             >
                             <select
                             id="start_term"
                             name="start_term"
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             >
-                                <option value="">Select Start Term</option>
+                                <option value="">{{ __('applicant/program-choice.select_start_term')}}</option>
                                 <option value="spring2025" @selected(old('start_term', $application->start_term ?? '') == 'spring2025')>Spring 2025</option>
                                 <option value="fall2024" @selected(old('start_term', $application->start_term ?? '') == 'fall2024')>Fall 2024</option>
                                 <option value="fall2025" @selected(old('start_term', $application->start_term ?? '') == 'fall2025')>Fall 2025</option>
                                 <option value="spring2026" @selected(old('start_term', $application->start_term ?? '') == 'spring2026')>Spring 2026</option>
                             </select>
-                            <p class="mt-2 text-gray-500">When would you like to begin your studies?</p>
+                            <p class="mt-2 text-gray-500">{{ __('applicant/program-choice.start_term_placeholder')}}</p>
                             @error('start_term')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -113,7 +113,7 @@
                                     @checked(old('funding_interest', $application->funding_interest ?? false))
                                 >
                                 <label for="funding_interest" class="ml-2 block text-sm text-gray-700">
-                                    I am interested in scholarships and financial aid opportunities
+                                    {{ __('applicant/program-choice.funding_interest') }}
                                 </label>
                             </div>
                             @error('funding_interest')
@@ -130,25 +130,25 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <h4 class="text-lg font-semibold text-slate-900">Master of Science in Data Science</h4>
-                                    <p class="text-slate-600">Computer Science</p>
+                                    <h4 class="text-lg font-semibold text-slate-900">{{ __('applicant/program-choice.program_preview_title')}}</h4>
+                                    <p class="text-slate-600">{{ __('applicant/program-choice.program_preview_subtitle')}}</p>
                                 </div>
-                                <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent hover:bg-secondary/80 bg-blue-100 text-blue-800 capitalize">graduate</div>
+                                <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent hover:bg-secondary/80 bg-blue-100 text-blue-800 capitalize">{{ __('applicant/program-choice.program_preview_level')}}</div>
                             </div>
 
                             <div class="ml-3 text-left">
                                 <h4 class="text-sm font-medium mb-2">
-                                    Program overview:
+                                    {{ __('applicant/program-choice.program_overview')}}
                                 </h4>
-                                <p class="mb-4">Advanced program in data analysis, machine learning, and statistical modeling.</p>
+                                <p class="mb-4">{{ __('applicant/program-choice.program_overview_description')}}</p>
                                 <h4 class="text-sm font-medium mb-2">
-                                Program Requirements
+                                    {{ __('applicant/program-choice.program_requirements')}}
                                 </h4>
                                 <ul class="text-sm space-y-1">
-                                    <li>• Bachelor's Degree</li>
-                                    <li>• Programming Experience</li>
-                                    <li>• Statistics Background</li>
-                                    <li>• English Proficiency</li>
+                                    <li>{{ __('applicant/program-choice.requirement_bachelors')}}</li>
+                                    <li>{{ __('applicant/program-choice.requirement_programming')}}</li>
+                                    <li>{{ __('applicant/program-choice.requirement_statistics')}}</li>
+                                    <li>{{ __('applicant/program-choice.requirement_english')}}</li>
                                 </ul>
                             </div>
                             </div>
@@ -160,7 +160,7 @@
                         >
                         <div>
                             <p class="text-lg font-semibold text-gray-900 break-words">
-                            Statement of Purpose <span class="text-red-500">*</span>
+                            {{ __('applicant/program-choice.statement_title')}} <span class="text-red-500">*</span>
                             </p>
                         </div>
 
@@ -170,14 +170,13 @@
                         }">
                             <div>
                                 <label for="statement_of_purpose" class="block font-medium text-gray-700">
-                                    Personal Statement <span class="text-red-500">*</span>
+                                    {{ __('applicant/program-choice.personal_statement')}} <span class="text-red-500">*</span>
                                 </label>
                             </div>
 
                             <div>
                                 <p class="text-center text-gray-600">
-                                    Explain why you want to study this program, your academic and professional background, and your career goals.
-                                    This is your opportunity to make a compelling case for your admission.
+                                    {{ __('applicant/program-choice.statement_instruction')}}
                                 </p>
                             </div>
 
@@ -209,15 +208,15 @@
                         <div class="flex items-start rounded-md border border-green-200 bg-green-50 p-4 text-green-700">
                         <div class="ml-3 text-left">
                             <h4 class="font-medium text-lg mb-2">
-                            Statement of Purpose Tips
+                                {{ __('applicant/program-choice.sop_tips_title')}}
                             </h4>
-                            <ul class="text-md space-y-1">
-                                <li>• Explain your academic and professional background</li>
-                                <li>• Describe why you chose this specific program</li>
-                                <li>• Outline your career goals and how this program fits</li>
-                                <li>• Mention any relevant experience or achievements</li>
-                                <li>• Keep it focused, clear, and well-structured</li>
-                                <li>• Proofread for grammar and spelling errors</li>
+                            <ul class="text-sm space-y-1">
+                                <li>{{ __('applicant/program-choice.sop_tip_1')}}</li>
+                                <li>{{ __('applicant/program-choice.sop_tip_2')}}</li>
+                                <li>{{ __('applicant/program-choice.sop_tip_3')}}</li>
+                                <li>{{ __('applicant/program-choice.sop_tip_4')}}</li>
+                                <li>{{ __('applicant/program-choice.sop_tip_5')}}</li>
+                                <li>{{ __('applicant/program-choice.sop_tip_6')}}</li>
                             </ul>
                         </div>
                         </div>
@@ -245,10 +244,10 @@
                                 d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                                 ></path>
                             </svg>
-                            <span>Supporting Documents</span>
+                            <span>{{ __('applicant/program-choice.documents_title')}}</span>
                             </h3>
                             <p class="text-sm text-gray-600 mt-1">
-                            Upload required and optional documents for this step
+                                {{ __('applicant/program-choice.documents_description')}}
                             </p>
                         </div>
 
@@ -257,7 +256,7 @@
                             <div x-data="documentUpload('sop', @js($documents->get('sop')))" class="border rounded-lg p-4">
                                 <div class="mb-3">
                                     <div class="flex items-center space-x-2 mb-1">
-                                        <span class="text-sm font-medium">Statement of Purpose</span>
+                                        <span class="text-md font-medium">{{ __('applicant/program-choice.statement_title')}}</span>
                                         <span
                                             class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                                             :class="uploaded ? 'bg-green-100 text-green-800' :
@@ -265,8 +264,8 @@
                                             x-text="uploaded ? 'Uploaded' : 'Required'">
                                         </span>
                                     </div>
-                                    <p class="text-sm text-gray-500 mb-2">Your personal statement (if separate file)</p>
-                                    <div class="text-xs text-gray-400">Formats: PDF, DOC, DOCX • Max size: 5MB</div>
+                                    <p class="text-sm text-gray-500 mb-2">{{ __('applicant/program-choice.document_sop_hint')}}</p>
+                                    <div class="text-xs text-gray-400">{{ __('applicant/program-choice.file_upload_formats_5mb')}}</div>
                                 </div>
                                 @error('document_sop')
                                     <div class="mb-3 p-3 bg-red-50 border border-red-200 rounded-md">
@@ -297,11 +296,9 @@
                                                         d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
                                                     </path>
                                                 </svg>
-                                                <span class="text-md font-medium text-gray-900">Click to
-                                                    upload</span>
-                                                <span class="text-sm text-gray-500">or drag and drop</span>
-                                                <span class="text-md text-gray-500">PDF, DOC, DOCX up to
-                                                    5MB</span>
+                                                <span class="text-md font-medium text-gray-900">{{ __('applicant/program-choice.upload_click')}}</span>
+                                                <span class="text-sm text-gray-500">{{ __('applicant/program-choice.upload_drag')}}</span>
+                                                <span class="text-md text-gray-500">{{ __('applicant/program-choice.upload_file_formats_5mb')}}</span>
                                                 <input id="sop-file" name="sop" type="file"
                                                     class="hidden" accept=".pdf,.doc,.docx"
                                                     @change="handleFileSelect($event)">
@@ -314,7 +311,7 @@
                                         <div
                                             class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mb-2">
                                         </div>
-                                        <span class="text-sm text-gray-600">Uploading...</span>
+                                        <span class="text-sm text-gray-600">{{ __('applicant/program-choice.uploading')}}</span>
                                     </div>
                                 </div>
 
@@ -336,8 +333,7 @@
                                                 </p>
                                                 <p class="text-sm text-green-700">
                                                     <span x-text="fileSize"></span><br>
-                                                    <span class="text-green-600">Uploaded
-                                                        successfully</span>
+                                                    <span class="text-green-600">{{ __('applicant/program-choice.uploaded_success')}}</span>
                                                 </p>
                                             </div>
                                         </div>
@@ -391,7 +387,7 @@
                             <div x-data="documentUpload('cv', @js($documents->get('cv')))" class="border rounded-lg p-4">
                                 <div class="mb-3">
                                     <div class="flex items-center space-x-2 mb-1">
-                                        <span class="text-sm font-medium">Curriculum Vitae/Resume</span>
+                                        <span class="text-md font-medium">{{ __('applicant/program-choice.document_cv')}}</span>
                                         <span
                                             class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                                             :class="uploaded ? 'bg-green-100 text-green-800' :
@@ -399,8 +395,8 @@
                                             x-text="uploaded ? 'Uploaded' : 'Optional'">
                                         </span>
                                     </div>
-                                    <p class="text-sm text-gray-500 mb-2">Your updated CV or resume</p>
-                                    <div class="text-xs text-gray-400">Formats: PDF, DOC, DOCX • Max size: 5MB</div>
+                                    <p class="text-sm text-gray-500 mb-2">{{ __('applicant/program-choice.document_cv_hint')}}</p>
+                                    <div class="text-xs text-gray-400">{{ __('applicant/program-choice.file_upload_formats_5mb')}}</div>
                                 </div>
 
                                 <div x-show="!uploaded" x-transition
@@ -422,11 +418,9 @@
                                                         d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
                                                     </path>
                                                 </svg>
-                                                <span class="text-md font-medium text-gray-900">Click to
-                                                    upload</span>
-                                                <span class="text-sm text-gray-500">or drag and drop</span>
-                                                <span class="text-md text-gray-500">PDF, DOC, DOCX up to
-                                                    5MB</span>
+                                                <span class="text-md font-medium text-gray-900">{{ __('applicant/program-choice.upload_click')}}</span>
+                                                <span class="text-sm text-gray-500">{{ __('applicant/program-choice.upload_drag')}}</span>
+                                                <span class="text-md text-gray-500">{{ __('applicant/program-choice.upload_file_formats_5mb')}}</span>
                                                 <input id="cv-file" name="cv" type="file"
                                                     class="hidden" accept=".pdf,.doc,.docx"
                                                     @change="handleFileSelect($event)">
@@ -439,7 +433,7 @@
                                         <div
                                             class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mb-2">
                                         </div>
-                                        <span class="text-sm text-gray-600">Uploading...</span>
+                                        <span class="text-sm text-gray-600">{{ __('applicant/program-choice.uploading')}}</span>
                                     </div>
                                 </div>
 
@@ -461,8 +455,7 @@
                                                 </p>
                                                 <p class="text-sm text-green-700">
                                                     <span x-text="fileSize"></span><br>
-                                                    <span class="text-green-600">Uploaded
-                                                        successfully</span>
+                                                    <span class="text-green-600">{{ __('applicant/program-choice.uploaded_success')}}</span>
                                                 </p>
                                             </div>
                                         </div>
@@ -516,7 +509,7 @@
                             <div x-data="documentUpload('portfolio', @js($documents->get('portfolio')))" class="border rounded-lg p-4">
                                 <div class="mb-3">
                                     <div class="flex items-center space-x-2 mb-1">
-                                        <span class="text-sm font-medium">Portfolio</span>
+                                        <span class="text-md font-medium">{{ __('applicant/program-choice.document_portfolio')}}</span>
                                         <span
                                             class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                                             :class="uploaded ? 'bg-green-100 text-green-800' :
@@ -524,8 +517,8 @@
                                             x-text="uploaded ? 'Uploaded' : 'Optional'">
                                         </span>
                                     </div>
-                                    <p class="text-sm text-gray-500 mb-2">Academic or professional portfolio (if applicable)</p>
-                                    <div class="text-xs text-gray-400">Formats: PDF, ZIP • Max size: 20MB</div>
+                                    <p class="text-sm text-gray-500 mb-2">{{ __('applicant/program-choice.document_portfolio_hint')}}</p>
+                                    <div class="text-xs text-gray-400">{{ __('applicant/program-choice.file_upload_formats_15mb')}}</div>
                                 </div>
 
                                 <div x-show="!uploaded" x-transition
@@ -547,11 +540,9 @@
                                                         d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
                                                     </path>
                                                 </svg>
-                                                <span class="text-md font-medium text-gray-900">Click to
-                                                    upload</span>
-                                                <span class="text-sm text-gray-500">or drag and drop</span>
-                                                <span class="text-md text-gray-500">PDF, ZIP up to
-                                                    20MB</span>
+                                                <span class="text-md font-medium text-gray-900">{{ __('applicant/program-choice.upload_click')}}</span>
+                                                <span class="text-sm text-gray-500">{{ __('applicant/program-choice.upload_drag')}}</span>
+                                                <span class="text-md text-gray-500">{{ __('applicant/program-choice.upload_file_formats_15mb')}}</span>
                                                 <input id="portfolio-file" name="portfolio" type="file"
                                                     class="hidden" accept=".pdf,.zip"
                                                     @change="handleFileSelect($event)">
@@ -564,7 +555,7 @@
                                         <div
                                             class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mb-2">
                                         </div>
-                                        <span class="text-sm text-gray-600">Uploading...</span>
+                                        <span class="text-sm text-gray-600">{{ __('applicant/program-choice.uploading')}}</span>
                                     </div>
                                 </div>
 
@@ -586,8 +577,7 @@
                                                 </p>
                                                 <p class="text-sm text-green-700">
                                                     <span x-text="fileSize"></span><br>
-                                                    <span class="text-green-600">Uploaded
-                                                        successfully</span>
+                                                    <span class="text-green-600">{{ __('applicant/program-choice.uploaded_success')}}</span>
                                                 </p>
                                             </div>
                                         </div>
@@ -650,14 +640,14 @@
 
                                 <div class="ml-3 text-left">
                                     <h4 class="text-sm font-medium mb-2">
-                                        Document Requirements:
+                                        {{ __('applicant/program-choice.document_requirements_title')}}
                                     </h4>
                                     <ul class="text-sm space-y-1">
-                                        <li>• All documents must be clear and legible</li>
-                                        <li>• Official documents should be in original language</li>
-                                        <li>• Translations must be certified if documents are not in English</li>
-                                        <li>• File names should be descriptive and professional</li>
-                                        <li>• Ensure all pages are included for multi-page documents</li>
+                                        <li>{{ __('applicant/program-choice.doc_tip_1')}}</li>
+                                        <li>{{ __('applicant/program-choice.doc_tip_2')}}</li>
+                                        <li>{{ __('applicant/program-choice.doc_tip_3')}}</li>
+                                        <li>{{ __('applicant/program-choice.doc_tip_4')}}</li>
+                                        <li>{{ __('applicant/program-choice.doc_tip_5')}}</li>
                                     </ul>
                                 </div>
                             </div>
@@ -673,7 +663,7 @@
                         <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                         </svg>
-                        Previous
+                        {{ __('applicant/program-choice.previous')}}
                     </button>
 
                     <div class="flex items-center space-x-4">
@@ -694,11 +684,11 @@
                             d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3-3m0 0l-3 3m3-3v12"
                             ></path>
                         </svg>
-                        Save Progress
+                        {{ __('applicant/program-choice.save_progress')}}
                         </button>
 
                         <button @click="currentStep = 5" class="flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
-                            Next
+                            {{ __('applicant/program-choice.next')}}
                             <svg class="h-4 w-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                             </svg>

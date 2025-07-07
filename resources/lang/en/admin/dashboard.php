@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'page_title' => 'Admin Dashboard',
+    'page_welcome' => 'Welcome, :name. Manage applications and system settings.',
+    'total_applications' => 'Total Applications',
+    'new_applications' => 'New Applications',
+    'under_review' => 'Under Review',
+    'accepted' => 'Accepted',
+    'recent_applications_title' => 'Recent Applications',
+    'program_not_selected' => 'Program Not Selected',
+    'submitted_at' => 'Submitted :date',
+    'no_applications' => 'No applications found',
+    'view' => 'View',
+    'view_all_applications' => 'View All Applications',
+    'quick_actions' => 'Quick Actions',
+    'manage_applications' => 'Manage Applications',
+    'view_reports' => 'View Reports',
+    'system_settings' => 'System Settings',
+    'application_status' => 'Application Status',
+    'status_submitted' => 'Submitted',
+    'status_under_review' => 'Under Review',
+    'status_accepted' => 'Accepted',
+    'status_rejected' => 'Rejected',
+];

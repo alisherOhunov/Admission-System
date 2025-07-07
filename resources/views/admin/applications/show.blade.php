@@ -19,7 +19,7 @@
                             <path d="m12 19-7-7 7-7"></path>
                             <path d="M19 12H5"></path>
                         </svg>
-                        Back to Applications
+                        {{ __('admin/show.back_to_applications') }}
                     </button>
                 </a>
             </div>
@@ -27,8 +27,8 @@
                 <div class="mb-8">
                     <div class="flex items-center justify-between py-4">
                         <div class="flex flex-col">
-                            <h1 class="text-3xl font-bold text-gray-900">Application Details</h1>
-                            <p class="mt-2 text-gray-600">Application ID: {{ $application->id }}</p>
+                            <h1 class="text-3xl font-bold text-gray-900">{{ __('admin/show.application_details') }}</h1>
+                            <p class="mt-2 text-gray-600">{{ __('admin/show.application_id') }} {{ $application->id }}</p>
                         </div>
                         <div class="flex items-center space-x-4">
                             @php
@@ -48,9 +48,9 @@
                                         @if ($status === 'require_resubmit' || $status === 'accepted') bg-gray-100 text-gray-400 cursor-not-allowed @endif"
                                         id="update-status-button">
                                         @if ($status === 'accepted' || $status === 'require_resubmit')
-                                            Status Locked
+                                            {{ __('admin/show.status_locked') }}
                                         @else
-                                            Update Status
+                                            {{ __('admin/show.update_status') }}
                                         @endif
                                     </button>
 
@@ -60,18 +60,19 @@
                                             <div @click.away="showModal = false"
                                                 class="bg-white rounded-2xl shadow-lg p-6 w-full max-w-md z-50">
                                                 <div class="flex items-center justify-between mb-4">
-                                                    <h2 class="text-xl font-semibold text-gray-900">Update Application
-                                                        Status</h2>
+                                                    <h2 class="text-xl font-semibold text-gray-900">
+                                                        {{ __('admin/show.update_status_title') }}
+                                                    </h2>
                                                     <button @click="showModal = false"
                                                         class="text-gray-400 hover:text-gray-600 text-2xl leading-none">&times;</button>
                                                 </div>
                                                 <p class="text-sm text-gray-600 mb-6">
-                                                    Change the status of this application. This action will be recorded and
-                                                    may trigger notifications to the applicant.
+                                                    {{ __('admin/show.update_status_description') }}
                                                 </p>
                                                 <div class="mb-4">
-                                                    <label class="block text-sm font-medium text-gray-700 mb-1">Current
-                                                        Status</label>
+                                                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                                                        {{ __('admin/show.current_status_label') }}
+                                                    </label>
                                                     <span id="current-status-display"
                                                         class="inline-block text-sm font-semibold px-3 py-1 rounded-full {{ $statusData['color'] ?? 'bg-gray-100 text-gray-800' }}">
                                                         {{ ucwords(str_replace('_', ' ', $status)) }}
@@ -82,17 +83,17 @@
                                                     hx-swap="none" hx-on::after-request="handleStatusUpdate(event)">
                                                     @csrf
                                                     <div class="mb-3">
-                                                        <label for="newStatus"
-                                                            class="block text-sm font-medium text-gray-700 mb-1">New
-                                                            Status</label>
+                                                        <label for="newStatus" class="block text-sm font-medium text-gray-700 mb-1">
+                                                            {{ __('admin/show.new_status') }}
+                                                        </label>
                                                         <select id="newStatus" name="status" x-model="newStatus"
                                                             @change="showNotesField = (newStatus === 'require_resubmit')"
                                                             class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
                                                             required>
-                                                            <option value="under_review">Under Review</option>
-                                                            <option value="accepted">Accepted</option>
-                                                            <option value="rejected">Rejected</option>
-                                                            <option value="require_resubmit">Require Resubmit</option>
+                                                            <option value="under_review">{{ __('admin/show.status.under_review') }}</option>
+                                                            <option value="accepted">{{ __('admin/show.status.accepted') }}</option>
+                                                            <option value="rejected">{{ __('admin/show.status.rejected') }}</option>
+                                                            <option value="require_resubmit">{{ __('admin/show.status.require_resubmit') }}</option>
                                                         </select>
                                                     </div>
                                                     <div x-show="showNotesField" x-transition class="mb-4">
@@ -104,8 +105,9 @@
                                                             placeholder="Please provide reason for resubmission requirement..."
                                                             class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                                                             rows="3" :required="newStatus === 'require_resubmit'" @input="errorMessage = ''"></textarea>
-                                                        <p class="text-xs text-gray-500 mt-1">This note will be visible to
-                                                            the applicant.</p>
+                                                        <p class="text-xs text-gray-500 mt-1">
+                                                            {{ __('admin/show.note_required') }}
+                                                        </p>
                                                     </div>
 
                                                     <div x-show="errorMessage" x-transition class="mb-4">
@@ -117,11 +119,11 @@
                                                     <div class="flex justify-end space-x-3">
                                                         <button type="button" @click="showModal = false"
                                                             class="px-4 py-2 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-100">
-                                                            Cancel
+                                                            {{ __('admin/show.cancel') }}
                                                         </button>
                                                         <button type="submit"
                                                             class="px-4 py-2 rounded-md text-white bg-blue-500 hover:bg-blue-600">
-                                                            Update Status
+                                                            {{ __('admin/show.submit') }}
                                                         </button>
                                                     </div>
                                                 </form>
@@ -139,7 +141,7 @@
                                     <polyline points="7 10 12 15 17 10"></polyline>
                                     <line x1="12" x2="12" y1="15" y2="3"></line>
                                 </svg>
-                                Export PDF
+                                {{ __('admin/show.export_pdf') }}
                             </button>
                         </div>
                     </div>
@@ -157,60 +159,62 @@
                                     <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
                                     <circle cx="12" cy="7" r="4"></circle>
                                 </svg>
-                                <span>Applicant Information</span>
+                                <span>{{ __('admin/show.applicant_information') }}</span>
                             </h3>
                         </div>
                         <div class="px-6 pb-6 ">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
                                 <div>
                                     <label
-                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">Full
-                                        Name</label>
+                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">
+                                        {{ __('admin/show.full_name') }}
+                                    </label>
                                     <p class="text-gray-900">
                                         {{ $application->user->first_name . ' ' . $application->user->last_name }}</p>
                                 </div>
                                 <div>
                                     <label
                                         class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">
-                                        Email
+                                        {{ __('admin/show.email') }}
                                     </label>
                                     <p>{{ $application->email }}</p>
                                 </div>
                                 <div>
                                     <label
                                         class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">
-                                        Phone
+                                        {{ __('admin/show.phone') }}
                                     </label>
-                                    <p class="text-gray-900">{{ $application->phone ?? 'Not Specified' }}</p>
+                                    <p class="text-gray-900">{{ $application->phone ?? __('admin-show.not_specified') }}</p>
                                 </div>
                                 <div>
                                     <label
-                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">Nationality</label>
+                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">{{ __('admin/show.nationality') }}</label>
                                     @if ($application->nationality)
                                         @foreach (config('countries') as $code => $name)
                                             <p class="text-gray-900">{{ $application->nationality == $code ? $name : '' }}
                                             </p>
                                         @endforeach
                                     @else
-                                        <p class="text-gray-900">Not specified</p>
+                                        <p class="text-gray-900">{{ __('admin/show.not_specified') }}</p>
                                     @endif
                                 </div>
                                 <div>
                                     <label
                                         class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">
-                                        Date of Birth
+                                        {{ __('admin/show.dob') }}
                                     </label>
                                     @if ($application->date_of_birth)
                                         <p class="text-gray-900">{{ $application->date_of_birth->format('Y/m/d') }}</p>
                                     @else
-                                        <p class="text-gray-900">Not Specified</p>
+                                        <p class="text-gray-900">{{ __('admin/show.not_specified') }}</p>
                                     @endif
                                 </div>
                                 <div>
                                     <label
-                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">Passport
-                                        Number</label>
-                                    <p class="text-gray-900">{{ $application->passport_number ?? 'Not Specified' }}</p>
+                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">
+                                        {{ __('admin/show.passport_number') }}</label>
+                                    </label>
+                                    <p class="text-gray-900">{{ $application->passport_number ?? __('admin-show.not_specified') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -228,7 +232,7 @@
                                     <path d="M22 10v6"></path>
                                     <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path>
                                 </svg>
-                                <span>Program Information</span>
+                                <span>{{ __('admin/show.program_information') }}</span>
                             </h3>
                         </div>
                         <div class="px-6 pb-6 ">
@@ -236,70 +240,71 @@
                                 <div>
                                     <label
                                         class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">
-                                        Program
+                                        {{ __('admin/show.program') }}
                                     </label>
                                     @if ($application->program)
                                         <p class="text-gray-900">{{ $application->program->name }}</p>
                                     @else
-                                        <p class="text-gray-900">Not Specified</p>
+                                        <p class="text-gray-900">{{ __('admin/show.not_specified') }}</p>
                                     @endif
                                 </div>
                                 <div>
                                     <label
-                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">Department</label>
-                                    <p class="text-gray-900">Computer Science</p>
+                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">{{ __('admin/show.department') }}</label>
+                                    <p class="text-gray-900">{{ __('admin/show.computer_science') }}</p>
                                 </div>
                                 <div>
                                     <label
-                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">Degree
-                                        Level</label>
+                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">
+                                        {{ __('admin/show.degree_level') }}
+                                    </label>
                                     <span class="bg-white px-2 py-1 rounded-full border text-sm font-medium">
                                         @if ($application->program)
                                             {{ $application->program->degree_level }}
                                         @else
-                                            Not Specified
+                                            {{ __('admin/show.not_specified') }}
                                         @endif
                                     </span>
                                 </div>
                                 <div>
                                     <label
-                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">Start
-                                        Term</label>
-                                    <p class="text-gray-900">{{ $application->start_term ?? 'Not Specified' }}</p>
+                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">
+                                        {{ __('admin/show.start_term') }}    
+                                    </label>
+                                    <p class="text-gray-900">{{ $application->start_term ?? __('admin-show.not_specified') }}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm border">
                         <div class="px-6 py-6">
-                            <h3 class="text-2xl font-semibold leading-none tracking-tight">Academic Background</h3>
+                            <h3 class="text-2xl font-semibold leading-none tracking-tight">{{ __('admin/show.academic_background') }}</h3>
                         </div>
                         <div class="px-6 pb-6 ">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
                                 <div>
                                     <label
-                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">Previous
-                                        Institution</label>
-                                    <p class="text-gray-900">{{ $application->previous_institution ?? 'Not Specified' }}
+                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">
+                                        {{ __('admin/show.previous_institution') }}
+                                    </label>
+                                    <p class="text-gray-900">{{ $application->previous_institution ?? __('admin-show.not_specified') }}
                                     </p>
                                 </div>
                                 <div>
                                     <label
-                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">Degree
-                                        Earned</label>
-                                    <p class="text-gray-900">{{ $application->degree_earned ?? 'Not Specified' }}</p>
+                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">{{ __('admin/show.degree_earned') }}</label>
+                                    <p class="text-gray-900">{{ $application->degree_earned ?? __('admin-show.not_specified') }}</p>
                                 </div>
                                 <div>
                                     <label
-                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">GPA</label>
-                                    <p class="text-gray-900 font-semibold">{{ $application->gpa ?? 'Not Specified' }}</p>
+                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">{{ __('admin/show.gpa') }}</label>
+                                    <p class="text-gray-900 font-semibold">{{ $application->gpa ?? __('admin-show.not_specified') }}</p>
                                 </div>
                                 <div>
                                     <label
-                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">English
-                                        Test</label>
+                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">{{ __('admin/show.english_test') }}</label>
                                     <p class="text-gray-900">
-                                        {{ ($application->english_test_type ?? 'Not Specified') . ': ' . ($application->english_test_score ?? 'Not Specified') }}
+                                        {{ ($application->english_test_type ?? __('admin-show.not_specified')) . ': ' . ($application->english_test_score ?? __('admin-show.not_specified')) }}
                                     </p>
                                 </div>
                             </div>
@@ -318,12 +323,12 @@
                                     <path d="M16 13H8"></path>
                                     <path d="M16 17H8"></path>
                                 </svg>
-                                <span>Statement of Purpose</span>
+                                <span>{{ __('admin/show.statement_of_purpose') }}</span>
                             </h3>
                         </div>
                         <div class="px-6 pb-6 ">
                             <p class="text-gray-700 leading-relaxed text-center">
-                                {{ $application->statement_of_purpose ?? 'No statement provided.' }}
+                                {{ $application->statement_of_purpose ?? __('admin-show.no_statement_provided') }}
                             </p>
                         </div>
                     </div>
@@ -341,7 +346,7 @@
                                     <rect width="18" height="18" x="3" y="4" rx="2"></rect>
                                     <path d="M3 10h18"></path>
                                 </svg>
-                                <span>Timeline</span>
+                                <span>{{ __('admin/show.timeline') }}</span>
                             </h3>
                         </div>
                         <div class="px-6 pb-6 ">
@@ -357,14 +362,15 @@
                                         </svg>
                                     </div>
                                     <div class="flex-1 text-center">
-                                        <p class="text-sm font-medium text-gray-900">Application Submitted</p>
+                                        <p class="text-sm font-medium text-gray-900">{{ __('admin/show.application_submitted') }}</p>
                                         <p class="text-xs text-gray-500">
                                             @if ($application->submitted_at)
                                                 {{ $application->submitted_at->format('Y/m/d') }}
+                                            @else
+                                                {{ __('admin/show.not_submitted_yet') }}
+                                            @endif
                                         </p>
-                                    @else
-                                        Not Submitted Yet
-                                        @endif
+                                        
                                     </div>
                                 </div>
                                 <div class="flex">
@@ -382,7 +388,7 @@
                                             class="current-status-display text-sm font-medium text-gray-900 uppercase">
                                             {{ $status }}
                                         </p>
-                                        <p class="text-xs text-gray-500">Current Status</p>
+                                        <p class="text-xs text-gray-500">{{ __('admin/show.current_status') }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -399,17 +405,18 @@
                                     </path>
                                     <circle cx="12" cy="10" r="3"></circle>
                                 </svg>
-                                <span>Address</span>
+                                <span>{{ __('admin/show.address') }}</span>
                             </h3>
                         </div>
                         <div class="p-6 text-center">
                             <div>
                                 <label
-                                    class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">Permanent
-                                    Address</label>
+                                    class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">
+                                    {{ __('admin/show.permanent_address') }}
+                                </label>
                                 <p class="text-gray-900">{{ $application->permanent_street }}</p>
                                 <p class="text-gray-900">
-                                    {{ ($application->permanent_city ?? 'City Not Specified') . ', ' . ($application->permanent_state ?? 'State Not Specified') }}
+                                    {{ ($application->permanent_city ?? __('admin-show.not_specified')) . ', ' . ($application->permanent_state ?? __('admin-show.not_specified')) }}
                                 </p>
                                 <p class="text-gray-900">
                                     @if ($application->permanent_country)

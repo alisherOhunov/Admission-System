@@ -5,10 +5,10 @@
                 <div class="flex items-center space-x-2">
                     <span
                         class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-600 text-sm font-medium">1</span>
-                    <span class="text-lg font-medium">Personal Information</span>
+                    <span class="text-lg font-medium">{{ __('applicant/personal-info.step_title')}}</span>
                 </div>
                 <p class="text-gray-600 mt-1">
-                    Basic personal details and identification
+                    {{ __('applicant/personal-info.step_description')}}
                 </p>
             </div>
 
@@ -16,15 +16,14 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <!-- Left Column -->
                     <div class="space-y-6">
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">Personal Information</h3>
-                        <p class="text-sm text-gray-600 mb-6">Please provide your basic personal information as
-                            it
-                            appears on your passport.</p>
-
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">{{ __('applicant/personal-info.section_title')}}</h3>
+                        <p class="text-sm text-gray-600 mb-6">
+                            {{ __('applicant/personal-info.section_subtitle')}}
+                        </p>
                         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                             <div>
                                 <label for="first_name" class="block text-sm font-medium text-gray-700">
-                                    First Name<span class="text-red-500">*</span>
+                                    {{ __('applicant/personal-info.first_name')}}<span class="text-red-500">*</span>
                                 </label>
                                 <input
                                     autocomplete="first-name"
@@ -40,7 +39,7 @@
                                 @enderror
                             </div>
                             <div>
-                                <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name
+                                <label for="last_name" class="block text-sm font-medium text-gray-700">{{ __('applicant/personal-info.last_name')}}
                                     <span class="text-red-500">*</span></label>
                                 <input type="text" id="last_name" name="last_name" placeholder="Enter your last name" value="{{ old('last_name', Auth::user()->last_name) }}"
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
@@ -54,7 +53,7 @@
                         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                             <div>
                                 <label for="date_of_birth" class="block text-sm font-medium text-gray-700">
-                                    Date of Birth <span class="text-red-500">*</span>
+                                    {{ __('applicant/personal-info.date_of_birth')}} <span class="text-red-500">*</span>
                                 </label>
                                 <input type="date" id="date_of_birth" name="date_of_birth"
                                     value="{{ old('date_of_birth', isset($application->date_of_birth) ? $application->date_of_birth->format('Y-m-d') : '') }}"
@@ -64,13 +63,13 @@
                                 @enderror
                             </div>
                             <div>
-                                <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
+                                <label for="gender" class="block text-sm font-medium text-gray-700">{{ __('applicant/personal-info.gender')}}</label>
                                 <select id="gender" name="gender"
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
                                 >
-                                    <option value="">Select gender</option>
-                                    <option value="1" @selected(old('gender', $application->gender ?? '') == '1')>Male</option>
-                                    <option value="2" @selected(old('gender', $application->gender ?? '') == '2')>Female</option>
+                                    <option value="">{{ __('applicant/personal-info.select_gender')}}</option>
+                                    <option value="1" @selected(old('gender', $application->gender ?? '') == '1')>{{ __('applicant/personal-info.gender_male')}}</option>
+                                    <option value="2" @selected(old('gender', $application->gender ?? '') == '2')>{{ __('applicant/personal-info.gender_female')}}</option>
                                 </select>
                                 @error('gender')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -80,26 +79,24 @@
 
                         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                             <div>
-                                <label for="nationality" class="block text-sm font-medium text-gray-700">Nationality
+                                <label for="nationality" class="block text-sm font-medium text-gray-700">{{ __('applicant/personal-info.nationality')}}
                                     <span class="text-red-500">*</span></label>
-                                    <select id="nationality" name="nationality"
-                                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
-                                            @change="clearError('nationality')">
-                                        <option value="">Select your nationality</option>
-                                        <option value="UZ" @selected($application->nationality == 'UZ')>Uzbekistan</option>
-                                        <option value="US" @selected($application->nationality == 'US')>United States</option>
-                                        <option value="UK" @selected($application->nationality == 'UK')>United Kingdom</option>
-                                        <option value="CA" @selected($application->nationality == 'CA')>Canada</option>
-                                        <option value="DE" @selected($application->nationality == 'DE')>Germany</option>
-                                        <option value="FR" @selected($application->nationality == 'FR')>France</option>
-                                    </select>
+                                    <select name="nationality"
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
+                                    >
+                                    <option value="" class="text-muted-foreground">Select your country</option>
+                                    @foreach (config('countries') as $code => $name)
+                                        <option value="{{ $code }}" @selected(old('nationality', $application->nationality ?? '') == $code)>{{ $name }}</option>
+                                    @endforeach
+                                </select>
                                 @error('nationality')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div>
-                                <label for="passport_number" class="block text-sm font-medium text-gray-700">Passport
-                                    Number <span class="text-red-500">*</span></label>
+                                <label for="passport_number" class="block text-sm font-medium text-gray-700">
+                                    {{ __('applicant/personal-info.passport_number')}} <span class="text-red-500">*</span>
+                                </label>
                                 <input type="text" id="passport_number" name="passport_number" placeholder="Enter your passport number"
                                     value="{{ old('passport_number', $application->passport_number ?? '') }}"
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm">
@@ -110,8 +107,9 @@
                         </div>
 
                         <div>
-                            <label for="native_language" class="block text-sm font-medium text-gray-700">Native
-                                Language <span class="text-red-500">*</span></label>
+                            <label for="native_language" class="block text-sm font-medium text-gray-700">
+                                {{ __('applicant/personal-info.native_language')}} <span class="text-red-500">*</span>
+                            </label>
                             <input type="text" id="native_language" name="native_language" placeholder="Enter your native language"
                                 value="{{ old('native_language', $application->native_language ?? '') }}"
                                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm">
@@ -121,11 +119,11 @@
                         </div>
 
                         <div class="bg-blue-50 border border-blue-200 rounded-md p-4">
-                            <h4 class="text-sm font-medium text-blue-900 mb-2">Important Notes:</h4>
+                            <h4 class="text-sm font-medium text-blue-900 mb-2">{{ __('applicant/personal-info.note_title')}}</h4>
                             <ul class="text-sm text-blue-800 space-y-1">
-                                <li>• Ensure all information matches your passport exactly</li>
-                                <li>• Your passport must be valid for at least 6 months</li>
-                                <li>• Upload a clear scan of your passport on the right</li>
+                                <li>{{ __('applicant/personal-info.note_1')}}</li>
+                                <li>{{ __('applicant/personal-info.note_2')}}</li>
+                                <li>{{ __('applicant/personal-info.note_3')}}</li>
                             </ul>
                         </div>
                     </div>
@@ -141,9 +139,9 @@
                                             d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
                                         </path>
                                     </svg>
-                                    <span>Personal Documents</span>
+                                    <span>{{ __('applicant/personal-info.documents_section_title')}}</span>
                                 </h3>
-                                <p class="text-sm text-gray-600 mt-1">Upload documents related to this step</p>
+                                <p class="text-sm text-gray-600 mt-1">{{ __('applicant/personal-info.documents_section_description')}}</p>
                             </div>
 
                             <div class="p-6 space-y-4">
@@ -158,7 +156,7 @@
                                                         d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
                                                     </path>
                                                 </svg>
-                                                <span class="text-sm font-medium">Passport</span>
+                                                <span class="text-md font-medium">{{ __('applicant/personal-info.passport_label')}}</span>
                                                 <span
                                                     class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                                                     :class="uploaded ? 'bg-green-100 text-green-800' :
@@ -167,10 +165,10 @@
                                                 </span>
                                             </div>
                                             <p class="text-sm text-gray-500 mb-2">
-                                                Clear scan of your passport photo page
+                                                {{ __('applicant/personal-info.passport_description')}}
                                             </p>
                                             <div class="text-xs text-gray-400">
-                                                Formats: PDF, JPG, PNG • Max size: 5MB
+                                                {{ __('applicant/personal-info.passport_formats')}}
                                             </div>
                                         </div>
 
@@ -193,11 +191,13 @@
                                                                 d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
                                                             </path>
                                                         </svg>
-                                                        <span class="text-md font-medium text-gray-900">Click to
-                                                            upload</span>
-                                                        <span class="text-sm text-gray-500">or drag and drop</span>
-                                                        <span class="text-md text-gray-500">PDF, JPG, PNG up to
-                                                            5MB</span>
+                                                        <span class="text-md font-medium text-gray-900">
+                                                            {{ __('applicant/personal-info.upload_click')}}
+                                                        </span>
+                                                        <span class="text-sm text-gray-500">{{ __('applicant/personal-info.upload_or_drag')}}</span>
+                                                        <span class="text-md text-gray-500">
+                                                            {{ __('applicant/personal-info.upload_formats')}}
+                                                        </span>
                                                         <input id="passport-file" name="passport" type="file"
                                                             class="hidden" accept=".pdf,.jpg,.jpeg,.png"
                                                             @change="handleFileSelect($event)">
@@ -210,7 +210,7 @@
                                                 <div
                                                     class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mb-2">
                                                 </div>
-                                                <span class="text-sm text-gray-600">Uploading...</span>
+                                                <span class="text-sm text-gray-600">{{ __('applicant/personal-info.uploading')}}</span>
                                             </div>
                                         </div>
                                         @error('document_passport')
@@ -241,8 +241,7 @@
                                                         </p>
                                                         <p class="text-sm text-green-700">
                                                             <span x-text="fileSize"></span><br>
-                                                            <span class="text-green-600">Uploaded
-                                                                successfully</span>
+                                                            <span class="text-green-600">{{ __('applicant/personal-info.uploaded_successfully')}}</span>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -294,11 +293,11 @@
                                 </div>
 
                                 <div class="bg-blue-50 border border-blue-200 rounded-md p-3">
-                                    <h4 class="text-xs font-medium text-blue-900 mb-1">Upload Tips:</h4>
-                                    <ul class="text-xs text-blue-800 space-y-1">
-                                        <li>• Use high-resolution scans (300 DPI recommended)</li>
-                                        <li>• Ensure documents are clear and legible</li>
-                                        <li>• Files are automatically saved when uploaded</li>
+                                    <h4 class="text-sm font-medium text-blue-900 mb-1">{{ __('applicant/personal-info.upload_tips_title')}}</h4>
+                                    <ul class="text-sm text-blue-800 space-y-1">
+                                        <li>{{ __('applicant/personal-info.upload_tip_1')}}</li>
+                                        <li>{{ __('applicant/personal-info.upload_tip_2')}}</li>
+                                        <li>{{ __('applicant/personal-info.upload_tip_3')}}</li>
                                     </ul>
                                 </div>
                             </div>
@@ -314,7 +313,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M15 19l-7-7 7-7" />
                         </svg>
-                        Previous
+                        {{ __('applicant/personal-info.previous')}}
                     </button>
 
                     <div class="flex items-center space-x-4">
@@ -325,18 +324,18 @@
                                     d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3-3m0 0l-3 3m3-3v12">
                                 </path>
                             </svg>
-                            <span>Save Progress</span>
+                            <span>{{ __('applicant/personal-info.save_progress')}}</span>
                         </button>
 
                         <button @click="currentStep = 2"
                             class="flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
-                            Next
+                            {{ __('applicant/personal-info.next')}}
                             <svg class="h-4 w-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 5l7 7-7 7"></path>
                             </svg>
                         </button>
-                    </div>
+                    </div> 
                 </div>
             </div>
         </div>

@@ -5,19 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register - EduAdmit</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-    
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-    
     <style>
         body { font-family: 'Inter', sans-serif; }
         .spinner { animation: spin 1s linear infinite; }
@@ -42,8 +41,6 @@
 
 <body class="bg-gray-50 font-sans antialiased" x-data="registerForm()">
     <div class="min-h-screen flex flex-col justify-center py-12">
-        
-        <!-- Header -->
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <div class="flex justify-center items-center space-x-1">
                 <svg class="h-10 w-10 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -53,25 +50,23 @@
                 <span class="text-2xl font-bold text-gray-900">EduAdmit</span>
             </div>
             <h2 class="mt-5 text-center text-3xl font-bold tracking-tight text-gray-900">
-                {{__('register.title')}}
+                {{ __('auth.title') }}
             </h2>
             <p class="mt-2 text-center text-sm text-gray-600">
-                {{__('register.or')}}
+                {{ __('auth.or') }}
                 <a href="{{ route('login') }}" class="font-medium text-university-600 hover:text-university-500">
-                    {{__('register.signInOption')}}
+                    {{ __('auth.sign_in_option') }}
                 </a>
             </p>
         </div>
 
-        <!-- Registration Form -->
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
             <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
                 <div class="p-4 pb-0 text-center">
-                    <h3 class="text-2xl font-semibold text-gray-900">{{__('register.getStarted')}}</h3>
+                    <h3 class="text-2xl font-semibold text-gray-900">{{ __('auth.get_started') }}</h3>
                 </div>
-                
+
                 <div class="p-6 pt-0">
-                    <!-- Laravel Server Errors -->
                     @if ($errors->any())
                         <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
                             @foreach ($errors->all() as $error)
@@ -80,24 +75,19 @@
                         </div>
                     @endif
 
-                    <!-- Success Message -->
                     @if (session('success'))
                         <div class="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
                             <p class="text-sm text-green-600">{{ session('success') }}</p>
                         </div>
                     @endif
 
-                    <form method="POST" 
-                          action="{{ route('register') }}" 
-                          class="space-y-6" 
-                          @submit="handleSubmit">
+                    <form method="POST" action="{{ route('register') }}" class="space-y-6" @submit="handleSubmit">
                         @csrf
 
-                        <!-- Name Fields -->
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label for="first_name" class="block text-sm font-medium text-gray-700 mb-2">
-                                   {{__('register.firstName') }}
+                                    {{ __('auth.first_name') }}
                                 </label>
                                 <input
                                     type="text"
@@ -105,51 +95,51 @@
                                     name="first_name"
                                     x-model="form.first_name"
                                     value="{{ old('first_name') }}"
-                                    placeholder="{{ __('register.firstName') }}"
+                                    placeholder="{{ __('auth.first_name') }}"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors"
-                                    required 
-                                    autofocus
-                                    />
+                                    required autofocus
+                                />
                             </div>
-                            
+
                             <div>
                                 <label for="last_name" class="block text-sm font-medium text-gray-700 mb-2">
-                                    {{__('register.lastName') }}
+                                    {{ __('auth.last_name') }}
                                 </label>
-                                <input type="text" 
-                                       id="last_name" 
-                                       name="last_name" 
+                                <input type="text"
+                                       id="last_name"
+                                       name="last_name"
                                        x-model="form.last_name"
                                        value="{{ old('last_name') }}"
-                                       placeholder="{{__('register.lastName') }}"
+                                       placeholder="{{ __('auth.last_name') }}"
                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors"
                                        required />
                             </div>
                         </div>
 
-                        <!-- Email Field -->
                         <div>
                             <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
-                                {{__('register.email') }}
+                                {{ __('auth.email') }}
                             </label>
-                            <input type="email" 
-                                   id="email" 
-                                   name="email" 
+                            <input type="email"
+                                   id="email"
+                                   name="email"
                                    x-model="form.email"
                                    value="{{ old('email') }}"
-                                   placeholder="{{__('register.enterYourEmail') }}"
+                                   placeholder="{{ __('auth.enter_your_email') }}"
                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors"
                                    required />
                         </div>
 
                         <div>
-                            <label for="password" class="block text-sm font-medium text-gray-700">{{__('register.password')}}</label>
+                            <label for="password" class="block text-sm font-medium text-gray-700">
+                                {{ __('auth.password') }}
+                            </label>
                             <div class="mt-1 relative">
-                                <input id="password" name="password" :type="showPassword ? 'text' : 'password'" 
-                                    x-model="form.password"
-                                    autocomplete="current-password" required
-                                    placeholder="{{__('register.createPassword') }}"
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors">
+                                <input id="password" name="password" :type="showPassword ? 'text' : 'password'"
+                                       x-model="form.password"
+                                       autocomplete="current-password" required
+                                       placeholder="{{ __('auth.create_password') }}"
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors">
                                 <button type="button" @click="showPassword = !showPassword" class="absolute inset-y-0 right-0 pr-3 flex items-center">
                                     <svg x-show="!showPassword" class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -162,15 +152,16 @@
                             </div>
                         </div>
 
-
                         <div>
-                            <label for="password_confirmation" class="block text-sm font-medium text-gray-700">{{__('register.confirmPassword')}}</label>
+                            <label for="password_confirmation" class="block text-sm font-medium text-gray-700">
+                                {{ __('auth.confirm_password') }}
+                            </label>
                             <div class="mt-1 relative">
-                                <input :type="showConfirmPassword ? 'text' : 'password'" 
-                                       id="password_confirmation" 
-                                       name="password_confirmation" 
+                                <input :type="showConfirmPassword ? 'text' : 'password'"
+                                       id="password_confirmation"
+                                       name="password_confirmation"
                                        x-model="form.password_confirmation"
-                                       placeholder="{{__('register.confirmYourPassword') }}"
+                                       placeholder="{{ __('auth.confirm_your_password') }}"
                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors"
                                        :class="{ 'border-red-500': !passwordsMatch && form.password_confirmation }"
                                        required />
@@ -184,55 +175,50 @@
                                     </svg>
                                 </button>
                             </div>
-                            <p x-show="!passwordsMatch && form.password_confirmation" 
-                               x-transition
-                               class="mt-1 text-sm text-red-600">
-                                {{__('register.passwordNotMatch') }}
+                            <p x-show="!passwordsMatch && form.password_confirmation" x-transition class="mt-1 text-sm text-red-600">
+                                {{ __('auth.password_not_match') }}
                             </p>
                         </div>
 
-                        <!-- Terms Agreement -->
                         <div class="flex items-start space-x-2">
-                            <input type="checkbox" 
-                                   id="terms" 
-                                   name="terms" 
+                            <input type="checkbox"
+                                   id="terms"
+                                   name="terms"
                                    x-model="form.terms"
                                    value="1"
                                    class="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                                    {{ old('terms') ? 'checked' : '' }}
                                    required />
                             <label for="terms" class="text-sm text-gray-600">
-                                {{__('register.agreeToTerms') }}
+                                {{ __('auth.agree_to_terms') }}
                                 <a href="#" class="font-medium text-university-600 hover:text-university-500">
-                                    {{__('register.termsOfService') }}
+                                    {{ __('auth.terms_of_service') }}
                                 </a>
-                                {{__('register.and') }}
+                                {{ __('auth.and') }}
                                 <a href="#" class="font-medium text-university-600 hover:text-university-500">
-                                    {{__('register.privacyPolicy') }}
+                                    {{ __('auth.privacy_policy') }}
                                 </a>
                             </label>
                         </div>
 
-                        <!-- Submit Button -->
-                        <button type="submit" 
+                        <button type="submit"
                                 class="w-full flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors">
-                            <span>{{__('register.createAccount') }}</span>
+                            <span>{{ __('auth.create_account') }}</span>
                         </button>
                     </form>
 
-                    <!-- Sign In Link -->
                     <div class="mt-6">
                         <div class="relative">
                             <div class="absolute inset-0 flex items-center">
                                 <div class="w-full border-t border-gray-300"></div>
                             </div>
                             <div class="relative flex justify-center text-sm">
-                                <span class="bg-white px-2 text-gray-500">{{__('register.alreadyHaveAccount') }}?</span>
+                                <span class="bg-white px-2 text-gray-500">{{ __('auth.already_have_account') }}?</span>
                             </div>
                         </div>
                         <div class="mt-4 text-center">
                             <a href="{{ route('login') }}" class="font-medium text-university-600 hover:text-university-500">
-                                {{__('register.signInHere') }}
+                                {{ __('auth.sign_in_here') }}
                             </a>
                         </div>
                     </div>
@@ -254,7 +240,6 @@
                     password_confirmation: '',
                     terms: {{ old('terms') ? 'true' : 'false' }}
                 },
-
                 get passwordsMatch() {
                     return this.form.password === this.form.password_confirmation;
                 },
