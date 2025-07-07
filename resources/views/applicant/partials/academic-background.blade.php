@@ -144,10 +144,8 @@
                                         <option value="">{{ __('applicant/academic-background.select_test_type') }}</option>
                                         <option value="IELTS" @selected(old('english_test_type', $application->english_test_type ?? '') == 'IELTS')>{{ __('applicant/academic-background.ielts_academic') }}</option>
                                         <option value="TOEFL" @selected(old('english_test_type', $application->english_test_type ?? '') == 'TOEFL')>{{ __('applicant/academic-background.toefl_ibt') }}</option>
-                                        <option value="DUOLINGO" @selected(old('english_test_type', $application->english_test_type ?? '') == 'DUOLINGO')>{{ __('applicant/academic-background.duolingo') }}</option>
-                                        <option value="CAMBRIDGE" @selected(old('english_test_type', $application->english_test_type ?? '') == 'CAMBRIDGE')>{{ __('applicant/academic-background.cambridge') }}</option>
-                                        <option value="PTE" @selected(old('english_test_type', $application->english_test_type ?? '') == 'PTE')>{{ __('applicant/academic-background.pte_academic') }}</option>
-                                        <option value="OTHER" @selected(old('english_test_type', $application->english_test_type ?? '') == 'OTHER')>{{ __('applicant/academic-background.other') }}</option>
+                                        <option value="Duolingo" @selected(old('english_test_type', $application->english_test_type ?? '') == 'Duolingo')>{{ __('applicant/academic-background.duolingo') }}</option>
+                                        <option value="Other" @selected(old('english_test_type', $application->english_test_type ?? '') == 'OTHER')>{{ __('applicant/academic-background.other') }}</option>
                                     </select>
                                     <p class="mt-2 text-gray-500">{{ __('applicant/academic-background.english_test_type_help') }}</p>
                                     @error('english_test_type')

@@ -184,7 +184,7 @@
                                         class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">
                                         {{ __('admin/show.phone') }}
                                     </label>
-                                    <p class="text-gray-900">{{ $application->phone ?? __('admin-show.not_specified') }}</p>
+                                    <p class="text-gray-900">{{ $application->phone ?? __('admin/show.not_specified') }}</p>
                                 </div>
                                 <div>
                                     <label
@@ -214,7 +214,7 @@
                                         class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">
                                         {{ __('admin/show.passport_number') }}</label>
                                     </label>
-                                    <p class="text-gray-900">{{ $application->passport_number ?? __('admin-show.not_specified') }}</p>
+                                    <p class="text-gray-900">{{ $application->passport_number ?? __('admin/show.not_specified') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -271,7 +271,7 @@
                                         class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">
                                         {{ __('admin/show.start_term') }}    
                                     </label>
-                                    <p class="text-gray-900">{{ $application->start_term ?? __('admin-show.not_specified') }}</p>
+                                    <p class="text-gray-900">{{ $application->start_term ?? __('admin/show.not_specified') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -287,24 +287,24 @@
                                         class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">
                                         {{ __('admin/show.previous_institution') }}
                                     </label>
-                                    <p class="text-gray-900">{{ $application->previous_institution ?? __('admin-show.not_specified') }}
+                                    <p class="text-gray-900">{{ $application->previous_institution ?? __('admin/show.not_specified') }}
                                     </p>
                                 </div>
                                 <div>
                                     <label
                                         class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">{{ __('admin/show.degree_earned') }}</label>
-                                    <p class="text-gray-900">{{ $application->degree_earned ?? __('admin-show.not_specified') }}</p>
+                                    <p class="text-gray-900">{{ $application->degree_earned ?? __('admin/show.not_specified') }}</p>
                                 </div>
                                 <div>
                                     <label
                                         class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">{{ __('admin/show.gpa') }}</label>
-                                    <p class="text-gray-900 font-semibold">{{ $application->gpa ?? __('admin-show.not_specified') }}</p>
+                                    <p class="text-gray-900 font-semibold">{{ $application->previous_gpa ?? __('admin/show.not_specified') }}</p>
                                 </div>
                                 <div>
                                     <label
                                         class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">{{ __('admin/show.english_test') }}</label>
                                     <p class="text-gray-900">
-                                        {{ ($application->english_test_type ?? __('admin-show.not_specified')) . ': ' . ($application->english_test_score ?? __('admin-show.not_specified')) }}
+                                        {{ ($application->english_test_type ?? __('admin/show.not_specified')) . ': ' . ($application->english_test_score ?? __('admin/show.not_specified')) }}
                                     </p>
                                 </div>
                             </div>
@@ -328,7 +328,7 @@
                         </div>
                         <div class="px-6 pb-6 ">
                             <p class="text-gray-700 leading-relaxed text-center">
-                                {{ $application->statement_of_purpose ?? __('admin-show.no_statement_provided') }}
+                                {{ $application->statement_of_purpose ?? __('admin/show.no_statement_provided') }}
                             </p>
                         </div>
                     </div>
@@ -416,7 +416,7 @@
                                 </label>
                                 <p class="text-gray-900">{{ $application->permanent_street }}</p>
                                 <p class="text-gray-900">
-                                    {{ ($application->permanent_city ?? __('admin-show.not_specified')) . ', ' . ($application->permanent_state ?? __('admin-show.not_specified')) }}
+                                    {{ ($application->permanent_city ?? __('admin/show.not_specified')) . ', ' . ($application->permanent_state ?? __('admin/show.not_specified')) }}
                                 </p>
                                 <p class="text-gray-900">
                                     @if ($application->permanent_country)
