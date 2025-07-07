@@ -48,7 +48,7 @@ return [
     'review_notice_3' => 'Double-check contact information for communication purposes',
     'review_notice_4' => 'Once submitted, you cannot make changes without contacting admissions',
     'review_notice_5' => 'You will receive a confirmation email after submission',
-    'back_to_program_selection' => 'Back to Program Selection',
+    'previous' => 'Previous',
     'save_progress' => 'Save Progress',
     'submit_application' => 'Submit Application',
 ];
