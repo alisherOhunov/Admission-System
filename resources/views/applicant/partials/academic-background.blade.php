@@ -357,7 +357,7 @@
                                                 </template>
 
                                                 <!-- Remove Button -->
-                                                @if($application->status !== 'submitted' && $application->status !== 'accepted')
+                                                @if(!in_array($application->status, ['submitted', 'accepted', 're_submitted', 'rejected']))
                                                     <button @click="removeFile()"
                                                         class="text-red-500 hover:text-red-700 transition-colors"
                                                         type="button">
@@ -487,7 +487,7 @@
                                                 </template>
 
                                                 <!-- Remove Button -->
-                                                @if($application->status !== 'submitted' && $application->status !== 'accepted')
+                                                @if(!in_array($application->status, ['submitted', 'accepted', 're_submitted', 'rejected']))
                                                     <button @click="removeFile()"
                                                         class="text-red-500 hover:text-red-700 transition-colors"
                                                         type="button">
@@ -620,7 +620,7 @@
                                                 </template>
 
                                                 <!-- Remove Button -->
-                                                @if($application->status !== 'submitted' && $application->status !== 'accepted')
+                                                @if(!in_array($application->status, ['submitted', 'accepted', 're_submitted', 'rejected']))
                                                     <button @click="removeFile()"
                                                         class="text-red-500 hover:text-red-700 transition-colors"
                                                         type="button">
