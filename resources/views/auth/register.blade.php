@@ -156,7 +156,7 @@
                                    name="terms"
                                    x-model="form.terms"
                                    value="1"
-                                   class="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                                   class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                                    {{ old('terms') ? 'checked' : '' }}
                                    required />
                             <label for="terms" class="text-sm text-gray-600">
