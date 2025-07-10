@@ -149,207 +149,422 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div class="lg:col-span-2 space-y-6">
-                    <div class="bg-white rounded-xl shadow-sm border">
-                        <div class="px-6 py-6">
-                            <h3 class="text-2xl font-semibold leading-none tracking-tight flex items-center space-x-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user h-5 w-5">
-                                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="12" cy="7" r="4"></circle>
-                                </svg>
-                                <span>{{ __('admin/show.applicant_information') }}</span>
-                            </h3>
-                        </div>
-                        <div class="px-6 pb-6 ">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
-                                <div>
-                                    <label
-                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">
-                                        {{ __('admin/show.full_name') }}
-                                    </label>
-                                    <p class="text-gray-900">
-                                        {{ $application->user->first_name . ' ' . $application->user->last_name }}</p>
-                                </div>
-                                <div>
-                                    <label
-                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">
-                                        {{ __('admin/show.email') }}
-                                    </label>
-                                    <p>{{ $application->email }}</p>
-                                </div>
-                                <div>
-                                    <label
-                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">
-                                        {{ __('admin/show.phone') }}
-                                    </label>
-                                    <p class="text-gray-900">{{ $application->phone ?? __('admin/show.not_specified') }}</p>
-                                </div>
-                                <div>
-                                    <label
-                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">{{ __('admin/show.nationality') }}</label>
-                                    @if ($application->nationality)
-                                        @foreach (config('countries') as $code => $name)
-                                            <p class="text-gray-900">{{ $application->nationality == $code ? $name : '' }}
-                                            </p>
-                                        @endforeach
-                                    @else
-                                        <p class="text-gray-900">{{ __('admin/show.not_specified') }}</p>
-                                    @endif
-                                </div>
-                                <div>
-                                    <label
-                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">
-                                        {{ __('admin/show.dob') }}
-                                    </label>
-                                    @if ($application->date_of_birth)
-                                        <p class="text-gray-900">{{ $application->date_of_birth->format('Y/m/d') }}</p>
-                                    @else
-                                        <p class="text-gray-900">{{ __('admin/show.not_specified') }}</p>
-                                    @endif
-                                </div>
-                                <div>
-                                    <label
-                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">
-                                        {{ __('admin/show.passport_number') }}</label>
-                                    </label>
-                                    <p class="text-gray-900">{{ $application->passport_number ?? __('admin/show.not_specified') }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-white rounded-xl shadow-sm border">
-                        <div class="px-6 py-6">
-                            <h3 class="text-2xl font-semibold leading-none tracking-tight flex items-center space-x-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round"
-                                    class="lucide lucide-graduation-cap h-5 w-5">
-                                    <path
-                                        d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z">
-                                    </path>
-                                    <path d="M22 10v6"></path>
-                                    <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path>
-                                </svg>
-                                <span>{{ __('admin/show.program_information') }}</span>
-                            </h3>
-                        </div>
-                        <div class="px-6 pb-6 ">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
-                                <div>
-                                    <label
-                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">
-                                        {{ __('admin/show.program') }}
-                                    </label>
-                                    @if ($application->program)
-                                        <p class="text-gray-900">{{ $application->program->name }}</p>
-                                    @else
-                                        <p class="text-gray-900">{{ __('admin/show.not_specified') }}</p>
-                                    @endif
-                                </div>
-                                <div>
-                                    <label
-                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">{{ __('admin/show.department') }}</label>
-                                    <p class="text-gray-900">{{ __('admin/show.computer_science') }}</p>
-                                </div>
-                                <div>
-                                    <label
-                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">
-                                        {{ __('admin/show.degree_level') }}
-                                    </label>
-                                    <span class="bg-white px-2 py-1 rounded-full border text-sm font-medium">
-                                        @if ($application->program)
-                                            {{ $application->program->degree_level }}
-                                        @else
-                                            {{ __('admin/show.not_specified') }}
-                                        @endif
+                <!-- Applicant Information Cards - Takes 3 columns -->
+                <div class="lg:col-span-2">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- Personal Information Card -->
+                        <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
+                            <div class="p-6 pb-4">
+                                <div class="flex items-center space-x-3">
+                                    <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-blue-100 text-blue-600">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user h-6 w-6">
+                                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="12" cy="7" r="4"></circle>
+                                        </svg>
                                     </span>
-                                </div>
-                                <div>
-                                    <label
-                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">
-                                        {{ __('admin/show.start_term') }}    
-                                    </label>
-                                    <p class="text-gray-900">{{ $application->start_term ?? __('admin/show.not_specified') }}</p>
+                                    <h4 class="text-lg font-semibold text-gray-900">
+                                        {{ __('admin/show.applicant_information') }}
+                                    </h4>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="bg-white rounded-xl shadow-sm border">
-                        <div class="px-6 py-6">
-                            <h3 class="text-2xl font-semibold leading-none tracking-tight">{{ __('admin/show.academic_background') }}</h3>
-                        </div>
-                        <div class="px-6 pb-6 ">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
+                            <div class="p-6 pt-2 space-y-4">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-700 mb-1">
+                                            {{ __('applicant/review-and-submit.first_name') }}
+                                        </p>
+                                        <p class="text-gray-900">{{ Auth::user()->first_name }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.last_name') }}</p>
+                                        <p class="text-gray-900">{{ Auth::user()->last_name }}</p>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-700 mb-1">
+                                            {{ __('applicant/review-and-submit.date_of_birth') }}
+                                        </p>
+                                        <p class="text-gray-900">
+                                            {{ $application->date_of_birth ? $application->date_of_birth->format('Y/m/d') : __('applicant/review-and-submit.not_specified') }}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.gender') }}</p>
+                                        <p class="text-gray-900 capitalize">
+                                            {{ $application->gender == 1 ? __('applicant/review-and-submit.male') : ($application->gender == 2 ? __('applicant/review-and-submit.female') : __('applicant/review-and-submit.not_specified')) }}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-700 mb-1">
+                                            {{ __('applicant/review-and-submit.nationality') }}
+                                        </p>
+                                        <p class="text-gray-900">
+                                            @if ($application->nationality)
+                                                @foreach (config('countries') as $code => $name)
+                                                    <p class="text-gray-900">{{ $application->nationality == $code ? $name : '' }}
+                                                    </p>
+                                                @endforeach
+                                            @else
+                                            {{ __('applicant/review-and-submit.not_specified') }}</p>
+                                            @endif
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-700 mb-1">
+                                            {{ __('applicant/review-and-submit.passport_number') }}
+                                        </p>
+                                        <p class="text-gray-900">
+                                            {{ $application->passport_number ? $application->passport_number : __('applicant/review-and-submit.not_specified') }}
+                                        </p>
+                                    </div>
+                                </div>
+
                                 <div>
-                                    <label
-                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">
-                                        {{ __('admin/show.previous_institution') }}
-                                    </label>
-                                    <p class="text-gray-900">{{ $application->previous_institution ?? __('admin/show.not_specified') }}
+                                    <p class="text-sm font-medium text-gray-700 mb-1">
+                                        {{ __('applicant/review-and-submit.native_language') }}
                                     </p>
-                                </div>
-                                <div>
-                                    <label
-                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">{{ __('admin/show.degree_earned') }}</label>
-                                    <p class="text-gray-900">{{ $application->degree_earned ?? __('admin/show.not_specified') }}</p>
-                                </div>
-                                <div>
-                                    <label
-                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">{{ __('admin/show.gpa') }}</label>
-                                    <p class="text-gray-900 font-semibold">{{ $application->previous_gpa ?? __('admin/show.not_specified') }}</p>
-                                </div>
-                                <div>
-                                    <label
-                                        class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">{{ __('admin/show.english_test') }}</label>
                                     <p class="text-gray-900">
-                                        {{ ($application->english_test_type ?? __('admin/show.not_specified')) . ': ' . ($application->english_test_score ?? __('admin/show.not_specified')) }}
+                                        {{ $application->native_language ? $application->native_language : __('applicant/review-and-submit.not_specified') }}
                                     </p>
+                                </div>
+                                @if (isset($documents['passport']))
+                                    <div>
+                                        <p class="text-md font-semibold text-gray-800 mb-2">
+                                            Uploaded documents
+                                        </p>
+                                        
+                                        <div class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm">
+                                            <div>
+                                                <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">
+                                                    Passport
+                                                </p>
+                                                <p class="text-sm font-medium text-gray-800">
+                                                    {{ $documents['passport']['original_name'] }}
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <a href="/admin/applications/{{ $application->id }}/document/{{ $documents['passport']['id'] }}"
+                                                class="text-blue-600 hover:text-blue-800 transition-colors"
+                                                title="{{ __('Download') }}">
+                                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                                    </svg>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
+                        <!-- Contact Information Card -->
+                        <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
+                            <div class="p-6 pb-4">
+                                <div class="flex items-center space-x-3">
+                                    <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-blue-100 text-blue-600">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail h-6 w-6">
+                                            <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                                        </svg>
+                                    </span>
+                                    <h4 class="text-lg font-semibold text-gray-900">
+                                        {{ __('applicant/review-and-submit.contact_information') }}
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="p-6 pt-2 space-y-4">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.email') }}</p>
+                                        <p class="text-gray-900">{{ Auth::user()->email }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.phone') }}</p>
+                                        <p class="text-gray-900">
+                                            {{ $application->phone ? $application->phone : __('applicant/review-and-submit.not_specified') }}</p>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <p class="text-sm font-medium text-gray-700 mb-2">{{ __('applicant/review-and-submit.permanent_address') }}</p>
+
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.street') }}</p>
+                                            <p class="text-gray-900">
+                                                {{ $application->permanent_street ? $application->permanent_street : __('applicant/review-and-submit.not_specified') }}
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.city') }}</p>
+                                            <p class="text-gray-900">
+                                                {{ $application->permanent_city ? $application->permanent_city : __('applicant/review-and-submit.not_specified') }}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-2 gap-4 mt-3">
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.state') }}</p>
+                                            <p class="text-gray-900">
+                                                {{ $application->permanent_state ? $application->permanent_state : __('applicant/review-and-submit.not_specified') }}
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.country') }}</p>
+                                            <p class="text-gray-900">
+                                                {{ $application->permanent_country ? config('countries')[$application->permanent_country] ?? __('applicant/review-and-submit.not_specified') : __('applicant/review-and-submit.not_specified') }}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-2 gap-4 mt-3">
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.postcode') }}</p>
+                                            <p class="text-gray-900">
+                                                {{ $application->permanent_postcode ? $application->permanent_postcode : __('applicant/review-and-submit.not_specified') }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                @if (isset($documents['address_proof']))
+                                    <div>
+                                        <p class="text-md font-semibold text-gray-800 mb-2">
+                                            Uploaded documents
+                                        </p>
+                                        
+                                        <div class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm">
+                                            <div>
+                                                <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">
+                                                    Address Proof
+                                                </p>
+                                                <p class="text-sm font-medium text-gray-800">
+                                                    {{ $documents['address_proof']['original_name'] }}
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <a href="/admin/applications/{{ $application->id }}/document/{{ $documents['address_proof']['id'] }}"
+                                                class="text-blue-600 hover:text-blue-800 transition-colors"
+                                                title="{{ __('Download') }}">
+                                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                                    </svg>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
+                        <!-- Academic Background Card -->
+                        <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
+                            <div class="p-6 pb-4">
+                                <div class="flex items-center space-x-3">
+                                    <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-blue-100 text-blue-600">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-graduation-cap h-6 w-6"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path>
+                                            <path d="M22 10v6"></path>
+                                            <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path>
+                                        </svg>
+                                    </span>
+                                    <h4 class="text-lg font-semibold text-gray-900">
+                                        {{ __('applicant/review-and-submit.academic_background') }}
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="p-6 pt-2 space-y-4">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-700 mb-1">
+                                        {{ __('applicant/review-and-submit.previous_institution') }}
+                                    </p>
+                                    <p class="text-gray-900">
+                                        {{ $application->previous_institution ? $application->previous_institution : __('applicant/review-and-submit.not_specified') }}
+                                    </p>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-700 mb-1">
+                                            {{ __('applicant/review-and-submit.degree_earned') }}
+                                        </p>
+                                        <p class="text-gray-900">
+                                            {{ $application->degree_earned ? $application->degree_earned : __('applicant/review-and-submit.not_specified') }}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.gpa_grade') }}</p>
+                                        <p class="text-gray-900">
+                                            {{ $application->previous_gpa ? $application->previous_gpa : __('applicant/review-and-submit.not_specified') }}</p>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <p class="text-sm font-medium text-gray-700 mb-1">
+                                        {{ __('applicant/review-and-submit.graduation_date') }}
+                                    </p>
+                                    <p class="text-gray-900">
+                                        {{ $application->graduation_date ? $application->graduation_date->format('Y/m/d') : __('applicant/review-and-submit.not_specified') }}
+                                    </p>
+                                </div>
+
+                                <div class="space-y-2">
+                                    <p class="text-sm font-medium text-gray-700">
+                                        {{ __('applicant/review-and-submit.english_proficiency') }}
+                                    </p>
+                                    <div class="flex items-center space-x-4 text-sm">
+                                        <span class="text-gray-900">{{ $application->english_test_type }}</span>
+                                        <span class="text-gray-500">•</span>
+                                        <span class="text-gray-900">{{ __('applicant/review-and-submit.score') }}: {{ $application->english_test_score }}</span>
+                                        <span class="text-gray-500">•</span>
+                                        <span class="text-gray-700">
+                                            {{ optional($application->english_test_date)->format('Y/m/d') ?? __('applicant/review-and-submit.not_submitted_yet') }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-800 mb-2">
+                                        Uploaded Documents
+                                    </p>
+
+                                    @foreach (['transcript' => 'Transcript', 'diploma' => 'Diploma', 'english_score' => 'English Score'] as $key => $label)
+                                        @if (isset($documents[$key]))
+                                            <div class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm mb-2">
+                                                <div>
+                                                    <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">
+                                                        {{ $label }}
+                                                    </p>
+                                                    <p class="text-sm font-medium text-gray-800">
+                                                        {{ $documents[$key]['original_name'] }}
+                                                    </p>
+                                                </div>
+                                                <div>
+                                                    <a href="/admin/applications/{{ $application->id }}/document/{{ $documents[$key]['id'] }}"
+                                                    class="text-blue-600 hover:text-blue-800 transition-colors"
+                                                    title="Download">
+                                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="bg-white rounded-xl shadow-sm border">
-                        <div class="px-6 py-6">
-                            <h3 class="text-2xl font-semibold leading-none tracking-tight flex items-center space-x-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round"
-                                    class="lucide lucide-file-text h-5 w-5">
-                                    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
-                                    <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
-                                    <path d="M10 9H8"></path>
-                                    <path d="M16 13H8"></path>
-                                    <path d="M16 17H8"></path>
-                                </svg>
-                                <span>{{ __('admin/show.motivation_letter') }}</span>
-                            </h3>
-                        </div>
-                        <div class="px-6 pb-6 ">
-                            <p class="text-gray-700 leading-relaxed text-center">
-                                {{ $application->motivation_letter ?? __('admin/show.no_statement_provided') }}
-                            </p>
+
+                        <!-- Program Selection Card -->
+                        <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
+                            <div class="p-6 pb-4">
+                                <div class="flex items-center space-x-3">
+                                    <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-blue-100 text-blue-600">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-target h-6 w-6">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <circle cx="12" cy="12" r="6"></circle>
+                                            <circle cx="12" cy="12" r="2"></circle>
+                                        </svg>
+                                    </span>
+                                    <h4 class="text-lg font-semibold text-gray-900">
+                                        {{ __('applicant/review-and-submit.program_selection') }}
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="p-6 pt-2 space-y-4">
+                                <div class="space-y-4">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-700 mb-1">
+                                            {{ __('applicant/review-and-submit.selected_program') }}
+                                        </p>
+                                        <p class="text-lg font-semibold text-gray-900">
+                                            {{ __('applicant/review-and-submit.program_name') }}
+                                        </p>
+                                        <p class="text-gray-600">{{ __('applicant/review-and-submit.school_name') }}</p>
+                                    </div>
+
+                                    <div class="flex items-center space-x-4">
+                                        <span
+                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">{{ __('applicant/review-and-submit.masters_badge') }}</span>
+                                    </div>
+
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-700 mb-1">
+                                            {{ __('applicant/review-and-submit.start_term') }}
+                                        </p>
+                                        <p class="text-gray-900">{{ __('applicant/review-and-submit.fall_2024') }}</p>
+                                    </div>
+
+                                    <div class="flex items-center space-x-2">
+                                    <input type="checkbox" disabled 
+                                            {{ $application->funding_interest ? 'checked' : '' }} 
+                                            readonly
+                                            class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+                                        <span class="text-sm text-gray-700">
+                                            {{ __('applicant/review-and-submit.scholarship_interest') }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-800 mb-2">
+                                        Uploaded Documents
+                                    </p>
+
+                                    @foreach (['sop' => 'Statement of Purpose', 'cv' => 'Curriculum Vitae (CV)', 'portfolio' => 'Portfolio'] as $key => $label)
+                                        @if (isset($documents[$key]))
+                                            <div class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm mb-2">
+                                                <div>
+                                                    <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">
+                                                        {{ $label }}
+                                                    </p>
+                                                    <p class="text-sm font-medium text-gray-800">
+                                                        {{ $documents[$key]['original_name'] }}
+                                                    </p>
+                                                </div>
+                                                <div>
+                                                    <a href="/admin/applications/{{ $application->id }}/document/{{ $documents[$key]['id'] }}"
+                                                    class="text-blue-600 hover:text-blue-800 transition-colors"
+                                                    title="Download">
+                                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="space-y-6">
-                    <div class="bg-white rounded-xl shadow-sm border">
+
+                <!-- Timeline Card - Takes 1 column -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-xl shadow-sm border sticky top-4">
                         <div class="px-6 py-6">
                             <h3 class="text-2xl font-semibold leading-none tracking-tight flex items-center space-x-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round"
-                                    class="lucide lucide-calendar h-5 w-5">
-                                    <path d="M8 2v4"></path>
-                                    <path d="M16 2v4"></path>
-                                    <rect width="18" height="18" x="3" y="4" rx="2"></rect>
-                                    <path d="M3 10h18"></path>
-                                </svg>
+                                 <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-blue-100 text-blue-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                        viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        class="lucide lucide-calendar h-5 w-5">
+                                        <path d="M8 2v4"></path>
+                                        <path d="M16 2v4"></path>
+                                        <rect width="18" height="18" x="3" y="4" rx="2"></rect>
+                                        <path d="M3 10h18"></path>
+                                    </svg>
+                                </span>
                                 <span>{{ __('admin/show.timeline') }}</span>
                             </h3>
                         </div>
-                        <div class="px-6 pb-6 ">
+                        <div class="px-6 pb-6">
                             <div class="space-y-4">
                                 <div class="flex">
                                     <div class="mr-3 mt-1">
@@ -361,7 +576,7 @@
                                             <path d="m9 11 3 3L22 4"></path>
                                         </svg>
                                     </div>
-                                    <div class="flex-1 text-center">
+                                    <div class="flex-1">
                                         <p class="text-sm font-medium text-gray-900">{{ __('admin/show.application_submitted') }}</p>
                                         <p class="text-xs text-gray-500">
                                             @if ($application->submitted_at)
@@ -370,20 +585,19 @@
                                                 {{ __('admin/show.not_submitted_yet') }}
                                             @endif
                                         </p>
-                                        
                                     </div>
                                 </div>
                                 <div class="flex">
                                     <div class="mr-3 mt-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round"
                                             class="lucide lucide-circle-check-big h-5 w-5 text-yellow-500">
                                             <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
                                             <path d="m9 11 3 3L22 4"></path>
                                         </svg>
                                     </div>
-                                    <div class="flex-1 text-center">
+                                    <div class="flex-1">
                                         <p id="timeline-status-badge"
                                             class="current-status-display text-sm font-medium text-gray-900 uppercase">
                                             {{ ucwords(str_replace('_', ' ', $status)) }}
@@ -391,41 +605,6 @@
                                         <p class="text-xs text-gray-500">{{ __('admin/show.current_status') }}</p>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-white rounded-xl shadow-sm border">
-                        <div class="px-6 py-6">
-                            <h3 class="text-2xl font-semibold leading-none tracking-tight flex items-center space-x-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin h-5 w-5">
-                                    <path
-                                        d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0">
-                                    </path>
-                                    <circle cx="12" cy="10" r="3"></circle>
-                                </svg>
-                                <span>{{ __('admin/show.address') }}</span>
-                            </h3>
-                        </div>
-                        <div class="p-6 text-center">
-                            <div>
-                                <label
-                                    class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium text-gray-500">
-                                    {{ __('admin/show.permanent_address') }}
-                                </label>
-                                <p class="text-gray-900">{{ $application->permanent_street }}</p>
-                                <p class="text-gray-900">
-                                    {{ ($application->permanent_city ?? __('admin/show.not_specified')) . ', ' . ($application->permanent_state ?? __('admin/show.not_specified')) }}
-                                </p>
-                                <p class="text-gray-900">
-                                    @if ($application->permanent_country)
-                                        @foreach (config('countries') as $code => $name)
-                                            <p class="text-gray-900">
-                                                {{ $application->permanent_country == $code ? $name : '' }}</p>
-                                        @endforeach
-                                    @endif
-                                </p>
                             </div>
                         </div>
                     </div>

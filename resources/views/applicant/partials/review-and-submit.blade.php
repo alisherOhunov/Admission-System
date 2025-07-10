@@ -27,10 +27,10 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="orange"
                                     viewBox="0 0 24 24">
                                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10
-                          10-4.48 10-10S17.52 2 12 2zm0 15c-.83
-                          0-1.5-.67-1.5-1.5S11.17 14 12
-                          14s1.5.67 1.5 1.5S12.83 17 12
-                          17zm1-4h-2V7h2v6z" />
+                                        10-4.48 10-10S17.52 2 12 2zm0 15c-.83
+                                        0-1.5-.67-1.5-1.5S11.17 14 12
+                                        14s1.5.67 1.5 1.5S12.83 17 12
+                                        17zm1-4h-2V7h2v6z" />
                                 </svg>
                                 <span class="ml-1">
                                     {{ __('applicant/review-and-submit.resubmission_title') }}
@@ -85,6 +85,12 @@
                 <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
                     <div class="p-6 pb-4">
                         <div class="flex items-center space-x-3">
+                            <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-blue-100 text-blue-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user h-6 w-6">
+                                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                            </span>
                             <h4 class="text-lg font-semibold text-gray-900">
                                 {{ __('applicant/review-and-submit.personal_information') }}
                             </h4>
@@ -189,6 +195,12 @@
                 <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
                     <div class="p-6 pb-4">
                         <div class="flex items-center space-x-3">
+                            <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-blue-100 text-blue-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail h-6 w-6">
+                                    <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                                </svg>
+                            </span>
                             <h4 class="text-lg font-semibold text-gray-900">
                                 {{ __('applicant/review-and-submit.contact_information') }}
                             </h4>
@@ -284,6 +296,12 @@
                 <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
                     <div class="p-6 pb-4">
                         <div class="flex items-center space-x-3">
+                             <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-blue-100 text-blue-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-graduation-cap h-6 w-6"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path>
+                                    <path d="M22 10v6"></path>
+                                    <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path>
+                                </svg>
+                            </span>
                             <h4 class="text-lg font-semibold text-gray-900">
                                 {{ __('applicant/review-and-submit.academic_background') }}
                             </h4>
@@ -375,6 +393,13 @@
                 <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
                     <div class="p-6 pb-4">
                         <div class="flex items-center space-x-3">
+                            <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-blue-100 text-blue-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-target h-6 w-6">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <circle cx="12" cy="12" r="6"></circle>
+                                    <circle cx="12" cy="12" r="2"></circle>
+                                </svg>
+                            </span>
                             <h4 class="text-lg font-semibold text-gray-900">
                                 {{ __('applicant/review-and-submit.program_selection') }}
                             </h4>

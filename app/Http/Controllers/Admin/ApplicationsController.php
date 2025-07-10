@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Application;
+use App\Models\Document;
 use App\Models\Program;
 use App\Models\StaffNote;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ApplicationsController extends Controller
 {
@@ -54,9 +56,10 @@ class ApplicationsController extends Controller
     public function show(int $application_id)
     {
         $application = Application::findOrFail($application_id);
-        $application->load(['user', 'program', 'applicationPeriod', 'documents']);
+        $application->load(['user', 'program', 'applicationPeriod']);
+        $documents = $application->getImportantDocuments();
 
-        return view('admin.applications.show', compact('application'));
+        return view('admin.applications.show', compact('application', 'documents'));
     }
 
     public function updateStatus(Request $request, int $application_id)
@@ -78,6 +81,31 @@ class ApplicationsController extends Controller
             'status' => $application->status,
             'message' => 'Status updated successfully!',
         ]);
+    }
+
+    public function getApplicantDocument(int $application_id, int $file_id)
+    {
+        try {
+            $document = Document::where('application_id', $application_id)
+                ->where('id', $file_id)
+                ->firstOrFail();
+
+            $path = 'documents/'.$application_id.'/'.$document->filename;
+
+            if (! Storage::disk('public')->exists($path)) {
+                abort(404, 'File not found');
+            }
+
+            return Storage::disk('public')->download($path, $document->original_name);
+
+        } catch (\Exception $e) {
+            \Log::error('Failed to download document: '.$e->getMessage(), [
+                'application_id' => $application_id,
+                'file_id' => $file_id,
+            ]);
+
+            abort(404, 'Document not found');
+        }
     }
 
     public function addNote(Request $request, int $application_id)
