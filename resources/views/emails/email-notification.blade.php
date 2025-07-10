@@ -76,7 +76,6 @@
                             © {{ date('Y') }} EduAdmit. All rights reserved.
                         </td>
                     </tr>
-
                 </table>
             </td>
         </tr>

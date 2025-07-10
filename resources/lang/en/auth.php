@@ -13,7 +13,7 @@ return [
     'sign_in_option' => 'sign in to your existing account',
     'already_have_account' => 'Already have an account',
     'sign_in_here' => 'Sign in here',
-    'sign_in_existing_account' => 'sign in to your existing account',
+    'sign_in_existing_account' => 'Sign in to your existing account',
     'get_started' => 'Get started with your application',
     'password_not_match' => 'Passwords do not match.',
     'agree_to_terms' => 'I agree to the',
