@@ -323,12 +323,12 @@
                                     <path d="M16 13H8"></path>
                                     <path d="M16 17H8"></path>
                                 </svg>
-                                <span>{{ __('admin/show.statement_of_purpose') }}</span>
+                                <span>{{ __('admin/show.motivation_letter') }}</span>
                             </h3>
                         </div>
                         <div class="px-6 pb-6 ">
                             <p class="text-gray-700 leading-relaxed text-center">
-                                {{ $application->statement_of_purpose ?? __('admin/show.no_statement_provided') }}
+                                {{ $application->motivation_letter ?? __('admin/show.no_statement_provided') }}
                             </p>
                         </div>
                     </div>

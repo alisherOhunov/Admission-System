@@ -22,7 +22,7 @@ return [
     'applicant_information' => 'Applicant Information',
     'program_information' => 'Program Information',
     'academic_background' => 'Academic Background',
-    'statement_of_purpose' => 'Statement of Purpose',
+    'motivation_letter' => 'Motivation Letter',
     'computer_science' => 'Computer Science',
     'timeline' => 'Timeline',
     'address' => 'Address',

@@ -9,7 +9,7 @@ return [
     'contact_information' => 'Contact Information',
     'academic_background' => 'Academic Background',
     'program_selection' => 'Program Selection',
-    'statement_of_purpose' => 'Statement of Purpose',
+    'motivation_letter' => 'Motivation Letter',
     'first_name' => 'First Name',
     'last_name' => 'Last Name',
     'date_of_birth' => 'Date of Birth',

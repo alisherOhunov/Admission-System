@@ -68,7 +68,7 @@ class UpdateApplicationRequest extends FormRequest
             'program_id' => 'nullable|exists:programs,id',
             'start_term' => 'nullable|string|max:50',
             'funding_interest' => 'boolean',
-            'statement_of_purpose' => 'nullable|string|min:100|max:5000',
+            'motivation_letter' => 'nullable|string|min:100|max:5000',
         ];
     }
 

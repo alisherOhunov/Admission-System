@@ -154,6 +154,34 @@
                                 {{ $application->native_language ? $application->native_language : __('applicant/review-and-submit.not_specified') }}
                             </p>
                         </div>
+                        @if (isset($documents['passport']))
+                            <div>
+                                <p class="text-md font-semibold text-gray-800 mb-2">
+                                    Uploaded documents
+                                </p>
+                                
+                                <div class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm">
+                                    <div>
+                                        <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">
+                                            Passport
+                                        </p>
+                                        <p class="text-sm font-medium text-gray-800">
+                                            {{ $documents['passport']['original_name'] }}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <a href="/applicant/application/{{ $application->id }}/download-document/{{ $documents['passport']['id'] }}"
+                                        class="text-blue-600 hover:text-blue-800 transition-colors"
+                                        title="{{ __('Download') }}">
+                                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
 
@@ -221,6 +249,34 @@
                                 </div>
                             </div>
                         </div>
+                        @if (isset($documents['address_proof']))
+                            <div>
+                                <p class="text-md font-semibold text-gray-800 mb-2">
+                                    Uploaded documents
+                                </p>
+                                
+                                <div class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm">
+                                    <div>
+                                        <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">
+                                            Address Proof
+                                        </p>
+                                        <p class="text-sm font-medium text-gray-800">
+                                            {{ $documents['address_proof']['original_name'] }}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <a href="/applicant/application/{{ $application->id }}/download-document/{{ $documents['address_proof']['id'] }}"
+                                        class="text-blue-600 hover:text-blue-800 transition-colors"
+                                        title="{{ __('Download') }}">
+                                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
 
@@ -282,6 +338,36 @@
                                 </span>
                             </div>
                         </div>
+                        <div>
+                            <p class="text-sm font-semibold text-gray-800 mb-2">
+                                Uploaded Documents
+                            </p>
+
+                            @foreach (['transcript' => 'Transcript', 'diploma' => 'Diploma', 'english_score' => 'English Score'] as $key => $label)
+                                @if (isset($documents[$key]))
+                                    <div class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm mb-2">
+                                        <div>
+                                            <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">
+                                                {{ $label }}
+                                            </p>
+                                            <p class="text-sm font-medium text-gray-800">
+                                                {{ $documents[$key]['original_name'] }}
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <a href="/applicant/application/{{ $application->id }}/download-document/{{ $documents[$key]['id'] }}"
+                                            class="text-blue-600 hover:text-blue-800 transition-colors"
+                                            title="Download">
+                                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
                     </div>
                 </div>
 
@@ -328,27 +414,56 @@
                                 </span>
                             </div>
                         </div>
+                        <div>
+                            <p class="text-sm font-semibold text-gray-800 mb-2">
+                                Uploaded Documents
+                            </p>
+
+                            @foreach (['sop' => 'Statement of Purpose', 'cv' => 'Curriculum Vitae (CV)', 'portfolio' => 'Portfolio'] as $key => $label)
+                                @if (isset($documents[$key]))
+                                    <div class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm mb-2">
+                                        <div>
+                                            <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">
+                                                {{ $label }}
+                                            </p>
+                                            <p class="text-sm font-medium text-gray-800">
+                                                {{ $documents[$key]['original_name'] }}
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <a href="/applicant/application/{{ $application->id }}/download-document/{{ $documents[$key]['id'] }}"
+                                            class="text-blue-600 hover:text-blue-800 transition-colors"
+                                            title="Download">
+                                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
-
             <!-- Statement of Purpose -->
             <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
                 <div class="p-6 pb-4">
                     <div class="flex items-center space-x-3">
                         <h4 class="text-lg font-semibold text-gray-900">
-                            {{ __('applicant/review-and-submit.statement_of_purpose') }}
+                            {{ __('applicant/review-and-submit.motivation_letter') }}
                         </h4>
                     </div>
                 </div>
                 <div class="p-6 pt-2">
                     <div class="max-w-none">
                         <p class="text-gray-700 leading-relaxed">
-                            {{ $application->statement_of_purpose ? $application->statement_of_purpose : __('applicant/review-and-submit.not_specified') }}
+                            {{ $application->motivation_letter ? $application->motivation_letter : __('applicant/review-and-submit.not_specified') }}
                         </p>
                     </div>
                     <div class="mt-4 text-sm text-gray-500">
-                        {{ $application->statement_of_purpose ? strlen($application->statement_of_purpose) : 0 }}
+                        {{ $application->motivation_letter ? strlen($application->motivation_letter) : 0 }}
                         {{ __('applicant/review-and-submit.characters') }}
                     </div>
                 </div>

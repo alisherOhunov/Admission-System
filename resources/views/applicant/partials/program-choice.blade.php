@@ -169,31 +169,25 @@
                         >
                         <div>
                             <p class="text-lg font-semibold text-gray-900 break-words">
-                            {{ __('applicant/program-choice.statement_title')}} <span class="text-red-500">*</span>
+                            {{ __('applicant/program-choice.motivation_letter_title')}} <span class="text-red-500">*</span>
                             </p>
                         </div>
 
                         <div x-data="{ 
-                            text: '{{ old('statement_of_purpose', $application->statement_of_purpose ?? '') }}', 
+                            text: '{{ old('motivation_letter', $application->motivation_letter ?? '') }}', 
                             min: 100
                         }">
                             <div>
-                                <label for="statement_of_purpose" class="block font-medium text-gray-700">
-                                    {{ __('applicant/program-choice.personal_statement')}} <span class="text-red-500">*</span>
-                                </label>
-                            </div>
-
-                            <div>
                                 <p class="text-center text-gray-600">
-                                    {{ __('applicant/program-choice.statement_instruction')}}
+                                    {{ __('applicant/program-choice.motivation_letter_instruction')}}
                                 </p>
                             </div>
 
                             <div>
                                 <textarea
-                                    id="statement_of_purpose"
-                                    name="statement_of_purpose"
-                                    placeholder="Begin your statement of purpose here..."
+                                    id="motivation_letter"
+                                    name="motivation_letter"
+                                    placeholder="{{ __('applicant/program-choice.motivation_placeholder')}}"
                                     rows="6"
                                     maxlength="1000"
                                     x-model="text"
@@ -207,7 +201,7 @@
                                             ? `${text.length} characters (${100 - text.length} more needed)` 
                                             : `${text.length} characters`"
                                     ></span>
-                                    @error('statement_of_purpose')
+                                    @error('motivation_letter')
                                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
                                 </div>
@@ -217,15 +211,15 @@
                         <div class="flex items-start rounded-md border border-green-200 bg-green-50 p-4 text-green-700">
                         <div class="ml-3 text-left">
                             <h4 class="font-medium text-lg mb-2">
-                                {{ __('applicant/program-choice.sop_tips_title')}}
+                                {{ __('applicant/program-choice.ml_tips_title')}}
                             </h4>
                             <ul class="text-sm space-y-1">
-                                <li>{{ __('applicant/program-choice.sop_tip_1')}}</li>
-                                <li>{{ __('applicant/program-choice.sop_tip_2')}}</li>
-                                <li>{{ __('applicant/program-choice.sop_tip_3')}}</li>
-                                <li>{{ __('applicant/program-choice.sop_tip_4')}}</li>
-                                <li>{{ __('applicant/program-choice.sop_tip_5')}}</li>
-                                <li>{{ __('applicant/program-choice.sop_tip_6')}}</li>
+                                <li>{{ __('applicant/program-choice.ml_tip_1')}}</li>
+                                <li>{{ __('applicant/program-choice.ml_tip_2')}}</li>
+                                <li>{{ __('applicant/program-choice.ml_tip_3')}}</li>
+                                <li>{{ __('applicant/program-choice.ml_tip_4')}}</li>
+                                <li>{{ __('applicant/program-choice.ml_tip_5')}}</li>
+                                <li>{{ __('applicant/program-choice.ml_tip_6')}}</li>
                             </ul>
                         </div>
                         </div>
@@ -265,7 +259,7 @@
                             <div x-data="documentUpload('sop', @js($documents->get('sop')))" class="border rounded-lg p-4">
                                 <div class="mb-3">
                                     <div class="flex items-center space-x-2 mb-1">
-                                        <span class="text-md font-medium">{{ __('applicant/program-choice.statement_title')}}</span>
+                                        <span class="text-md font-medium">{{ __('applicant/program-choice.motivation_letter_title')}}</span>
                                         <span
                                             class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                                             :class="uploaded ? 'bg-green-100 text-green-800' :
