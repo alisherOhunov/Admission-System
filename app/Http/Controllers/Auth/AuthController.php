@@ -75,7 +75,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('applicant.dashboard')->with('success', 'Registration successful! Welcome to EduAdmit.');
+        return redirect()->route('verification.notice');
     }
 
     public function logout(Request $request)
