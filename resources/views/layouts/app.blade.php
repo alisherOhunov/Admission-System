@@ -148,17 +148,7 @@
                                 <!-- <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                     </svg> -->
-                                <a href="#" class="flex block px-4 py-1.5 text-sm text-gray-700 hover:bg-gray-100">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
-                                        class="lucide lucide-user mr-2 h-4 w-4 mt-1">
-                                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-                                        <circle cx="12" cy="7" r="4"></circle>
-                                    </svg>
-                                    <span>Profile</span>
-                                </a>
-                                <a href="#" class="flex block px-4 py-1.5 text-sm text-gray-700 hover:bg-gray-100">
+                                <a href="{{ route('profile.settings') }}" class="flex block px-4 py-1.5 text-sm text-gray-700 hover:bg-gray-100">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round"

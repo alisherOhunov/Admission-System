@@ -7,6 +7,7 @@ use App\Http\Controllers\Applicant\DashboardController as ApplicantDashboardCont
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,12 +43,15 @@ Route::middleware('guest')->group(function () {
     Route::post('/reset-password', [ResetPasswordController::class, 'store'])->name('password.update');
 });
 
-Route::get('/email/verify', [EmailVerificationController::class, 'show'])->middleware('auth')->name('verification.notice');
-Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->middleware(['auth', 'applicant'])->name('verification.verify');
-Route::post('/email/resend', [EmailVerificationController::class, 'resend'])->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+Route::middleware('auth')->group(function () {
+    Route::get('/email/verify', [EmailVerificationController::class, 'show'])->name('verification.notice');
+    Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->middleware('applicant')->name('verification.verify');
+    Route::post('/email/resend', [EmailVerificationController::class, 'resend'])->middleware('throttle:6,1')->name('verification.resend');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/profile/settings', [ProfileController::class, 'show'])->name('profile.settings');
+    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+});
 
-// Applicant Routes
 Route::middleware(['auth', 'applicant', 'verified'])->prefix('applicant')->name('applicant.')->group(function () {
     Route::get('/dashboard', [ApplicantDashboardController::class, 'index'])->name('dashboard');
     Route::get('/application', [ApplicationController::class, 'show'])->name('application');
