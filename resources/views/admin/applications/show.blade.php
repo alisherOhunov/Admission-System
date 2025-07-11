@@ -246,7 +246,19 @@
                                                     {{ $documents['passport']['original_name'] }}
                                                 </p>
                                             </div>
-                                            <div>
+                                            <div class="flex items-center space-x-3">
+                                                <!-- View Button -->
+                                                <a href="/admin/applications/{{ $application->id }}/view-document/{{ $documents['passport']['id'] }}"
+                                                target="_blank"
+                                                class="text-green-600 hover:text-green-800 transition-colors"
+                                                title="View">
+                                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                    </svg>
+                                                </a>
                                                 <a href="/admin/applications/{{ $application->id }}/document/{{ $documents['passport']['id'] }}"
                                                 class="text-blue-600 hover:text-blue-800 transition-colors"
                                                 title="{{ __('Download') }}">
@@ -347,7 +359,19 @@
                                                     {{ $documents['address_proof']['original_name'] }}
                                                 </p>
                                             </div>
-                                            <div>
+                                            <div class="flex items-center space-x-3">
+                                                <!-- View Button -->
+                                                <a href="/admin/applications/{{ $application->id }}/view-document/{{ $documents['address_proof']['id'] }}"
+                                                    target="_blank"
+                                                    class="text-green-600 hover:text-green-800 transition-colors"
+                                                    title="View">
+                                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                    </svg>
+                                                </a>
                                                 <a href="/admin/applications/{{ $application->id }}/document/{{ $documents['address_proof']['id'] }}"
                                                 class="text-blue-600 hover:text-blue-800 transition-colors"
                                                 title="{{ __('Download') }}">
@@ -443,7 +467,18 @@
                                                         {{ $documents[$key]['original_name'] }}
                                                     </p>
                                                 </div>
-                                                <div>
+                                                <div class="flex items-center space-x-3">
+                                                    <a href="/admin/applications/{{ $application->id }}/view-document/{{ $documents[$key]['id'] }}"
+                                                        target="_blank"
+                                                        class="text-green-600 hover:text-green-800 transition-colors"
+                                                        title="View">
+                                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                        </svg>
+                                                    </a>
                                                     <a href="/admin/applications/{{ $application->id }}/document/{{ $documents[$key]['id'] }}"
                                                     class="text-blue-600 hover:text-blue-800 transition-colors"
                                                     title="Download">
@@ -526,7 +561,18 @@
                                                         {{ $documents[$key]['original_name'] }}
                                                     </p>
                                                 </div>
-                                                <div>
+                                                <div class="flex items-center space-x-3">
+                                                    <a href="/admin/applications/{{ $application->id }}/view-document/{{ $documents[$key]['id'] }}"
+                                                        target="_blank"
+                                                        class="text-green-600 hover:text-green-800 transition-colors"
+                                                        title="View">
+                                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                        </svg>
+                                                    </a>
                                                     <a href="/admin/applications/{{ $application->id }}/document/{{ $documents[$key]['id'] }}"
                                                     class="text-blue-600 hover:text-blue-800 transition-colors"
                                                     title="Download">

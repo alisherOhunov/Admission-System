@@ -68,6 +68,7 @@ Route::middleware(['auth', 'admin', 'verified'])->prefix('admin')->name('admin.'
     Route::post('/applications/{application_id}/status', [ApplicationsController::class, 'updateStatus'])->name('applications.status');
     Route::post('/applications/{application_id}/notes', [ApplicationsController::class, 'addNote'])->name('applications.notes');
     Route::get('/applications/{application_id}/document/{file_id}', [ApplicationsController::class, 'getApplicantDocument'])->name('applications.getApplicantDocument');
+    Route::get('/applications/{application_id}/view-document/{file_id}', [ApplicationsController::class, 'viewApplicantDocument'])->name('applications.view-document');
 
 });
 

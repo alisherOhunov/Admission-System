@@ -108,6 +108,36 @@ class ApplicationsController extends Controller
         }
     }
 
+    public function viewApplicantDocument(int $application_id, int $file_id)
+    {
+        try {
+            $document = Document::where('application_id', $application_id)
+                ->where('id', $file_id)
+                ->firstOrFail();
+
+            $path = 'documents/'.$application_id.'/'.$document->filename;
+
+            if (! Storage::disk('public')->exists($path)) {
+                abort(404, 'File not found');
+            }
+
+            $fileContents = Storage::disk('public')->get($path);
+
+            return response($fileContents)
+                ->header('Content-Type', $document->mime_type)
+                ->header('Content-Disposition', 'inline; filename="'.$document->original_name.'"')
+                ->header('X-Frame-Options', 'SAMEORIGIN');
+
+        } catch (\Exception $e) {
+            \Log::error('Failed to view document: '.$e->getMessage(), [
+                'application_id' => $application_id,
+                'file_id' => $file_id,
+            ]);
+
+            abort(404, 'Document not found');
+        }
+    }
+
     public function addNote(Request $request, int $application_id)
     {
         $request->validate([
