@@ -336,7 +336,6 @@
                                                 </p>
                                                 <p class="text-sm text-green-700">
                                                     <span x-text="fileSize"></span><br>
-                                                    <span class="text-green-600">{{ __('applicant/program-choice.uploaded_success')}}</span>
                                                 </p>
                                             </div>
                                         </div>
@@ -458,7 +457,6 @@
                                                 </p>
                                                 <p class="text-sm text-green-700">
                                                     <span x-text="fileSize"></span><br>
-                                                    <span class="text-green-600">{{ __('applicant/program-choice.uploaded_success')}}</span>
                                                 </p>
                                             </div>
                                         </div>
@@ -580,7 +578,6 @@
                                                 </p>
                                                 <p class="text-sm text-green-700">
                                                     <span x-text="fileSize"></span><br>
-                                                    <span class="text-green-600">{{ __('applicant/program-choice.uploaded_success')}}</span>
                                                 </p>
                                             </div>
                                         </div>

@@ -337,7 +337,6 @@
                                                     </p>
                                                     <p class="text-sm text-green-700">
                                                         <span x-text="fileSize"></span><br>
-                                                        <span class="text-green-600">{{ __('applicant/academic-background.uploaded_successfully') }}</span>
                                                     </p>
                                                 </div>
                                             </div>
@@ -467,7 +466,6 @@
                                                     </p>
                                                     <p class="text-sm text-green-700">
                                                         <span x-text="fileSize"></span><br>
-                                                        <span class="text-green-600">{{ __('applicant/academic-background.uploaded_successfully') }}</span>
                                                     </p>
                                                 </div>
                                             </div>
@@ -600,7 +598,6 @@
                                                     </p>
                                                     <p class="text-sm text-green-700">
                                                         <span x-text="fileSize"></span><br>
-                                                        <span class="text-green-600">{{ __('applicant/academic-background.uploaded_successfully') }}</span>
                                                     </p>
                                                 </div>
                                             </div>

@@ -39,7 +39,7 @@
                         </div>
                     </div>
                     <div class="p-6 pt-4">
-                        @if($application && $application->isSubmitted())
+                        @if($application && $application->status !== 'draft')
                             <!-- Submitted Application -->
                             <div class="space-y-4">
                                 <div class="flex items-center justify-between">
@@ -184,6 +184,31 @@
                                         <p class="text-sm text-gray-500">{{ __('applicant/dashboard.review_note')}}</p>
                                     </div>
                                 </div>
+                                @if($application->status === 'accepted')
+                                    <div class="flex items-start space-x-3">
+                                        <div class="flex-shrink-0">
+                                             <svg class="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="flex-1">
+                                            <p class="text-sm font-medium text-gray-900">{{ __('applicant/dashboard.accepted')}}</p>
+                                            <p class="text-sm text-gray-500">{{ __('applicant/dashboard.accepted_note')}}</p>
+                                        </div>
+                                    </div>
+                                @elseif($application->status === 'rejected')
+                                    <div class="flex items-start space-x-3">
+                                        <div class="flex-shrink-0">
+                                            <svg class="h-5 w-5 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="flex-1">
+                                            <p class="text-sm font-medium text-gray-900">{{ __('applicant/dashboard.rejected')}}</p>
+                                            <p class="text-sm text-gray-500">{{ __('applicant/dashboard.rejected_note')}}</p>
+                                        </div>
+                                    </div>
+                                @endif
                             @else
                                 <div class="text-center py-4">
                                     <svg class="h-8 w-8 text-gray-400 mx-auto mb-2" ...></svg>
@@ -214,21 +239,6 @@
                                 </svg>
                                 {{ $application && $application->isSubmitted() ? __('applicant/dashboard.view_application') : __('applicant/dashboard.start_application') }}
                             </a>
-                            <button class="w-full inline-flex items-center justify-start px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-lg text-white bg-blue-500 hover:bg-blue-500/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload h-4 w-4 mr-5">
-                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                    <polyline points="17 8 12 3 7 8"></polyline>
-                                    <line x1="12" x2="12" y1="3" y2="15"></line>
-                                </svg>
-                                {{ __('applicant/dashboard.upload_documents')}}
-                            </button>
-                            <button class="w-full inline-flex items-center justify-start px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-lg text-white bg-blue-500 hover:bg-blue-500/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user h-4 w-4 mr-5">
-                                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="12" cy="7" r="4"></circle>
-                                </svg>
-                                {{ __('applicant/dashboard.profile_settings')}}
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -253,27 +263,6 @@
                             </div>
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                                 {{ __('applicant/dashboard.active')}}
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                @endif
-
-                <!-- Selected Program -->
-                @if($selectedProgram)
-                <div class="bg-white rounded-lg shadow-sm border">
-                    <div class="p-6">
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">{{ __('applicant/dashboard.selected_program')}}</h3>
-                        <div class="space-y-3">
-                            <div>
-                                <h4 class="font-medium text-gray-900">{{ $selectedProgram->name }}</h4>
-                                <p class="text-sm text-gray-500">{{ $selectedProgram->department }}</p>
-                            </div>
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 capitalize">
-                                <svg class="h-3 w-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path>
-                                </svg>
-                                {{ $selectedProgram->degree_level }}
                             </span>
                         </div>
                     </div>
