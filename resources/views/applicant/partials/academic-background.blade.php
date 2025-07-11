@@ -2,42 +2,25 @@
     <div class="max-w-4xl mx-auto">
         <div class="bg-white shadow-sm rounded-lg">
             <div class="px-6 py-4 border-b border-gray-200">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center space-x-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-graduation-cap h-5 w-5 text-brand-600">
-                            <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path>
-                            <path d="M22 10v6"></path><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path>
+                <div class="flex  items-center space-x-2">
+                    <span class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-blue-100 text-blue-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-graduation-cap h-6 w-6"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path>
+                            <path d="M22 10v6"></path>
+                            <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path>
                         </svg>
-                        <span class="text-lg font-medium">{{ __('applicant/academic-background.step_title') }}</span>
-                    </div>
+                    </span>
+                    
+                    <h3 class="text-2xl font-medium">
+                    {{ __('applicant/academic-background.academic_background') }}
+                    </h3>
                 </div>
-                <p class="text-gray-600 mt-1">
-                {{ __('applicant/academic-background.step_description') }}
+                <p class="text-gray-600 text-md mt-1">
+                    {{ __('applicant/academic-background.academic_description') }}
                 </p>
             </div>
             <div class="p-6">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <div class="space-y-6">
-                        <div class="border-b border-gray-200">
-                            <div class="flex items-center space-x-3 mb-4">
-                                <div class="flex  items-center space-x-2 mb-4">
-                                    <span class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-blue-100 text-blue-600">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-graduation-cap h-6 w-6"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path>
-                                            <path d="M22 10v6"></path>
-                                            <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path>
-                                        </svg>
-                                    </span>
-                                    
-                                    <h3 class="text-lg font-medium text-gray-900">
-                                    {{ __('applicant/academic-background.academic_background') }}
-                                    </h3>
-                                </div>
-                            </div>
-                            <p class="text-lg text-gray-600 mb-6">
-                                {{ __('applicant/academic-background.academic_description') }}
-                            </p>
-                        </div>
-
                         <div class="grid grid-cols-1 gap-6">
                             <div>
                                 <p class="text-lg font-semibold text-gray-900">{{ __('applicant/academic-background.previous_education') }}</p>

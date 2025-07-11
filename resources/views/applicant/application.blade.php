@@ -29,7 +29,7 @@
                     @csrf
                     <div x-data="tabStepper()">
                         <div class="mb-8">
-                            <div class="border-b border-gray-200 p-6">
+                            <div class="border-b border-gray-200 px-6 py-3">
                                 <nav class="flex justify-center items-center space-x-8">
                                     <button
                                         type="button"
@@ -52,7 +52,6 @@
                                         </div>
                                         <div class="text-center min-w-0">
                                             <div :class="getTextClass(1)" class="text-sm font-medium transition-colors duration-200">{{ __('applicant/application.step_1_title')}}</div>
-                                            <div :class="getTextClass(1)" class="text-xs mt-1 transition-colors duration-200 hidden sm:block opacity-70">{{ __('applicant/application.step_1_desc')}}</div>
                                         </div>
                                     </button>
                                     <button
@@ -76,7 +75,6 @@
                                         </div>
                                         <div class="text-center min-w-0">
                                             <div :class="getTextClass(2)" class="text-sm font-medium transition-colors duration-200">{{ __('applicant/application.step_2_title')}}</div>
-                                            <div :class="getTextClass(2)" class="text-xs mt-1 transition-colors duration-200 hidden sm:block opacity-70">{{ __('applicant/application.step_2_desc')}}</div>
                                         </div>
                                     </button>
                                     <button
@@ -101,7 +99,6 @@
                                         </div>
                                         <div class="text-center min-w-0">
                                             <div :class="getTextClass(3)" class="text-sm font-medium transition-colors duration-200">{{ __('applicant/application.step_3_title')}}</div>
-                                            <div :class="getTextClass(3)" class="text-xs mt-1 transition-colors duration-200 hidden sm:block opacity-70">{{ __('applicant/application.step_3_desc')}}</div>
                                         </div>
                                     </button>
 
@@ -129,7 +126,6 @@
                                         </div>
                                         <div class="text-center min-w-0">
                                             <div :class="getTextClass(4)" class="text-sm font-medium transition-colors duration-200">{{ __('applicant/application.step_4_title')}}</div>
-                                            <div :class="getTextClass(4)" class="text-xs mt-1 transition-colors duration-200 hidden sm:block opacity-70">{{ __('applicant/application.step_4_desc')}}</div>
                                         </div>
                                     </button>
                                     <button
@@ -153,7 +149,6 @@
                                         </div>
                                         <div class="text-center min-w-0">
                                             <div :class="getTextClass(5)" class="text-sm font-medium transition-colors duration-200">{{ __('applicant/application.step_5_title')}}</div>
-                                            <div :class="getTextClass(5)" class="text-xs mt-1 transition-colors duration-200 hidden sm:block opacity-70">{{ __('applicant/application.step_5_desc')}}</div>
                                         </div>
                                     </button>
                                 </nav>
@@ -192,6 +187,8 @@
     function tabStepper() {
         return {
             currentStep: parseInt(sessionStorage.getItem('currentStep')) || 1,
+            formData: {},
+            
             buttonError: 'border-b-2 border-red-600 focus:ring-red-500',
 
             circleActive: 'bg-blue-600 text-white border-2 border-blue-600',
@@ -206,6 +203,16 @@
                 this.$watch('currentStep', value => {
                     sessionStorage.setItem('currentStep', value);
                 });
+                
+                this.$watch('currentStep', (newStep) => {
+                    if (newStep === 5) {
+                        this.collectAllFormData();
+                    }
+                });
+
+                if (this.currentStep === 5) {
+                    this.collectAllFormData();
+                }
             },
             
             hasErrors(step) {
@@ -226,6 +233,27 @@
                 if (this.hasErrors(step)) return this.textError;
                 return this.currentStep === step ? this.textActive : this.textInactive;
             },
+            
+            collectAllFormData() {
+                const allInputs = document.querySelectorAll('#form-content input, #form-content select, #form-content textarea');
+                const allData = {};
+                
+                allInputs.forEach(input => {
+                    if (input.name) {
+                        if (input.type === 'checkbox') {
+                            allData[input.name] = input.checked;
+                        } else {
+                            allData[input.name] = input.value;
+                        }
+                    }
+                });
+                
+                this.formData = allData;
+            },
+            
+            getFieldValue(fieldName) {
+                return this.formData[fieldName] || '';
+            }
         }
     }
 

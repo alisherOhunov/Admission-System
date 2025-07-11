@@ -102,11 +102,11 @@
                                 <p class="text-sm font-medium text-gray-700 mb-1">
                                     {{ __('applicant/review-and-submit.first_name') }}
                                 </p>
-                                <p class="text-gray-900">{{ Auth::user()->first_name }}</p>
+                                <p class="text-gray-900" x-text="getFieldValue('first_name')"></p>
                             </div>
                             <div>
                                 <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.last_name') }}</p>
-                                <p class="text-gray-900">{{ Auth::user()->last_name }}</p>
+                                <p class="text-gray-900" x-text="getFieldValue('last_name')"></p>
                             </div>
                         </div>
 
@@ -115,14 +115,18 @@
                                 <p class="text-sm font-medium text-gray-700 mb-1">
                                     {{ __('applicant/review-and-submit.date_of_birth') }}
                                 </p>
-                                <p class="text-gray-900">
-                                    {{ $application->date_of_birth ? $application->date_of_birth->format('Y/m/d') : __('applicant/review-and-submit.not_specified') }}
+                                <p class="text-gray-900" 
+                                    x-text="getFieldValue('date_of_birth')">
                                 </p>
                             </div>
                             <div>
                                 <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.gender') }}</p>
-                                <p class="text-gray-900 capitalize">
-                                    {{ $application->gender == 1 ? __('applicant/review-and-submit.male') : ($application->gender == 2 ? __('applicant/review-and-submit.female') : __('applicant/review-and-submit.not_specified')) }}
+                                <p class="text-gray-900 capitalize" 
+                                    x-text="getFieldValue('gender') == 1 
+                                            ? '{{ __('applicant/review-and-submit.male') }}' 
+                                            : (getFieldValue('gender') == 2 
+                                                ? '{{ __('applicant/review-and-submit.female') }}' 
+                                                : '{{ __('applicant/review-and-submit.not_specified') }}')">
                                 </p>
                             </div>
                         </div>
@@ -146,8 +150,7 @@
                                 <p class="text-sm font-medium text-gray-700 mb-1">
                                     {{ __('applicant/review-and-submit.passport_number') }}
                                 </p>
-                                <p class="text-gray-900">
-                                    {{ $application->passport_number ? $application->passport_number : __('applicant/review-and-submit.not_specified') }}
+                                <p class="text-gray-900" x-text="getFieldValue('passport_number') || '{{ __('applicant/review-and-submit.not_specified') }}'">
                                 </p>
                             </div>
                         </div>
@@ -156,8 +159,7 @@
                             <p class="text-sm font-medium text-gray-700 mb-1">
                                 {{ __('applicant/review-and-submit.native_language') }}
                             </p>
-                            <p class="text-gray-900">
-                                {{ $application->native_language ? $application->native_language : __('applicant/review-and-submit.not_specified') }}
+                            <p class="text-gray-900" x-text="getFieldValue('native_language') || '{{ __('applicant/review-and-submit.not_specified') }}'">
                             </p>
                         </div>
                         @if (isset($documents['passport']))
@@ -175,7 +177,18 @@
                                             {{ $documents['passport']['original_name'] }}
                                         </p>
                                     </div>
-                                    <div>
+                                    <div class="flex items-center space-x-3">
+                                        <a href="/applicant/application/{{ $application->id }}/view-document/{{ $documents['passport']['id'] }}"
+                                        target="_blank"
+                                        class="text-green-600 hover:text-green-800 transition-colors"
+                                        title="View">
+                                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                            </svg>
+                                        </a>
                                         <a href="/applicant/application/{{ $application->id }}/download-document/{{ $documents['passport']['id'] }}"
                                         class="text-blue-600 hover:text-blue-800 transition-colors"
                                         title="{{ __('Download') }}">
@@ -210,12 +223,13 @@
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.email') }}</p>
-                                <p class="text-gray-900">{{ Auth::user()->email }}</p>
+                                <p class="text-gray-900" x-text="getFieldValue('email')"></p>
                             </div>
                             <div>
                                 <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.phone') }}</p>
-                                <p class="text-gray-900">
-                                    {{ $application->phone ? $application->phone : __('applicant/review-and-submit.not_specified') }}</p>
+                                <p class="text-gray-900"
+                                    x-text="getFieldValue('phone') || '{{ __('applicant/review-and-submit.not_specified') }}'">
+                                </p>
                             </div>
                         </div>
 
@@ -225,14 +239,12 @@
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
                                     <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.street') }}</p>
-                                    <p class="text-gray-900">
-                                        {{ $application->permanent_street ? $application->permanent_street : __('applicant/review-and-submit.not_specified') }}
+                                    <p class="text-gray-900" x-text="getFieldValue('permanent_street') || '{{ __('applicant/review-and-submit.not_specified') }}'">
                                     </p>
                                 </div>
                                 <div>
                                     <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.city') }}</p>
-                                    <p class="text-gray-900">
-                                        {{ $application->permanent_city ? $application->permanent_city : __('applicant/review-and-submit.not_specified') }}
+                                    <p class="text-gray-900" x-text="getFieldValue('permanent_city') || '{{ __('applicant/review-and-submit.not_specified') }}'">
                                     </p>
                                 </div>
                             </div>
@@ -240,14 +252,12 @@
                             <div class="grid grid-cols-2 gap-4 mt-3">
                                 <div>
                                     <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.state') }}</p>
-                                    <p class="text-gray-900">
-                                        {{ $application->permanent_state ? $application->permanent_state : __('applicant/review-and-submit.not_specified') }}
+                                    <p class="text-gray-900" x-text="getFieldValue('permanent_state') || '{{ __('applicant/review-and-submit.not_specified') }}'">
                                     </p>
                                 </div>
                                 <div>
                                     <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.country') }}</p>
-                                    <p class="text-gray-900">
-                                        {{ $application->permanent_country ? config('countries')[$application->permanent_country] ?? __('applicant/review-and-submit.not_specified') : __('applicant/review-and-submit.not_specified') }}
+                                    <p class="text-gray-900" x-text="getFieldValue('permanent_country') || '{{ __('applicant/review-and-submit.not_specified') }}'">
                                     </p>
                                 </div>
                             </div>
@@ -255,8 +265,7 @@
                             <div class="grid grid-cols-2 gap-4 mt-3">
                                 <div>
                                     <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.postcode') }}</p>
-                                    <p class="text-gray-900">
-                                        {{ $application->permanent_postcode ? $application->permanent_postcode : __('applicant/review-and-submit.not_specified') }}
+                                    <p class="text-gray-900" x-text="getFieldValue('permanent_postcode') || '{{ __('applicant/review-and-submit.not_specified') }}'">
                                     </p>
                                 </div>
                             </div>
@@ -276,10 +285,24 @@
                                             {{ $documents['address_proof']['original_name'] }}
                                         </p>
                                     </div>
-                                    <div>
+                                    <div class="flex items-center space-x-3">
+                                        <!-- View Button -->
+                                        <a href="/applicant/application/{{ $application->id }}/view-document/{{ $documents['address_proof']['id'] }}"
+                                        target="_blank"
+                                        class="text-green-600 hover:text-green-800 transition-colors"
+                                        title="View">
+                                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                            </svg>
+                                        </a>
+                                        
+                                        <!-- Download Button -->
                                         <a href="/applicant/application/{{ $application->id }}/download-document/{{ $documents['address_proof']['id'] }}"
                                         class="text-blue-600 hover:text-blue-800 transition-colors"
-                                        title="{{ __('Download') }}">
+                                        title="Download">
                                             <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -312,8 +335,7 @@
                             <p class="text-sm font-medium text-gray-700 mb-1">
                                 {{ __('applicant/review-and-submit.previous_institution') }}
                             </p>
-                            <p class="text-gray-900">
-                                {{ $application->previous_institution ? $application->previous_institution : __('applicant/review-and-submit.not_specified') }}
+                            <p class="text-gray-900" x-text="getFieldValue('previous_institution') || '{{ __('applicant/review-and-submit.not_specified') }}'">
                             </p>
                         </div>
 
@@ -322,14 +344,12 @@
                                 <p class="text-sm font-medium text-gray-700 mb-1">
                                     {{ __('applicant/review-and-submit.degree_earned') }}
                                 </p>
-                                <p class="text-gray-900">
-                                    {{ $application->degree_earned ? $application->degree_earned : __('applicant/review-and-submit.not_specified') }}
+                                <p class="text-gray-900" x-text="getFieldValue('degree_earned') || '{{ __('applicant/review-and-submit.not_specified') }}'">
                                 </p>
                             </div>
                             <div>
                                 <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.gpa_grade') }}</p>
-                                <p class="text-gray-900">
-                                    {{ $application->previous_gpa ? $application->previous_gpa : __('applicant/review-and-submit.not_specified') }}</p>
+                                <p class="text-gray-900" x-text="getFieldValue('previous_gpa') || '{{ __('applicant/review-and-submit.not_specified') }}'">
                             </div>
                         </div>
 
@@ -337,8 +357,7 @@
                             <p class="text-sm font-medium text-gray-700 mb-1">
                                 {{ __('applicant/review-and-submit.graduation_date') }}
                             </p>
-                            <p class="text-gray-900">
-                                {{ $application->graduation_date ? $application->graduation_date->format('Y/m/d') : __('applicant/review-and-submit.not_specified') }}
+                            <p class="text-gray-900" x-text="getFieldValue('graduation_date') || '{{ __('applicant/review-and-submit.not_specified') }}'">
                             </p>
                         </div>
 
@@ -347,12 +366,18 @@
                                 {{ __('applicant/review-and-submit.english_proficiency') }}
                             </p>
                             <div class="flex items-center space-x-4 text-sm">
-                                <span class="text-gray-900">{{ $application->english_test_type }}</span>
+                                <span class="text-gray-900" 
+                                    x-text="getFieldValue('english_test_type')"></span>
                                 <span class="text-gray-500">•</span>
-                                <span class="text-gray-900">{{ __('applicant/review-and-submit.score') }}: {{ $application->english_test_score }}</span>
+
+                                <span class="text-gray-900" 
+                                    x-text="`{{ __('applicant/review-and-submit.score') }}: ${getFieldValue('english_test_score')}`">
+                                </span>
+
                                 <span class="text-gray-500">•</span>
-                                <span class="text-gray-700">
-                                    {{ optional($application->english_test_date)->format('Y/m/d') ?? __('applicant/review-and-submit.not_submitted_yet') }}
+
+                                <span class="text-gray-700"
+                                    x-text="getFieldValue('english_test_date') || '{{ __('applicant/review-and-submit.not_submitted_yet') }}'">
                                 </span>
                             </div>
                         </div>
@@ -372,7 +397,21 @@
                                                 {{ $documents[$key]['original_name'] }}
                                             </p>
                                         </div>
-                                        <div>
+                                        <div class="flex items-center space-x-3">
+                                            <!-- View Button -->
+                                            <a href="/applicant/application/{{ $application->id }}/view-document/{{ $documents[$key]['id'] }}"
+                                            target="_blank"
+                                            class="text-green-600 hover:text-green-800 transition-colors"
+                                            title="View">
+                                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                </svg>
+                                            </a>
+
+                                            <!-- Download Button -->
                                             <a href="/applicant/application/{{ $application->id }}/download-document/{{ $documents[$key]['id'] }}"
                                             class="text-blue-600 hover:text-blue-800 transition-colors"
                                             title="Download">
@@ -385,6 +424,7 @@
                                     </div>
                                 @endif
                             @endforeach
+
                         </div>
                     </div>
                 </div>
@@ -430,12 +470,11 @@
                             </div>
 
                             <div class="flex items-center space-x-2">
-                              <input type="checkbox" disabled 
-                                    {{ $application->funding_interest ? 'checked' : '' }} 
+                                <input type="checkbox" disabled 
+                                    :checked="getFieldValue('funding_interest')"
                                     readonly
                                     class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                                <span class="text-sm text-gray-700">
-                                    {{ __('applicant/review-and-submit.scholarship_interest') }}
+                                <span class="text-sm text-gray-700" x-text="'{{ __('applicant/review-and-submit.scholarship_interest') }}'">
                                 </span>
                             </div>
                         </div>
@@ -455,7 +494,21 @@
                                                 {{ $documents[$key]['original_name'] }}
                                             </p>
                                         </div>
-                                        <div>
+                                        <div class="flex items-center space-x-3">
+                                            <!-- View Button -->
+                                            <a href="/applicant/application/{{ $application->id }}/view-document/{{ $documents[$key]['id'] }}"
+                                            target="_blank"
+                                            class="text-green-600 hover:text-green-800 transition-colors"
+                                            title="View">
+                                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                </svg>
+                                            </a>
+
+                                            <!-- Download Button -->
                                             <a href="/applicant/application/{{ $application->id }}/download-document/{{ $documents[$key]['id'] }}"
                                             class="text-blue-600 hover:text-blue-800 transition-colors"
                                             title="Download">
@@ -472,7 +525,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Statement of Purpose -->
             <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
                 <div class="p-6 pb-4">
                     <div class="flex items-center space-x-3">
@@ -483,12 +535,11 @@
                 </div>
                 <div class="p-6 pt-2">
                     <div class="max-w-none">
-                        <p class="text-gray-700 leading-relaxed">
-                            {{ $application->motivation_letter ? $application->motivation_letter : __('applicant/review-and-submit.not_specified') }}
+                        <p class="text-gray-700 leading-relaxed" x-text="getFieldValue('motivation_letter') || '{{ __('applicant/review-and-submit.not_specified') }}'">
                         </p>
                     </div>
                     <div class="mt-4 text-sm text-gray-500">
-                        {{ $application->motivation_letter ? strlen($application->motivation_letter) : 0 }}
+                        <span x-text="(getFieldValue('motivation_letter') || '').length"></span>
                         {{ __('applicant/review-and-submit.characters') }}
                     </div>
                 </div>
@@ -552,5 +603,28 @@
     </div>
 </div>
 <script>
-
+document.body.addEventListener('htmx:beforeSwap', function(evt) {
+    // Only handle sequential submit logic for buttons with data-sequential-submit attribute
+    if (evt.detail.elt.hasAttribute('data-sequential-submit')) {
+        if (evt.detail.xhr.status === 302) {
+            // Update has errors (302 redirect), allow swap to show errors
+            evt.detail.shouldSwap = true;
+            evt.detail.isError = false;
+        } else if (evt.detail.xhr.status === 200) {
+            // Update was successful (200), prevent swap and trigger submit
+            evt.detail.shouldSwap = false;
+            
+            // Get the submit URL from the button
+            const submitUrl = evt.detail.elt.getAttribute('data-submit-url');
+            
+            // Perform the submit request - submit will handle its own validation and success cases
+            htmx.ajax('POST', submitUrl, {
+                target: '#form-content',
+                select: '#form-content'
+                // No swap specified - let submit handle its own swapping behavior
+            });
+        }
+    }
+    // Other update buttons without data-sequential-submit will work normally
+});
 </script>

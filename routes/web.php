@@ -56,6 +56,8 @@ Route::middleware(['auth', 'applicant', 'verified'])->prefix('applicant')->name(
     Route::get('/application/{application_id}/download-document/{file_id}', [ApplicationController::class, 'downloadDocument'])->name('application.downloadDocument');
     Route::post('/application/{application_id}/remove-document/{file_id}', [ApplicationController::class, 'removeDocument'])->name('application.removeDocument');
     Route::post('/application/{application_id}/submit', [ApplicationController::class, 'submit'])->name('application.submit');
+    Route::get('/application/{application_id}/view-document/{file_id}', [ApplicationController::class, 'viewDocument'])
+        ->name('applicant.application.view-document');
 });
 
 // Admin & Staff Routes

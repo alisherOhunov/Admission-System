@@ -2,15 +2,17 @@
     <div class="max-w-4xl mx-auto">
         <div class="bg-white shadow-sm rounded-lg">
             <div class="px-6 py-4 border-b border-gray-200">
-                <div class="flex items-center space-x-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user h-5 w-5 text-brand-600">
-                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                    <span class="text-xl font-medium">{{ __('applicant/personal-info.title')}}</span>
+                <div class="flex items-center space-x-2 mb-4">
+                    <span class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-blue-100 text-blue-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user h-6 w-6">
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </span>
+                    <h3 class="text-2xl font-medium">{{ __('applicant/personal-info.section_title')}}</h3>
                 </div>
-                <p class="text-gray-600 mt-1">
-                    {{ __('applicant/personal-info.step_description')}}
+                <p class="text-gray-600 text-md mt-1">
+                    {{ __('applicant/personal-info.section_subtitle')}}
                 </p>
             </div>
 
@@ -18,18 +20,6 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <!-- Left Column -->
                     <div class="space-y-6">
-                        <div class="flex items-center space-x-2 mb-4">
-                            <span class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-blue-100 text-blue-600">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user h-6 w-6">
-                                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="12" cy="7" r="4"></circle>
-                                </svg>
-                            </span>
-                            <h3 class="text-xl font-medium text-gray-900">{{ __('applicant/personal-info.section_title')}}</h3>
-                        </div>
-                        <p class="text-sm text-gray-600 mb-6">
-                            {{ __('applicant/personal-info.section_subtitle')}}
-                        </p>
                         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                             <div>
                                 <label for="first_name" class="block text-sm font-medium text-gray-700">

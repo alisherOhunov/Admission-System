@@ -2,15 +2,20 @@
     <div class="max-w-4xl mx-auto">
         <div class="bg-white shadow-sm rounded-lg">
             <div class="px-6 py-4 border-b border-gray-200">
-                <div class="flex items-center space-x-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin h-5 w-5 text-brand-600">
-                        <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
-                        <circle cx="12" cy="10" r="3"></circle>
-                    </svg>
-                    <span class="text-lg font-medium">{{ __('applicant/contact-info.step_title') }}</span>
+                <div class="flex items-center space-x-2 mb-4">
+                    <span class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-blue-100 text-blue-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail h-6 w-6">
+                            <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                        </svg>
+                    </span>
+
+                    <h3 class="text-2xl font-medium">
+                        {{ __('applicant/contact-info.contact_information') }}
+                    </h3>
                 </div>
-                <p class="text-gray-600 mt-1">
-                    {{ __('applicant/contact-info.step_description') }}
+                <p class="text-gray-600 text-md mt-1">
+                    {{ __('applicant/contact-info.contact_description') }}
                 </p>
             </div>
             <div class="p-6">
@@ -18,24 +23,6 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <!-- Left Column - Form Fields -->
                     <div class="space-y-6">
-                        <div>
-                            <div class="flex items-center space-x-2 mb-4">
-                                <span class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-blue-100 text-blue-600">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail h-6 w-6">
-                                        <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-                                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-                                    </svg>
-                                </span>
-
-                                <h3 class="text-lg font-medium text-gray-900">
-                                    {{ __('applicant/contact-info.contact_information') }}
-                                </h3>
-                            </div>
-                            <p class="text-sm text-gray-600 mb-6">
-                                {{ __('applicant/contact-info.contact_description') }}
-                            </p>
-                        </div>
-
                         <div class="grid grid-cols-1 gap-6">
                             <!-- Email Field (Readonly) -->
                             <div class="relative">
