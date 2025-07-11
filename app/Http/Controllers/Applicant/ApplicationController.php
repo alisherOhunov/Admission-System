@@ -54,7 +54,8 @@ class ApplicationController extends Controller
         $documents = $application ? $application->getImportantDocuments() : collect();
 
         return response()
-            ->view('applicant.application', compact('application', 'programs', 'currentPeriod', 'documents'));
+            ->view('applicant.application', compact('application', 'programs', 'currentPeriod', 'documents'))
+            ->header('X-Update-Success', 'true');
     }
 
     public function submit(SubmitApplicationRequest $request)

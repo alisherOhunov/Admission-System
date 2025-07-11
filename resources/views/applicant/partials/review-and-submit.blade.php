@@ -136,15 +136,7 @@
                                 <p class="text-sm font-medium text-gray-700 mb-1">
                                     {{ __('applicant/review-and-submit.nationality') }}
                                 </p>
-                                <p class="text-gray-900">
-                                    @if ($application->nationality)
-                                        @foreach (config('countries') as $code => $name)
-                                            <p class="text-gray-900">{{ $application->nationality == $code ? $name : '' }}
-                                            </p>
-                                        @endforeach
-                                    @else
-                                    {{ __('applicant/review-and-submit.not_specified') }}</p>
-                                    @endif
+                                <p class="text-gray-900" x-text="getCountryName(getFieldValue('nationality')) || '{{ __('applicant/review-and-submit.not_specified') }}'"></p>
                             </div>
                             <div>
                                 <p class="text-sm font-medium text-gray-700 mb-1">
@@ -257,7 +249,7 @@
                                 </div>
                                 <div>
                                     <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.country') }}</p>
-                                    <p class="text-gray-900" x-text="getFieldValue('permanent_country') || '{{ __('applicant/review-and-submit.not_specified') }}'">
+                                    <p class="text-gray-900" x-text="getCountryName(getFieldValue('permanent_country')) || '{{ __('applicant/review-and-submit.not_specified') }}'"></p>
                                     </p>
                                 </div>
                             </div>
@@ -584,11 +576,8 @@
                         </svg>
                         <span>{{ __('applicant/review-and-submit.save_progress') }}</span>
                     </button>
-                    <button type="button" 
-                        hx-post="{{ route('applicant.application.submit', ['application_id' => $application->id]) }}"
-                        hx-target="#form-content"
-                        hx-select="#form-content"
-                        hx-indicator="#loading-overlay"
+                    <button type="submit" 
+                        data-action="update-and-submit"
                         @disabled(in_array($application->status, ['submitted', 're_submitted', 'accepted', 'rejected']))
                         class="bg-blue-600 hover:enabled:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-400 disabled:text-gray-200 disabled:hover:bg-gray-400">
                         @if ($application->status === 'require_resubmit')
@@ -603,28 +592,4 @@
     </div>
 </div>
 <script>
-document.body.addEventListener('htmx:beforeSwap', function(evt) {
-    // Only handle sequential submit logic for buttons with data-sequential-submit attribute
-    if (evt.detail.elt.hasAttribute('data-sequential-submit')) {
-        if (evt.detail.xhr.status === 302) {
-            // Update has errors (302 redirect), allow swap to show errors
-            evt.detail.shouldSwap = true;
-            evt.detail.isError = false;
-        } else if (evt.detail.xhr.status === 200) {
-            // Update was successful (200), prevent swap and trigger submit
-            evt.detail.shouldSwap = false;
-            
-            // Get the submit URL from the button
-            const submitUrl = evt.detail.elt.getAttribute('data-submit-url');
-            
-            // Perform the submit request - submit will handle its own validation and success cases
-            htmx.ajax('POST', submitUrl, {
-                target: '#form-content',
-                select: '#form-content'
-                // No swap specified - let submit handle its own swapping behavior
-            });
-        }
-    }
-    // Other update buttons without data-sequential-submit will work normally
-});
 </script>

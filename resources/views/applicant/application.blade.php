@@ -5,7 +5,7 @@
 @section('content')
 
     <div class="min-h-screen bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div id="form-wrapper" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <!-- Header -->
             <div class="mb-8">
                 <div class="flex items-center justify-between">
@@ -184,6 +184,40 @@
 }
 </style>
 <script>
+    let shouldSubmitAfterUpdate = false;
+
+    document.getElementById('form-wrapper').addEventListener('click', function(event) {
+        if (event.target.hasAttribute('data-action') && event.target.getAttribute('data-action') === 'update-and-submit') {
+            shouldSubmitAfterUpdate = true;
+        }
+    });
+
+    document.getElementById('form-wrapper').addEventListener('htmx:afterRequest', function(event) {
+        if (shouldSubmitAfterUpdate && event.detail.requestConfig.path.includes('update')) {
+
+            const updateSuccess = event.detail.xhr.getResponseHeader('X-Update-Success');
+
+            if (updateSuccess === 'true') {
+                shouldSubmitAfterUpdate = false;
+
+                const indicator = document.getElementById('loading-overlay');
+                indicator.classList.remove('hidden');
+                
+                const form = document.querySelector('form');
+                htmx.ajax('POST', '{{ route('applicant.application.submit', ['application_id' => $application->id]) }}', {
+                    source: form,
+                    target: '#form-content',
+                    select: '#form-content'
+                }).then(() => {
+                    indicator.classList.add('hidden');
+                }).catch(() => {
+                    indicator.classList.add('hidden');
+                });
+            } else {
+                shouldSubmitAfterUpdate = false;
+            }
+        }
+    });
     function tabStepper() {
         return {
             currentStep: parseInt(sessionStorage.getItem('currentStep')) || 1,
@@ -253,6 +287,11 @@
             
             getFieldValue(fieldName) {
                 return this.formData[fieldName] || '';
+            },
+
+            getCountryName(countryCode) {
+                const countries = @json(config('countries'));
+                return countries[countryCode] || '';
             }
         }
     }
