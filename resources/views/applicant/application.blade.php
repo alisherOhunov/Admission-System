@@ -222,7 +222,7 @@
         return {
             currentStep: parseInt(sessionStorage.getItem('currentStep')) || 1,
             formData: {},
-            
+            documents: @json($documents),
             buttonError: 'border-b-2 border-red-600 focus:ring-red-500',
 
             circleActive: 'bg-blue-600 text-white border-2 border-blue-600',
@@ -246,7 +246,15 @@
 
                 if (this.currentStep === 5) {
                     this.collectAllFormData();
-                }
+                };
+
+                window.addEventListener('document-changed', (event) => {
+                    if (event.detail.action === 'upload') {
+                        this.documents[event.detail.type] = event.detail.document;
+                    } else if (event.detail.action === 'delete') {
+                        delete this.documents[event.detail.type];
+                    }
+                });
             },
             
             hasErrors(step) {
@@ -292,6 +300,10 @@
             getCountryName(countryCode) {
                 const countries = @json(config('countries'));
                 return countries[countryCode] || '';
+            },
+
+            getDocuments() {
+                return this.documents;
             }
         }
     }
@@ -364,6 +376,14 @@
                     }
                     if (data.size) this.fileSize = formatSize(data.size);
                     
+                    window.dispatchEvent(new CustomEvent('document-changed', {
+                        detail: { 
+                            action: 'upload',
+                            type: this.documentType, 
+                            document: data.document
+                        }
+                    }));
+                    
                 } catch (error) {
                     this.uploading = false;
                     this.error = true;
@@ -395,6 +415,13 @@
                     
                     this.uploading = false;
                     this.resetFileState();
+                    window.dispatchEvent(new CustomEvent('document-changed', {
+                        detail: { 
+                            action: 'delete',
+                            type: this.documentType
+                        }
+                    }));
+                    
                 } catch (error) {
                     this.uploading = false;
                     this.error = true;

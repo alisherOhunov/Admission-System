@@ -230,7 +230,7 @@
                                                 class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                                                 :class="uploaded ? 'bg-green-100 text-green-800' :
                                                     'bg-red-100 text-red-800'"
-                                                x-text="uploaded ? 'Uploaded' : 'Required'">
+                                                    x-text="uploaded ? '{{ __('applicant/program-choice.uploaded') }}' : '{{ __('applicant/program-choice.required') }}'">
                                             </span>
                                         </div>
                                         <p class="text-sm text-gray-500 mb-2">
@@ -368,7 +368,7 @@
                                                 class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                                                 :class="uploaded ? 'bg-green-100 text-green-800' :
                                                     'bg-gray-100 text-gray-800'"
-                                                x-text="uploaded ? 'Uploaded' : 'Optional'">
+                                                x-text="uploaded ? '{{ __('applicant/program-choice.uploaded') }}' : '{{ __('applicant/program-choice.optional') }}'">
                                             </span>
                                         </div>
                                         <p class="text-sm text-gray-500 mb-2">
@@ -494,7 +494,7 @@
                                                 class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                                                 :class="uploaded ? 'bg-green-100 text-green-800' :
                                                     'bg-gray-100 text-gray-800'"
-                                                x-text="uploaded ? 'Uploaded' : 'Optional'">
+                                                x-text="uploaded ? '{{ __('applicant/program-choice.uploaded') }}' : '{{ __('applicant/program-choice.optional') }}'">
                                             </span>
                                         </div>
                                         <p class="text-sm text-gray-500 mb-2">

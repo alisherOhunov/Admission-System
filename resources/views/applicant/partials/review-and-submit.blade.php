@@ -154,8 +154,7 @@
                             <p class="text-gray-900" x-text="getFieldValue('native_language') || '{{ __('applicant/review-and-submit.not_specified') }}'">
                             </p>
                         </div>
-                        @if (isset($documents['passport']))
-                            <div>
+                            <div x-show="getDocuments()['passport']">
                                 <p class="text-md font-semibold text-gray-800 mb-2">
                                     Uploaded documents
                                 </p>
@@ -165,12 +164,11 @@
                                         <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">
                                             Passport
                                         </p>
-                                        <p class="text-sm font-medium text-gray-800">
-                                            {{ $documents['passport']['original_name'] }}
+                                        <p class="text-sm font-medium text-gray-800" x-text="getDocuments()['passport']?.original_name">
                                         </p>
                                     </div>
                                     <div class="flex items-center space-x-3">
-                                        <a href="/applicant/application/{{ $application->id }}/view-document/{{ $documents['passport']['id'] }}"
+                                        <a :href="`/applicant/application/{{ $application->id }}/view-document/${getDocuments()['passport']?.id}`"
                                         target="_blank"
                                         class="text-green-600 hover:text-green-800 transition-colors"
                                         title="View">
@@ -181,7 +179,7 @@
                                                     d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                             </svg>
                                         </a>
-                                        <a href="/applicant/application/{{ $application->id }}/download-document/{{ $documents['passport']['id'] }}"
+                                        <a :href="`/applicant/application/{{ $application->id }}/download-document/${getDocuments()['passport']?.id}`"
                                         class="text-blue-600 hover:text-blue-800 transition-colors"
                                         title="{{ __('Download') }}">
                                             <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -192,7 +190,6 @@
                                     </div>
                                 </div>
                             </div>
-                        @endif
                     </div>
                 </div>
 
@@ -262,8 +259,7 @@
                                 </div>
                             </div>
                         </div>
-                        @if (isset($documents['address_proof']))
-                            <div>
+                            <div x-show="getDocuments()['address_proof']">
                                 <p class="text-md font-semibold text-gray-800 mb-2">
                                     Uploaded documents
                                 </p>
@@ -273,13 +269,12 @@
                                         <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">
                                             Address Proof
                                         </p>
-                                        <p class="text-sm font-medium text-gray-800">
-                                            {{ $documents['address_proof']['original_name'] }}
+                                        <p class="text-sm font-medium text-gray-800" x-text="getDocuments()['address_proof']?.original_name">
                                         </p>
                                     </div>
                                     <div class="flex items-center space-x-3">
                                         <!-- View Button -->
-                                        <a href="/applicant/application/{{ $application->id }}/view-document/{{ $documents['address_proof']['id'] }}"
+                                        <a :href="`/applicant/application/{{ $application->id }}/view-document/${getDocuments()['passport']?.id}`"
                                         target="_blank"
                                         class="text-green-600 hover:text-green-800 transition-colors"
                                         title="View">
@@ -292,7 +287,7 @@
                                         </a>
                                         
                                         <!-- Download Button -->
-                                        <a href="/applicant/application/{{ $application->id }}/download-document/{{ $documents['address_proof']['id'] }}"
+                                        <a :href="`/applicant/application/{{ $application->id }}/download-document/${getDocuments()['address_proof']?.id}`"
                                         class="text-blue-600 hover:text-blue-800 transition-colors"
                                         title="Download">
                                             <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -303,7 +298,6 @@
                                     </div>
                                 </div>
                             </div>
-                        @endif
                     </div>
                 </div>
 
@@ -378,20 +372,15 @@
                                 Uploaded Documents
                             </p>
 
-                            @foreach (['transcript' => 'Transcript', 'diploma' => 'Diploma', 'english_score' => 'English Score'] as $key => $label)
-                                @if (isset($documents[$key]))
-                                    <div class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm mb-2">
+                            <template x-for="[key, label] in [['transcript', 'Transcript'], ['diploma', 'Diploma'], ['english_score', 'English Score']]" :key="key">
+                                    <div x-show="getDocuments()[key]" class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm mb-2">
                                         <div>
-                                            <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">
-                                                {{ $label }}
-                                            </p>
-                                            <p class="text-sm font-medium text-gray-800">
-                                                {{ $documents[$key]['original_name'] }}
-                                            </p>
+                                            <p class="text-xs text-gray-500 uppercase tracking-wide mb-1" x-text="label"></p>
+                                            <p class="text-sm font-medium text-gray-800" x-text="getDocuments()[key]?.original_name"></p>
                                         </div>
                                         <div class="flex items-center space-x-3">
                                             <!-- View Button -->
-                                            <a href="/applicant/application/{{ $application->id }}/view-document/{{ $documents[$key]['id'] }}"
+                                            <a :href="`/applicant/application/{{ $application->id }}/view-document/${getDocuments()[key]?.id}`"
                                             target="_blank"
                                             class="text-green-600 hover:text-green-800 transition-colors"
                                             title="View">
@@ -404,7 +393,7 @@
                                             </a>
 
                                             <!-- Download Button -->
-                                            <a href="/applicant/application/{{ $application->id }}/download-document/{{ $documents[$key]['id'] }}"
+                                            <a :href="`/applicant/application/{{ $application->id }}/download-document/${getDocuments()[key]?.id}`"
                                             class="text-blue-600 hover:text-blue-800 transition-colors"
                                             title="Download">
                                                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -414,9 +403,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                @endif
-                            @endforeach
-
+                            </template>
                         </div>
                     </div>
                 </div>
@@ -475,20 +462,15 @@
                                 Uploaded Documents
                             </p>
 
-                            @foreach (['sop' => 'Statement of Purpose', 'cv' => 'Curriculum Vitae (CV)', 'portfolio' => 'Portfolio'] as $key => $label)
-                                @if (isset($documents[$key]))
-                                    <div class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm mb-2">
+                            <template x-for="[key, label] in [['sop', 'Statement of Purpose'], ['cv', 'Curriculum Vitae (CV)'], ['portfolio', 'Portfolio']]" :key="key">
+                                    <div x-show="getDocuments()[key]" class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm mb-2">
                                         <div>
-                                            <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">
-                                                {{ $label }}
-                                            </p>
-                                            <p class="text-sm font-medium text-gray-800">
-                                                {{ $documents[$key]['original_name'] }}
-                                            </p>
+                                            <p class="text-xs text-gray-500 uppercase tracking-wide mb-1" x-text="label"></p>
+                                            <p class="text-sm font-medium text-gray-800" x-text="getDocuments()[key]?.original_name"></p>
                                         </div>
                                         <div class="flex items-center space-x-3">
                                             <!-- View Button -->
-                                            <a href="/applicant/application/{{ $application->id }}/view-document/{{ $documents[$key]['id'] }}"
+                                            <a :href="`/applicant/application/{{ $application->id }}/view-document/${getDocuments()[key]?.id}`"
                                             target="_blank"
                                             class="text-green-600 hover:text-green-800 transition-colors"
                                             title="View">
@@ -501,7 +483,7 @@
                                             </a>
 
                                             <!-- Download Button -->
-                                            <a href="/applicant/application/{{ $application->id }}/download-document/{{ $documents[$key]['id'] }}"
+                                            <a :href="`/applicant/application/{{ $application->id }}/download-document/${getDocuments()[key]?.id}`"
                                             class="text-blue-600 hover:text-blue-800 transition-colors"
                                             title="Download">
                                                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -511,8 +493,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                @endif
-                            @endforeach
+                            </template>
                         </div>
                     </div>
                 </div>
@@ -562,7 +543,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M15 19l-7-7 7-7"></path>
                     </svg>
-                    Previous
+                    {{ __('applicant/review-and-submit.previous') }}
                 </button>
 
                 <div class="flex flex-col sm:flex-row gap-3">
