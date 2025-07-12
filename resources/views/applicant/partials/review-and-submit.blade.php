@@ -116,12 +116,12 @@
                                     {{ __('applicant/review-and-submit.date_of_birth') }}
                                 </p>
                                 <p class="text-gray-900" 
-                                    x-text="getFieldValue('date_of_birth')">
+                                    x-text="getFieldValue('date_of_birth') || '{{ __('applicant/review-and-submit.not_specified') }}'">
                                 </p>
                             </div>
                             <div>
                                 <p class="text-sm font-medium text-gray-700">{{ __('applicant/review-and-submit.gender') }}</p>
-                                <p class="text-gray-900 capitalize" 
+                                <p class="text-gray-900" 
                                     x-text="getFieldValue('gender') == 1 
                                             ? '{{ __('applicant/review-and-submit.male') }}' 
                                             : (getFieldValue('gender') == 2 

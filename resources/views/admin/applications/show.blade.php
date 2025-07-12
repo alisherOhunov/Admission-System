@@ -192,7 +192,7 @@
                                     </div>
                                     <div>
                                         <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.gender') }}</p>
-                                        <p class="text-gray-900 capitalize">
+                                        <p class="text-gray-900">
                                             {{ $application->gender == 1 ? __('applicant/review-and-submit.male') : ($application->gender == 2 ? __('applicant/review-and-submit.female') : __('applicant/review-and-submit.not_specified')) }}
                                         </p>
                                     </div>
