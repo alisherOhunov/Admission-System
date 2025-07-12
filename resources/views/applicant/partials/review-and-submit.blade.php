@@ -18,6 +18,7 @@
                 {{ __('applicant/review-and-submit.page_description') }}
             </p>
         </div>
+        <div>{{$documents}}</div>
         <div class="bg-white shadow-sm space-y-8 p-6">
             @if ($application->status === 'require_resubmit')
                 <div class="bg-red-50 border border-gray-200 rounded-xl shadow-sm">
@@ -80,7 +81,7 @@
             @endif
 
             <!-- Review Sections Grid -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 lg:grid-cols-1 gap-8">
                 <!-- Personal Information Card -->
                 <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
                     <div class="p-6 pb-4">
@@ -99,20 +100,20 @@
                     <div class="p-6 pt-2 space-y-4">
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <p class="text-sm font-medium text-gray-700 mb-1">
+                                <p class="text-sm font-medium text-gray-700">
                                     {{ __('applicant/review-and-submit.first_name') }}
                                 </p>
                                 <p class="text-gray-900" x-text="getFieldValue('first_name')"></p>
                             </div>
                             <div>
-                                <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.last_name') }}</p>
+                                <p class="text-sm font-medium text-gray-700">{{ __('applicant/review-and-submit.last_name') }}</p>
                                 <p class="text-gray-900" x-text="getFieldValue('last_name')"></p>
                             </div>
                         </div>
 
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <p class="text-sm font-medium text-gray-700 mb-1">
+                                <p class="text-sm font-medium text-gray-700">
                                     {{ __('applicant/review-and-submit.date_of_birth') }}
                                 </p>
                                 <p class="text-gray-900" 
@@ -120,7 +121,7 @@
                                 </p>
                             </div>
                             <div>
-                                <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.gender') }}</p>
+                                <p class="text-sm font-medium text-gray-700">{{ __('applicant/review-and-submit.gender') }}</p>
                                 <p class="text-gray-900 capitalize" 
                                     x-text="getFieldValue('gender') == 1 
                                             ? '{{ __('applicant/review-and-submit.male') }}' 
@@ -133,13 +134,13 @@
 
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <p class="text-sm font-medium text-gray-700 mb-1">
+                                <p class="text-sm font-medium text-gray-700">
                                     {{ __('applicant/review-and-submit.nationality') }}
                                 </p>
                                 <p class="text-gray-900" x-text="getCountryName(getFieldValue('nationality')) || '{{ __('applicant/review-and-submit.not_specified') }}'"></p>
                             </div>
                             <div>
-                                <p class="text-sm font-medium text-gray-700 mb-1">
+                                <p class="text-sm font-medium text-gray-700">
                                     {{ __('applicant/review-and-submit.passport_number') }}
                                 </p>
                                 <p class="text-gray-900" x-text="getFieldValue('passport_number') || '{{ __('applicant/review-and-submit.not_specified') }}'">
@@ -148,7 +149,7 @@
                         </div>
 
                         <div>
-                            <p class="text-sm font-medium text-gray-700 mb-1">
+                            <p class="text-sm font-medium text-gray-700">
                                 {{ __('applicant/review-and-submit.native_language') }}
                             </p>
                             <p class="text-gray-900" x-text="getFieldValue('native_language') || '{{ __('applicant/review-and-submit.not_specified') }}'">
@@ -214,11 +215,11 @@
                     <div class="p-6 pt-2 space-y-4">
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.email') }}</p>
+                                <p class="text-sm font-medium text-gray-700">{{ __('applicant/review-and-submit.email') }}</p>
                                 <p class="text-gray-900" x-text="getFieldValue('email')"></p>
                             </div>
                             <div>
-                                <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.phone') }}</p>
+                                <p class="text-sm font-medium text-gray-700">{{ __('applicant/review-and-submit.phone') }}</p>
                                 <p class="text-gray-900"
                                     x-text="getFieldValue('phone') || '{{ __('applicant/review-and-submit.not_specified') }}'">
                                 </p>
@@ -230,12 +231,12 @@
 
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
-                                    <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.street') }}</p>
+                                    <p class="text-sm font-medium text-gray-700">{{ __('applicant/review-and-submit.street') }}</p>
                                     <p class="text-gray-900" x-text="getFieldValue('permanent_street') || '{{ __('applicant/review-and-submit.not_specified') }}'">
                                     </p>
                                 </div>
                                 <div>
-                                    <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.city') }}</p>
+                                    <p class="text-sm font-medium text-gray-700">{{ __('applicant/review-and-submit.city') }}</p>
                                     <p class="text-gray-900" x-text="getFieldValue('permanent_city') || '{{ __('applicant/review-and-submit.not_specified') }}'">
                                     </p>
                                 </div>
@@ -243,12 +244,12 @@
 
                             <div class="grid grid-cols-2 gap-4 mt-3">
                                 <div>
-                                    <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.state') }}</p>
+                                    <p class="text-sm font-medium text-gray-700">{{ __('applicant/review-and-submit.state') }}</p>
                                     <p class="text-gray-900" x-text="getFieldValue('permanent_state') || '{{ __('applicant/review-and-submit.not_specified') }}'">
                                     </p>
                                 </div>
                                 <div>
-                                    <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.country') }}</p>
+                                    <p class="text-sm font-medium text-gray-700">{{ __('applicant/review-and-submit.country') }}</p>
                                     <p class="text-gray-900" x-text="getCountryName(getFieldValue('permanent_country')) || '{{ __('applicant/review-and-submit.not_specified') }}'"></p>
                                     </p>
                                 </div>
@@ -256,7 +257,7 @@
 
                             <div class="grid grid-cols-2 gap-4 mt-3">
                                 <div>
-                                    <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.postcode') }}</p>
+                                    <p class="text-sm font-medium text-gray-700">{{ __('applicant/review-and-submit.postcode') }}</p>
                                     <p class="text-gray-900" x-text="getFieldValue('permanent_postcode') || '{{ __('applicant/review-and-submit.not_specified') }}'">
                                     </p>
                                 </div>
@@ -324,7 +325,7 @@
                     </div>
                     <div class="p-6 pt-2 space-y-4">
                         <div>
-                            <p class="text-sm font-medium text-gray-700 mb-1">
+                            <p class="text-sm font-medium text-gray-700">
                                 {{ __('applicant/review-and-submit.previous_institution') }}
                             </p>
                             <p class="text-gray-900" x-text="getFieldValue('previous_institution') || '{{ __('applicant/review-and-submit.not_specified') }}'">
@@ -333,20 +334,20 @@
 
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <p class="text-sm font-medium text-gray-700 mb-1">
+                                <p class="text-sm font-medium text-gray-700">
                                     {{ __('applicant/review-and-submit.degree_earned') }}
                                 </p>
                                 <p class="text-gray-900" x-text="getFieldValue('degree_earned') || '{{ __('applicant/review-and-submit.not_specified') }}'">
                                 </p>
                             </div>
                             <div>
-                                <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.gpa_grade') }}</p>
+                                <p class="text-sm font-medium text-gray-700">{{ __('applicant/review-and-submit.gpa_grade') }}</p>
                                 <p class="text-gray-900" x-text="getFieldValue('previous_gpa') || '{{ __('applicant/review-and-submit.not_specified') }}'">
                             </div>
                         </div>
 
                         <div>
-                            <p class="text-sm font-medium text-gray-700 mb-1">
+                            <p class="text-sm font-medium text-gray-700">
                                 {{ __('applicant/review-and-submit.graduation_date') }}
                             </p>
                             <p class="text-gray-900" x-text="getFieldValue('graduation_date') || '{{ __('applicant/review-and-submit.not_specified') }}'">
@@ -440,7 +441,7 @@
                     <div class="p-6 pt-2 space-y-4">
                         <div class="space-y-4">
                             <div>
-                                <p class="text-sm font-medium text-gray-700 mb-1">
+                                <p class="text-sm font-medium text-gray-700">
                                     {{ __('applicant/review-and-submit.selected_program') }}
                                 </p>
                                 <p class="text-lg font-semibold text-gray-900">
@@ -455,7 +456,7 @@
                             </div>
 
                             <div>
-                                <p class="text-sm font-medium text-gray-700 mb-1">
+                                <p class="text-sm font-medium text-gray-700">
                                     {{ __('applicant/review-and-submit.start_term') }}
                                 </p>
                                 <p class="text-gray-900">{{ __('applicant/review-and-submit.fall_2024') }}</p>

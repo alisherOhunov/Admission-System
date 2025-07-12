@@ -149,9 +149,9 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Applicant Information Cards - Takes 3 columns -->
+                <!-- Applicant Information Cards - Takes 2 columns -->
                 <div class="lg:col-span-2">
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-1 gap-8">
                         <!-- Personal Information Card -->
                         <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
                             <div class="p-6 pb-4">
