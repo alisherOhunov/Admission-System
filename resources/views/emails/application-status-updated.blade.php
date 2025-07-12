@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Verify Your Email Address</title>
+    <title>Application Status Update</title>
 </head>
 
 <body style="background-color: #f3f4f6; margin: 0; padding: 40px 20px; font-family: Arial, sans-serif; color: #374151;">
@@ -18,7 +18,7 @@
                         <td style="text-align: center; padding: 30px 30px 0;">
                             <div style="margin-bottom: 20px;">
                                 <div style="display: inline-block;">
-                                    <img src="https://i.postimg.cc/7hKh7Khv/graduation-cap.png" alt="Logo"
+                                    <img src="https://iili.io/FMJuTnj.png" alt="Logo"
                                         width="48" height="48" style="display: block;">
                                 </div>
                                 <div style="font-size: 24px; font-weight: 600; color: #111827;">EduAdmit</div>
@@ -30,41 +30,51 @@
                     <tr>
                         <td style="padding: 20px 30px 30px; text-align: center;">
                             <h1 style="font-size: 24px; font-weight: 600; color: #111827; margin: 0 0 16px;">
-                                Hello!
+                                Hello {{ $user->first_name .' '. $user->last_name }}!
                             </h1>
 
-                            <p style="font-size: 16px; color: #6b7280; margin: 0 0 32px;">
-                                Please click the button below to verify your email address.
+                            <!-- Status Badge -->
+                            <div style="margin-bottom: 24px;">
+                                <span style="display: inline-block; padding: 8px 16px; background-color: {{ $statusColor }}; color: white; border-radius: 20px; font-size: 14px; font-weight: 500;">
+                                    {{ $statusTitle }}
+                                </span>
+                            </div>
+
+                            <p style="font-size: 16px; color: #6b7280; margin: 0 0 32px; line-height: 1.5;">
+                                {{ $statusMessage }}
                             </p>
 
-                            <table cellpadding="0" cellspacing="0" border="0" align="center"
-                                style="margin-bottom: 32px;">
+                            <!-- Admin Comment (shown only for resubmission) -->
+                            @if($showComment && $adminComment)
+                            <div style="background-color: #fef3c7; border-left: 4px solid #f59e0b; padding: 16px; margin: 24px 0; text-align: left; border-radius: 4px;">
+                                <h3 style="font-size: 16px; font-weight: 600; color: #92400e; margin: 0 0 8px;">
+                                    Admin Comments:
+                                </h3>
+                                <p style="font-size: 14px; color: #92400e; margin: 0; line-height: 1.4;">
+                                    {{ $adminComment }}
+                                </p>
+                            </div>
+                            @endif
+
+                            <!-- Action Button -->
+                            <table cellpadding="0" cellspacing="0" border="0" align="center" style="margin-bottom: 32px;">
                                 <tr>
                                     <td style="background-color: #2563EB; border-radius: 8px;">
-                                        <a href="{{ $verificationUrl }}"
-                                            style="display: inline-block; padding: 9px 20px; color: #ffffff; text-decoration: none; font-weight: 500; font-size: 16px; border-radius: 8px;">
-                                            Verify Email Address
+                                        <a href="{{ url('/applicant/dashboard') }}"
+                                            style="display: inline-block; padding: 12px 24px; color: #ffffff; text-decoration: none; font-weight: 500; font-size: 16px; border-radius: 8px;">
+                                            View Application
                                         </a>
                                     </td>
                                 </tr>
                             </table>
 
                             <p style="font-size: 14px; color: #9ca3af; margin: 0 0 20px;">
-                                If you did not create an account, no further action is required.
+                                If you have any questions, please contact our admissions team.
                             </p>
 
                             <div style="font-size: 14px; color: #6b7280; margin-bottom: 20px;">
-                                Regards,<br>
-                                EduAdmit
-                            </div>
-
-                            <div
-                                style="font-size: 12px; color: #6b7280; padding: 12px; background-color: #f9fafb; border-radius: 6px; word-break: break-word;">
-                                If you're having trouble clicking the "Verify Email Address" button, copy and paste the
-                                URL below into your web browser:
-                                <br>
-                                <a href="{{ $verificationUrl }}" style="color: #3b82f6; text-decoration: none;">{{
-                                    $verificationUrl }}</a>
+                                Best regards,<br>
+                                EduAdmit Admissions Team
                             </div>
                         </td>
                     </tr>

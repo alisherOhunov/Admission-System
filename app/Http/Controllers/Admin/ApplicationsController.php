@@ -7,6 +7,7 @@ use App\Models\Application;
 use App\Models\Document;
 use App\Models\Program;
 use App\Models\StaffNote;
+use App\Notifications\ApplicationStatusUpdated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -71,10 +72,17 @@ class ApplicationsController extends Controller
             'admin_resubmission_comment' => 'required_if:status,require_resubmit|max:500',
         ]);
 
+        $oldStatus = $application->status;
+
         $application->update([
             'status' => $request->status,
             'admin_resubmission_comment' => $request->admin_resubmission_comment,
         ]);
+
+        if ($oldStatus !== $request->status) {
+            $application->load('user');
+            $application->user->notify(new ApplicationStatusUpdated($application));
+        }
 
         return response()->json([
             'success' => true,

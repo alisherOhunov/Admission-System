@@ -173,11 +173,11 @@
                                         <p class="text-sm font-medium text-gray-700 mb-1">
                                             {{ __('applicant/review-and-submit.first_name') }}
                                         </p>
-                                        <p class="text-gray-900">{{ Auth::user()->first_name }}</p>
+                                        <p class="text-gray-900">{{ $application->user->first_name }}</p>
                                     </div>
                                     <div>
                                         <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.last_name') }}</p>
-                                        <p class="text-gray-900">{{ Auth::user()->last_name }}</p>
+                                        <p class="text-gray-900">{{ $application->user->last_name }}</p>
                                     </div>
                                 </div>
 
@@ -293,7 +293,7 @@
                                 <div class="grid grid-cols-2 gap-4">
                                     <div>
                                         <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.email') }}</p>
-                                        <p class="text-gray-900">{{ Auth::user()->email }}</p>
+                                        <p class="text-gray-900">{{ $application->user->email }}</p>
                                     </div>
                                     <div>
                                         <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.phone') }}</p>

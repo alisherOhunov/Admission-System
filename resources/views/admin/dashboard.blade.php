@@ -93,7 +93,7 @@
                                             {{ $application->user->first_name . ' ' . $application->user->last_name }}
                                         </h4>
                                         <p class="text-sm text-gray-500">
-                                            {{ $application->program->name ?? __('admin-dashboard.program_not_selected') }}
+                                            {{ $application->program->name ?? __('admin/dashboard.program_not_selected') }}
                                         </p>
                                         <p class="text-xs text-gray-400">
                                             ID: {{ $application->id }}

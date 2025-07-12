@@ -27,7 +27,7 @@ return [
     'or' => 'Or',
     'sign_in_title' => 'Sign In - EduAdmit',
     'sign_in_heading' => 'Sign in to your account',
-    'create_account' => 'create a new account',
+    'create_account' => 'Create a new account',
     'email' => 'Email address',
     'password' => 'Password',
     'forgot_password' => 'Forgot your password?',

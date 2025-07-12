@@ -13,7 +13,7 @@ class CustomVerifyEmail extends BaseVerifyEmail
 
         return (new MailMessage)
             ->subject('Verify Your Email Address - EduAdmit')
-            ->view('emails.email-notification', [
+            ->view('emails.verify-email', [
                 'verificationUrl' => $verificationUrl,
             ]);
     }
