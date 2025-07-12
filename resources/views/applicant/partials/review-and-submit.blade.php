@@ -18,7 +18,6 @@
                 {{ __('applicant/review-and-submit.page_description') }}
             </p>
         </div>
-        <div>{{$documents}}</div>
         <div class="bg-white shadow-sm space-y-8 p-6">
             @if ($application->status === 'require_resubmit')
                 <div class="bg-red-50 border border-gray-200 rounded-xl shadow-sm">
