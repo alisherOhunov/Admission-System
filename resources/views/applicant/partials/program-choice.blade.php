@@ -31,41 +31,40 @@
                                 <p class="text-lg font-semibold text-gray-900">
                                     {{ __('applicant/program-choice.academic_program') }}</p>
                             </div>
-                            <div>
-                                <label for="level"
-                                    class="block text-sm font-medium text-gray-700">{{ __('applicant/program-choice.level') }}<span
-                                        class="text-red-500">*</span></label>
-                                <select id="level" name="level"
-                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                                    <option value="">{{ __('applicant/program-choice.select_degree_level') }}</option>
-                                    <option value="masters" @selected(old('level', $application->level ?? '') == 'masters')>{{ __('applicant/program-choice.graduate') }}</option>
-                                    <option value="undergraduate" @selected(old('level', $application->level ?? '') == 'undergraduate')>{{ __('applicant/program-choice.undergraduate') }}</option>
-                                </select>
-                                <p class="mt-2 text-gray-500">
-                                    {{ __('applicant/program-choice.level_placeholder') }}</p>
-                            </div>
+                            <div x-data="programSelector()">
+                                <div class="mb-4">
+                                    <label for="level"
+                                        class="block text-sm font-medium text-gray-700">{{ __('applicant/program-choice.level') }}<span
+                                            class="text-red-500">*</span></label>
+                                    <select id="level" name="level" x-model="level" @change="onLevelChange()"
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                        <option value="">{{ __('applicant/program-choice.select_degree_level') }}</option>
+                                        <option value="masters" @selected(old('level', $application->level ?? '') == 'masters')>{{ __('applicant/program-choice.graduate') }}</option>
+                                        <option value="bachelors" @selected(old('level', $application->level ?? '') == 'bachelors')>{{ __('applicant/program-choice.undergraduate') }}</option>
+                                    </select>
+                                    <p class="mt-2 text-gray-500">
+                                        {{ __('applicant/program-choice.level_placeholder') }}</p>
+                                </div>
 
-                            <div>
-                                <label for="program_of_study"
-                                    class="block text-sm font-medium text-gray-700">{{ __('applicant/program-choice.program_of_study') }}<span
-                                        class="text-red-500">*</span></label>
-                                <select id="program_of_study" name="program_id"
-                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                                    <option value="">{{ __('applicant/program-choice.select_program') }}</option>
-
-                                    @foreach ($programs as $programOfStudy => $programList)
-                                        @foreach ($programList as $program)
-                                            <option value="{{ $program['id'] }}" @selected(old('program_id', $application->program_id ?? '') == $program['id'])>
-                                                {{ $program['name'] }}
-                                            </option>
-                                        @endforeach
-                                    @endforeach
-                                </select>
-                                <p class="mt-2 text-gray-500">
-                                    {{ __('applicant/program-choice.program_of_study_placeholder') }}</p>
-                                @error('program_id')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                @enderror
+                                <div>
+                                    <label for="program_of_study"
+                                        class="block text-sm font-medium text-gray-700">{{ __('applicant/program-choice.program_of_study') }}<span
+                                            class="text-red-500">*</span></label>
+                                    <select id="program_of_study" name="program_id" x-model="programId"
+                                        :disabled="!level"
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm disabled:bg-gray-100 disabled:cursor-not-allowed">
+                                        <option value="">{{ __('applicant/program-choice.select_program') }}</option>
+                                        
+                                        <template x-for="program in availablePrograms" :key="program.id">
+                                            <option :value="program.id" x-text="program.name"  :selected="programId == program.id"></option>
+                                        </template>
+                                    </select>
+                                    <p class="mt-2 text-gray-500">
+                                        {{ __('applicant/program-choice.program_of_study_placeholder') }}</p>
+                                    @error('program_id')
+                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
                             </div>
 
                             <div>
@@ -675,3 +674,21 @@
         </div>
     </div>
 </div>
+<script>
+function programSelector() {
+    return {
+        level: '{{ old('level', $application->level ?? '') }}',
+        programId: '{{ old('program_id', $application->program_id ?? '') }}',
+        programs: @json($programs),
+        
+        get availablePrograms() {
+            if (!this.level) return [];
+            return this.programs[this.level] || [];
+        },
+        
+        onLevelChange() {
+            this.programId = '';
+        },
+    };
+}
+</script>

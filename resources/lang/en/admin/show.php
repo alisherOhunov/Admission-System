@@ -15,7 +15,7 @@ return [
     'note_placeholder' => 'Please provide reason for resubmission requirement...',
     'note_required' => 'This note will be visible to the applicant.',
     'notes' => 'Notes',
-    'status.under_review' => 'Application Under review',
+    'status.under_review' => 'Under review',
     'status.accepted' => 'Accepted',
     'status.rejected' => 'Rejected',
     'status.require_resubmit' => 'Require Resubmit',

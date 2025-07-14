@@ -701,14 +701,14 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round"
-                                            class="lucide lucide-circle-check-big h-5 w-5 text-yellow-600">
+                                            class="lucide lucide-circle-check-big h-5 w-5 text-yellow-500">
                                             <circle cx="12" cy="12" r="10"></circle>
                                             <polyline points="12 6 12 12 16 14"></polyline>
                                         </svg>
                                     </div>
                                     <div class="flex-1">
                                         <p class="text-sm font-medium text-gray-900">
-                                            {{ __('admin/show.status.under_review') }}
+                                              {{ __('admin/show.application') .' '. __('admin/show.status.under_review') }}
                                         </p>
                                     </div>
                                 </div>
@@ -718,7 +718,7 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                class="lucide lucide-circle-check-big h-5 w-5 {{ $statusData['color'] }}">
+                                                class="lucide lucide-circle-check-big h-5 w-5 {{ $statusData['svg_color'] }}">
                                                 <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
                                                 <path d="m9 11 3 3L22 4"></path>
                                             </svg>
@@ -784,12 +784,10 @@
                             const colorClass = cls.split(' ').find(c => c.startsWith('text-'));
                             if (colorClass) svgIcon.classList.remove(colorClass);
                         });
-                        
+
                         const newTextColor = newStatusClass.split(' ').find(c => c.startsWith('text-'));
                         if (newTextColor) svgIcon.classList.add(newTextColor);
                     }
-
-
 
                     if (response.status === 'accepted' || response.status === 'require_resubmit') {
                         const updateButton = document.getElementById('update-status-button');

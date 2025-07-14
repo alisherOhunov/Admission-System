@@ -65,7 +65,7 @@ class UpdateApplicationRequest extends FormRequest
             'english_test_type' => 'sometimes|nullable|in:IELTS,TOEFL,Duolingo,Other',
             'english_test_score' => 'sometimes|nullable|string|max:20',
             'english_test_date' => 'sometimes|nullable|date|before_or_equal:today',
-            'level' => 'nullable|in:undergraduate,masters',
+            'level' => 'nullable|in:bachelors,masters',
             'program_id' => 'nullable|exists:programs,id',
             'start_term' => 'nullable|string|max:50',
             'needs_dormitory' => 'boolean',

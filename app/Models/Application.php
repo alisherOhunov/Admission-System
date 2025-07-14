@@ -137,13 +137,13 @@ class Application extends Model
     public function getStatusData()
     {
         $statuses = [
-            'draft' => ['label' => 'Draft', 'bg' => 'bg-gray-100', 'color' => 'text-gray-800'],
-            'submitted' => ['label' => 'Submitted', 'bg' => 'bg-blue-100', 'color' => 'text-blue-800'],
-            'require_resubmit' => ['label' => 'Require Resubmit', 'bg' => 'bg-blue-100', 'color' => 'text-blue-800'],
-            're_submitted' => ['label' => 'ReSubmitted', 'bg' => 'bg-blue-100', 'color' => 'text-blue-800'],
-            'under_review' => ['label' => 'Under Review', 'bg' => 'bg-yellow-100', 'color' => 'text-yellow-800'],
-            'accepted' => ['label' => 'Accepted', 'bg' => 'bg-green-100', 'color' => 'text-green-800'],
-            'rejected' => ['label' => 'Rejected', 'bg' => 'bg-red-100', 'color' => 'text-red-800'],
+            'draft' => ['label' => 'Draft', 'bg' => 'bg-gray-100', 'svg_color' => 'text-gray-500', 'color' => 'text-gray-800'],
+            'submitted' => ['label' => 'Submitted', 'bg' => 'bg-blue-100', 'svg_color' => 'text-blue-500', 'color' => 'text-blue-800'],
+            'require_resubmit' => ['label' => 'Require Resubmit', 'bg' => 'bg-blue-100', 'svg_color' => 'text-blue-500', 'color' => 'text-blue-800'],
+            're_submitted' => ['label' => 'ReSubmitted', 'bg' => 'bg-blue-100', 'svg_color' => 'text-blue-500', 'color' => 'text-blue-800'],
+            'under_review' => ['label' => 'Under Review', 'bg' => 'bg-yellow-100', 'svg_color' => 'text-yellow-500', 'color' => 'text-yellow-800'],
+            'accepted' => ['label' => 'Accepted', 'bg' => 'bg-green-100', 'svg_color' => 'text-green-500', 'color' => 'text-green-800'],
+            'rejected' => ['label' => 'Rejected', 'bg' => 'bg-red-100', 'svg_color' => 'text-red-500', 'color' => 'text-red-800'],
         ];
 
         return $statuses[$this->status] ?? $statuses['draft'];

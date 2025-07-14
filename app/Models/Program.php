@@ -12,6 +12,7 @@ class Program extends Model
     protected $fillable = [
         'name',
         'degree_level',
+        'code',
         'department',
         'description',
         'requirements',

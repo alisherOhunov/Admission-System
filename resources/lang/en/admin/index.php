@@ -3,7 +3,7 @@
 return [
     'page_title' => 'Manage Applications',
     'heading' => 'Applications',
-    'subheading' => 'Manage and Review student applications',
+    'subheading' => 'Manage and Review all applications',
     'table_title' => 'Applications (:count)',
     'search_placeholder' => 'Search applications...',
     'status_all' => 'All Status',

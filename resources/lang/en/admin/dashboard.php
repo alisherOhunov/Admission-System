@@ -21,7 +21,7 @@ return [
     'status_submitted' => 'Submitted',
     'status_re_submitted' => 'ReSubmitted',
     'status_under_review' => 'Under Review',
-    'status_require_resubmit' => 'Require Submitted',
+    'status_require_resubmit' => 'Require ReSubmit',
     'status_accepted' => 'Accepted',
     'status_rejected' => 'Rejected',
 ];
