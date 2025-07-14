@@ -77,6 +77,7 @@ class ApplicationsController extends Controller
         $application->update([
             'status' => $request->status,
             'admin_resubmission_comment' => $request->admin_resubmission_comment,
+            'updated_at' => now(),
         ]);
 
         if ($oldStatus !== $request->status) {
