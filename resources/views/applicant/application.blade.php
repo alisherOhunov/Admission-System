@@ -36,11 +36,11 @@
                                             type="button"
                                             @click="currentStep = 1"
                                             :class="getButtonClass(1)"
-                                            class="group relative flex flex-col items-center space-y-2 transition-all duration-200 hover:scale-105 p-4 flex-1">
+                                            class="group relative flex flex-col items-center space-y-2 p-4 flex-1">
                                             <div class="relative">
                                                 <div
                                                     :class="getCircleClass(1)"
-                                                    class="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200"
+                                                    class="w-12 h-12 rounded-full flex items-center justify-center"
                                                 >
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -58,12 +58,12 @@
                                             type="button"
                                             @click="currentStep = 2"
                                             :class="getButtonClass(2)"
-                                            class="group relative flex flex-col items-center space-y-2 transition-all duration-200 hover:scale-105 p-4 flex-1">
+                                            class="group relative flex flex-col items-center space-y-2 p-4 flex-1">
                                             
                                             <div class="relative">
                                                 <div
                                                     :class="getCircleClass(2)"
-                                                    class="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200"
+                                                    class="w-12 h-12 rounded-full flex items-center justify-center"
                                                 >
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -81,12 +81,12 @@
                                             type="button"
                                             @click="currentStep = 3"
                                             :class="getButtonClass(3)"
-                                            class="group relative flex flex-col items-center space-y-2 transition-all duration-200 hover:scale-105 p-4 flex-1">
+                                            class="group relative flex flex-col items-center space-y-2 p-4 flex-1">
                                             
                                             <div class="relative">
                                                 <div
                                                     :class="getCircleClass(3)"
-                                                    class="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200"
+                                                    class="w-12 h-12 rounded-full flex items-center justify-center"
                                                 >
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -106,12 +106,12 @@
                                             type="button"
                                             @click="currentStep = 4"
                                             :class="getButtonClass(4)"
-                                            class="group relative flex flex-col items-center space-y-2 transition-all duration-200 hover:scale-105 p-4 flex-1">
+                                            class="group relative flex flex-col items-center space-y-2 p-4 flex-1">
                                             
                                             <div class="relative">
                                                 <div
                                                     :class="getCircleClass(4)"
-                                                    class="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200"
+                                                    class="w-12 h-12 rounded-full flex items-center justify-center"
                                                 >
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -132,12 +132,12 @@
                                             type="button"
                                             @click="currentStep = 5"
                                             :class="getButtonClass(5)"
-                                            class="group relative flex flex-col items-center space-y-2 transition-all duration-200 hover:scale-105 p-4 flex-1">
+                                            class="group relative flex flex-col items-center space-y-2 p-4 flex-1">
                                             
                                             <div class="relative">
                                                 <div
                                                     :class="getCircleClass(5)"
-                                                    class="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200"
+                                                    class="w-12 h-12 rounded-full flex items-center justify-center"
                                                 >
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -224,7 +224,8 @@
             currentStep: parseInt(sessionStorage.getItem('currentStep')) || 1,
             formData: {},
             documents: @json($documents),
-            buttonError: 'border-b-2 border-red-600 focus:ring-red-500',
+            buttonError: 'border-b-2 border-red-600',
+            buttonActive: 'border-b-2 border-blue-600',
 
             circleActive: 'bg-blue-600 text-white border-2 border-blue-600',
             circleInactive: 'bg-gray-100 text-gray-500 border-0',
@@ -269,10 +270,10 @@
                 }
                 
                 if (this.currentStep === step) {
-                    return 'border-b-2 border-blue-600 transition-colors duration-200';
+                    return this.buttonActive;
                 }
                 
-                return 'border-b-2 border-transparent hover:border-gray-400 transition-colors duration-200';
+                return 'border-b-2 border-transparent hover:border-gray-400 transition-all duration-200';
             },
             
             getCircleClass(step) {

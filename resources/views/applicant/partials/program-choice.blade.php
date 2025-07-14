@@ -238,7 +238,7 @@
                                             {{ __('applicant/program-choice.file_upload_formats_5mb') }}</div>
                                     </div>
                                     @error('document_sop')
-                                        <div class="mb-3 p-3 bg-red-50 border border-red-200 rounded-md">
+                                        <div class="mb-3 p-3 bg-red-50 border border-red-200 rounded-lg">
                                             <div class="flex items-center">
                                                 <svg class="h-4 w-4 text-red-500 mr-2" fill="currentColor"
                                                     viewBox="0 0 20 20">
@@ -610,7 +610,7 @@
                                 </div>
 
                                 <div
-                                    class="flex items-start rounded-md border border-blue-200 bg-blue-50 p-4 text-blue-700">
+                                    class="flex items-start rounded-lg border border-blue-200 bg-blue-50 p-4 text-blue-700">
                                     <div class="flex-shrink-0">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-1" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

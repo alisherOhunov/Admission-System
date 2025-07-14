@@ -326,7 +326,7 @@
                                 </div>
 
                                 <!-- Upload Tips -->
-                                <div class="bg-blue-50 border border-blue-200 rounded-md p-3">
+                                <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
                                     <h4 class="text-sm font-medium text-blue-900 mb-1">
                                         {{ __('applicant/contact-info.document_requirements') }}
                                     </h4>
