@@ -25,7 +25,7 @@
                     <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">{{ __('admin/index.th_actions') }}</th>
                 </tr>
             </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
+            <tbody class="divide-y divide-gray-200">
                 @forelse($applications as $application)
                     <tr class="hover:bg-gray-50 transition-colors duration-150">
                         <td class="px-6 py-4 whitespace-nowrap">
