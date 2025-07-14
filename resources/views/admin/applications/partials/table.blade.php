@@ -17,11 +17,11 @@
             <thead class="bg-white">
                 <tr>
                     <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">{{ __('admin/index.th_applicant') }}</th>
-                    <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">{{ __('admin/index.th_program') }}</th>
                     <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">{{ __('admin/index.th_level') }}</th>
+                    <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">{{ __('admin/index.th_program') }}</th>
                     <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">{{ __('admin/index.th_country') }}</th>
-                    <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">{{ __('admin/index.th_status') }}</th>
                     <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">{{ __('admin/index.th_submitted') }}</th>
+                    <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">{{ __('admin/index.th_status') }}</th>
                     <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">{{ __('admin/index.th_actions') }}</th>
                 </tr>
             </thead>
@@ -36,17 +36,17 @@
                             </div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground capitalize">
+                                {{ $application->level ?? __('not_specified') }}
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm font-medium text-gray-900">
                                 {{ $application->program->name ?? __('not_selected') }}
                             </div>
                             @if($application->program)
                                 <div class="text-sm text-gray-500">{{ $application->program->department }}</div>
                             @endif
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground capitalize">
-                                {{ $application->level ?? __('not_specified') }}
-                            </div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                             @if ($application->nationality)
@@ -58,14 +58,14 @@
                                 <p class="text-gray-900">{{ __('admin/index.not_specified') }}</p>
                             @endif
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            @php $statusData = $application->getStatusData() @endphp
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $statusData['color'] }}">
-                                {{ $statusData['label'] }}
-                            </span>
-                        </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                             {{ $application->submitted_at ? $application->submitted_at->format('M j, Y') : __('not_submitted') }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            @php $statusData = $application->getStatusData() @endphp
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $statusData['color'] }}  {{ $statusData['bg'] }}">
+                                {{ $statusData['label'] }}
+                            </span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="flex items-center justify-end space-x-2">

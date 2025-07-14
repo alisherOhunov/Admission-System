@@ -48,7 +48,7 @@
                                         <p class="text-sm text-gray-500">{{ __('applicant/dashboard.application_id')}} {{ $application->id }}</p>
                                     </div>
                                     @php $statusData = $application->getStatusData() @endphp
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $statusData['color'] }}">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $statusData['color'] }}  {{ $statusData['bg'] }}">
                                         {{ $statusData['label'] }}
                                     </span>
                                 </div>

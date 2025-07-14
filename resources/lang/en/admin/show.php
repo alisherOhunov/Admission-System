@@ -14,7 +14,8 @@ return [
     'note_label' => 'Notes',
     'note_placeholder' => 'Please provide reason for resubmission requirement...',
     'note_required' => 'This note will be visible to the applicant.',
-    'status.under_review' => 'Under Review',
+    'notes' => 'Notes',
+    'status.under_review' => 'Application Under review',
     'status.accepted' => 'Accepted',
     'status.rejected' => 'Rejected',
     'status.require_resubmit' => 'Require Resubmit',
@@ -47,4 +48,5 @@ return [
     'not_specified' => 'Not Specified',
     'application_id' => 'Application ID:',
     'no_statement_provided' => 'No statement provided.',
+    'application' => 'Application',
 ];

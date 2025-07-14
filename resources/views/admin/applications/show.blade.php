@@ -7,7 +7,7 @@
         <!-- Main Content -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div class="mb-6">
-                <a href="{{ route('admin.dashboard') }}">
+                <a href="{{ route('admin.applications.index') }}">
                     <button
                         class="justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background 
                         transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring 
@@ -37,7 +37,7 @@
                             @endphp
 
                             <div id="status-badge"
-                                class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent {{ $statusData['color'] }}">
+                                class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent {{ $statusData['color'] }} {{ $statusData['bg'] }}">
                                 {{ ucwords(str_replace('_', ' ', $status)) }}
                             </div>
 
@@ -74,7 +74,7 @@
                                                         {{ __('admin/show.current_status_label') }}
                                                     </label>
                                                     <span id="current-status-display"
-                                                        class="inline-block text-sm font-semibold px-3 py-1 rounded-full {{ $statusData['color'] ?? 'bg-gray-100 text-gray-800' }}">
+                                                        class="inline-block text-sm font-semibold px-3 py-1 rounded-full {{ $statusData['color'] . ' ' . $statusData['bg'] ?? 'bg-gray-100 text-gray-800' }}">
                                                         {{ ucwords(str_replace('_', ' ', $status)) }}
                                                     </span>
                                                 </div>
@@ -83,23 +83,29 @@
                                                     hx-swap="none" hx-on::after-request="handleStatusUpdate(event)">
                                                     @csrf
                                                     <div class="mb-3">
-                                                        <label for="newStatus" class="block text-sm font-medium text-gray-700 mb-1">
+                                                        <label for="newStatus"
+                                                            class="block text-sm font-medium text-gray-700 mb-1">
                                                             {{ __('admin/show.new_status') }}
                                                         </label>
                                                         <select id="newStatus" name="status" x-model="newStatus"
                                                             @change="showNotesField = (newStatus === 'require_resubmit')"
                                                             class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
                                                             required>
-                                                            <option value="under_review">{{ __('admin/show.status.under_review') }}</option>
-                                                            <option value="accepted">{{ __('admin/show.status.accepted') }}</option>
-                                                            <option value="rejected">{{ __('admin/show.status.rejected') }}</option>
-                                                            <option value="require_resubmit">{{ __('admin/show.status.require_resubmit') }}</option>
+                                                            <option value="under_review">
+                                                                {{ __('admin/show.status.under_review') }}</option>
+                                                            <option value="accepted">{{ __('admin/show.status.accepted') }}
+                                                            </option>
+                                                            <option value="rejected">{{ __('admin/show.status.rejected') }}
+                                                            </option>
+                                                            <option value="require_resubmit">
+                                                                {{ __('admin/show.status.require_resubmit') }}</option>
                                                         </select>
                                                     </div>
                                                     <div x-show="showNotesField" x-transition class="mb-4">
                                                         <label for="statusNote"
                                                             class="block text-sm font-medium text-gray-700 mb-1">
-                                                            Notes <span class="text-red-500">*</span>
+                                                            {{ __('admin/show.notes') }} <span
+                                                                class="text-red-500">*</span>
                                                         </label>
                                                         <textarea id="statusNote" name="admin_resubmission_comment"
                                                             placeholder="Please provide reason for resubmission requirement..."
@@ -156,8 +162,12 @@
                         <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
                             <div class="p-6 pb-4">
                                 <div class="flex items-center space-x-3">
-                                    <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-blue-100 text-blue-600">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user h-6 w-6">
+                                    <span
+                                        class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-blue-100 text-blue-600">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                            viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="lucide lucide-user h-6 w-6">
                                             <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
                                             <circle cx="12" cy="7" r="4"></circle>
                                         </svg>
@@ -176,7 +186,8 @@
                                         <p class="text-gray-900">{{ $application->user->first_name }}</p>
                                     </div>
                                     <div>
-                                        <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.last_name') }}</p>
+                                        <p class="text-sm font-medium text-gray-700 mb-1">
+                                            {{ __('applicant/review-and-submit.last_name') }}</p>
                                         <p class="text-gray-900">{{ $application->user->last_name }}</p>
                                     </div>
                                 </div>
@@ -191,7 +202,8 @@
                                         </p>
                                     </div>
                                     <div>
-                                        <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.gender') }}</p>
+                                        <p class="text-sm font-medium text-gray-700 mb-1">
+                                            {{ __('applicant/review-and-submit.gender') }}</p>
                                         <p class="text-gray-900">
                                             {{ $application->gender == 1 ? __('applicant/review-and-submit.male') : ($application->gender == 2 ? __('applicant/review-and-submit.female') : __('applicant/review-and-submit.not_specified')) }}
                                         </p>
@@ -206,12 +218,14 @@
                                         <p class="text-gray-900">
                                             @if ($application->nationality)
                                                 @foreach (config('countries') as $code => $name)
-                                                    <p class="text-gray-900">{{ $application->nationality == $code ? $name : '' }}
+                                                    <p class="text-gray-900">
+                                                        {{ $application->nationality == $code ? $name : '' }}
                                                     </p>
                                                 @endforeach
                                             @else
-                                            {{ __('applicant/review-and-submit.not_specified') }}</p>
-                                            @endif
+                                                {{ __('applicant/review-and-submit.not_specified') }}
+                                        </p>
+                                        @endif
                                     </div>
                                     <div>
                                         <p class="text-sm font-medium text-gray-700 mb-1">
@@ -236,8 +250,9 @@
                                         <p class="text-md font-semibold text-gray-800 mb-2">
                                             Uploaded documents
                                         </p>
-                                        
-                                        <div class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm">
+
+                                        <div
+                                            class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm">
                                             <div>
                                                 <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">
                                                     Passport
@@ -249,21 +264,25 @@
                                             <div class="flex items-center space-x-3">
                                                 <!-- View Button -->
                                                 <a href="/admin/applications/{{ $application->id }}/view-document/{{ $documents['passport']['id'] }}"
-                                                target="_blank"
-                                                class="text-green-600 hover:text-green-800 transition-colors"
-                                                title="View">
-                                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    target="_blank"
+                                                    class="text-green-600 hover:text-green-800 transition-colors"
+                                                    title="View">
+                                                    <svg class="h-5 w-5" fill="none" stroke="currentColor"
+                                                        viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
                                                             d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                     </svg>
                                                 </a>
                                                 <a href="/admin/applications/{{ $application->id }}/document/{{ $documents['passport']['id'] }}"
-                                                class="text-blue-600 hover:text-blue-800 transition-colors"
-                                                title="{{ __('Download') }}">
-                                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    class="text-blue-600 hover:text-blue-800 transition-colors"
+                                                    title="{{ __('Download') }}">
+                                                    <svg class="h-5 w-5" fill="none" stroke="currentColor"
+                                                        viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
                                                             d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                                     </svg>
                                                 </a>
@@ -278,8 +297,12 @@
                         <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
                             <div class="p-6 pb-4">
                                 <div class="flex items-center space-x-3">
-                                    <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-blue-100 text-blue-600">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail h-6 w-6">
+                                    <span
+                                        class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-blue-100 text-blue-600">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                            viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="lucide lucide-mail h-6 w-6">
                                             <rect width="20" height="16" x="2" y="4" rx="2"></rect>
                                             <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
                                         </svg>
@@ -292,28 +315,34 @@
                             <div class="p-6 pt-2 space-y-4">
                                 <div class="grid grid-cols-2 gap-4">
                                     <div>
-                                        <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.email') }}</p>
+                                        <p class="text-sm font-medium text-gray-700 mb-1">
+                                            {{ __('applicant/review-and-submit.email') }}</p>
                                         <p class="text-gray-900">{{ $application->user->email }}</p>
                                     </div>
                                     <div>
-                                        <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.phone') }}</p>
+                                        <p class="text-sm font-medium text-gray-700 mb-1">
+                                            {{ __('applicant/review-and-submit.phone') }}</p>
                                         <p class="text-gray-900">
-                                            {{ $application->phone ? $application->phone : __('applicant/review-and-submit.not_specified') }}</p>
+                                            {{ $application->phone ? $application->phone : __('applicant/review-and-submit.not_specified') }}
+                                        </p>
                                     </div>
                                 </div>
 
                                 <div>
-                                    <p class="text-sm font-medium text-gray-700 mb-2">{{ __('applicant/review-and-submit.permanent_address') }}</p>
+                                    <p class="text-sm font-medium text-gray-700 mb-2">
+                                        {{ __('applicant/review-and-submit.permanent_address') }}</p>
 
                                     <div class="grid grid-cols-2 gap-4">
                                         <div>
-                                            <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.street') }}</p>
+                                            <p class="text-sm font-medium text-gray-700 mb-1">
+                                                {{ __('applicant/review-and-submit.street') }}</p>
                                             <p class="text-gray-900">
                                                 {{ $application->permanent_street ? $application->permanent_street : __('applicant/review-and-submit.not_specified') }}
                                             </p>
                                         </div>
                                         <div>
-                                            <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.city') }}</p>
+                                            <p class="text-sm font-medium text-gray-700 mb-1">
+                                                {{ __('applicant/review-and-submit.city') }}</p>
                                             <p class="text-gray-900">
                                                 {{ $application->permanent_city ? $application->permanent_city : __('applicant/review-and-submit.not_specified') }}
                                             </p>
@@ -322,13 +351,15 @@
 
                                     <div class="grid grid-cols-2 gap-4 mt-3">
                                         <div>
-                                            <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.state') }}</p>
+                                            <p class="text-sm font-medium text-gray-700 mb-1">
+                                                {{ __('applicant/review-and-submit.state') }}</p>
                                             <p class="text-gray-900">
                                                 {{ $application->permanent_state ? $application->permanent_state : __('applicant/review-and-submit.not_specified') }}
                                             </p>
                                         </div>
                                         <div>
-                                            <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.country') }}</p>
+                                            <p class="text-sm font-medium text-gray-700 mb-1">
+                                                {{ __('applicant/review-and-submit.country') }}</p>
                                             <p class="text-gray-900">
                                                 {{ $application->permanent_country ? config('countries')[$application->permanent_country] ?? __('applicant/review-and-submit.not_specified') : __('applicant/review-and-submit.not_specified') }}
                                             </p>
@@ -337,7 +368,8 @@
 
                                     <div class="grid grid-cols-2 gap-4 mt-3">
                                         <div>
-                                            <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.postcode') }}</p>
+                                            <p class="text-sm font-medium text-gray-700 mb-1">
+                                                {{ __('applicant/review-and-submit.postcode') }}</p>
                                             <p class="text-gray-900">
                                                 {{ $application->permanent_postcode ? $application->permanent_postcode : __('applicant/review-and-submit.not_specified') }}
                                             </p>
@@ -349,8 +381,9 @@
                                         <p class="text-md font-semibold text-gray-800 mb-2">
                                             Uploaded documents
                                         </p>
-                                        
-                                        <div class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm">
+
+                                        <div
+                                            class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm">
                                             <div>
                                                 <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">
                                                     Address Proof
@@ -365,18 +398,22 @@
                                                     target="_blank"
                                                     class="text-green-600 hover:text-green-800 transition-colors"
                                                     title="View">
-                                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    <svg class="h-5 w-5" fill="none" stroke="currentColor"
+                                                        viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
                                                             d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                     </svg>
                                                 </a>
                                                 <a href="/admin/applications/{{ $application->id }}/document/{{ $documents['address_proof']['id'] }}"
-                                                class="text-blue-600 hover:text-blue-800 transition-colors"
-                                                title="{{ __('Download') }}">
-                                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    class="text-blue-600 hover:text-blue-800 transition-colors"
+                                                    title="{{ __('Download') }}">
+                                                    <svg class="h-5 w-5" fill="none" stroke="currentColor"
+                                                        viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
                                                             d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                                     </svg>
                                                 </a>
@@ -391,8 +428,15 @@
                         <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
                             <div class="p-6 pb-4">
                                 <div class="flex items-center space-x-3">
-                                    <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-blue-100 text-blue-600">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-graduation-cap h-6 w-6"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path>
+                                    <span
+                                        class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-blue-100 text-blue-600">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                            viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="lucide lucide-graduation-cap h-6 w-6">
+                                            <path
+                                                d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z">
+                                            </path>
                                             <path d="M22 10v6"></path>
                                             <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path>
                                         </svg>
@@ -422,9 +466,11 @@
                                         </p>
                                     </div>
                                     <div>
-                                        <p class="text-sm font-medium text-gray-700 mb-1">{{ __('applicant/review-and-submit.gpa_grade') }}</p>
+                                        <p class="text-sm font-medium text-gray-700 mb-1">
+                                            {{ __('applicant/review-and-submit.gpa_grade') }}</p>
                                         <p class="text-gray-900">
-                                            {{ $application->previous_gpa ? $application->previous_gpa : __('applicant/review-and-submit.not_specified') }}</p>
+                                            {{ $application->previous_gpa ? $application->previous_gpa : __('applicant/review-and-submit.not_specified') }}
+                                        </p>
                                     </div>
                                 </div>
 
@@ -444,7 +490,8 @@
                                     <div class="flex items-center space-x-4 text-sm">
                                         <span class="text-gray-900">{{ $application->english_test_type }}</span>
                                         <span class="text-gray-500">•</span>
-                                        <span class="text-gray-900">{{ __('applicant/review-and-submit.score') }}: {{ $application->english_test_score }}</span>
+                                        <span class="text-gray-900">{{ __('applicant/review-and-submit.score') }}:
+                                            {{ $application->english_test_score }}</span>
                                         <span class="text-gray-500">•</span>
                                         <span class="text-gray-700">
                                             {{ optional($application->english_test_date)->format('Y/m/d') ?? __('applicant/review-and-submit.not_submitted_yet') }}
@@ -458,7 +505,8 @@
 
                                     @foreach (['transcript' => 'Transcript', 'diploma' => 'Diploma', 'english_score' => 'English Score'] as $key => $label)
                                         @if (isset($documents[$key]))
-                                            <div class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm mb-2">
+                                            <div
+                                                class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm mb-2">
                                                 <div>
                                                     <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">
                                                         {{ $label }}
@@ -472,18 +520,22 @@
                                                         target="_blank"
                                                         class="text-green-600 hover:text-green-800 transition-colors"
                                                         title="View">
-                                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        <svg class="h-5 w-5" fill="none" stroke="currentColor"
+                                                            viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
                                                                 d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                         </svg>
                                                     </a>
                                                     <a href="/admin/applications/{{ $application->id }}/document/{{ $documents[$key]['id'] }}"
-                                                    class="text-blue-600 hover:text-blue-800 transition-colors"
-                                                    title="Download">
-                                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        class="text-blue-600 hover:text-blue-800 transition-colors"
+                                                        title="Download">
+                                                        <svg class="h-5 w-5" fill="none" stroke="currentColor"
+                                                            viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
                                                                 d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                                         </svg>
                                                     </a>
@@ -499,8 +551,12 @@
                         <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
                             <div class="p-6 pb-4">
                                 <div class="flex items-center space-x-3">
-                                    <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-blue-100 text-blue-600">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-target h-6 w-6">
+                                    <span
+                                        class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-blue-100 text-blue-600">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                            viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="lucide lucide-target h-6 w-6">
                                             <circle cx="12" cy="12" r="10"></circle>
                                             <circle cx="12" cy="12" r="6"></circle>
                                             <circle cx="12" cy="12" r="2"></circle>
@@ -536,9 +592,8 @@
                                     </div>
 
                                     <div class="flex items-center space-x-2">
-                                    <input type="checkbox" disabled 
-                                            {{ $application->funding_interest ? 'checked' : '' }} 
-                                            readonly
+                                        <input type="checkbox" disabled
+                                            {{ $application->funding_interest ? 'checked' : '' }} readonly
                                             class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
                                         <span class="text-sm text-gray-700">
                                             {{ __('applicant/review-and-submit.scholarship_interest') }}
@@ -552,7 +607,8 @@
 
                                     @foreach (['sop' => 'Statement of Purpose', 'cv' => 'Curriculum Vitae (CV)', 'portfolio' => 'Portfolio'] as $key => $label)
                                         @if (isset($documents[$key]))
-                                            <div class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm mb-2">
+                                            <div
+                                                class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm mb-2">
                                                 <div>
                                                     <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">
                                                         {{ $label }}
@@ -566,18 +622,22 @@
                                                         target="_blank"
                                                         class="text-green-600 hover:text-green-800 transition-colors"
                                                         title="View">
-                                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        <svg class="h-5 w-5" fill="none" stroke="currentColor"
+                                                            viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
                                                                 d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                         </svg>
                                                     </a>
                                                     <a href="/admin/applications/{{ $application->id }}/document/{{ $documents[$key]['id'] }}"
-                                                    class="text-blue-600 hover:text-blue-800 transition-colors"
-                                                    title="Download">
-                                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        class="text-blue-600 hover:text-blue-800 transition-colors"
+                                                        title="Download">
+                                                        <svg class="h-5 w-5" fill="none" stroke="currentColor"
+                                                            viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
                                                                 d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                                         </svg>
                                                     </a>
@@ -596,7 +656,8 @@
                     <div class="bg-white rounded-xl shadow-sm border sticky top-4">
                         <div class="px-6 py-6">
                             <h3 class="text-2xl font-semibold leading-none tracking-tight flex items-center space-x-2">
-                                 <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-blue-100 text-blue-600">
+                                <span
+                                    class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-blue-100 text-blue-600">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
                                         viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round"
@@ -623,7 +684,8 @@
                                         </svg>
                                     </div>
                                     <div class="flex-1">
-                                        <p class="text-sm font-medium text-gray-900">{{ __('admin/show.application_submitted') }}</p>
+                                        <p class="text-sm font-medium text-gray-900">
+                                            {{ __('admin/show.application_submitted') }}</p>
                                         <p class="text-xs text-gray-500">
                                             @if ($application->submitted_at)
                                                 {{ $application->submitted_at->format('Y/m/d') }}
@@ -634,23 +696,43 @@
                                     </div>
                                 </div>
                                 <div class="flex">
-                                    <div class="mr-3 mt-1">
+                                    <div class="mr-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round"
-                                            class="lucide lucide-circle-check-big h-5 w-5 text-yellow-500">
-                                            <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
-                                            <path d="m9 11 3 3L22 4"></path>
+                                            class="lucide lucide-circle-check-big h-5 w-5 text-yellow-600">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <polyline points="12 6 12 12 16 14"></polyline>
                                         </svg>
                                     </div>
                                     <div class="flex-1">
-                                        <p id="timeline-status-badge"
-                                            class="current-status-display text-sm font-medium text-gray-900 uppercase">
-                                            {{ ucwords(str_replace('_', ' ', $status)) }}
+                                        <p class="text-sm font-medium text-gray-900">
+                                            {{ __('admin/show.status.under_review') }}
                                         </p>
-                                        <p class="text-xs text-gray-500">{{ __('admin/show.current_status') }}</p>
                                     </div>
                                 </div>
+                                @if ($application->status !== 'under_review' && $application->status !== 'draft')
+                                    <div class="flex" id="timeline-status-display">
+                                        <div class="mr-3 mt-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                class="lucide lucide-circle-check-big h-5 w-5 {{ $statusData['color'] }}">
+                                                <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
+                                                <path d="m9 11 3 3L22 4"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="flex-1 mt-2">
+                                            <p class="text-sm font-medium text-gray-900" id="timeline-status-badge">
+                                                {{ __('admin/show.application') }}
+                                                {{ ucwords(str_replace('_', ' ', $status)) }}
+                                            </p>
+                                            <p class="text-xs text-gray-500">
+                                                {{ $application->updated_at->format('Y/m/d') }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -665,8 +747,11 @@
                 let response = JSON.parse(event.detail.xhr.response);
                 if (response.status) {
                     const statusBadge = document.getElementById('status-badge');
-                    const timelineStatus = document.getElementById('timeline-status-badge');
-                    const newStatus = response.status.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
+                    const timelineStatusBadge = document.getElementById('timeline-status-badge');
+                    const responseStatus = response.status.replace('_', ' ');
+                    const newStatus = responseStatus.charAt(0).toUpperCase() + responseStatus.slice(1).toLowerCase();
+                    const currentStatusDisplay = document.getElementById('current-status-display');
+                    const timelineStatusDisplay = document.getElementById('timeline-status-display');
                     const statusClasses = {
                         'rejected': 'bg-red-100 text-red-800 hover:bg-red-200',
                         'under_review': 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200',
@@ -681,13 +766,29 @@
                     const newStatusClass = statusClasses[response.status] || 'bg-gray-100 text-gray-800';
                     statusBadge.classList.add(...newStatusClass.split(' '));
                     statusBadge.textContent = newStatus;
-                    timelineStatus.textContent = newStatus;
+                    timelineStatusBadge.textContent = newStatus;
 
-                    const currentStatusDisplay = document.getElementById('current-status-display');
                     if (currentStatusDisplay) {
                         currentStatusDisplay.classList.add(...newStatusClass.split(' '));
                         currentStatusDisplay.textContent = newStatus;
                     }
+
+                    if (response.status === 'under_review') {
+                        timelineStatusDisplay.classList.add('hidden');
+                    }
+
+                    const svgIcon = timelineStatusDisplay.querySelector('svg');
+                    if (svgIcon) {
+                        Object.values(statusClasses).forEach(cls => {
+                            const colorClass = cls.split(' ').find(c => c.startsWith('text-'));
+                            if (colorClass) svgIcon.classList.remove(colorClass);
+                        });
+                        
+                        const newTextColor = newStatusClass.split(' ').find(c => c.startsWith('text-'));
+                        if (newTextColor) svgIcon.classList.add(newTextColor);
+                    }
+
+
 
                     if (response.status === 'accepted' || response.status === 'require_resubmit') {
                         const updateButton = document.getElementById('update-status-button');
