@@ -76,6 +76,7 @@ class ApplicationController extends Controller
             'program_id' => 'Program',
             'start_term' => 'Start Term',
             'motivation_letter' => 'Motivation Letter',
+            'family_status' => 'Family Status',
         ];
 
         $validator = Validator::make([], []);

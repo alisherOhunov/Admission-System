@@ -27,6 +27,7 @@ return [
     'accepted_note' => 'Congratulations! Your application has been accepted.',
     'rejected' => 'Rejected',
     'rejected_note' => 'We regret to inform you that your application has been rejected.',
+    'require_resubmit' => 'Required Resubmit',
     'no_recent_activity' => 'No recent activity',
     'no_recent_activity_desc' => 'Start your application to see updates here',
     'quick_actions' => 'Quick Actions',

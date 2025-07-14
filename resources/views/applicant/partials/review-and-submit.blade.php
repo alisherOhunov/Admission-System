@@ -133,10 +133,14 @@
 
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <p class="text-sm font-medium text-gray-700">
-                                    {{ __('applicant/review-and-submit.nationality') }}
+                                <p class="text-sm font-medium text-gray-700">{{ __('applicant/review-and-submit.family_status') }}</p>
+                                <p class="text-gray-900" 
+                                    x-text="getFieldValue('family_status') == 1 
+                                            ? '{{ __('applicant/review-and-submit.single') }}' 
+                                            : (getFieldValue('family_status') == 2 
+                                                ? '{{ __('applicant/review-and-submit.married') }}' 
+                                                : '{{ __('applicant/review-and-submit.not_specified') }}')">
                                 </p>
-                                <p class="text-gray-900" x-text="getCountryName(getFieldValue('nationality')) || '{{ __('applicant/review-and-submit.not_specified') }}'"></p>
                             </div>
                             <div>
                                 <p class="text-sm font-medium text-gray-700">
@@ -147,12 +151,20 @@
                             </div>
                         </div>
 
-                        <div>
-                            <p class="text-sm font-medium text-gray-700">
-                                {{ __('applicant/review-and-submit.native_language') }}
-                            </p>
-                            <p class="text-gray-900" x-text="getFieldValue('native_language') || '{{ __('applicant/review-and-submit.not_specified') }}'">
-                            </p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-sm font-medium text-gray-700">
+                                    {{ __('applicant/review-and-submit.nationality') }}
+                                </p>
+                                <p class="text-gray-900" x-text="getCountryName(getFieldValue('nationality')) || '{{ __('applicant/review-and-submit.not_specified') }}'"></p>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-700">
+                                    {{ __('applicant/review-and-submit.native_language') }}
+                                </p>
+                                <p class="text-gray-900" x-text="getFieldValue('native_language') || '{{ __('applicant/review-and-submit.not_specified') }}'">
+                                </p>
+                            </div>
                         </div>
                             <div x-show="getDocuments()['passport']">
                                 <p class="text-md font-semibold text-gray-800 mb-2">
@@ -450,10 +462,10 @@
 
                             <div class="flex items-center space-x-2">
                                 <input type="checkbox" disabled 
-                                    :checked="getFieldValue('funding_interest')"
+                                    :checked="getFieldValue('needs_dormitory')"
                                     readonly
                                     class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                                <span class="text-sm text-gray-700" x-text="'{{ __('applicant/review-and-submit.scholarship_interest') }}'">
+                                <span class="text-sm text-gray-700" x-text="'{{ __('applicant/review-and-submit.needs_dormitory') }}'">
                                 </span>
                             </div>
                         </div>

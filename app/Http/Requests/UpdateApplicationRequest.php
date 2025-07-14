@@ -24,12 +24,12 @@ class UpdateApplicationRequest extends FormRequest
 
     /**
      * Prepare the data for validation.
-     * This runs BEFORE validation, so we can ensure funding_interest is always present.
+     * This runs BEFORE validation, so we can ensure needs_dormitory is always present.
      */
     protected function prepareForValidation()
     {
         $this->merge([
-            'funding_interest' => $this->has('funding_interest'),
+            'needs_dormitory' => $this->has('needs_dormitory'),
         ]);
     }
 
@@ -43,8 +43,9 @@ class UpdateApplicationRequest extends FormRequest
             'last_name' => 'nullable|string|max:50',
             'nationality' => 'nullable|string|max:128',
             'passport_number' => 'nullable|string|max:20',
+            'family_status' => 'sometimes|nullable|in:1,2',
             'date_of_birth' => 'nullable|date|before:today',
-            'gender' => 'sometimes|nullable|in:1,2,3',
+            'gender' => 'sometimes|nullable|in:1,2',
             'native_language' => 'nullable|string|max:64',
             'phone' => 'nullable|string|max:32|regex:/^[\+]?[0-9\s\-\(\)]+$/',
             'permanent_street' => 'nullable|string|max:255',
@@ -64,10 +65,10 @@ class UpdateApplicationRequest extends FormRequest
             'english_test_type' => 'sometimes|nullable|in:IELTS,TOEFL,Duolingo,Other',
             'english_test_score' => 'sometimes|nullable|string|max:20',
             'english_test_date' => 'sometimes|nullable|date|before_or_equal:today',
-            'level' => 'nullable|in:undergraduate,graduate',
+            'level' => 'nullable|in:undergraduate,masters',
             'program_id' => 'nullable|exists:programs,id',
             'start_term' => 'nullable|string|max:50',
-            'funding_interest' => 'boolean',
+            'needs_dormitory' => 'boolean',
             'motivation_letter' => 'nullable|string|min:100|max:5000',
         ];
     }

@@ -8,9 +8,9 @@ return [
 
     'step_2_title' => 'Contact Info',
 
-    'step_3_title' => 'Academic',
+    'step_3_title' => 'Academic Background',
 
-    'step_4_title' => 'Program',
+    'step_4_title' => 'Programme Selection',
 
-    'step_5_title' => 'Review',
+    'step_5_title' => 'Review and Submit',
 ];

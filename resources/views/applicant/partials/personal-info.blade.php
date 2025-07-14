@@ -79,17 +79,17 @@
 
                         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                             <div>
-                                <label for="nationality" class="block text-sm font-medium text-gray-700">{{ __('applicant/personal-info.nationality')}}
-                                    <span class="text-red-500">*</span></label>
-                                    <select name="nationality"
-                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
-                                    >
-                                    <option value="" class="text-muted-foreground">Select your country</option>
-                                    @foreach (config('countries') as $code => $name)
-                                        <option value="{{ $code }}" @selected(old('nationality', $application->nationality ?? '') == $code)>{{ $name }}</option>
-                                    @endforeach
+                                <label for="family_status" class="block text-sm font-medium text-gray-700">{{ __('applicant/personal-info.family_status')}}
+                                <span class="text-red-500">*</span>
+                                </label>
+                                <select id="family_status" name="family_status"
+                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
+                                >
+                                    <option value="">{{ __('applicant/personal-info.select_family_status')}}</option>
+                                    <option value="1" @selected(old('family_status', $application->family_status ?? '') == '1')>{{ __('applicant/personal-info.family_status_single')}}</option>
+                                    <option value="2" @selected(old('family_status', $application->family_status ?? '') == '2')>{{ __('applicant/personal-info.family_status_married')}}</option>
                                 </select>
-                                @error('nationality')
+                                @error('family_status')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
@@ -106,16 +106,33 @@
                             </div>
                         </div>
 
-                        <div>
-                            <label for="native_language" class="block text-sm font-medium text-gray-700">
-                                {{ __('applicant/personal-info.native_language')}} <span class="text-red-500">*</span>
-                            </label>
-                            <input type="text" id="native_language" name="native_language" placeholder="Enter your native language"
+                        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                            <div>
+                                <label for="nationality" class="block text-sm font-medium text-gray-700">{{ __('applicant/personal-info.nationality')}}
+                                    <span class="text-red-500">*</span></label>
+                                    <select name="nationality"
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
+                                    >
+                                    <option value="" class="text-muted-foreground">Select your country</option>
+                                    @foreach (config('countries') as $code => $name)
+                                        <option value="{{ $code }}" @selected(old('nationality', $application->nationality ?? '') == $code)>{{ $name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('nationality')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div>
+                                <label for="native_language" class="block text-sm font-medium text-gray-700">
+                                    {{ __('applicant/personal-info.native_language')}} <span class="text-red-500">*</span>
+                                </label>
+                                <input type="text" id="native_language" name="native_language" placeholder="Enter your native language"
                                 value="{{ old('native_language', $application->native_language ?? '') }}"
                                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm">
-                            @error('native_language')
+                                @error('native_language')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
+                                @enderror
+                            </div>
                         </div>
 
                         <div class="bg-blue-50 border border-blue-200 rounded-md p-4">

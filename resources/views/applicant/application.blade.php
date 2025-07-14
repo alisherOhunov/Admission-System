@@ -29,129 +29,130 @@
                     @csrf
                     <div x-data="tabStepper()">
                         <div class="mb-8">
-                            <div class="border-b border-gray-200 px-6 py-3">
-                                <nav class="flex justify-center items-center space-x-8">
-                                    <button
-                                        type="button"
-                                        @click="currentStep = 1"
-                                        :class="getButtonClass(1)"
-                                        class="group relative flex flex-col items-center space-y-2 transition-all duration-200 hover:scale-105 rounded-lg p-2 flex-1">
-                                        
-                                        <div class="relative">
-                                            <div
-                                                :class="getCircleClass(1)"
-                                                class="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200"
-                                            >
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="lucide lucide-user w-5 h-5">
-                                                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-                                                    <circle cx="12" cy="7" r="4"></circle>
-                                                </svg>
+                            <div class="border-b border-gray-200 px-6 pt-3 items-center">
+                                <div class="max-w-4xl mx-auto">
+                                    <nav class="flex justify-center">
+                                        <button
+                                            type="button"
+                                            @click="currentStep = 1"
+                                            :class="getButtonClass(1)"
+                                            class="group relative flex flex-col items-center space-y-2 transition-all duration-200 hover:scale-105 p-4 flex-1">
+                                            <div class="relative">
+                                                <div
+                                                    :class="getCircleClass(1)"
+                                                    class="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200"
+                                                >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="lucide lucide-user w-5 h-5">
+                                                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                                                        <circle cx="12" cy="7" r="4"></circle>
+                                                    </svg>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="text-center min-w-0">
-                                            <div :class="getTextClass(1)" class="text-sm font-medium transition-colors duration-200">{{ __('applicant/application.step_1_title')}}</div>
-                                        </div>
-                                    </button>
-                                    <button
-                                        type="button"
-                                        @click="currentStep = 2"
-                                        :class="getButtonClass(2)"
-                                        class="group relative flex flex-col items-center space-y-2 transition-all duration-200 hover:scale-105 rounded-lg p-2 flex-1">
-                                        
-                                        <div class="relative">
-                                            <div
-                                                :class="getCircleClass(2)"
-                                                class="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200"
-                                            >
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="lucide lucide-map-pin w-5 h-5">
-                                                    <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
-                                                    <circle cx="12" cy="10" r="3"></circle>
-                                                </svg>
+                                            <div class="text-center min-w-0">
+                                                <div :class="getTextClass(1)" class="text-sm font-medium transition-colors duration-200">{{ __('applicant/application.step_1_title')}}</div>
                                             </div>
-                                        </div>
-                                        <div class="text-center min-w-0">
-                                            <div :class="getTextClass(2)" class="text-sm font-medium transition-colors duration-200">{{ __('applicant/application.step_2_title')}}</div>
-                                        </div>
-                                    </button>
-                                    <button
-                                        type="button"
-                                        @click="currentStep = 3"
-                                        :class="getButtonClass(3)"
-                                        class="group relative flex flex-col items-center space-y-2 transition-all duration-200 hover:scale-105 rounded-lg p-2 flex-1">
-                                        
-                                        <div class="relative">
-                                            <div
-                                                :class="getCircleClass(3)"
-                                                class="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200"
-                                            >
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="lucide lucide-graduation-cap w-5 h-5">
-                                                    <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path>
-                                                    <path d="M22 10v6"></path>
-                                                    <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path>
-                                                </svg>
+                                        </button>
+                                        <button
+                                            type="button"
+                                            @click="currentStep = 2"
+                                            :class="getButtonClass(2)"
+                                            class="group relative flex flex-col items-center space-y-2 transition-all duration-200 hover:scale-105 p-4 flex-1">
+                                            
+                                            <div class="relative">
+                                                <div
+                                                    :class="getCircleClass(2)"
+                                                    class="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200"
+                                                >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="lucide lucide-map-pin w-5 h-5">
+                                                        <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
+                                                        <circle cx="12" cy="10" r="3"></circle>
+                                                    </svg>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="text-center min-w-0">
-                                            <div :class="getTextClass(3)" class="text-sm font-medium transition-colors duration-200">{{ __('applicant/application.step_3_title')}}</div>
-                                        </div>
-                                    </button>
-
-                                    <button
-                                        type="button"
-                                        @click="currentStep = 4"
-                                        :class="getButtonClass(4)"
-                                        class="group relative flex flex-col items-center space-y-2 transition-all duration-200 hover:scale-105 rounded-lg p-2 flex-1">
-                                        
-                                        <div class="relative">
-                                            <div
-                                                :class="getCircleClass(4)"
-                                                class="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200"
-                                            >
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="lucide lucide-file-text w-5 h-5">
-                                                    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
-                                                    <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
-                                                    <path d="M10 9H8"></path>
-                                                    <path d="M16 13H8"></path>
-                                                    <path d="M16 17H8"></path>
-                                                </svg>
+                                            <div class="text-center min-w-0">
+                                                <div :class="getTextClass(2)" class="text-sm font-medium transition-colors duration-200">{{ __('applicant/application.step_2_title')}}</div>
                                             </div>
-                                        </div>
-                                        <div class="text-center min-w-0">
-                                            <div :class="getTextClass(4)" class="text-sm font-medium transition-colors duration-200">{{ __('applicant/application.step_4_title')}}</div>
-                                        </div>
-                                    </button>
-                                    <button
-                                        type="button"
-                                        @click="currentStep = 5"
-                                        :class="getButtonClass(5)"
-                                        class="group relative flex flex-col items-center space-y-2 transition-all duration-200 hover:scale-105 rounded-lg p-2 flex-1">
-                                        
-                                        <div class="relative">
-                                            <div
-                                                :class="getCircleClass(5)"
-                                                class="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200"
-                                            >
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="lucide lucide-eye w-5 h-5">
-                                                    <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path>
-                                                    <circle cx="12" cy="12" r="3"></circle>
-                                                </svg>
+                                        </button>
+                                        <button
+                                            type="button"
+                                            @click="currentStep = 3"
+                                            :class="getButtonClass(3)"
+                                            class="group relative flex flex-col items-center space-y-2 transition-all duration-200 hover:scale-105 p-4 flex-1">
+                                            
+                                            <div class="relative">
+                                                <div
+                                                    :class="getCircleClass(3)"
+                                                    class="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200"
+                                                >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="lucide lucide-graduation-cap w-5 h-5">
+                                                        <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path>
+                                                        <path d="M22 10v6"></path>
+                                                        <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path>
+                                                    </svg>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="text-center min-w-0">
-                                            <div :class="getTextClass(5)" class="text-sm font-medium transition-colors duration-200">{{ __('applicant/application.step_5_title')}}</div>
-                                        </div>
-                                    </button>
-                                </nav>
+                                            <div class="text-center min-w-0">
+                                                <div :class="getTextClass(3)" class="text-sm font-medium transition-colors duration-200">{{ __('applicant/application.step_3_title')}}</div>
+                                            </div>
+                                        </button>
+    
+                                        <button
+                                            type="button"
+                                            @click="currentStep = 4"
+                                            :class="getButtonClass(4)"
+                                            class="group relative flex flex-col items-center space-y-2 transition-all duration-200 hover:scale-105 p-4 flex-1">
+                                            
+                                            <div class="relative">
+                                                <div
+                                                    :class="getCircleClass(4)"
+                                                    class="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200"
+                                                >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="lucide lucide-file-text w-5 h-5">
+                                                        <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
+                                                        <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+                                                        <path d="M10 9H8"></path>
+                                                        <path d="M16 13H8"></path>
+                                                        <path d="M16 17H8"></path>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="text-center min-w-0">
+                                                <div :class="getTextClass(4)" class="text-sm font-medium transition-colors duration-200">{{ __('applicant/application.step_4_title')}}</div>
+                                            </div>
+                                        </button>
+                                        <button
+                                            type="button"
+                                            @click="currentStep = 5"
+                                            :class="getButtonClass(5)"
+                                            class="group relative flex flex-col items-center space-y-2 transition-all duration-200 hover:scale-105 p-4 flex-1">
+                                            
+                                            <div class="relative">
+                                                <div
+                                                    :class="getCircleClass(5)"
+                                                    class="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200"
+                                                >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="lucide lucide-eye w-5 h-5">
+                                                        <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path>
+                                                        <circle cx="12" cy="12" r="3"></circle>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="text-center min-w-0">
+                                                <div :class="getTextClass(5)" class="text-sm font-medium transition-colors duration-200">{{ __('applicant/application.step_5_title')}}</div>
+                                            </div>
+                                        </button>
+                                    </nav>
+                                </div>
                             </div>
                         </div>
 
@@ -263,7 +264,15 @@
             },
             
             getButtonClass(step) {
-                return this.hasErrors(step) ? this.buttonError : '';
+                if (this.hasErrors(step)) {
+                    return this.buttonError;
+                }
+                
+                if (this.currentStep === step) {
+                    return 'border-b-2 border-blue-600 transition-colors duration-200';
+                }
+                
+                return 'border-b-2 border-transparent hover:border-gray-400 transition-colors duration-200';
             },
             
             getCircleClass(step) {

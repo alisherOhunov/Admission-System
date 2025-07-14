@@ -20,7 +20,7 @@ return [
     'status.rejected' => 'Rejected',
     'status.require_resubmit' => 'Require Resubmit',
     'application_details' => 'Application Details',
-    'applicant_information' => 'Applicant Information',
+    'personal_info' => 'Personal Info',
     'program_information' => 'Program Information',
     'academic_background' => 'Academic Background',
     'motivation_letter' => 'Motivation Letter',

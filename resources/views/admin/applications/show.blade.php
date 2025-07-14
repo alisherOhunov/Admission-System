@@ -173,7 +173,7 @@
                                         </svg>
                                     </span>
                                     <h4 class="text-lg font-semibold text-gray-900">
-                                        {{ __('admin/show.applicant_information') }}
+                                        {{ __('applicant/review-and-submit.personal_information') }}
                                     </h4>
                                 </div>
                             </div>
@@ -592,9 +592,10 @@
                                     </div>
 
                                     <div class="flex items-center space-x-2">
-                                        <input type="checkbox" disabled
-                                            {{ $application->funding_interest ? 'checked' : '' }} readonly
-                                            class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+                                    <input type="checkbox"
+                                        disabled
+                                        class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                        @checked($application->needs_dormitory) />
                                         <span class="text-sm text-gray-700">
                                             {{ __('applicant/review-and-submit.scholarship_interest') }}
                                         </span>

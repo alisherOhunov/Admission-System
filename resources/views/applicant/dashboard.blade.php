@@ -184,28 +184,26 @@
                                         <p class="text-sm text-gray-500">{{ __('applicant/dashboard.review_note')}}</p>
                                     </div>
                                 </div>
-                                @if($application->status === 'accepted')
+                                @if(in_array($application->status, ['accepted', 'rejected', 'require_resubmit']))
                                     <div class="flex items-start space-x-3">
                                         <div class="flex-shrink-0">
-                                             <svg class="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                            <svg class="h-5 w-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                             </svg>
                                         </div>
                                         <div class="flex-1">
-                                            <p class="text-sm font-medium text-gray-900">{{ __('applicant/dashboard.accepted')}}</p>
-                                            <p class="text-sm text-gray-500">{{ __('applicant/dashboard.accepted_note')}}</p>
-                                        </div>
-                                    </div>
-                                @elseif($application->status === 'rejected')
-                                    <div class="flex items-start space-x-3">
-                                        <div class="flex-shrink-0">
-                                            <svg class="h-5 w-5 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                            </svg>
-                                        </div>
-                                        <div class="flex-1">
-                                            <p class="text-sm font-medium text-gray-900">{{ __('applicant/dashboard.rejected')}}</p>
-                                            <p class="text-sm text-gray-500">{{ __('applicant/dashboard.rejected_note')}}</p>
+                                            <p class="text-sm font-medium text-gray-900">
+                                                @if($application->status === 'accepted')
+                                                    {{ __('applicant/dashboard.accepted') }}
+                                                @elseif($application->status === 'rejected')
+                                                    {{ __('applicant/dashboard.rejected') }}
+                                                @elseif($application->status === 'require_resubmit')
+                                                    {{ __('applicant/dashboard.require_resubmit') }}
+                                                @endif
+                                            </p>
+                                            <p class="text-sm text-gray-500">
+                                                {{ $application->updated_at->format('M d, Y') }}
+                                            </p>
                                         </div>
                                     </div>
                                 @endif

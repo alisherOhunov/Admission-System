@@ -32,17 +32,17 @@
                                     {{ __('applicant/program-choice.academic_program') }}</p>
                             </div>
                             <div>
-                                <label for="degree_level"
-                                    class="block text-sm font-medium text-gray-700">{{ __('applicant/program-choice.degree_level') }}<span
+                                <label for="level"
+                                    class="block text-sm font-medium text-gray-700">{{ __('applicant/program-choice.level') }}<span
                                         class="text-red-500">*</span></label>
-                                <select id="degree_level" name="degree_level"
+                                <select id="level" name="level"
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                                    <option value="masters">{{ __('applicant/program-choice.graduate') }}</option>
-                                    <option value="undergraduate">{{ __('applicant/program-choice.undergraduate') }}
-                                    </option>
+                                    <option value="">{{ __('applicant/program-choice.select_degree_level') }}</option>
+                                    <option value="masters" @selected(old('level', $application->level ?? '') == 'masters')>{{ __('applicant/program-choice.graduate') }}</option>
+                                    <option value="undergraduate" @selected(old('level', $application->level ?? '') == 'undergraduate')>{{ __('applicant/program-choice.undergraduate') }}</option>
                                 </select>
                                 <p class="mt-2 text-gray-500">
-                                    {{ __('applicant/program-choice.degree_level_placeholder') }}</p>
+                                    {{ __('applicant/program-choice.level_placeholder') }}</p>
                             </div>
 
                             <div>
@@ -89,14 +89,14 @@
                             </div>
                             <div class="mt-4">
                                 <div class="flex items-center">
-                                    <input id="funding_interest" name="funding_interest" type="checkbox" value="1"
+                                    <input id="needs_dormitory" name="needs_dormitory" type="checkbox" value="1"
                                         class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
-                                        @checked(old('funding_interest', $application->funding_interest ?? false))>
-                                    <label for="funding_interest" class="ml-2 block text-sm text-gray-700">
-                                        {{ __('applicant/program-choice.funding_interest') }}
+                                        @checked(old('needs_dormitory', $application->needs_dormitory ?? false))>
+                                    <label for="needs_dormitory" class="ml-2 block text-sm text-gray-700">
+                                        {{ __('applicant/program-choice.needs_dormitory') }}
                                     </label>
                                 </div>
-                                @error('funding_interest')
+                                @error('needs_dormitory')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>

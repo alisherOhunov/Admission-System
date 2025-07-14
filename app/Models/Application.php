@@ -15,6 +15,7 @@ class Application extends Model
         'application_period_id',
         'level',
         'nationality',
+        'family_status',
         'passport_number',
         'date_of_birth',
         'gender',
@@ -29,7 +30,7 @@ class Application extends Model
         'english_test_score',
         'english_test_date',
         'start_term',
-        'funding_interest',
+        'needs_dormitory',
         'motivation_letter',
         'status',
         'submitted_at',
@@ -46,7 +47,7 @@ class Application extends Model
         'graduation_date' => 'date',
         'english_test_date' => 'date',
         'submitted_at' => 'datetime',
-        'funding_interest' => 'boolean',
+        'needs_dormitory' => 'boolean',
         'current_address' => 'array',
     ];
 
