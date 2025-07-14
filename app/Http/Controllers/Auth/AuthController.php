@@ -19,6 +19,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'h-captcha-response' => 'required|captcha',
             'email' => 'required|email',
             'password' => 'required|min:8',
         ]);
@@ -54,6 +55,7 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'h-captcha-response' => 'required|captcha',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',

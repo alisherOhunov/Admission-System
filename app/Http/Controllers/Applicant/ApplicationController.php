@@ -180,6 +180,9 @@ class ApplicationController extends Controller
         try {
             $document = Document::where('application_id', $application_id)
                 ->where('id', $file_id)
+                ->whereHas('application', function ($query) {
+                    $query->where('user_id', auth()->id());
+                })
                 ->firstOrFail();
 
             $path = 'documents/'.$application_id.'/'.$document->filename;
@@ -205,6 +208,9 @@ class ApplicationController extends Controller
         try {
             $document = Document::where('application_id', $application_id)
                 ->where('id', $file_id)
+                ->whereHas('application', function ($query) {
+                    $query->where('user_id', auth()->id());
+                })
                 ->firstOrFail();
 
             $path = 'documents/'.$application_id.'/'.$document->filename;
@@ -237,6 +243,9 @@ class ApplicationController extends Controller
         try {
             $document = Document::where('application_id', $application_id)
                 ->where('id', $file_id)
+                ->whereHas('application', function ($query) {
+                    $query->where('user_id', auth()->id());
+                })
                 ->firstOrFail();
 
             $path = 'documents/'.$application_id.'/'.$document->filename;

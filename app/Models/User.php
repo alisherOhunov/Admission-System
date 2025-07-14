@@ -13,9 +13,9 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
-    const ROLE_APPLICANT = 1;
+    public const ROLE_APPLICANT = 1;
 
-    const ROLE_ADMIN = 2;
+    public const ROLE_ADMIN = 2;
 
     protected $fillable = [
         'first_name',

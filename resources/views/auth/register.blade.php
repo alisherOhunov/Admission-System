@@ -171,6 +171,10 @@
                             </label>
                         </div>
 
+                        <div class="flex justify-center mb-4">
+                            {!! app('captcha')->display() !!}
+                        </div>
+                        
                         <button type="submit"
                                 class="w-full flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors">
                             <span>{{ __('auth.create_account') }}</span>

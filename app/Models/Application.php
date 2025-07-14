@@ -80,16 +80,6 @@ class Application extends Model
             ->keyBy('type');
     }
 
-    public function permanentAddress()
-    {
-        return $this->belongsTo(Address::class, 'permanent_address_id');
-    }
-
-    public function currentAddress()
-    {
-        return $this->belongsTo(Address::class, 'current_address_id');
-    }
-
     // Status Helpers
     public function isDraft()
     {
