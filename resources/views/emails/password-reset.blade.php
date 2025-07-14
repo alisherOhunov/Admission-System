@@ -16,7 +16,7 @@
                             <td style="text-align: center; padding: 30px 30px 0;">
                                 <div style="margin-bottom: 20px;">
                                     <div style="display: inline-block;">
-                                        <img src="https://iili.io/FMJuTnj.png" alt="Logo"
+                                        <img src="https://admission.myprojects.uz/favicon.ico" alt="Logo"
                                             width="48" height="48" style="display: block;">
                                     </div>
                                     <div style="font-size: 24px; font-weight: 600; color: #111827;">EduAdmit</div>

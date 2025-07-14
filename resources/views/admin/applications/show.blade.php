@@ -592,10 +592,9 @@
                                     </div>
 
                                     <div class="flex items-center space-x-2">
-                                    <input type="checkbox"
-                                        disabled
-                                        class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                                        @checked($application->needs_dormitory) />
+                                        <input type="checkbox" disabled
+                                            class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                            @checked($application->needs_dormitory) />
                                         <span class="text-sm text-gray-700">
                                             {{ __('applicant/review-and-submit.scholarship_interest') }}
                                         </span>
@@ -708,32 +707,34 @@
                                     </div>
                                     <div class="flex-1">
                                         <p class="text-sm font-medium text-gray-900">
-                                              {{ __('admin/show.application') .' '. __('admin/show.status.under_review') }}
+                                            {{ __('admin/show.application') . ' ' . __('admin/show.status.under_review') }}
                                         </p>
                                     </div>
                                 </div>
-                                @if ($application->status !== 'under_review' && $application->status !== 'draft')
-                                    <div class="flex" id="timeline-status-display">
-                                        <div class="mr-3 mt-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                class="lucide lucide-circle-check-big h-5 w-5 {{ $statusData['svg_color'] }}">
-                                                <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
-                                                <path d="m9 11 3 3L22 4"></path>
-                                            </svg>
-                                        </div>
-                                        <div class="flex-1 mt-2">
-                                            <p class="text-sm font-medium text-gray-900" id="timeline-status-badge">
-                                                {{ __('admin/show.application') }}
-                                                {{ ucwords(str_replace('_', ' ', $status)) }}
-                                            </p>
-                                            <p class="text-xs text-gray-500">
-                                                {{ $application->updated_at->format('Y/m/d') }}
-                                            </p>
-                                        </div>
+                                <div class="flex" id="timeline-status-display" x-data="{ applicationStatus: '{{ $application->status }}' }"
+                                    x-show="applicationStatus !== 'under_review' && applicationStatus !== 'draft' && applicationStatus !== 'submitted'"
+                                    x-transition>
+                                    <div class="mr-3 mt-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="lucide lucide-circle-check-big h-5 w-5 {{ $statusData['svg_color'] }}">
+                                            <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
+                                            <path d="m9 11 3 3L22 4"></path>
+                                        </svg>
                                     </div>
-                                @endif
+                                    <div class="flex-1 mt-2">
+                                        <p class="text-sm font-medium text-gray-900">
+                                            <span>{{ __('admin/show.application') }} </span>
+                                            <span
+                                                id="timeline-status-badge">{{ ucwords(str_replace('_', ' ', $status)) }}
+                                            </span>
+                                        </p>
+                                        <p class="text-xs text-gray-500">
+                                            {{ $application->updated_at->format('Y/m/d') }}
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -754,10 +755,10 @@
                     const currentStatusDisplay = document.getElementById('current-status-display');
                     const timelineStatusDisplay = document.getElementById('timeline-status-display');
                     const statusClasses = {
-                        'rejected': 'bg-red-100 text-red-800 hover:bg-red-200',
+                        'rejected': 'bg-red-100 text-red-500 hover:bg-red-200',
                         'under_review': 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200',
-                        'require_resubmit': 'bg-blue-100 text-blue-800 hover:bg-blue-200',
-                        'accepted': 'bg-green-100 text-green-800 hover:bg-green-200'
+                        'require_resubmit': 'bg-blue-100 text-blue-500 hover:bg-blue-200',
+                        'accepted': 'bg-green-100 text-green-500 hover:bg-green-200'
                     };
 
                     Object.values(statusClasses).forEach(cls => {
@@ -767,26 +768,30 @@
                     const newStatusClass = statusClasses[response.status] || 'bg-gray-100 text-gray-800';
                     statusBadge.classList.add(...newStatusClass.split(' '));
                     statusBadge.textContent = newStatus;
-                    timelineStatusBadge.textContent = newStatus;
 
-                    if (currentStatusDisplay) {
-                        currentStatusDisplay.classList.add(...newStatusClass.split(' '));
-                        currentStatusDisplay.textContent = newStatus;
+                    if (timelineStatusBadge) {
+                        timelineStatusBadge.textContent = newStatus;
                     }
 
-                    if (response.status === 'under_review') {
-                        timelineStatusDisplay.classList.add('hidden');
-                    }
+                    currentStatusDisplay.classList.add(...newStatusClass.split(' '));
+                    currentStatusDisplay.textContent = newStatus;
 
-                    const svgIcon = timelineStatusDisplay.querySelector('svg');
-                    if (svgIcon) {
-                        Object.values(statusClasses).forEach(cls => {
-                            const colorClass = cls.split(' ').find(c => c.startsWith('text-'));
-                            if (colorClass) svgIcon.classList.remove(colorClass);
-                        });
+                    if (timelineStatusDisplay) {
+                        const alpineComponent = Alpine.$data(timelineStatusDisplay);
+                        if (alpineComponent) {
+                            alpineComponent.applicationStatus = response.status;
+                        }
+                        const svgIcon = timelineStatusDisplay.querySelector('svg');
+                        if (svgIcon) {
+                            Object.values(statusClasses).forEach(cls => {
+                                const colorClass = cls.split(' ').find(c => c.startsWith('text-'));
+                                if (colorClass) svgIcon.classList.remove(colorClass);
+                            });
 
-                        const newTextColor = newStatusClass.split(' ').find(c => c.startsWith('text-'));
-                        if (newTextColor) svgIcon.classList.add(newTextColor);
+                            const newStatusClass = statusClasses[response.status] || 'bg-gray-100 text-gray-800';
+                            const newTextColor = newStatusClass.split(' ').find(c => c.startsWith('text-'));
+                            if (newTextColor) svgIcon.classList.add(newTextColor);
+                        }
                     }
 
                     if (response.status === 'accepted' || response.status === 'require_resubmit') {
@@ -796,6 +801,7 @@
                             updateButton.textContent = 'Status Locked';
                         }
                     }
+
                     document.dispatchEvent(new CustomEvent('close-status-modal'));
                 }
             }
