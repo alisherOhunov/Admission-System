@@ -84,12 +84,12 @@
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
-                            <div class="mt-4">
+                            <div>
                                 <div class="flex items-center">
                                     <input id="needs_dormitory" name="needs_dormitory" type="checkbox" value="1"
                                         class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
                                         @checked(old('needs_dormitory', $application->needs_dormitory ?? false))>
-                                    <label for="needs_dormitory" class="ml-2 block text-sm text-gray-700">
+                                    <label for="needs_dormitory" class="ml-2 mt-4 block text-sm text-gray-700">
                                         {{ __('applicant/program-choice.needs_dormitory') }}
                                     </label>
                                 </div>
