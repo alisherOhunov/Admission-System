@@ -45,7 +45,7 @@
                                     <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5">
                                     </path>
                                 </svg>
-                                <span class="text-xl font-bold text-gray-900">{{ config('app.platform_name') }}</span>
+                                <span class="text-xl font-bold text-gray-900">{{ config('app.name') }}</span>
                             </a>
                         </div>
 
