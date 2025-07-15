@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Admin Dashboard - EduAdmit')
+@section('title', 'Admin Dashboard - ' . config('app.name'))
 
 @section('content')
 <div class="py-8">
@@ -128,9 +128,9 @@
             </div>
 
             <!-- Sidebar -->
-            <div class="space-y-6 text-center">
+            <div class="space-y-6">
                 <!-- Quick Actions -->
-                <div class="bg-white shadow-sm rounded-2xl">
+                <div class="bg-white shadow-sm rounded-2xl text-center">
                     <div class="p-6">
                         <h3 class="text-2xl font-medium text-gray-900 mb-4">{{ __('admin/dashboard.quick_actions') }}</h3>
                         <div class="space-y-3">
@@ -146,6 +146,36 @@
                         </div>
                     </div>
                 </div>
+
+                 <!-- Application Period -->
+                @if($currentPeriod)
+                <div class="bg-white shadow-sm rounded-2xl">
+                    <div>
+                        <div class="border-b border-gray-200 py-4">
+                            <h3 class="text-2xl font-medium text-gray-900 mb-4 text-center">{{ __('applicant/dashboard.application_period')}}</h3>
+                        </div>
+                        <div class="p-6">
+                            <div class="mb-4">
+                                <h4 class="font-bold text-gray-900">{{ $currentPeriod->name }}</h4>
+                                <span class="text-sm text-gray-600">{{ __('applicant/dashboard.currently_active')}}</span>
+                            </div>
+                            <div class="space-y-1 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">{{ __('applicant/dashboard.start_date')}}</span>
+                                    <span>{{ \Carbon\Carbon::parse($currentPeriod->start_date)->format('m/d/Y') }}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">{{ __('applicant/dashboard.end_date')}}</span>
+                                    <span>{{ \Carbon\Carbon::parse($currentPeriod->end_date)->format('m/d/Y') }}</span>
+                                </div>
+                            </div>
+                            <span class="mt-4 inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                                {{ __('applicant/dashboard.active')}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                @endif
 
                 <!-- Application Status Breakdown -->
                 <div class="bg-white shadow-sm rounded-2xl">

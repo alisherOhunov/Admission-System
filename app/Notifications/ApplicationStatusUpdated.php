@@ -39,7 +39,7 @@ class ApplicationStatusUpdated extends Notification
         $statusMessages = $this->getStatusMessages();
 
         return (new MailMessage)
-            ->subject('Application Status Update - EduAdmit')
+            ->subject('Application Status Update - '.config('app.name'))
             ->view('emails.application-status-updated', [
                 'application' => $this->application,
                 'user' => $notifiable,

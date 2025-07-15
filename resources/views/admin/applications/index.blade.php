@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Manage Applications - EduAdmit')
+@section('title', 'Manage Applications - ' . config('app.name'))
 
 @section('content')
 <div class="py-8 text-center">
@@ -50,6 +50,8 @@
                             <option value="under_review" {{ request('status') == 'under_review' ? 'selected' : '' }}>{{ __('admin/index.status_under_review')}}</option>
                             <option value="accepted" {{ request('status') == 'accepted' ? 'selected' : '' }}>{{ __('admin/index.status_accepted')}}</option>
                             <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>{{ __('admin/index.status_rejected')}}</option>
+                            <option value="require_resubmit" {{ request('status') == 'require_resubmit' ? 'selected' : '' }}>{{ __('admin/index.status_require_resubmit')}}</option>
+                            <option value="re_submitted" {{ request('status') == 're_submitted' ? 'selected' : '' }}>{{ __('admin/index.status_re_submitted')}}</option>
                         </select>
 
                         <!-- Level Filter -->
@@ -62,8 +64,8 @@
                                 hx-indicator="#loading-indicator"
                                 hx-swap="innerHTML">
                             <option value="">{{ __('admin/index.level_all')}}</option>
-                            <option value="undergraduate" {{ request('level') == 'undergraduate' ? 'selected' : '' }}>{{ __('admin/index.level_undergraduate')}}</option>
-                            <option value="graduate" {{ request('level') == 'graduate' ? 'selected' : '' }}>{{ __('admin/index.level_graduate')}}</option>
+                            <option value="masters" {{ request('level') == 'masters' ? 'selected' : '' }}>{{ __('admin/index.level_masters')}}</option>
+                            <option value="bachelors" {{ request('level') == 'bachelors' ? 'selected' : '' }}>{{ __('admin/index.level_bachelors')}}</option>
                         </select>
 
                         <!-- Loading Indicator -->

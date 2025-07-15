@@ -12,7 +12,7 @@ class CustomVerifyEmail extends BaseVerifyEmail
         $verificationUrl = $this->verificationUrl($notifiable);
 
         return (new MailMessage)
-            ->subject('Verify Your Email Address - EduAdmit')
+            ->subject('Verify Your Email Address - '.config('app.name'))
             ->view('emails.verify-email', [
                 'verificationUrl' => $verificationUrl,
             ]);

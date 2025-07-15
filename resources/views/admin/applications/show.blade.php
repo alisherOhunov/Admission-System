@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Admin Dashboard - EduAdmit')
+@section('title', 'Admin Dashboard - ' . config('app.name'))
 
 @section('content')
     <div class="min-h-screen bg-gray-50">

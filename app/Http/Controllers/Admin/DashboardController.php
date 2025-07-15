@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Application;
+use App\Models\ApplicationPeriod;
 
 class DashboardController extends Controller
 {
@@ -20,11 +21,13 @@ class DashboardController extends Controller
             'require_resubmit' => Application::byStatus('require_resubmit')->count(),
         ];
 
+        $currentPeriod = ApplicationPeriod::where('is_active', true)->first();
+
         $recentApplications = Application::with(['user', 'program'])
             ->latest('submitted_at')
             ->limit(5)
             ->get();
 
-        return view('admin.dashboard', compact('stats', 'recentApplications'));
+        return view('admin.dashboard', compact('stats', 'recentApplications', 'currentPeriod'));
     }
 }

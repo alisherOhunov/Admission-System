@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', 'EduAdmit - International Student Admission Platform')</title>
+    <title>@yield('title', config('app.name') .' - International Student Admission Platform')</title>
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -45,7 +45,7 @@
                                     <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5">
                                     </path>
                                 </svg>
-                                <span class="text-xl font-bold text-gray-900">Online admission system</span>
+                                <span class="text-xl font-bold text-gray-900">{{ config('app.platform_name') }}</span>
                             </a>
                         </div>
 

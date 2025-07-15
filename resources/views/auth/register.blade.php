@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Register - EduAdmit</title>
+    <title>Register - {{ config('app.name') }}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -13,13 +13,13 @@
     <div class="min-h-screen flex flex-col justify-center py-12">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <div class="flex justify-center items-center space-x-1">
-                <svg class="h-10 w-10 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="h-10 w-10 text-gray-600" fill="none" stroke="#2563EB" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path>
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
                 </svg>
-                <span class="text-2xl font-bold text-gray-900">EduAdmit</span>
+                <span class="text-2xl font-bold text-gray-900">{{ config('app.name') }}</span>
             </div>
-            <h2 class="mt-5 text-center text-3xl font-bold tracking-tight text-gray-900">
+            <h2 class="mt-5 text-center text-2xl font-bold tracking-tight text-gray-900">
                 {{ __('auth.title') }}
             </h2>
             <p class="mt-2 text-center text-sm text-gray-600">

@@ -21,7 +21,7 @@
                                     <img src="https://admission.myprojects.uz/favicon.ico" alt="Logo"
                                         width="48" height="48" style="display: block;">
                                 </div>
-                                <div style="font-size: 24px; font-weight: 600; color: #111827;">EduAdmit</div>
+                                <div style="font-size: 24px; font-weight: 600; color: #111827;">{{ config('app.name') }}</div>
                             </div>
                         </td>
                     </tr>
@@ -74,7 +74,7 @@
 
                             <div style="font-size: 14px; color: #6b7280; margin-bottom: 20px;">
                                 Best regards,<br>
-                                EduAdmit Admissions Team
+                                {{ config('app.name') }} Admissions Team
                             </div>
                         </td>
                     </tr>
@@ -83,7 +83,7 @@
                     <tr>
                         <td
                             style="padding: 20px 30px; text-align: center; font-size: 12px; color: #9ca3af; background-color: #f9fafb; border-top: 1px solid #e5e7eb;">
-                            © {{ date('Y') }} EduAdmit. All rights reserved.
+                            © {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
                         </td>
                     </tr>
                 </table>

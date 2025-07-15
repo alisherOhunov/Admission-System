@@ -3,9 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EduAdmit - International Student Admission Platform</title>
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-    <!-- Scripts -->
+    <title>{{ config('app.name') }} - International Student Admission Platform</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
   </head>
   <body class="bg-gradient-to-br from-blue-50 to-white">
@@ -33,7 +31,7 @@
                 d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
               ></path>
             </svg>
-            <span class="text-xl font-bold text-gray-900">Online admission system</span>
+            <span class="text-xl font-bold text-gray-900">{{ config('app.platform_name') }}</span>
           </div>
 
           <div class="flex items-center space-x-4">
@@ -62,7 +60,7 @@
             <span class="text-blue-600">Admission for international students</span>
           </h1>
           <p class="mt-6 text-lg leading-8 text-gray-600 max-w-3xl mx-auto">
-            Apply to our blue with confidence and ease.
+            Apply to our university with confidence and ease.
           </p>
           <div class="mt-10 flex items-center justify-center gap-x-6">
             <a
@@ -185,7 +183,7 @@
         <div
           class="mt-8 pt-8 text-center text-gray-400"
         >
-          <p>&copy; 2025 Tashkent state blue of oriental studies. All rights reserved.</p>
+          <p>©️ 2025 Tashkent state university of oriental studies. All rights reserved.</p>
       </div>
       </div>
     </footer>
