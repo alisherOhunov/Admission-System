@@ -22,7 +22,7 @@ return [
     'create_account' => 'Create Account',
     'enter_your_email' => 'Enter your email',
     'create_password' => 'Create a password',
-    'enter_password' => 'Enter a password',
+    'enter_password' => 'Enter your password',
     'confirm_your_password' => 'Confirm your password',
     'and' => 'and',
     'or' => 'Or',
