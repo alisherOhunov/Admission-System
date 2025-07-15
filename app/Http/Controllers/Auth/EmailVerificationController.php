@@ -33,7 +33,9 @@ class EmailVerificationController extends Controller
             return redirect()->route('applicant.dashboard');
         }
 
-        $request->user()->sendEmailVerificationNotification();
+        dispatch(function () use ($request) {
+            $request->user()->sendEmailVerificationNotification();
+        })->afterResponse();
 
         return back()->with('message', 'Verification link sent!');
     }

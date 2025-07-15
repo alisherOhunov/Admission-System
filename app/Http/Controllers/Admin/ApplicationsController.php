@@ -82,7 +82,9 @@ class ApplicationsController extends Controller
 
         if ($oldStatus !== $request->status) {
             $application->load('user');
-            $application->user->notify(new ApplicationStatusUpdated($application));
+            dispatch(function () use ($application) {
+                $application->user->notify(new ApplicationStatusUpdated($application));
+            })->afterResponse();
         }
 
         return response()->json([
