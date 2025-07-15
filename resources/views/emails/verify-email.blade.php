@@ -55,7 +55,7 @@
 
                             <div style="font-size: 14px; color: #6b7280; margin-bottom: 20px;">
                                 Regards,<br>
-                                {{ config('app.name') }}
+                                {{ config('app.name') }} Team
                             </div>
 
                             <div
