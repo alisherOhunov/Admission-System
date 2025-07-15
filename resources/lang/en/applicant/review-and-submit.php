@@ -54,4 +54,5 @@ return [
     'previous' => 'Previous',
     'save_progress' => 'Save Progress',
     'submit_application' => 'Submit Application',
+    'uploaded_documents' => 'Uploaded Documents',
 ];

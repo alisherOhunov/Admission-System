@@ -39,12 +39,12 @@
                         </div>
                     </div>
                     <div class="p-6 pt-4">
-                        @if($application && $application->status !== 'draft' && !empty($application->submitted_at))
+                        @if($application)
                             <!-- Submitted Application -->
                             <div class="space-y-4">
                                 <div class="flex items-center justify-between">
                                     <div>
-                                        <h4 class="font-medium text-gray-900">{{ $selectedProgram->name ?? __('dashboard.program_choice') }}</h4>
+                                        <h4 class="font-medium text-gray-900">{{ $selectedProgram->name ?? __('applicant/dashboard.program_choice') }}</h4>
                                         <p class="text-sm text-gray-500">{{ __('applicant/dashboard.application_id')}} {{ $application->id }}</p>
                                     </div>
                                     @php $statusData = $application->getStatusData() @endphp
@@ -56,7 +56,7 @@
                                 <div class="space-y-2 text-sm">
                                     <div class="flex justify-between">
                                         <span>{{ __('applicant/dashboard.submitted_on') }}</span>
-                                        <span>{{ $application->submitted_at->format('F j, Y') }}</span>
+                                        <span> {{ $application->submitted_at ? $application->submitted_at->format('F j, Y') : __('applicant/dashboard.not_submitted_yet') }}</span>
                                     </div>
                                     <div class="flex justify-between">
                                         <span>{{ __('applicant/dashboard.last_updated') }}</span>
