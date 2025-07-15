@@ -247,7 +247,8 @@
                 });
 
                 if (this.currentStep === 5) {
-                    this.collectAllFormData();
+                    // Add delay on page load to ensure programSelector component has finished
+                    setTimeout(() => this.collectAllFormData(), 200);
                 };
 
                 window.addEventListener('document-changed', (event) => {
@@ -287,11 +288,15 @@
             },
             
             collectAllFormData() {
+                const programSelect = document.querySelector('#program_of_study');
+                console.log('Program select value:', programSelect?.value);
+                console.log('Program select options:', programSelect?.options.length);
                 const allInputs = document.querySelectorAll('#form-content input, #form-content select, #form-content textarea');
                 const allData = {};
                 
                 allInputs.forEach(input => {
                     if (input.name) {
+                        console.log(`${input.name}: ${input.value}`);
                         if (input.type === 'checkbox') {
                             allData[input.name] = input.checked;
                         } else {
@@ -314,7 +319,20 @@
 
             getDocuments() {
                 return this.documents;
-            }
+            },
+
+            getProgramName(programId) {
+                const programs = @json($programs);
+                console.log(programs);
+                for (const level in programs) {
+                    const program = programs[level].find(p => p.id == programId);
+                    if (program) {
+                        console.log(program);
+                        return program.name;
+                    }
+                }
+                return '';
+            },
         }
     }
 

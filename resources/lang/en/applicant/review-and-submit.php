@@ -42,7 +42,6 @@ return [
     'school_name' => 'School of Engineering',
     'start_term' => 'Start Term',
     'fall_2024' => 'Fall 2024',
-    'needs_dormitory' => 'Needs a dormitory for accommodation during studies',
     'motivation_letter' => 'Motivation Letter',
     'characters' => 'characters',
     'before_submitting' => 'Before Submitting',

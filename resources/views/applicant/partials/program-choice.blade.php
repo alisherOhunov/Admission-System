@@ -75,8 +75,6 @@
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                                     <option value="">{{ __('applicant/program-choice.select_start_term') }}
                                     </option>
-                                    <option value="spring2025" @selected(old('start_term', $application->start_term ?? '') == 'spring2025')>Spring 2025</option>
-                                    <option value="fall2024" @selected(old('start_term', $application->start_term ?? '') == 'fall2024')>Fall 2024</option>
                                     <option value="fall2025" @selected(old('start_term', $application->start_term ?? '') == 'fall2025')>Fall 2025</option>
                                     <option value="spring2026" @selected(old('start_term', $application->start_term ?? '') == 'spring2026')>Spring 2026</option>
                                 </select>
@@ -98,51 +96,6 @@
                                 @error('needs_dormitory')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
-                            </div>
-                            <div class="grid grid-cols-1 gap-6">
-                                <div
-                                    class=" items-start rounded-md border border-blue-200 bg-blue-50 p-4 text-blue-black">
-                                    <div class="flex items-center space-x-3 mb-10">
-                                        <div
-                                            class="flex items-center justify-center w-10 h-10 rounded-lg bg-blue-100 text-blue-600">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                class="lucide lucide-book-open h-5 w-5">
-                                                <path d="M12 7v14"></path>
-                                                <path
-                                                    d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z">
-                                                </path>
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <h4 class="text-lg font-semibold text-slate-900">
-                                                {{ __('applicant/program-choice.program_preview_title') }}</h4>
-                                            <p class="text-slate-600">
-                                                {{ __('applicant/program-choice.program_preview_subtitle') }}</p>
-                                        </div>
-                                        <div
-                                            class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent hover:bg-secondary/80 bg-blue-100 text-blue-800 capitalize">
-                                            {{ __('applicant/program-choice.program_preview_level') }}</div>
-                                    </div>
-
-                                    <div class="ml-3 text-left">
-                                        <h4 class="text-sm font-medium mb-2">
-                                            {{ __('applicant/program-choice.program_overview') }}
-                                        </h4>
-                                        <p class="mb-4">
-                                            {{ __('applicant/program-choice.program_overview_description') }}</p>
-                                        <h4 class="text-sm font-medium mb-2">
-                                            {{ __('applicant/program-choice.program_requirements') }}
-                                        </h4>
-                                        <ul class="text-sm space-y-1">
-                                            <li>{{ __('applicant/program-choice.requirement_bachelors') }}</li>
-                                            <li>{{ __('applicant/program-choice.requirement_programming') }}</li>
-                                            <li>{{ __('applicant/program-choice.requirement_statistics') }}</li>
-                                            <li>{{ __('applicant/program-choice.requirement_english') }}</li>
-                                        </ul>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <div x-data="{ text: '', min: 100 }" class="grid grid-cols-1 gap-4 pb-10">

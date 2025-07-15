@@ -443,22 +443,16 @@
                                     <p class="text-sm font-medium text-gray-700">
                                         {{ __('applicant/review-and-submit.selected_program') }}
                                     </p>
-                                    <p class="text-lg font-semibold text-gray-900">
-                                        {{ __('applicant/review-and-submit.program_name') }}
+                                    <p class="text-lg font-semibold text-gray-900 capitalize" x-text="getProgramName(getFieldValue('program_id')) || '{{ __('applicant/review-and-submit.not_specified') }}'">
                                     </p>
-                                    <p class="text-gray-600">{{ __('applicant/review-and-submit.school_name') }}</p>
-                                </div>
-    
-                                <div class="flex items-center space-x-4">
-                                    <span
-                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">{{ __('applicant/review-and-submit.masters_badge') }}</span>
+                                    <p class="text-gray-600 capitalize" x-text="getFieldValue('level') || '{{ __('applicant/review-and-submit.not_specified') }}'"></p>
                                 </div>
     
                                 <div>
                                     <p class="text-sm font-medium text-gray-700">
                                         {{ __('applicant/review-and-submit.start_term') }}
                                     </p>
-                                    <p class="text-gray-900">{{ __('applicant/review-and-submit.fall_2024') }}</p>
+                                    <p class="text-gray-900 capitalize" x-text="getFieldValue('start_term')?.replace(/([a-zA-Z]+)(\d+)/, '$1 $2') || '{{ __('applicant/review-and-submit.not_specified') }}'"></p>
                                 </div>
     
                                 <div class="flex items-center space-x-2">
@@ -466,7 +460,7 @@
                                         :checked="getFieldValue('needs_dormitory')"
                                         readonly
                                         class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                                    <span class="text-sm text-gray-700" x-text="'{{ __('applicant/review-and-submit.needs_dormitory') }}'">
+                                    <span class="text-sm text-gray-700" x-text="'{{ __('applicant/program-choice.needs_dormitory') }}'">
                                     </span>
                                 </div>
                             </div>

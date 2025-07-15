@@ -213,6 +213,24 @@
                                 <div class="grid grid-cols-2 gap-4">
                                     <div>
                                         <p class="text-sm font-medium text-gray-700 mb-1">
+                                            {{ __('applicant/review-and-submit.family_status') }}</p>
+                                        <p class="text-gray-900">
+                                            {{ $application->family_status == 1 ? __('applicant/review-and-submit.single') : ($application->family_status == 2 ? __('applicant/review-and-submit.married') : __('applicant/review-and-submit.not_specified')) }}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-700 mb-1">
+                                            {{ __('applicant/review-and-submit.passport_number') }}
+                                        </p>
+                                        <p class="text-gray-900">
+                                            {{ $application->passport_number ? $application->passport_number : __('applicant/review-and-submit.not_specified') }}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-700 mb-1">
                                             {{ __('applicant/review-and-submit.nationality') }}
                                         </p>
                                         <p class="text-gray-900">
@@ -229,21 +247,12 @@
                                     </div>
                                     <div>
                                         <p class="text-sm font-medium text-gray-700 mb-1">
-                                            {{ __('applicant/review-and-submit.passport_number') }}
+                                            {{ __('applicant/review-and-submit.native_language') }}
                                         </p>
                                         <p class="text-gray-900">
-                                            {{ $application->passport_number ? $application->passport_number : __('applicant/review-and-submit.not_specified') }}
+                                            {{ $application->native_language ? $application->native_language : __('applicant/review-and-submit.not_specified') }}
                                         </p>
                                     </div>
-                                </div>
-
-                                <div>
-                                    <p class="text-sm font-medium text-gray-700 mb-1">
-                                        {{ __('applicant/review-and-submit.native_language') }}
-                                    </p>
-                                    <p class="text-gray-900">
-                                        {{ $application->native_language ? $application->native_language : __('applicant/review-and-submit.not_specified') }}
-                                    </p>
                                 </div>
                                 @if (isset($documents['passport']))
                                     <div>
@@ -574,21 +583,15 @@
                                             {{ __('applicant/review-and-submit.selected_program') }}
                                         </p>
                                         <p class="text-lg font-semibold text-gray-900">
-                                            {{ __('applicant/review-and-submit.program_name') }}
+                                            {{$application->program->name ? $application->program->name : __('applicant/review-and-submit.not_specified') }}
                                         </p>
-                                        <p class="text-gray-600">{{ __('applicant/review-and-submit.school_name') }}</p>
+                                        <p class="text-gray-600 capitalize">{{ $application->level ? $application->level : __('applicant/review-and-submit.not_specified') }}</p>
                                     </div>
-
-                                    <div class="flex items-center space-x-4">
-                                        <span
-                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">{{ __('applicant/review-and-submit.masters_badge') }}</span>
-                                    </div>
-
                                     <div>
                                         <p class="text-sm font-medium text-gray-700 mb-1">
                                             {{ __('applicant/review-and-submit.start_term') }}
                                         </p>
-                                        <p class="text-gray-900">{{ __('applicant/review-and-submit.fall_2024') }}</p>
+                                        <p class="text-gray-900 capitalize">{{ $application->start_term ? preg_replace('/(\D+)(\d+)/', '$1 $2', $application->start_term) : __('applicant/review-and-submit.not_specified') }}</p>
                                     </div>
 
                                     <div class="flex items-center space-x-2">
@@ -596,7 +599,7 @@
                                             class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                                             @checked($application->needs_dormitory) />
                                         <span class="text-sm text-gray-700">
-                                            {{ __('applicant/review-and-submit.scholarship_interest') }}
+                                            {{ __('applicant/program-choice.needs_dormitory') }}
                                         </span>
                                     </div>
                                 </div>
