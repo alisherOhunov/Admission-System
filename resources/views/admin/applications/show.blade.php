@@ -583,7 +583,7 @@
                                             {{ __('applicant/review-and-submit.selected_program') }}
                                         </p>
                                         <p class="text-lg font-semibold text-gray-900">
-                                            {{$application->program->name ? $application->program->name : __('applicant/review-and-submit.not_specified') }}
+                                            {{ $application->program?->name ?? __('applicant/review-and-submit.not_specified') }}
                                         </p>
                                         <p class="text-gray-600 capitalize">{{ $application->level ? $application->level : __('applicant/review-and-submit.not_specified') }}</p>
                                     </div>
