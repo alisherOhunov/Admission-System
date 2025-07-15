@@ -8,16 +8,13 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div class="mb-6">
                 <a href="{{ route('admin.applications.index') }}">
-                    <button
-                        class="justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background 
-                        transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring 
-                        focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none 
-                        [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-blue-50 h-10 px-4 py-2 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-arrow-left h-4 w-4 mr-2">
-                            <path d="m12 19-7-7 7-7"></path>
-                            <path d="M19 12H5"></path>
+                    <button    
+                        class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 
+                        bg-white border border-gray-300 rounded-lg hover:bg-gray-100 active:bg-gray-200 
+                        focus:outline-none disabled:opacity-50 
+                        disabled:pointer-events-none transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l-7-7 7-7M19 12H5"/>
                         </svg>
                         {{ __('admin/show.back_to_applications') }}
                     </button>

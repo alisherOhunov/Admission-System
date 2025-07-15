@@ -178,12 +178,10 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div
-          class="mt-8 pt-8 text-center text-gray-400"
-        >
-          <p>©️ 2025 Tashkent state university of oriental studies. All rights reserved.</p>
+    <footer class="bg-gray-800 text-white py-4">
+      <div class="mx-auto max-w-7xl">
+        <div class="text-center text-gray-400">
+          <p>&copy; 2025 Tashkent state university of oriental studies. All rights reserved.</p>
       </div>
       </div>
     </footer>
