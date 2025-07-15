@@ -169,7 +169,7 @@
                             </div>
                                 <div x-show="getDocuments()['passport']">
                                     <p class="text-md font-semibold text-gray-800 mb-2">
-                                        {{ __('applicant/review-and-submit.uploaded_documents') }}')}}
+                                        {{ __('applicant/review-and-submit.uploaded_documents') }}
                                     </p>
                                     
                                     <div class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm">
@@ -274,7 +274,7 @@
                             </div>
                                 <div x-show="getDocuments()['address_proof']">
                                     <p class="text-md font-semibold text-gray-800 mb-2">
-                                        {{ __('applicant/review-and-submit.uploaded_documents') }}')}}
+                                        {{ __('applicant/review-and-submit.uploaded_documents') }}
                                     </p>
                                     
                                     <div class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm">
