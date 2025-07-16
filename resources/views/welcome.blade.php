@@ -59,10 +59,13 @@
           >
             <span class="text-blue-600">Admission for international students</span>
           </h1>
-          <p class="mt-6 text-lg leading-8 text-gray-600 max-w-3xl mx-auto">
+          <p class="mt-6 text-lg leading-8 text-gray-800 max-w-7xl mx-auto">
+            Welcome to the online admission system for foreign students of Tashkent State University of Oriental Studies!
+          </p>
+          <p class="mt-4 text-lg leading-8 text-gray-600 max-w-3xl mx-auto">
             Apply to our university with confidence and ease.
           </p>
-          <div class="mt-10 flex items-center justify-center gap-x-6">
+          <div class="mt-8 flex items-center justify-center gap-x-6">
             <a
               href="{{ route('login') }}"
               class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
@@ -181,7 +184,7 @@
     <footer class="bg-gray-800 text-white py-4">
       <div class="mx-auto max-w-7xl">
         <div class="text-center text-gray-400">
-          <p>&copy; 2025 Tashkent state university of oriental studies. All rights reserved.</p>
+          <p>&copy; 2025 U-PRESS LLC. All right reserved.</p>
       </div>
       </div>
     </footer>
