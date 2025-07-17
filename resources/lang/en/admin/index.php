@@ -16,6 +16,8 @@ return [
     'level_all' => 'All Levels',
     'level_masters' => 'Masters',
     'level_bachelors' => 'Bachelors',
+    'level_filter' => 'Filter by Level',
+    'status_filter' => 'Filter by Status',
     'th_applicant' => 'Applicant',
     'th_program' => 'Program',
     'th_level' => 'Level',

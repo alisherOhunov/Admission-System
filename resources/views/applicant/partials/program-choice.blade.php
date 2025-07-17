@@ -12,9 +12,9 @@
                             <circle cx="12" cy="12" r="2"></circle>
                         </svg>
                     </span>
-                    <h3 class="text-2xl font-medium">
+                    <h1 class="text-2xl font-medium">
                         {{ __('applicant/program-choice.program_selection') }}
-                    </h3>
+                    </h1>
                 </div>
                 <p class="text-md text-gray-600 mt-1">
                     {{ __('applicant/program-choice.program_description') }}
@@ -123,7 +123,7 @@
 
                                     <div class="mt-2 text-sm text-right">
                                         <span 
-                                            :class="text.length < min ? 'text-orange-500' : 'text-green-600'"
+                                            :class="text.length < min ? 'text-orange-500' : 'text-green-700'"
                                             x-text="text.length < min 
                                                 ? `${text.length} characters (${100 - text.length} more needed)` 
                                                 : `${text.length} characters`"
@@ -138,9 +138,9 @@
                         <div
                             class="flex items-start rounded-md border border-green-200 bg-green-50 p-4 text-green-700">
                             <div class="ml-3 text-left">
-                                <h4 class="font-medium text-lg mb-2">
+                                <p class="font-medium text-lg mb-2">
                                     {{ __('applicant/program-choice.ml_tips_title') }}
-                                </h4>
+                                </p>
                                 <ul class="text-sm space-y-1">
                                     <li>{{ __('applicant/program-choice.ml_tip_1') }}</li>
                                     <li>{{ __('applicant/program-choice.ml_tip_2') }}</li>
@@ -157,7 +157,7 @@
                     <div>
                         <div class="bg-white border border-gray-200 rounded-lg shadow-sm h-fit">
                             <div class="px-6 py-4 border-b border-gray-200">
-                                <h3 class="text-lg font-medium flex items-center space-x-2">
+                                <h2 class="text-lg font-medium flex items-center space-x-2">
                                     <svg class="h-5 w-5 text-blue-600" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -165,7 +165,7 @@
                                         </path>
                                     </svg>
                                     <span>{{ __('applicant/program-choice.documents_title') }}</span>
-                                </h3>
+                                </h2>
                                 <p class="text-sm text-gray-600 mt-1">
                                     {{ __('applicant/program-choice.documents_description') }}
                                 </p>
@@ -187,7 +187,7 @@
                                         </div>
                                         <p class="text-sm text-gray-500 mb-2">
                                             {{ __('applicant/program-choice.document_sop_hint') }}</p>
-                                        <div class="text-xs text-gray-400">
+                                        <div class="text-xs text-gray-500">
                                             {{ __('applicant/program-choice.file_upload_formats_5mb') }}</div>
                                     </div>
                                     @error('document_sop')
@@ -268,7 +268,7 @@
                                                 <!-- Download Button - only show when fileId exists -->
                                                 <template x-if="fileId">
                                                     <a :href="`/applicant/application/{{ $application->id }}/download-document/${fileId}`"
-                                                        class="text-green-600 hover:text-green-800 transition-colors">
+                                                        class="text-green-600 hover:text-green-800 transition-colors" aria-label="Download document">
                                                         <svg class="h-5 w-5" fill="none" stroke="currentColor"
                                                             viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -325,7 +325,7 @@
                                         </div>
                                         <p class="text-sm text-gray-500 mb-2">
                                             {{ __('applicant/program-choice.document_cv_hint') }}</p>
-                                        <div class="text-xs text-gray-400">
+                                        <div class="text-xs text-gray-500">
                                             {{ __('applicant/program-choice.file_upload_formats_5mb') }}</div>
                                     </div>
 
@@ -394,7 +394,7 @@
                                                 <!-- Download Button - only show when fileId exists -->
                                                 <template x-if="fileId">
                                                     <a :href="`/applicant/application/{{ $application->id }}/download-document/${fileId}`"
-                                                        class="text-green-600 hover:text-green-800 transition-colors">
+                                                        class="text-green-600 hover:text-green-800 transition-colors" aria-label="Download document">
                                                         <svg class="h-5 w-5" fill="none" stroke="currentColor"
                                                             viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -451,7 +451,7 @@
                                         </div>
                                         <p class="text-sm text-gray-500 mb-2">
                                             {{ __('applicant/program-choice.document_portfolio_hint') }}</p>
-                                        <div class="text-xs text-gray-400">
+                                        <div class="text-xs text-gray-500">
                                             {{ __('applicant/program-choice.file_upload_formats_15mb') }}</div>
                                     </div>
 
@@ -520,7 +520,7 @@
                                                 <!-- Download Button - only show when fileId exists -->
                                                 <template x-if="fileId">
                                                     <a :href="`/applicant/application/{{ $application->id }}/download-document/${fileId}`"
-                                                        class="text-green-600 hover:text-green-800 transition-colors">
+                                                        class="text-green-600 hover:text-green-800 transition-colors" aria-label="Download document">
                                                         <svg class="h-5 w-5" fill="none" stroke="currentColor"
                                                             viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -573,9 +573,9 @@
                                     </div>
 
                                     <div class="ml-3 text-left">
-                                        <h4 class="text-sm font-medium mb-2">
+                                        <p class="text-sm font-medium mb-2">
                                             {{ __('applicant/program-choice.document_requirements_title') }}
-                                        </h4>
+                                        </p>
                                         <ul class="text-sm space-y-1">
                                             <li>{{ __('applicant/program-choice.doc_tip_1') }}</li>
                                             <li>{{ __('applicant/program-choice.doc_tip_2') }}</li>

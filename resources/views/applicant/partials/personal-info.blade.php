@@ -9,7 +9,7 @@
                             <circle cx="12" cy="7" r="4"></circle>
                         </svg>
                     </span>
-                    <h3 class="text-2xl font-medium">{{ __('applicant/personal-info.section_title')}}</h3>
+                    <h1 class="text-2xl font-medium">{{ __('applicant/personal-info.section_title')}}</h1>
                 </div>
                 <p class="text-gray-600 text-md mt-1">
                     {{ __('applicant/personal-info.section_subtitle')}}
@@ -110,7 +110,7 @@
                             <div>
                                 <label for="nationality" class="block text-sm font-medium text-gray-700">{{ __('applicant/personal-info.nationality')}}
                                     <span class="text-red-500">*</span></label>
-                                    <select name="nationality"
+                                    <select name="nationality"  aria-label="Select Nationality"
                                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
                                     >
                                     <option value="" class="text-muted-foreground">Select your country</option>
@@ -136,7 +136,7 @@
                         </div>
 
                         <div class="bg-blue-50 border border-blue-200 rounded-md p-4">
-                            <h4 class="text-sm font-medium text-blue-900 mb-2">{{ __('applicant/personal-info.note_title')}}</h4>
+                            <p class="text-sm font-medium text-blue-900 mb-2">{{ __('applicant/personal-info.note_title')}}</p>
                             <ul class="text-sm text-blue-800 space-y-1">
                                 <li>{{ __('applicant/personal-info.note_1')}}</li>
                                 <li>{{ __('applicant/personal-info.note_2')}}</li>
@@ -149,7 +149,7 @@
                     <div>
                         <div class="bg-white border border-gray-200 rounded-lg shadow-sm h-fit">
                             <div class="px-6 py-4 border-b border-gray-200">
-                                <h3 class="text-lg font-medium flex items-center space-x-2">
+                                <h2 class="text-lg font-medium flex items-center space-x-2">
                                     <svg class="h-5 w-5 text-blue-600" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -157,7 +157,7 @@
                                         </path>
                                     </svg>
                                     <span>{{ __('applicant/personal-info.documents_section_title')}}</span>
-                                </h3>
+                                </h2>
                                 <p class="text-sm text-gray-600 mt-1">{{ __('applicant/personal-info.documents_section_description')}}</p>
                             </div>
 
@@ -184,7 +184,7 @@
                                             <p class="text-sm text-gray-500 mb-2">
                                                 {{ __('applicant/personal-info.passport_description')}}
                                             </p>
-                                            <div class="text-xs text-gray-400">
+                                            <div class="text-xs text-gray-500">
                                                 {{ __('applicant/personal-info.passport_formats')}}
                                             </div>
                                         </div>
@@ -265,7 +265,7 @@
                                                     <!-- Download Button - only show when fileId exists -->
                                                     <template x-if="fileId">
                                                         <a :href="`/applicant/application/{{ $application->id }}/download-document/${fileId}`"
-                                                            class="text-green-600 hover:text-green-800 transition-colors">
+                                                            class="text-green-600 hover:text-green-800 transition-colors"  aria-label="Download document">
                                                             <svg class="h-5 w-5" fill="none"
                                                                 stroke="currentColor" viewBox="0 0 24 24">
                                                                 <path stroke-linecap="round"
@@ -309,7 +309,7 @@
                                 </div>
 
                                 <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                                    <h4 class="text-sm font-medium text-blue-900 mb-1">{{ __('applicant/personal-info.upload_tips_title')}}</h4>
+                                    <p class="text-sm font-medium text-blue-900 mb-1">{{ __('applicant/personal-info.upload_tips_title')}}</p>
                                     <ul class="text-sm text-blue-800 space-y-1">
                                         <li>{{ __('applicant/personal-info.upload_tip_1')}}</li>
                                         <li>{{ __('applicant/personal-info.upload_tip_2')}}</li>

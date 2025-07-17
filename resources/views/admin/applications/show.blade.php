@@ -169,9 +169,9 @@
                                             <circle cx="12" cy="7" r="4"></circle>
                                         </svg>
                                     </span>
-                                    <h4 class="text-lg font-semibold text-gray-900">
+                                    <h1 class="text-lg font-semibold text-gray-900">
                                         {{ __('applicant/review-and-submit.personal_information') }}
-                                    </h4>
+                                    </h1>
                                 </div>
                             </div>
                             <div class="p-6 pt-2 space-y-4">
@@ -313,9 +313,9 @@
                                             <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
                                         </svg>
                                     </span>
-                                    <h4 class="text-lg font-semibold text-gray-900">
+                                    <h1 class="text-lg font-semibold text-gray-900">
                                         {{ __('applicant/review-and-submit.contact_information') }}
-                                    </h4>
+                                    </h1>
                                 </div>
                             </div>
                             <div class="p-6 pt-2 space-y-4">
@@ -447,9 +447,9 @@
                                             <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path>
                                         </svg>
                                     </span>
-                                    <h4 class="text-lg font-semibold text-gray-900">
+                                    <h1 class="text-lg font-semibold text-gray-900">
                                         {{ __('applicant/review-and-submit.academic_background') }}
-                                    </h4>
+                                    </h1>
                                 </div>
                             </div>
                             <div class="p-6 pt-2 space-y-4">
@@ -568,9 +568,9 @@
                                             <circle cx="12" cy="12" r="2"></circle>
                                         </svg>
                                     </span>
-                                    <h4 class="text-lg font-semibold text-gray-900">
+                                    <h1 class="text-lg font-semibold text-gray-900">
                                         {{ __('applicant/review-and-submit.program_selection') }}
-                                    </h4>
+                                    </h1>
                                 </div>
                             </div>
                             <div class="p-6 pt-2 space-y-4">
@@ -592,12 +592,12 @@
                                     </div>
 
                                     <div class="flex items-center space-x-2">
-                                        <input type="checkbox" disabled
+                                        <input type="checkbox" disabled id="needs_dormitory"
                                             class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                                             @checked($application->needs_dormitory) />
-                                        <span class="text-sm text-gray-700">
+                                        <label for="needs_dormitory" class="text-sm text-gray-700">
                                             {{ __('applicant/program-choice.needs_dormitory') }}
-                                        </span>
+                                        </label>
                                     </div>
                                 </div>
                                 <div>
@@ -655,7 +655,7 @@
                 <div class="lg:col-span-1">
                     <div class="bg-white rounded-xl shadow-sm border sticky top-4">
                         <div class="px-6 py-6">
-                            <h3 class="text-2xl font-semibold leading-none tracking-tight flex items-center space-x-2">
+                            <h2 class="text-2xl font-semibold leading-none tracking-tight flex items-center space-x-2">
                                 <span
                                     class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-blue-100 text-blue-600">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
@@ -669,7 +669,7 @@
                                     </svg>
                                 </span>
                                 <span>{{ __('admin/show.timeline') }}</span>
-                            </h3>
+                            </h2>
                         </div>
                         <div class="px-6 pb-6">
                             <div class="space-y-4">

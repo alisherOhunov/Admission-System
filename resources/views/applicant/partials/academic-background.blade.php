@@ -10,9 +10,9 @@
                         </svg>
                     </span>
                     
-                    <h3 class="text-2xl font-medium">
+                    <h1 class="text-2xl font-medium">
                     {{ __('applicant/academic-background.academic_background') }}
-                    </h3>
+                    </h1>
                 </div>
                 <p class="text-gray-600 text-md mt-1">
                     {{ __('applicant/academic-background.academic_description') }}
@@ -183,7 +183,7 @@
                                         </svg>
                                         </div>
                                         <div class="text-left ml-3">
-                                        <h4 class="font-semibold mb-2">{{ __('applicant/academic-background.ielts_info_title') }}</h4>
+                                        <p class="font-semibold mb-2">{{ __('applicant/academic-background.ielts_info_title') }}</p>
                                         <p class="text-sm"></p>
                                     </div>
                                 </div>
@@ -199,9 +199,9 @@
                                     </div>
 
                                     <div class="ml-3 text-left">
-                                        <h4 class="text-sm font-medium mb-2">
+                                        <p class="text-sm font-medium mb-2">
                                             {{ __('applicant/academic-background.requirements_title') }}
-                                        </h4>
+                                        </p>
                                         <ul class="text-sm space-y-1">
                                             @foreach(__('applicant/academic-background.requirements') as $requirement)
                                                 <li>• {{ $requirement }}</li>
@@ -216,7 +216,7 @@
                     <div>
                         <div class="bg-white border border-gray-200 rounded-lg shadow-sm h-fit">
                             <div class="px-6 py-4 border-b border-gray-200">
-                                <h3
+                                <h2
                                 class="text-lg font-medium flex items-center space-x-2"
                                 >
                                 <svg
@@ -233,7 +233,7 @@
                                     ></path>
                                 </svg>
                                 <span>{{ __('applicant/academic-background.academic_documents') }}</span>
-                                </h3>
+                                </h2>
                                 <p class="text-sm text-gray-600 mt-1">
                                 {{ __('applicant/academic-background.academic_documents_description') }}
                                 </p>
@@ -253,7 +253,7 @@
                                             </span>
                                         </div>
                                         <p class="block text-xs text-gray-500 mb-2">{{ __('applicant/academic-background.transcripts_description') }}</p>
-                                        <div class="text-xs text-gray-400">{{ __('applicant/academic-background.file_formats') }}</div>
+                                        <div class="text-xs text-gray-500">{{ __('applicant/academic-background.file_formats') }}</div>
                                     </div>
                                     <div x-show="!uploaded" x-transition
                                         class="border-2 border-dashed rounded-lg p-4 text-center transition-colors"
@@ -327,7 +327,7 @@
                                                 <!-- Download Button - only show when fileId exists -->
                                                 <template x-if="fileId">
                                                     <a :href="`/applicant/application/{{ $application->id }}/download-document/${fileId}`"
-                                                        class="text-green-600 hover:text-green-800 transition-colors">
+                                                        class="text-green-600 hover:text-green-800 transition-colors" aria-label="Download document">
                                                         <svg class="h-5 w-5" fill="none"
                                                             stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round"
@@ -382,7 +382,7 @@
                                             </span>
                                         </div>
                                         <p class="text-sm text-gray-500 mb-2">{{ __('applicant/academic-background.diploma_description') }}</p>
-                                        <div class="text-xs text-gray-400">{{ __('applicant/academic-background.diploma_formats') }}</div>
+                                        <div class="text-xs text-gray-500">{{ __('applicant/academic-background.diploma_formats') }}</div>
                                     </div>
                                     <div x-show="!uploaded" x-transition
                                         class="border-2 border-dashed rounded-lg p-4 text-center transition-colors"
@@ -456,7 +456,7 @@
                                                 <!-- Download Button - only show when fileId exists -->
                                                 <template x-if="fileId">
                                                     <a :href="`/applicant/application/{{ $application->id }}/download-document/${fileId}`"
-                                                        class="text-green-600 hover:text-green-800 transition-colors">
+                                                        class="text-green-600 hover:text-green-800 transition-colors" aria-label="Download document">
                                                         <svg class="h-5 w-5" fill="none"
                                                             stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round"
@@ -511,7 +511,7 @@
                                             </span>
                                         </div>
                                         <p class="text-sm text-gray-500 mb-2">{{ __('applicant/academic-background.english_score_description') }}</p>
-                                        <div class="text-xs text-gray-400">{{ __('applicant/academic-background.english_score_formats') }}</div>
+                                        <div class="text-xs text-gray-500">{{ __('applicant/academic-background.english_score_formats') }}</div>
                                     </div>
                                     <div x-show="!uploaded" x-transition
                                         class="border-2 border-dashed rounded-lg p-4 text-center transition-colors"
@@ -588,7 +588,7 @@
                                                 <!-- Download Button - only show when fileId exists -->
                                                 <template x-if="fileId">
                                                     <a :href="`/applicant/application/{{ $application->id }}/download-document/${fileId}`"
-                                                        class="text-green-600 hover:text-green-800 transition-colors">
+                                                        class="text-green-600 hover:text-green-800 transition-colors" aria-label="Download document">
                                                         <svg class="h-5 w-5" fill="none"
                                                             stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round"
@@ -642,9 +642,9 @@
                                     </div>
 
                                     <div class="ml-3 text-left">
-                                        <h4 class="text-sm font-medium mb-2">
+                                        <p class="text-sm font-medium mb-2">
                                             {{ __('applicant/academic-background.document_requirements') }}
-                                        </h4>
+                                        </p>
                                         <ul class="text-sm space-y-1">
                                             <li>{{ __('applicant/academic-background.requirement_clear') }}</li>
                                             <li>{{ __('applicant/academic-background.requirement_original') }}</li>

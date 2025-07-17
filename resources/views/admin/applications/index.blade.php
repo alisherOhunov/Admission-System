@@ -44,7 +44,8 @@
                                 hx-target="#applications-container"
                                 hx-include="[name='search'], [name='level']"
                                 hx-indicator="#loading-indicator"
-                                hx-swap="innerHTML">
+                                hx-swap="innerHTML"
+                                aria-label="{{ __('admin/index.status_filter') }}">
                             <option value="">{{ __('admin/index.status_all')}}</option>
                             <option value="submitted" {{ request('status') == 'submitted' ? 'selected' : '' }}>{{ __('admin/index.status_submitted')}}</option>
                             <option value="under_review" {{ request('status') == 'under_review' ? 'selected' : '' }}>{{ __('admin/index.status_under_review')}}</option>
@@ -62,7 +63,8 @@
                                 hx-target="#applications-container"
                                 hx-include="[name='search'], [name='status']"
                                 hx-indicator="#loading-indicator"
-                                hx-swap="innerHTML">
+                                hx-swap="innerHTML"
+                                aria-label="{{ __('admin/index.level_filter') }}">
                             <option value="">{{ __('admin/index.level_all')}}</option>
                             <option value="masters" {{ request('level') == 'masters' ? 'selected' : '' }}>{{ __('admin/index.level_masters')}}</option>
                             <option value="bachelors" {{ request('level') == 'bachelors' ? 'selected' : '' }}>{{ __('admin/index.level_bachelors')}}</option>

@@ -24,7 +24,7 @@
                     <div class="bg-red-50 border border-gray-200 rounded-xl shadow-sm">
                         <div class="p-6 pb-4">
                             <div class="flex items-center space-x-3">
-                                <h4 class="text-lg font-semibold text-gray-900 flex items-start">
+                                <h1 class="text-lg font-semibold text-gray-900 flex items-start">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="orange"
                                         viewBox="0 0 24 24">
                                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10
@@ -36,7 +36,7 @@
                                     <span class="ml-1">
                                         {{ __('applicant/review-and-submit.resubmission_title') }}
                                     </span>
-                                </h4>
+                                </h1>
                             </div>
                         </div>
                         <div class="p-6 pt-2">
@@ -57,7 +57,7 @@
                                 clip-rule="evenodd" />
                         </svg>
                         <div class="text-left">
-                            <h4 class="font-semibold mb-1">{{ __('applicant/review-and-submit.error_title') }}</h4>
+                            <p class="text-xl font-semibold mb-1">{{ __('applicant/review-and-submit.error_title') }}</p>
                             <ul class="list-disc list-inside space-y-1 text-sm">
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
@@ -74,7 +74,7 @@
                                 clip-rule="evenodd" />
                         </svg>
                         <div class="text-left">
-                            <h4 class="font-semibold mb-1">Success!</h4>
+                            <p class="font-semibold mb-1">Success!</p>
                             <p class="text-sm">{{ session('success') }}</p>
                         </div>
                     </div>
@@ -92,9 +92,9 @@
                                         <circle cx="12" cy="7" r="4"></circle>
                                     </svg>
                                 </span>
-                                <h4 class="text-lg font-semibold text-gray-900">
+                                <h1 class="text-lg font-semibold text-gray-900">
                                     {{ __('applicant/review-and-submit.personal_information') }}
-                                </h4>
+                                </h1>
                             </div>
                         </div>
                         <div class="p-6 pt-2 space-y-4">
@@ -221,9 +221,9 @@
                                         <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
                                     </svg>
                                 </span>
-                                <h4 class="text-lg font-semibold text-gray-900">
+                                <h1 class="text-lg font-semibold text-gray-900">
                                     {{ __('applicant/review-and-submit.contact_information') }}
-                                </h4>
+                                </h1>
                             </div>
                         </div>
                         <div class="p-6 pt-2 space-y-4">
@@ -334,9 +334,9 @@
                                         <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path>
                                     </svg>
                                 </span>
-                                <h4 class="text-lg font-semibold text-gray-900">
+                                <h1 class="text-lg font-semibold text-gray-900">
                                     {{ __('applicant/review-and-submit.academic_background') }}
-                                </h4>
+                                </h1>
                             </div>
                         </div>
                         <div class="p-6 pt-2 space-y-4">
@@ -446,9 +446,9 @@
                                         <circle cx="12" cy="12" r="2"></circle>
                                     </svg>
                                 </span>
-                                <h4 class="text-lg font-semibold text-gray-900">
+                                <h1 class="text-lg font-semibold text-gray-900">
                                     {{ __('applicant/review-and-submit.program_selection') }}
-                                </h4>
+                                </h1>
                             </div>
                         </div>
                         <div class="p-6 pt-2 space-y-4">
@@ -470,12 +470,12 @@
                                 </div>
     
                                 <div class="flex items-center space-x-2">
-                                    <input type="checkbox" disabled 
+                                    <input type="checkbox" disabled id="needs_dormitory"
                                         :checked="getFieldValue('needs_dormitory')"
                                         readonly
                                         class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                                    <span class="text-sm text-gray-700" x-text="'{{ __('applicant/program-choice.needs_dormitory') }}'">
-                                    </span>
+                                    <label for="needs_dormitory" class="text-sm text-gray-700" x-text="'{{ __('applicant/program-choice.needs_dormitory') }}'">
+                                    </label>
                                 </div>
                             </div>
                             <div>
@@ -526,9 +526,9 @@
                 <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
                     <div class="p-6 pb-4">
                         <div class="flex items-center space-x-3">
-                            <h4 class="text-lg font-semibold text-gray-900">
+                            <p class="text-lg font-semibold text-gray-900">
                                 {{ __('applicant/review-and-submit.motivation_letter') }}
-                            </h4>
+                            </p>
                         </div>
                     </div>
                     <div class="p-6 pt-2">
@@ -549,7 +549,7 @@
                         <i data-lucide="alert-triangle" class="h-5 w-5"></i>
                     </div>
                     <div class="text-left">
-                        <h4 class="font-semibold mb-2">{{ __('applicant/review-and-submit.before_submitting') }}</h4>
+                        <h1 class="text-lg font-semibold mb-2">{{ __('applicant/review-and-submit.before_submitting') }}</h1>
                         <ul class="text-sm space-y-1">
                             <li>• {{ __('applicant/review-and-submit.review_notice_1') }}</li>
                             <li>• {{ __('applicant/review-and-submit.review_notice_2') }}</li>

@@ -84,18 +84,18 @@
             <div class="lg:col-span-2">
                 <div class="bg-white shadow-sm rounded-2xl">
                     <div class="p-6 text-center">
-                        <h3 class="text-2xl font-semibold text-gray-900 mb-4">{{ __('admin/dashboard.recent_applications_title') }}</h3>
+                        <h1 class="text-2xl font-semibold text-gray-900 mb-4">{{ __('admin/dashboard.recent_applications_title') }}</h1>
                         <div class="space-y-4">
                             @forelse($recentApplications as $application)
                                 <div class="flex items-center justify-between p-4 border rounded-2xl text-left">
                                     <div>
-                                        <h4 class="font-medium text-gray-900">
+                                        <p class="text-lg font-medium text-gray-900">
                                             {{ $application->user->first_name . ' ' . $application->user->last_name }}
-                                        </h4>
+                                        </p>
                                         <p class="text-sm text-gray-500">
                                             {{ $application->program->name ?? __('admin/dashboard.program_not_selected') }}
                                         </p>
-                                        <p class="text-xs text-gray-400">
+                                        <p class="text-xs text-gray-500">
                                             ID: {{ $application->id }}
                                             @if($application->submitted_at)
                                                 • {{ __('admin/dashboard.submitted_at', ['date' => $application->submitted_at->format('M j, Y')]) }}
@@ -132,7 +132,7 @@
                 <!-- Quick Actions -->
                 <div class="bg-white shadow-sm rounded-2xl text-center">
                     <div class="p-6">
-                        <h3 class="text-2xl font-medium text-gray-900 mb-4">{{ __('admin/dashboard.quick_actions') }}</h3>
+                        <p class="text-2xl font-medium text-gray-900 mb-4">{{ __('admin/dashboard.quick_actions') }}</p>
                         <div class="space-y-3">
                             <a href="{{ route('admin.applications.index') }}" class="w-full inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-xl text-white bg-blue-600 hover:bg-blue-700">
                                 {{ __('admin/dashboard.manage_applications') }}
@@ -152,11 +152,11 @@
                 <div class="bg-white shadow-sm rounded-2xl">
                     <div>
                         <div class="border-b border-gray-200 py-4">
-                            <h3 class="text-2xl font-medium text-gray-900 mb-4 text-center">{{ __('applicant/dashboard.application_period')}}</h3>
+                            <p class="text-2xl font-medium text-gray-900 mb-4 text-center">{{ __('applicant/dashboard.application_period')}}</p>
                         </div>
                         <div class="p-6">
                             <div class="mb-4">
-                                <h4 class="font-bold text-gray-900">{{ $currentPeriod->name }}</h4>
+                                <p class="text-lg font-bold text-gray-900">{{ $currentPeriod->name }}</p>
                                 <span class="text-sm text-gray-600">{{ __('applicant/dashboard.currently_active')}}</span>
                             </div>
                             <div class="space-y-1 text-sm">
@@ -180,7 +180,7 @@
                 <!-- Application Status Breakdown -->
                 <div class="bg-white shadow-sm rounded-2xl">
                     <div class="p-6">
-                        <h3 class="text-2xl font-medium text-gray-900 mb-4">{{ __('admin/dashboard.application_status') }}</h3>
+                        <p class="text-2xl font-medium text-gray-900 mb-4">{{ __('admin/dashboard.application_status') }}</p>
                         <div class="space-y-3">
                             <div class="flex items-center justify-between">
                                 <span class="text-sm text-gray-600">{{ __('admin/dashboard.status_submitted') }}</span>

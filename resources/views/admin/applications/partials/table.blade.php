@@ -8,7 +8,7 @@
                 <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
                 <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
             </svg>
-            <h3 class="ml-1 mt-0.5 text-2xl font-bold text-gray-900">{{ __('admin/index.table_title', ['count' => $applications->total()]) }}</h3>
+            <h1 class="ml-1 mt-0.5 text-2xl font-bold text-gray-900">{{ __('admin/index.table_title', ['count' => $applications->total()]) }}</h1>
         </div>
     </div>
 
@@ -32,7 +32,7 @@
                             <div>
                                 <div class="text-sm font-medium text-gray-900">{{ $application->user->first_name .' '. $application->user->last_name}}</div>
                                 <div class="text-sm text-gray-500">{{ $application->user->email }}</div>
-                                <div class="text-xs text-gray-400">{{ __('admin/index.application_id') }} {{ $application->id }}</div>
+                                <div class="text-xs text-gray-500">{{ __('admin/index.application_id') }} {{ $application->id }}</div>
                             </div>
                         </td>
                         <td class="px-4 py-4 whitespace-nowrap">
@@ -70,7 +70,7 @@
                         <td class="px-4 py-4 whitespace-nowrap text-left text-sm font-medium">
                             <div class="flex items-center justify-start space-x-2">
                                 <a href="{{ route('admin.applications.show', $application->id) }}" title="{{ __('admin/index.view') }}">
-                                    <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3">
+                                    <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3" aria-label="{{ __('admin/index.view') }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye h-4 w-4">
                                             <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path>
                                             <circle cx="12" cy="12" r="3"></circle>

@@ -10,9 +10,9 @@
                         </svg>
                     </span>
 
-                    <h3 class="text-2xl font-medium">
+                    <h1 class="text-2xl font-medium">
                         {{ __('applicant/contact-info.contact_information') }}
-                    </h3>
+                    </h1>
                 </div>
                 <p class="text-gray-600 text-md mt-1">
                     {{ __('applicant/contact-info.contact_description') }}
@@ -72,9 +72,9 @@
                         <!-- Permanent Address Section -->
                         <div class="space-y-6 py-6 border-t border-b border-slate-200">
                             <div class="flex items-center space-x-3">
-                                <h4 class="text-lg font-semibold text-slate-900">
+                                <p class="text-lg font-semibold text-slate-900">
                                     {{ __('applicant/contact-info.permanent_address') }} <span class="text-red-500 ml-1">*</span>
-                                </h4>
+                                </p>
                             </div>
 
                             <!-- Street Address -->
@@ -163,9 +163,9 @@
                         </div>
 
                         <div class="bg-blue-50 border border-blue-200 rounded-md p-4">
-                            <h4 class="text-sm font-medium text-blue-900 mb-2">
+                            <p class="text-sm font-medium text-blue-900 mb-2">
                                 {{ __('applicant/contact-info.contact_tips_title') }}
-                            </h4>
+                            </p>
                             <ul class="text-sm text-blue-800 space-y-1">
                                 <li>
                                     • {{ __('applicant/contact-info.tip_email') }}
@@ -187,7 +187,7 @@
                     <div>
                         <div class="bg-white border border-gray-200 rounded-lg shadow-sm h-fit">
                             <div class="px-6 py-4 border-b border-gray-200">
-                                <h3 class="text-lg font-medium flex items-center space-x-2">
+                                <h2 class="text-lg font-medium flex items-center space-x-2">
                                     <svg class="h-5 w-5 text-blue-600" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -195,7 +195,7 @@
                                         </path>
                                     </svg>
                                     <span>{{ __('applicant/contact-info.address_verification') }}</span>
-                                </h3>
+                                </h2>
                                 <p class="text-sm text-gray-600 mt-1">
                                     {{ __('applicant/contact-info.upload_description') }}
                                 </p>
@@ -216,7 +216,7 @@
                                                 </span>
                                             </div>
                                             <p class="text-sm text-gray-500 mb-2">{{ __('applicant/contact-info.address_proof_description') }}</p>
-                                            <div class="text-xs text-gray-400">{{ __('applicant/contact-info.file_formats') }}</div>
+                                            <div class="text-xs text-gray-500">{{ __('applicant/contact-info.file_formats') }}</div>
                                         </div>
 
                                         <div x-show="!uploaded" x-transition
@@ -282,7 +282,7 @@
                                                     <!-- Download Button - only show when fileId exists -->
                                                     <template x-if="fileId">
                                                         <a :href="`/applicant/application/{{ $application->id }}/download-document/${fileId}`"
-                                                            class="text-green-600 hover:text-green-800 transition-colors">
+                                                            class="text-green-600 hover:text-green-800 transition-colors"  aria-label="Download document">
                                                             <svg class="h-5 w-5" fill="none"
                                                                 stroke="currentColor" viewBox="0 0 24 24">
                                                                 <path stroke-linecap="round"
@@ -327,9 +327,9 @@
 
                                 <!-- Upload Tips -->
                                 <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                                    <h4 class="text-sm font-medium text-blue-900 mb-1">
+                                    <p class="text-sm font-medium text-blue-900 mb-1">
                                         {{ __('applicant/contact-info.document_requirements') }}
-                                    </h4>
+                                    </p>
                                     <ul class="text-sm text-blue-800 space-y-1">
                                         <li>{{ __('applicant/contact-info.req_clear') }}</li>
                                         <li>{{ __('applicant/contact-info.req_original') }}</li>
