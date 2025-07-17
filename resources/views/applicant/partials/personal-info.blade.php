@@ -278,7 +278,7 @@
 
                                                     <!-- Remove Button -->
                                                     @if(!in_array($application->status, ['submitted', 'accepted', 're_submitted', 'rejected']))
-                                                        <button @click="removeFile()"
+                                                        <button @click="removeFile()" aria-label="Remove document"
                                                             class="text-red-500 hover:text-red-700 transition-colors"
                                                             type="button">
                                                             <svg class="h-5 w-5" fill="none" stroke="currentColor"
