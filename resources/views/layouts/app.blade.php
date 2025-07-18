@@ -25,7 +25,7 @@
                         <!-- Logo -->
                         <div class="flex items-center space-x-2">
                             <!-- Mobile menu button -->
-                            <button type="button"
+                            <button type="button" aria-label="Toggle navigation"
                                 class="md:hidden -ml-2 p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
                                 id="mobile-menu-button">
                                 <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
