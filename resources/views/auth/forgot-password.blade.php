@@ -7,7 +7,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="Reset your password on {{ config('app.name') }}.">
     <title>Forgot Password - {{ config('app.name') }}</title>
-
+    <link rel="preload" href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap"></noscript>
+    
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
     <body class="bg-gray-50">

@@ -35,11 +35,4 @@ export default {
   },
 
   plugins: [forms],
-
-  purge: {
-    enabled: true,
-    content: [
-      "./resources/**/*.blade.php",
-    ],
-  }
 };
