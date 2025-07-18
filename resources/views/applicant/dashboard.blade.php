@@ -35,7 +35,7 @@
                             <svg class="h-10 w-10 text-blue-600 bg-blue-100 p-1.5 rounded-lg mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                             </svg>
-                            <h3 class="text-xl font-semibold text-gray-900">{{ __('applicant/dashboard.application_overview') }}</h3>
+                            <h2 class="text-xl font-semibold text-gray-900">{{ __('applicant/dashboard.application_overview') }}</h2>
                         </div>
                     </div>
                     <div class="p-6 pt-4">
@@ -44,7 +44,7 @@
                             <div class="space-y-4">
                                 <div class="flex items-center justify-between">
                                     <div>
-                                        <h4 class="font-medium text-gray-900">{{ $selectedProgram->name ?? __('applicant/dashboard.program_choice') }}</h4>
+                                        <h2 class="text-lg font-medium text-gray-900">{{ $selectedProgram->name ?? __('applicant/dashboard.program_choice') }}</h2>
                                         <p class="text-sm text-gray-500">{{ __('applicant/dashboard.application_id')}} {{ $application->id }}</p>
                                     </div>
                                     @php $statusData = $application->getStatusData() @endphp
@@ -236,7 +236,7 @@
                     </div>
                     <div class="p-6">
                         <div class="space-y-3">
-                            <a href="{{ route('applicant.application') }}" class="w-full inline-flex items-center justify-start px-4 py-2 border shadow-sm text-sm font-medium rounded-lg text-white bg-blue-500 hover:bg-blue-500/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                            <a href="{{ route('applicant.application') }}" class="w-full inline-flex items-center justify-start px-4 py-2 border shadow-sm text-sm font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-600/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text h-4 w-4 mr-5">
                                     <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
                                     <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
@@ -289,14 +289,14 @@
                                 <p class="text-sm text-blue-700">{{ __('applicant/dashboard.application_support_desc')}}</p>
                             </div>
                             <div class="space-y-3">
-                                <a href="https://tsuos.uz/en/admission-for-international-students-2025/" target="_blank" class="w-full inline-flex justify-center items-center gap-2 px-4 py-2 h-10 bg-blue-500 text-white font-medium rounded-lg shadow-sm hover:bg-blue-500/90 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors text-sm">
+                                <a href="https://tsuos.uz/en/admission-for-international-students-2025/" target="_blank" class="w-full inline-flex justify-center items-center gap-2 px-4 py-2 h-10 bg-blue-600 text-white font-medium rounded-lg shadow-sm hover:bg-blue-600/90 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors text-sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
                                         <rect width="20" height="16" x="2" y="4" rx="2"></rect>
                                         <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
                                     </svg>
                                     {{ __('applicant/dashboard.contact_support')}}
                                 </a>
-                                <a href="https://tsuos.uz/en/admission-for-international-students-2025/" target="_blank" class="w-full inline-flex justify-center items-center gap-2 px-4 py-2 h-10 bg-blue-500 text-white font-medium rounded-lg shadow-sm hover:bg-blue-500/90 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors text-sm">
+                                <a href="https://tsuos.uz/en/admission-for-international-students-2025/" target="_blank" class="w-full inline-flex justify-center items-center gap-2 px-4 py-2 h-10 bg-blue-600 text-white font-medium rounded-lg shadow-sm hover:bg-blue-600/90 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors text-sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
                                         <path d="M12 7v14"></path>
                                         <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path>

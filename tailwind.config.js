@@ -8,6 +8,7 @@ export default {
     "./storage/framework/views/*.php",
     "./resources/views/**/*.blade.php",
     "./resources/js/**/*.js",
+    "./app/**/*.php",
   ],
 
   theme: {
@@ -34,4 +35,11 @@ export default {
   },
 
   plugins: [forms],
+
+  purge: {
+    enabled: true,
+    content: [
+      "./resources/**/*.blade.php",
+    ],
+  }
 };
