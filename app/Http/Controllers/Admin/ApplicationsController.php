@@ -54,21 +54,7 @@ class ApplicationsController extends Controller
 
     public function export(Request $request)
     {
-        $filename = 'applications_'.now()->format('Y-m-d_H-i-s');
-
-        if ($request->filled('status')) {
-            $filename .= '_status-'.$request->status;
-        }
-
-        if ($request->filled('level')) {
-            $filename .= '_level-'.$request->level;
-        }
-
-        if ($request->filled('search')) {
-            $filename .= '_search-'.substr(preg_replace('/[^A-Za-z0-9]/', '', $request->search), 0, 20);
-        }
-
-        $filename .= '.xlsx';
+        $filename = 'applications_'.now()->format('Y-m-d_H-i-s').'.xlsx';
 
         try {
             return Excel::download(new ApplicationsExport($request), $filename);

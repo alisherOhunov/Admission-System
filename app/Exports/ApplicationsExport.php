@@ -21,7 +21,7 @@ class ApplicationsExport implements FromCollection, WithHeadings, WithMapping
      */
     public function collection()
     {
-        $query = Application::with(['user', 'program', 'applicationPeriod']);
+        $query = Application::with(['user', 'program']);
 
         if ($this->request->filled('status')) {
             $query->byStatus($this->request->status);
