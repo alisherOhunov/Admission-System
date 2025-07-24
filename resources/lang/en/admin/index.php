@@ -40,5 +40,5 @@ return [
     'pagination_of' => 'of',
     'pagination_results' => 'results',
     'filter_more' => 'More Filters',
-    'export' => 'Export',
+    'export' => 'Export XLSX',
 ];
