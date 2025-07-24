@@ -33,7 +33,6 @@ class Application extends Model
         'language_test_date',
         'start_term',
         'needs_dormitory',
-        'motivation_letter',
         'status',
         'submitted_at',
         'permanent_country',
@@ -78,7 +77,7 @@ class Application extends Model
     public function getImportantDocuments()
     {
         return $this->documents()
-            ->whereIn('type', ['passport', 'transcript', 'address_proof', 'visa_proof', 'diploma', 'motivation_letter', 'cv', 'language_certificate'])
+            ->whereIn('type', ['passport', 'transcript', 'visa_proof', 'diploma', 'motivation_letter', 'cv', 'language_certificate'])
             ->get()
             ->keyBy('type');
     }
@@ -112,7 +111,6 @@ class Application extends Model
             $this->previous_institution,
             $this->degree_earned,
             $this->start_term,
-            $this->motivation_letter,
             $this->permanent_country,
             $this->permanent_state,
             $this->permanent_city,

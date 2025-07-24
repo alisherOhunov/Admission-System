@@ -41,7 +41,6 @@ return [
     'program_name' => 'Master of Science in Computer Science',
     'school_name' => 'School of Engineering',
     'start_term' => 'Start Term',
-    'motivation_letter' => 'Motivation Letter',
     'characters' => 'characters',
     'before_submitting' => 'Before Submitting',
     'review_notice_1' => 'Review all information carefully for accuracy',

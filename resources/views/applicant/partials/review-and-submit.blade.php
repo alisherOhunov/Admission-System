@@ -298,15 +298,17 @@
                                     {{ __('applicant/review-and-submit.uploaded_documents') }}
                                 </p>
                                 
-                                <template x-for="[key, label] in [['address_proof', 'Address Proof'], ['visa_proof', 'Visa Proof']]" :key="key">
-                                    <div x-show="getDocuments()[key]" class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm mb-2">
+                                <div x-show="getDocuments()['visa_proof']">
+                                    <div class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm">
                                         <div>
-                                            <p class="text-xs text-gray-500 uppercase tracking-wide mb-1" x-text="label"></p>
-                                            <p class="text-sm font-medium text-gray-800" x-text="getDocuments()[key]?.original_name"></p>
+                                            <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">
+                                                Visa Proof
+                                            </p>
+                                            <p class="text-sm font-medium text-gray-800" x-text="getDocuments()['visa_proof']?.original_name">
+                                            </p>
                                         </div>
                                         <div class="flex items-center space-x-3">
-                                            <!-- View Button -->
-                                            <a :href="`/applicant/application/{{ $application->id }}/view-document/${getDocuments()[key]?.id}`"
+                                            <a :href="`/applicant/application/{{ $application->id }}/view-document/${getDocuments()['visa_proof']?.id}`"
                                             target="_blank"
                                             class="text-green-600 hover:text-green-800 transition-colors"
                                             title="View">
@@ -317,11 +319,9 @@
                                                         d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                 </svg>
                                             </a>
-
-                                            <!-- Download Button -->
-                                            <a :href="`/applicant/application/{{ $application->id }}/download-document/${getDocuments()[key]?.id}`"
+                                            <a :href="`/applicant/application/{{ $application->id }}/download-document/${getDocuments()['visa_proof']?.id}`"
                                             class="text-blue-600 hover:text-blue-800 transition-colors"
-                                            title="Download">
+                                            title="{{ __('Download') }}">
                                                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -329,10 +329,8 @@
                                             </a>
                                         </div>
                                     </div>
-                                </template>
-                                
-                                <div x-show="!['address_proof', 'visa_proof'].some(key => getDocuments()[key])" 
-                                    class="flex items-center justify-center py-4 text-gray-500">
+                                </div>
+                                <div x-show="!getDocuments()['visa_proof']" class="flex items-center justify-center py-4 text-gray-500">
                                     <span class="text-sm">No documents uploaded yet!</span>
                                 </div>
                             </div>
@@ -535,25 +533,6 @@
                                     <span class="text-sm">No documents uploaded yet!</span>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
-                    <div class="p-6 pb-4">
-                        <div class="flex items-center space-x-3">
-                            <p class="text-lg font-semibold text-gray-900">
-                                {{ __('applicant/review-and-submit.motivation_letter') }}
-                            </p>
-                        </div>
-                    </div>
-                    <div class="p-6 pt-2">
-                        <div class="max-w-none">
-                            <p class="text-gray-700 leading-relaxed" x-text="getFieldValue('motivation_letter') || '{{ __('applicant/review-and-submit.not_specified') }}'">
-                            </p>
-                        </div>
-                        <div class="mt-4 text-sm text-gray-500">
-                            <span x-text="(getFieldValue('motivation_letter') || '').length"></span>
-                            {{ __('applicant/review-and-submit.characters') }}
                         </div>
                     </div>
                 </div>

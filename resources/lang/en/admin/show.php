@@ -23,7 +23,6 @@ return [
     'personal_info' => 'Personal Info',
     'program_information' => 'Program Information',
     'academic_background' => 'Academic Background',
-    'motivation_letter' => 'Motivation Letter',
     'computer_science' => 'Computer Science',
     'timeline' => 'Timeline',
     'address' => 'Address',

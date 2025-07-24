@@ -29,7 +29,7 @@ class UploadDocumentRequest extends FormRequest
     {
         return [
             'document' => 'required|file|max:25600', // 25MB max
-            'type' => 'required|in:passport,address_proof,visa_proof,transcript,diploma,motivation_letter,cv,language_certificate',
+            'type' => 'required|in:passport,visa_proof,transcript,diploma,motivation_letter,cv,language_certificate',
         ];
     }
 
@@ -81,7 +81,6 @@ class UploadDocumentRequest extends FormRequest
     {
         $mimeTypes = [
             'passport' => ['application/pdf', 'image/jpeg', 'image/png'],
-            'address_proof' => ['application/pdf', 'image/jpeg', 'image/png'],
             'visa_proof' => ['application/pdf', 'image/jpeg', 'image/png'],
             'transcript' => ['application/pdf'],
             'diploma' => ['application/pdf', 'image/jpeg', 'image/png'],

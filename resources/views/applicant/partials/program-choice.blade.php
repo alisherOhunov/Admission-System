@@ -102,58 +102,6 @@
                                 </a>
                             </div>
                         </div>
-                        <div x-data="{ text: '', min: 100 }" class="grid grid-cols-1 gap-4 pb-10">
-                            <div>
-                                <p class="text-lg font-semibold text-gray-900 break-words">
-                                    {{ __('applicant/program-choice.motivation_letter_title') }}
-                                </p>
-                            </div>
-
-                            <div x-data="{
-                                text: '{{ old('motivation_letter', $application->motivation_letter ?? '') }}',
-                                min: 100
-                            }">
-                                <div>
-                                    <p class="text-center text-gray-600">
-                                        {{ __('applicant/program-choice.motivation_letter_instruction') }}
-                                    </p>
-                                </div>
-
-                                <div>
-                                    <textarea id="motivation_letter" name="motivation_letter" x-model="text"
-                                        placeholder="{{ __('applicant/program-choice.motivation_placeholder') }}" rows="6" maxlength="1000"
-                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">{{ old('motivation_letter', $application->motivation_letter ?? '') }}</textarea>
-
-                                    <div class="mt-2 text-sm text-right">
-                                        <span 
-                                            :class="text.length < min ? 'text-orange-500' : 'text-green-700'"
-                                            x-text="text.length < min 
-                                                ? `${text.length} characters (${100 - text.length} more needed)` 
-                                                : `${text.length} characters`"
-                                        ></span>
-                                        @error('motivation_letter')
-                                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="flex items-start rounded-md border border-green-200 bg-green-50 p-4 text-green-700">
-                            <div class="ml-3 text-left">
-                                <p class="font-medium text-lg mb-2">
-                                    {{ __('applicant/program-choice.ml_tips_title') }}
-                                </p>
-                                <ul class="text-sm space-y-1">
-                                    <li>{{ __('applicant/program-choice.ml_tip_1') }}</li>
-                                    <li>{{ __('applicant/program-choice.ml_tip_2') }}</li>
-                                    <li>{{ __('applicant/program-choice.ml_tip_3') }}</li>
-                                    <li>{{ __('applicant/program-choice.ml_tip_4') }}</li>
-                                    <li>{{ __('applicant/program-choice.ml_tip_5') }}</li>
-                                    <li>{{ __('applicant/program-choice.ml_tip_6') }}</li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
 
                     <!-- Right Column - Document Upload -->
