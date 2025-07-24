@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\ApplicationsExport;
 use App\Http\Controllers\Controller;
 use App\Models\Application;
 use App\Models\Document;
@@ -10,6 +11,7 @@ use App\Models\StaffNote;
 use App\Notifications\ApplicationStatusUpdated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ApplicationsController extends Controller
 {
@@ -23,10 +25,6 @@ class ApplicationsController extends Controller
 
         if ($request->filled('level')) {
             $query->byLevel($request->level);
-        }
-
-        if ($request->filled('program')) {
-            $query->where('program_id', $request->program);
         }
 
         if ($request->filled('search')) {
@@ -52,6 +50,37 @@ class ApplicationsController extends Controller
         }
 
         return view('admin.applications.index', compact('applications', 'programs'));
+    }
+
+    public function export(Request $request)
+    {
+        $filename = 'applications_'.now()->format('Y-m-d_H-i-s');
+
+        if ($request->filled('status')) {
+            $filename .= '_status-'.$request->status;
+        }
+
+        if ($request->filled('level')) {
+            $filename .= '_level-'.$request->level;
+        }
+
+        if ($request->filled('search')) {
+            $filename .= '_search-'.substr(preg_replace('/[^A-Za-z0-9]/', '', $request->search), 0, 20);
+        }
+
+        $filename .= '.xlsx';
+
+        try {
+            return Excel::download(new ApplicationsExport($request), $filename);
+        } catch (\Exception $e) {
+            \Log::error('Applications export failed: '.$e->getMessage());
+
+            if ($request->header('HX-Request')) {
+                return response()->json(['error' => 'Export failed. Please try again.'], 500);
+            }
+
+            return redirect()->back()->with('error', 'Export failed. Please try again.');
+        }
     }
 
     public function show(int $application_id)

@@ -86,7 +86,9 @@
                             </svg>
                             {{ __('admin/index.filter_more')}}
                         </button>
-                        <button type="button" class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-offset-2">
+                        <button type="button" 
+                                onclick="exportApplications()" 
+                                class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-offset-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download h-4 w-4 mr-2">
                                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                                 <polyline points="7 10 12 15 17 10"></polyline>
@@ -117,4 +119,20 @@
     display: block;
 }
 </style>
+<script>
+function exportApplications() {
+    const status = document.querySelector('select[name="status"]')?.value || '';
+    const level = document.querySelector('select[name="level"]')?.value || '';
+    const search = document.querySelector('input[name="search"]')?.value || '';
+    
+    const params = new URLSearchParams();
+    if (status) params.append('status', status);
+    if (level) params.append('level', level);
+    if (search) params.append('search', search);
+    
+    const exportUrl = '{{ route("admin.applications.export") }}' + '?' + params.toString();
+    
+    window.location.href = exportUrl;
+}
+</script>
 @endsection

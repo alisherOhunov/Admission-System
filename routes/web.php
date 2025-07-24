@@ -68,12 +68,12 @@ Route::middleware(['auth', 'applicant', 'verified'])->prefix('applicant')->name(
 Route::middleware(['auth', 'admin', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::get('/applications', [ApplicationsController::class, 'index'])->name('applications.index');
+    Route::get('/applications/export', [ApplicationsController::class, 'export'])->name('applications.export');
     Route::get('/applications/{application_id}', [ApplicationsController::class, 'show'])->name('applications.show');
     Route::post('/applications/{application_id}/status', [ApplicationsController::class, 'updateStatus'])->name('applications.status');
     Route::post('/applications/{application_id}/notes', [ApplicationsController::class, 'addNote'])->name('applications.notes');
     Route::get('/applications/{application_id}/document/{file_id}', [ApplicationsController::class, 'getApplicantDocument'])->name('applications.getApplicantDocument');
     Route::get('/applications/{application_id}/view-document/{file_id}', [ApplicationsController::class, 'viewApplicantDocument'])->name('applications.view-document');
-
 });
 
 // Error Pages
