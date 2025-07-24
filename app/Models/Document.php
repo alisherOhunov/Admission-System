@@ -40,28 +40,28 @@ class Document extends Model
             'transcript' => [
                 'label' => 'Academic Transcripts',
                 'description' => 'Official transcripts from previous institutions',
-                'required' => true,
+                'required' => false,
                 'formats' => ['PDF'],
                 'max_size' => '10MB',
             ],
             'diploma' => [
                 'label' => 'Diploma/Certificates',
                 'description' => 'Graduation certificates and diplomas',
-                'required' => true,
+                'required' => false,
                 'formats' => ['PDF', 'JPG', 'PNG'],
                 'max_size' => '10MB',
             ],
-            'english_score' => [
-                'label' => 'English Test Scores',
-                'description' => 'IELTS, TOEFL, or other English proficiency test results',
-                'required' => true,
+            'language_certificate' => [
+                'label' => 'Language Certificate',
+                'description' => 'IELTS, TOEFL, or other language proficiency test results',
+                'required' => false,
                 'formats' => ['PDF', 'JPG', 'PNG'],
                 'max_size' => '5MB',
             ],
-            'sop' => [
+            'motivation_letter' => [
                 'label' => 'Statement of Purpose',
                 'description' => 'Your written statement of purpose (if uploaded separately)',
-                'required' => true,
+                'required' => false,
                 'formats' => ['PDF', 'DOC', 'DOCX'],
                 'max_size' => '5MB',
             ],
@@ -71,13 +71,6 @@ class Document extends Model
                 'required' => false,
                 'formats' => ['PDF', 'DOC', 'DOCX'],
                 'max_size' => '5MB',
-            ],
-            'portfolio' => [
-                'label' => 'Portfolio (Optional)',
-                'description' => 'Portfolio for design, art, or creative programs',
-                'required' => false,
-                'formats' => ['PDF', 'ZIP'],
-                'max_size' => '25MB',
             ],
         ];
     }

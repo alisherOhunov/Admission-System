@@ -15,6 +15,7 @@ class Application extends Model
         'application_period_id',
         'level',
         'nationality',
+        'country_of_birth',
         'family_status',
         'passport_number',
         'date_of_birth',
@@ -22,13 +23,14 @@ class Application extends Model
         'native_language',
         'email',
         'phone',
+        'has_visa',
         'previous_institution',
         'previous_gpa',
         'degree_earned',
         'graduation_date',
-        'english_test_type',
-        'english_test_score',
-        'english_test_date',
+        'language_test_type',
+        'language_test_score',
+        'language_test_date',
         'start_term',
         'needs_dormitory',
         'motivation_letter',
@@ -45,9 +47,10 @@ class Application extends Model
     protected $casts = [
         'date_of_birth' => 'date',
         'graduation_date' => 'date',
-        'english_test_date' => 'date',
+        'language_test_date' => 'date',
         'submitted_at' => 'datetime',
         'needs_dormitory' => 'boolean',
+        'has_visa' => 'boolean',
         'current_address' => 'array',
     ];
 
@@ -75,7 +78,7 @@ class Application extends Model
     public function getImportantDocuments()
     {
         return $this->documents()
-            ->whereIn('type', ['passport', 'transcript', 'address_proof', 'diploma', 'sop', 'cv', 'english_score', 'portfolio'])
+            ->whereIn('type', ['passport', 'transcript', 'address_proof', 'visa_proof', 'diploma', 'motivation_letter', 'cv', 'language_certificate'])
             ->get()
             ->keyBy('type');
     }

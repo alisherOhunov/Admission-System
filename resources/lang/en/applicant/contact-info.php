@@ -22,7 +22,7 @@ return [
     'tip_phone' => 'Include country code for international phone numbers',
     'tip_address' => 'Ensure your address is correct for document delivery',
     'tip_contact' => 'We may contact you via phone or email during the review process',
-    'address_verification' => 'Address Verification (Optional)',
+    'address_verification' => 'Address and Visa Verification',
     'upload_description' => 'Upload required and optional documents for this step',
     'address_proof' => 'Address Proof',
     'uploaded' => 'Uploaded',

@@ -10,7 +10,7 @@ return [
 
     'step_3_title' => 'Academic Background',
 
-    'step_4_title' => 'Programme Selection',
+    'step_4_title' => 'Program Selection',
 
     'step_5_title' => 'Review and Submit',
 ];

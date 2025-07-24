@@ -29,7 +29,7 @@ class UploadDocumentRequest extends FormRequest
     {
         return [
             'document' => 'required|file|max:25600', // 25MB max
-            'type' => 'required|in:passport,address_proof,transcript,diploma,sop,cv,english_score,portfolio',
+            'type' => 'required|in:passport,address_proof,visa_proof,transcript,diploma,motivation_letter,cv,language_certificate',
         ];
     }
 
@@ -82,12 +82,12 @@ class UploadDocumentRequest extends FormRequest
         $mimeTypes = [
             'passport' => ['application/pdf', 'image/jpeg', 'image/png'],
             'address_proof' => ['application/pdf', 'image/jpeg', 'image/png'],
+            'visa_proof' => ['application/pdf', 'image/jpeg', 'image/png'],
             'transcript' => ['application/pdf'],
             'diploma' => ['application/pdf', 'image/jpeg', 'image/png'],
-            'sop' => ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+            'motivation_letter' => ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
             'cv' => ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
-            'english_score' => ['application/pdf'],
-            'portfolio' => ['application/pdf', 'application/zip'],
+            'language_certificate' => ['application/pdf'],
         ];
 
         return $mimeTypes[$type] ?? [];

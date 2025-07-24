@@ -134,7 +134,21 @@
                                 @enderror
                             </div>
                         </div>
-
+                        <div>
+                            <label for="country_of_birth" class="block text-sm font-medium text-gray-700">Country of Birth
+                                <span class="text-red-500">*</span></label>
+                                <select name="country_of_birth"  aria-label="Select country_of_birth"
+                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
+                                >
+                                <option value="" class="text-muted-foreground">Select your country of birth</option>
+                                @foreach (config('countries') as $code => $name)
+                                    <option value="{{ $code }}" @selected(old('country_of_birth', $application->country_of_birth ?? '') == $code)>{{ $name }}</option>
+                                @endforeach
+                            </select>
+                            @error('country_of_birth')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
                         <div class="bg-blue-50 border border-blue-200 rounded-md p-4">
                             <p class="text-sm font-medium text-blue-900 mb-2">{{ __('applicant/personal-info.note_title')}}</p>
                             <ul class="text-sm text-blue-800 space-y-1">

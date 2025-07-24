@@ -76,7 +76,6 @@
                                     <option value="">{{ __('applicant/program-choice.select_start_term') }}
                                     </option>
                                     <option value="fall2025" @selected(old('start_term', $application->start_term ?? '') == 'fall2025')>Fall 2025</option>
-                                    <option value="spring2026" @selected(old('start_term', $application->start_term ?? '') == 'spring2026')>Spring 2026</option>
                                 </select>
                                 <p class="mt-2 text-gray-500">
                                     {{ __('applicant/program-choice.start_term_placeholder') }}</p>
@@ -94,15 +93,19 @@
                                     </label>
                                 </div>
                                 @error('needs_dormitory')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
+                            </div>
+                            <div>
+                                <a href="https://tsuos.uz/en/talabalar-turar-joylari/" target="_blank" class="text-blue-600 underline">
+                                Information about student accommodation
+                                </a>
                             </div>
                         </div>
                         <div x-data="{ text: '', min: 100 }" class="grid grid-cols-1 gap-4 pb-10">
                             <div>
                                 <p class="text-lg font-semibold text-gray-900 break-words">
-                                    {{ __('applicant/program-choice.motivation_letter_title') }} <span
-                                        class="text-red-500">*</span>
+                                    {{ __('applicant/program-choice.motivation_letter_title') }}
                                 </p>
                             </div>
 
@@ -173,24 +176,24 @@
 
                             <div class="p-6 space-y-4">
                                 <!-- Statement of Purpose Upload -->
-                                <div x-data="documentUpload('sop', @js($documents->get('sop')))" class="border rounded-lg p-4">
+                                <div x-data="documentUpload('motivation_letter', @js($documents->get('motivation_letter')))" class="border rounded-lg p-4">
                                     <div class="mb-3">
                                         <div class="flex items-center space-x-2 mb-1">
                                             <span
-                                                class="text-md font-medium">{{ __('applicant/program-choice.document_sop') }}</span>
+                                                class="text-md font-medium">{{ __('applicant/program-choice.document_motivation_letter') }}</span>
                                             <span
                                                 class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                                                 :class="uploaded ? 'bg-green-100 text-green-800' :
-                                                    'bg-red-100 text-red-800'"
-                                                    x-text="uploaded ? '{{ __('applicant/program-choice.uploaded') }}' : '{{ __('applicant/program-choice.required') }}'">
+                                                    'bg-gray-100 text-gray-800'"
+                                                    x-text="uploaded ? '{{ __('applicant/program-choice.uploaded') }}' : '{{ __('applicant/program-choice.optional') }}'">
                                             </span>
                                         </div>
                                         <p class="text-sm text-gray-500 mb-2">
-                                            {{ __('applicant/program-choice.document_sop_hint') }}</p>
+                                            {{ __('applicant/program-choice.document_motivation_letter_hint') }}</p>
                                         <div class="text-xs text-gray-500">
                                             {{ __('applicant/program-choice.file_upload_formats_5mb') }}</div>
                                     </div>
-                                    @error('document_sop')
+                                    @error('document_motivation_letter')
                                         <div class="mb-3 p-3 bg-red-50 border border-red-200 rounded-lg">
                                             <div class="flex items-center">
                                                 <svg class="h-4 w-4 text-red-500 mr-2" fill="currentColor"
@@ -212,7 +215,7 @@
 
                                         <div x-show="!uploading">
                                             <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                                <label for="sop-file" class="cursor-pointer">
+                                                <label for="motivation-letter-file" class="cursor-pointer">
                                                     <svg class="mx-auto h-10 w-10 text-gray-400 mb-2" fill="none"
                                                         stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -226,7 +229,7 @@
                                                         class="text-sm text-gray-500">{{ __('applicant/program-choice.upload_drag') }}</span>
                                                     <span
                                                         class="text-md text-gray-500">{{ __('applicant/program-choice.upload_file_formats_5mb') }}</span>
-                                                    <input id="sop-file" name="sop" type="file"
+                                                    <input id="motivation-letter-file" name="motivation_letter" type="file"
                                                         class="hidden" accept=".pdf,.doc,.docx"
                                                         @change="handleFileSelect($event)">
                                                 </label>
@@ -310,7 +313,7 @@
                                     </div>
                                 </div>
 
-                                <!-- Curriculum Vitae/Resume Upload -->
+                                <!-- CV Upload -->
                                 <div x-data="documentUpload('cv', @js($documents->get('cv')))" class="border rounded-lg p-4">
                                     <div class="mb-3">
                                         <div class="flex items-center space-x-2 mb-1">
@@ -354,132 +357,6 @@
                                                         class="text-md text-gray-500">{{ __('applicant/program-choice.upload_file_formats_5mb') }}</span>
                                                     <input id="cv-file" name="cv" type="file"
                                                         class="hidden" accept=".pdf,.doc,.docx"
-                                                        @change="handleFileSelect($event)">
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <!-- Loading State -->
-                                        <div x-show="uploading" class="flex flex-col items-center">
-                                            <div
-                                                class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mb-2">
-                                            </div>
-                                            <span
-                                                class="text-sm text-gray-600">{{ __('applicant/program-choice.uploading') }}</span>
-                                        </div>
-                                    </div>
-
-                                    <!-- Success State (shown after successful upload) -->
-                                    <div x-show="uploaded" x-transition
-                                        class="bg-green-50 border border-green-200 rounded-lg p-4">
-                                        <div class="flex items-center justify-between">
-                                            <div class="flex items-center space-x-3">
-                                                <div class="flex-shrink-0">
-                                                    <svg class="h-8 w-8 text-green-600" fill="currentColor"
-                                                        viewBox="0 0 24 24">
-                                                        <path
-                                                            d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
-                                                    </svg>
-                                                </div>
-                                                <div class="flex-1 min-w-0">
-                                                    <p class="text-sm font-medium text-green-900"
-                                                        x-text="fileName.length > 17 ? fileName.slice(0, 17) + '...' : fileName">
-                                                    </p>
-                                                    <p class="text-sm text-green-700">
-                                                        <span x-text="fileSize"></span><br>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="flex items-center space-x-2">
-                                                <!-- Download Button - only show when fileId exists -->
-                                                <template x-if="fileId">
-                                                    <a :href="`/applicant/application/{{ $application->id }}/download-document/${fileId}`"
-                                                        class="text-green-600 hover:text-green-800 transition-colors" aria-label="Download document">
-                                                        <svg class="h-5 w-5" fill="none" stroke="currentColor"
-                                                            viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                                                            </path>
-                                                        </svg>
-                                                    </a>
-                                                </template>
-
-                                                <!-- Remove Button -->
-                                                @if (!in_array($application->status, ['submitted', 'accepted', 're_submitted', 'rejected']))
-                                                    <button @click="removeFile()" aria-label="Remove document"
-                                                        class="text-red-500 hover:text-red-700 transition-colors"
-                                                        type="button">
-                                                        <svg class="h-5 w-5" fill="none" stroke="currentColor"
-                                                            viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                                        </svg>
-                                                    </button>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Error State -->
-                                    <div x-show="error" x-transition
-                                        class="bg-red-50 border border-red-200 rounded-lg p-4 mt-2">
-                                        <div class="flex items-center">
-                                            <svg class="h-5 w-5 text-red-400 mr-2" fill="currentColor"
-                                                viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd"
-                                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                                                    clip-rule="evenodd"></path>
-                                            </svg>
-                                            <span class="text-sm text-red-800" x-text="errorMessage"></span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Portfolio Upload -->
-                                <div x-data="documentUpload('portfolio', @js($documents->get('portfolio')))" class="border rounded-lg p-4">
-                                    <div class="mb-3">
-                                        <div class="flex items-center space-x-2 mb-1">
-                                            <span
-                                                class="text-md font-medium">{{ __('applicant/program-choice.document_portfolio') }}</span>
-                                            <span
-                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
-                                                :class="uploaded ? 'bg-green-100 text-green-800' :
-                                                    'bg-gray-100 text-gray-800'"
-                                                x-text="uploaded ? '{{ __('applicant/program-choice.uploaded') }}' : '{{ __('applicant/program-choice.optional') }}'">
-                                            </span>
-                                        </div>
-                                        <p class="text-sm text-gray-500 mb-2">
-                                            {{ __('applicant/program-choice.document_portfolio_hint') }}</p>
-                                        <div class="text-xs text-gray-500">
-                                            {{ __('applicant/program-choice.file_upload_formats_15mb') }}</div>
-                                    </div>
-
-                                    <div x-show="!uploaded" x-transition
-                                        class="border-2 border-dashed rounded-lg p-4 text-center transition-colors"
-                                        :class="isDragging ? 'border-blue-400 bg-blue-50' :
-                                            'border-gray-300 hover:border-gray-400'"
-                                        @dragover.prevent="isDragging = true" @dragleave.prevent="isDragging = false"
-                                        @drop.prevent="handleDrop($event)">
-
-                                        <div x-show="!uploading">
-                                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                                <label for="portfolio-file" class="cursor-pointer">
-                                                    <svg class="mx-auto h-10 w-10 text-gray-400 mb-2" fill="none"
-                                                        stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
-                                                        </path>
-                                                    </svg>
-                                                    <span
-                                                        class="text-md font-medium text-gray-900">{{ __('applicant/program-choice.upload_click') }}</span>
-                                                    <span
-                                                        class="text-sm text-gray-500">{{ __('applicant/program-choice.upload_drag') }}</span>
-                                                    <span
-                                                        class="text-md text-gray-500">{{ __('applicant/program-choice.upload_file_formats_15mb') }}</span>
-                                                    <input id="portfolio-file" name="portfolio" type="file"
-                                                        class="hidden" accept=".pdf,.zip"
                                                         @change="handleFileSelect($event)">
                                                 </label>
                                             </div>

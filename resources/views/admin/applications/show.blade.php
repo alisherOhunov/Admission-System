@@ -251,6 +251,22 @@
                                         </p>
                                     </div>
                                 </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-700 mb-1">
+                                        Country of Birth
+                                    </p>
+                                    <p class="text-gray-900">
+                                        @if ($application->country_of_birth)
+                                            @foreach (config('countries') as $code => $name)
+                                                <p class="text-gray-900">
+                                                    {{ $application->country_of_birth == $code ? $name : '' }}
+                                                </p>
+                                            @endforeach
+                                        @else
+                                            {{ __('applicant/review-and-submit.not_specified') }}
+                                    </p>
+                                    @endif
+                                </div>
                                 @if (isset($documents['passport']))
                                     <div>
                                         <p class="text-md font-semibold text-gray-800 mb-2">
@@ -380,32 +396,31 @@
                                                 {{ $application->permanent_postcode ? $application->permanent_postcode : __('applicant/review-and-submit.not_specified') }}
                                             </p>
                                         </div>
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-700">Do you Have a visa?</p>
+                                            <p class="text-gray-900">
+                                                {{ $application->has_visa === true ? 'Yes' : ($application->has_visa === false ? 'No' : __('applicant/review-and-submit.not_specified')) }}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-                                @if (isset($documents['address_proof']))
-                                    <div>
-                                        <p class="text-md font-semibold text-gray-800 mb-2">
-                                            Uploaded documents
-                                        </p>
-
-                                        <div
-                                            class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm">
+                                @foreach (['address_proof' => 'Address Proof', 'visa_proof' => 'Visa Proof'] as $key => $label)
+                                    @if (isset($documents[$key]))
+                                        <div class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm mb-2">
                                             <div>
                                                 <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">
-                                                    Address Proof
+                                                    {{ $label }}
                                                 </p>
                                                 <p class="text-sm font-medium text-gray-800">
-                                                    {{ $documents['address_proof']['original_name'] }}
+                                                    {{ $documents[$key]['original_name'] }}
                                                 </p>
                                             </div>
                                             <div class="flex items-center space-x-3">
-                                                <!-- View Button -->
-                                                <a href="/admin/applications/{{ $application->id }}/view-document/{{ $documents['address_proof']['id'] }}"
+                                                <a href="/admin/applications/{{ $application->id }}/view-document/{{ $documents[$key]['id'] }}"
                                                     target="_blank"
                                                     class="text-green-600 hover:text-green-800 transition-colors"
                                                     title="View">
-                                                    <svg class="h-5 w-5" fill="none" stroke="currentColor"
-                                                        viewBox="0 0 24 24">
+                                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
                                                             stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -413,11 +428,10 @@
                                                             d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                     </svg>
                                                 </a>
-                                                <a href="/admin/applications/{{ $application->id }}/document/{{ $documents['address_proof']['id'] }}"
+                                                <a href="/admin/applications/{{ $application->id }}/document/{{ $documents[$key]['id'] }}"
                                                     class="text-blue-600 hover:text-blue-800 transition-colors"
-                                                    title="{{ __('Download') }}">
-                                                    <svg class="h-5 w-5" fill="none" stroke="currentColor"
-                                                        viewBox="0 0 24 24">
+                                                    title="Download">
+                                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
                                                             stroke-width="2"
                                                             d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -425,8 +439,8 @@
                                                 </a>
                                             </div>
                                         </div>
-                                    </div>
-                                @endif
+                                    @endif
+                                @endforeach
                             </div>
                         </div>
 
@@ -491,16 +505,16 @@
 
                                 <div class="space-y-2">
                                     <p class="text-sm font-medium text-gray-700">
-                                        {{ __('applicant/review-and-submit.english_proficiency') }}
+                                        {{ __('applicant/review-and-submit.language_proficiency') }}
                                     </p>
                                     <div class="flex items-center space-x-4 text-sm">
-                                        <span class="text-gray-900">{{ $application->english_test_type }}</span>
+                                        <span class="text-gray-900">Type: {{ $application->language_test_type }}</span>
                                         <span class="text-gray-500">•</span>
                                         <span class="text-gray-900">{{ __('applicant/review-and-submit.score') }}:
-                                            {{ $application->english_test_score }}</span>
+                                            {{ $application->language_test_score }}</span>
                                         <span class="text-gray-500">•</span>
                                         <span class="text-gray-700">
-                                            {{ optional($application->english_test_date)->format('Y/m/d') ?? __('applicant/review-and-submit.not_submitted_yet') }}
+                                            Date: {{ optional($application->language_test_date)->format('Y/m/d') }}
                                         </span>
                                     </div>
                                 </div>
@@ -509,7 +523,7 @@
                                         Uploaded Documents
                                     </p>
 
-                                    @foreach (['transcript' => 'Transcript', 'diploma' => 'Diploma', 'english_score' => 'English Score'] as $key => $label)
+                                    @foreach (['transcript' => 'Transcript', 'diploma' => 'Diploma', 'language_certificate' => 'Language Certificate'] as $key => $label)
                                         @if (isset($documents[$key]))
                                             <div
                                                 class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm mb-2">
@@ -605,7 +619,7 @@
                                         Uploaded Documents
                                     </p>
 
-                                    @foreach (['sop' => 'Statement of Purpose', 'cv' => 'Curriculum Vitae (CV)', 'portfolio' => 'Portfolio'] as $key => $label)
+                                    @foreach (['motivation_letter' => 'Motivation Letter', 'cv' => 'Curriculum Vitae (CV)',] as $key => $label)
                                         @if (isset($documents[$key]))
                                             <div
                                                 class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm mb-2">

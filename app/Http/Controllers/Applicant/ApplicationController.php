@@ -63,19 +63,19 @@ class ApplicationController extends Controller
         $application = $request->getApplication();
         $requiredFields = [
             'nationality' => 'Nationality',
+            'country_of_birth' => 'Country of Birth',
             'passport_number' => 'Passport Number',
             'date_of_birth' => 'Date of Birth',
             'native_language' => 'Native Language',
             'phone' => 'Phone',
             'permanent_street' => 'Permanent Street Address',
-            'previous_institution' => 'Previous Institution',
+            'previous_institution' => 'Previous school, college or institution',
             'previous_gpa' => 'Previous GPA',
             'degree_earned' => 'Degree Earned',
-            'english_test_score' => 'English Test Score',
-            'english_test_date' => 'English Test Date',
+            'language_test_score' => 'Language Test Score',
+            'language_test_date' => 'Language Test Date',
             'program_id' => 'Program',
             'start_term' => 'Start Term',
-            'motivation_letter' => 'Motivation Letter',
             'family_status' => 'Family Status',
         ];
 

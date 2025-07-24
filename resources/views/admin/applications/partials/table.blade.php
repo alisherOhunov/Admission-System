@@ -37,12 +37,12 @@
                         </td>
                         <td class="px-4 py-4 whitespace-nowrap">
                             <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-gray-100 text-foreground capitalize">
-                                {{ $application->level ?? __('not_specified') }}
+                                {{ $application->level ?? __('admin/index.not_specified') }}
                             </div>
                         </td>
                         <td class="px-4 py-4 whitespace-nowrap">
                             <div class="text-sm font-medium text-gray-900">
-                                {{ $application->program->name ?? __('not_selected') }}
+                                {{ $application->program->name ??__('admin/index.not_selected') }}
                             </div>
                             @if($application->program)
                                 <div class="text-sm text-gray-500">{{ $application->program->department }}</div>

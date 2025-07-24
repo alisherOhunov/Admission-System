@@ -111,27 +111,27 @@
                             </div>
                             <div class="grid grid-cols-1 gap-6">
                                 <div>
-                                    <p class="text-lg font-semibold text-gray-900">{{ __('applicant/academic-background.english_proficiency') }}</p>
+                                    <p class="text-lg font-semibold text-gray-900">{{ __('applicant/academic-background.language_proficiency') }}</p>
                                 </div>
                                 <div>
                                     <label
-                                    for="english-test-type"
+                                    for="language-test-type"
                                     class="block text-sm font-medium text-gray-700"
-                                    >{{ __('applicant/academic-background.english_test_type') }}</label
+                                    >{{ __('applicant/academic-background.language_test_type') }}</label
                                     >
                                     <select
-                                        id="english-test-type"
-                                        name="english_test_type"
+                                        id="language-test-type"
+                                        name="language_test_type"
                                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                                     >
                                         <option value="">{{ __('applicant/academic-background.select_test_type') }}</option>
-                                        <option value="IELTS" @selected(old('english_test_type', $application->english_test_type ?? '') == 'IELTS')>{{ __('applicant/academic-background.ielts_academic') }}</option>
-                                        <option value="TOEFL" @selected(old('english_test_type', $application->english_test_type ?? '') == 'TOEFL')>{{ __('applicant/academic-background.toefl_ibt') }}</option>
-                                        <option value="Duolingo" @selected(old('english_test_type', $application->english_test_type ?? '') == 'Duolingo')>{{ __('applicant/academic-background.duolingo') }}</option>
-                                        <option value="Other" @selected(old('english_test_type', $application->english_test_type ?? '') == 'OTHER')>{{ __('applicant/academic-background.other') }}</option>
+                                        <option value="IELTS" @selected(old('language_test_type', $application->language_test_type ?? '') == 'IELTS')>{{ __('applicant/academic-background.ielts_academic') }}</option>
+                                        <option value="TOEFL" @selected(old('language_test_type', $application->language_test_type ?? '') == 'TOEFL')>{{ __('applicant/academic-background.toefl_ibt') }}</option>
+                                        <option value="Duolingo" @selected(old('language_test_type', $application->language_test_type ?? '') == 'Duolingo')>{{ __('applicant/academic-background.duolingo') }}</option>
+                                        <option value="Other" @selected(old('language_test_type', $application->language_test_type ?? '') == 'OTHER')>{{ __('applicant/academic-background.other') }}</option>
                                     </select>
-                                    <p class="mt-2 text-gray-500">{{ __('applicant/academic-background.english_test_type_help') }}</p>
-                                    @error('english_test_type')
+                                    <p class="mt-2 text-gray-500">{{ __('applicant/academic-background.language_test_type_help') }}</p>
+                                    @error('language_test_type')
                                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
                                 </div>
@@ -142,14 +142,14 @@
                                     >{{ __('applicant/academic-background.test_score') }} <span class="text-red-500">*</span></label
                                     >
                                     <input
-                                    value="{{ old('english_test_score', $application->english_test_score ?? '') }}"
+                                    value="{{ old('language_test_score', $application->language_test_score ?? '') }}"
                                     type="text"
                                     id="testScore"
-                                    name="english_test_score"
+                                    name="language_test_score"
                                     placeholder="{{ __('applicant/academic-background.test_score_placeholder') }}"
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                                     />
-                                    @error('english_test_score')
+                                    @error('language_test_score')
                                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
                                 </div>
@@ -157,19 +157,19 @@
                                 <div class="grid grid-cols-1 gap-6">
                                     <div>
                                         <label
-                                            for="english_test_date"
+                                            for="language_test_date"
                                             class="block text-sm font-medium text-gray-700"
                                             >{{ __('applicant/academic-background.test_date') }} <span class="text-red-500">*</span>
                                         </label
                                         >
                                         <input
-                                            value="{{ old('english_test_date', isset($application->english_test_date) ? $application->english_test_date->format('Y-m-d') : '') }}"
+                                            value="{{ old('language_test_date', isset($application->language_test_date) ? $application->language_test_date->format('Y-m-d') : '') }}"
                                             type="date"
-                                            id="english_test_date"
-                                            name="english_test_date"
+                                            id="language_test_date"
+                                            name="language_test_date"
                                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                                         />
-                                        @error('english_test_date')
+                                        @error('language_test_date')
                                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                         @enderror
                                     </div>
@@ -240,145 +240,17 @@
                             </div>
 
                             <div class="p-6 space-y-4">
-                                <!-- Transcripts Upload -->
-                                <div x-data="documentUpload('transcript', @js($documents->get('transcript')))" class="border rounded-lg p-4">
-                                    <div class="mb-3">
-                                        <div class="flex items-center space-x-2 mb-1">
-                                            <span class="text-md font-medium">{{ __('applicant/academic-background.official_transcripts') }}</span>
-                                            <span
-                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
-                                                :class="uploaded ? 'bg-green-100 text-green-800' :
-                                                        'bg-red-100 text-red-800'"
-                                                    x-text="uploaded ? '{{ __('applicant/academic-background.uploaded') }}' : '{{ __('applicant/academic-background.required') }}'">
-                                            </span>
-                                        </div>
-                                        <p class="block text-xs text-gray-500 mb-2">{{ __('applicant/academic-background.transcripts_description') }}</p>
-                                        <div class="text-xs text-gray-500">{{ __('applicant/academic-background.file_formats') }}</div>
-                                    </div>
-                                    <div x-show="!uploaded" x-transition
-                                        class="border-2 border-dashed rounded-lg p-4 text-center transition-colors"
-                                        :class="isDragging ? 'border-blue-400 bg-blue-50' :
-                                            'border-gray-300 hover:border-gray-400'"
-                                        @dragover.prevent="isDragging = true"
-                                        @dragleave.prevent="isDragging = false"
-                                        @drop.prevent="handleDrop($event)">
-
-                                        <div x-show="!uploading">
-                                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                                <label for="transcript-file" class="cursor-pointer">
-                                                    <svg class="mx-auto h-10 w-10 text-gray-400 mb-2"
-                                                        fill="none" stroke="currentColor"
-                                                        viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
-                                                        </path>
-                                                    </svg>
-                                                    <span class="text-md font-medium text-gray-900">{{ __('applicant/academic-background.click_to_upload') }}</span>
-                                                    <span class="text-sm text-gray-500">{{ __('applicant/academic-background.drag_drop') }}</span>
-                                                    <span class="block text-md text-gray-500">{{ __('applicant/academic-background.pdf_max_size') }}</span>
-                                                    <input id="transcript-file" name="transcript" type="file"
-                                                        class="hidden" accept=".pdf"
-                                                        @change="handleFileSelect($event)">
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <!-- Loading State -->
-                                        <div x-show="uploading" class="flex flex-col items-center">
-                                            <div
-                                                class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mb-2">
-                                            </div>
-                                            <span class="text-sm text-gray-600">{{ __('applicant/academic-background.uploading') }}</span>
-                                        </div>
-                                    </div>
-                                    @error('document_transcript')
-                                        <div class="my-3 p-3 bg-red-50 border border-red-200 rounded-lg">
-                                            <div class="flex items-center">
-                                                <svg class="h-4 w-4 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
-                                                </svg>
-                                                <p class="text-sm text-red-600">{{ $message }}</p>
-                                            </div>
-                                        </div>
-                                    @enderror
-                                    <!-- Success State (shown after successful upload) -->
-                                    <div x-show="uploaded" x-transition
-                                        class="bg-green-50 border border-green-200 rounded-lg p-4">
-                                        <div class="flex items-center justify-between">
-                                            <div class="flex items-center space-x-3">
-                                                <div class="flex-shrink-0">
-                                                    <svg class="h-8 w-8 text-green-600" fill="currentColor"
-                                                        viewBox="0 0 24 24">
-                                                        <path
-                                                            d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
-                                                    </svg>
-                                                </div>
-                                                <div class="flex-1 min-w-0">
-                                                    <p class="text-sm font-medium text-green-900"
-                                                        x-text="fileName.length > 17 ? fileName.slice(0, 17) + '...' : fileName">
-                                                    </p>
-                                                    <p class="text-sm text-green-700">
-                                                        <span x-text="fileSize"></span><br>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="flex items-center space-x-2">
-                                                <!-- Download Button - only show when fileId exists -->
-                                                <template x-if="fileId">
-                                                    <a :href="`/applicant/application/{{ $application->id }}/download-document/${fileId}`"
-                                                        class="text-green-600 hover:text-green-800 transition-colors" aria-label="Download document">
-                                                        <svg class="h-5 w-5" fill="none"
-                                                            stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round"
-                                                                stroke-linejoin="round" stroke-width="2"
-                                                                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                                                            </path>
-                                                        </svg>
-                                                    </a>
-                                                </template>
-
-                                                <!-- Remove Button -->
-                                                @if(!in_array($application->status, ['submitted', 'accepted', 're_submitted', 'rejected']))
-                                                    <button @click="removeFile()" aria-label="Remove document"
-                                                        class="text-red-500 hover:text-red-700 transition-colors"
-                                                        type="button">
-                                                        <svg class="h-5 w-5" fill="none" stroke="currentColor"
-                                                            viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                                        </svg>
-                                                    </button>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Error State -->
-                                    <div x-show="error" x-transition
-                                        class="bg-red-50 border border-red-200 rounded-lg p-4 mt-2">
-                                        <div class="flex items-center">
-                                            <svg class="h-5 w-5 text-red-400 mr-2" fill="currentColor"
-                                                viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd"
-                                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                                                    clip-rule="evenodd"></path>
-                                            </svg>
-                                            <span class="text-sm text-red-800" x-text="errorMessage"></span>
-                                        </div>
-                                    </div>
-                                </div>
 
                                 <!-- Diploma certificate Upload -->
-                                 <div x-data="documentUpload('diploma', @js($documents->get('diploma')))" class="border rounded-lg p-4">
+                                <div x-data="documentUpload('diploma', @js($documents->get('diploma')))" class="border rounded-lg p-4">
                                     <div class="mb-3">
                                         <div class="flex items-center space-x-2 mb-1">
                                             <span class="text-md font-medium">{{ __('applicant/academic-background.diploma_certificate') }}</span>
                                             <span
                                                 class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                                                 :class="uploaded ? 'bg-green-100 text-green-800' :
-                                                        'bg-red-100 text-red-800'"
-                                                    x-text="uploaded ? '{{ __('applicant/academic-background.uploaded') }}' : '{{ __('applicant/academic-background.required') }}'">
+                                                        'bg-gray-100 text-gray-800'"
+                                                    x-text="uploaded ? '{{ __('applicant/academic-background.uploaded') }}' : '{{ __('applicant/academic-background.optional') }}'">
                                             </span>
                                         </div>
                                         <p class="text-sm text-gray-500 mb-2">{{ __('applicant/academic-background.diploma_description') }}</p>
@@ -498,20 +370,20 @@
                                     </div>
                                 </div>
 
-                                <!-- English Test Score Upload -->
-                                <div x-data="documentUpload('english_score', @js($documents->get('english_score')))" class="border rounded-lg p-4">
+                                <!-- Transcripts Upload -->
+                                <div x-data="documentUpload('transcript', @js($documents->get('transcript')))" class="border rounded-lg p-4">
                                     <div class="mb-3">
                                         <div class="flex items-center space-x-2 mb-1">
-                                            <span class="text-md font-medium">{{ __('applicant/academic-background.english_test_score') }}</span>
+                                            <span class="text-md font-medium">{{ __('applicant/academic-background.official_transcripts') }}</span>
                                             <span
                                                 class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                                                 :class="uploaded ? 'bg-green-100 text-green-800' :
-                                                        'bg-red-100 text-red-800'"
-                                                    x-text="uploaded ? '{{ __('applicant/academic-background.uploaded') }}' : '{{ __('applicant/academic-background.required') }}'">
+                                                        'bg-gray-100 text-gray-800'"
+                                                    x-text="uploaded ? '{{ __('applicant/academic-background.uploaded') }}' : '{{ __('applicant/academic-background.optional') }}'">
                                             </span>
                                         </div>
-                                        <p class="text-sm text-gray-500 mb-2">{{ __('applicant/academic-background.english_score_description') }}</p>
-                                        <div class="text-xs text-gray-500">{{ __('applicant/academic-background.english_score_formats') }}</div>
+                                        <p class="block text-xs text-gray-500 mb-2">{{ __('applicant/academic-background.transcripts_description') }}</p>
+                                        <div class="text-xs text-gray-500">{{ __('applicant/academic-background.file_formats') }}</div>
                                     </div>
                                     <div x-show="!uploaded" x-transition
                                         class="border-2 border-dashed rounded-lg p-4 text-center transition-colors"
@@ -523,7 +395,136 @@
 
                                         <div x-show="!uploading">
                                             <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                                <label for="english_score-file" class="cursor-pointer">
+                                                <label for="transcript-file" class="cursor-pointer">
+                                                    <svg class="mx-auto h-10 w-10 text-gray-400 mb-2"
+                                                        fill="none" stroke="currentColor"
+                                                        viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                                                        </path>
+                                                    </svg>
+                                                    <span class="text-md font-medium text-gray-900">{{ __('applicant/academic-background.click_to_upload') }}</span>
+                                                    <span class="text-sm text-gray-500">{{ __('applicant/academic-background.drag_drop') }}</span>
+                                                    <span class="block text-md text-gray-500">{{ __('applicant/academic-background.pdf_max_size') }}</span>
+                                                    <input id="transcript-file" name="transcript" type="file"
+                                                        class="hidden" accept=".pdf"
+                                                        @change="handleFileSelect($event)">
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <!-- Loading State -->
+                                        <div x-show="uploading" class="flex flex-col items-center">
+                                            <div
+                                                class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mb-2">
+                                            </div>
+                                            <span class="text-sm text-gray-600">{{ __('applicant/academic-background.uploading') }}</span>
+                                        </div>
+                                    </div>
+                                    @error('document_transcript')
+                                        <div class="my-3 p-3 bg-red-50 border border-red-200 rounded-lg">
+                                            <div class="flex items-center">
+                                                <svg class="h-4 w-4 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                                                </svg>
+                                                <p class="text-sm text-red-600">{{ $message }}</p>
+                                            </div>
+                                        </div>
+                                    @enderror
+                                    <!-- Success State (shown after successful upload) -->
+                                    <div x-show="uploaded" x-transition
+                                        class="bg-green-50 border border-green-200 rounded-lg p-4">
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center space-x-3">
+                                                <div class="flex-shrink-0">
+                                                    <svg class="h-8 w-8 text-green-600" fill="currentColor"
+                                                        viewBox="0 0 24 24">
+                                                        <path
+                                                            d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
+                                                    </svg>
+                                                </div>
+                                                <div class="flex-1 min-w-0">
+                                                    <p class="text-sm font-medium text-green-900"
+                                                        x-text="fileName.length > 17 ? fileName.slice(0, 17) + '...' : fileName">
+                                                    </p>
+                                                    <p class="text-sm text-green-700">
+                                                        <span x-text="fileSize"></span><br>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center space-x-2">
+                                                <!-- Download Button - only show when fileId exists -->
+                                                <template x-if="fileId">
+                                                    <a :href="`/applicant/application/{{ $application->id }}/download-document/${fileId}`"
+                                                        class="text-green-600 hover:text-green-800 transition-colors" aria-label="Download document">
+                                                        <svg class="h-5 w-5" fill="none"
+                                                            stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round"
+                                                                stroke-linejoin="round" stroke-width="2"
+                                                                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                                            </path>
+                                                        </svg>
+                                                    </a>
+                                                </template>
+
+                                                <!-- Remove Button -->
+                                                @if(!in_array($application->status, ['submitted', 'accepted', 're_submitted', 'rejected']))
+                                                    <button @click="removeFile()" aria-label="Remove document"
+                                                        class="text-red-500 hover:text-red-700 transition-colors"
+                                                        type="button">
+                                                        <svg class="h-5 w-5" fill="none" stroke="currentColor"
+                                                            viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </button>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Error State -->
+                                    <div x-show="error" x-transition
+                                        class="bg-red-50 border border-red-200 rounded-lg p-4 mt-2">
+                                        <div class="flex items-center">
+                                            <svg class="h-5 w-5 text-red-400 mr-2" fill="currentColor"
+                                                viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd"
+                                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                            <span class="text-sm text-red-800" x-text="errorMessage"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Language certificate Upload -->
+                                <div x-data="documentUpload('language_certificate', @js($documents->get('language_certificate')))" class="border rounded-lg p-4">
+                                    <div class="mb-3">
+                                        <div class="flex items-center space-x-2 mb-1">
+                                            <span class="text-md font-medium">{{ __('applicant/academic-background.language_certificate') }}</span>
+                                            <span
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                                :class="uploaded ? 'bg-green-100 text-green-800' :
+                                                        'bg-gray-100 text-gray-800'"
+                                                    x-text="uploaded ? '{{ __('applicant/academic-background.uploaded') }}' : '{{ __('applicant/academic-background.optional') }}'">
+                                            </span>
+                                        </div>
+                                        <p class="text-sm text-gray-500 mb-2">{{ __('applicant/academic-background.language_certificate_description') }}</p>
+                                        <div class="text-xs text-gray-500">{{ __('applicant/academic-background.language_certificate_formats') }}</div>
+                                    </div>
+                                    <div x-show="!uploaded" x-transition
+                                        class="border-2 border-dashed rounded-lg p-4 text-center transition-colors"
+                                        :class="isDragging ? 'border-blue-400 bg-blue-50' :
+                                            'border-gray-300 hover:border-gray-400'"
+                                        @dragover.prevent="isDragging = true"
+                                        @dragleave.prevent="isDragging = false"
+                                        @drop.prevent="handleDrop($event)">
+
+                                        <div x-show="!uploading">
+                                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                                <label for="language_certificate-file" class="cursor-pointer">
                                                     <svg class="mx-auto h-10 w-10 text-gray-400 mb-2"
                                                         fill="none" stroke="currentColor"
                                                         viewBox="0 0 24 24">
@@ -534,12 +535,12 @@
                                                     </svg>
                                                     <span class="text-md font-medium text-gray-900">{{ __('applicant/academic-background.click_to_upload') }}</span>
                                                     <span class="text-sm text-gray-500">{{ __('applicant/academic-background.drag_and_drop') }}</span>
-                                                    <span class="block text-md text-gray-500">{{ __('applicant/academic-background.english_score_format_text') }}</span>
-                                                    <input id="english_score-file" name="english_score" type="file"
+                                                    <span class="block text-md text-gray-500">{{ __('applicant/academic-background.language_certificate_format_text') }}</span>
+                                                    <input id="language_certificate-file" name="language_certificate" type="file"
                                                         class="hidden" accept=".pdf"
                                                         @change="handleFileSelect($event)">
                                                 </label>
-                                                @error('english_score')
+                                                @error('language_certificate')
                                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                                 @enderror
                                             </div>
@@ -553,7 +554,7 @@
                                             <span class="text-sm text-gray-600">{{ __('applicant/academic-background.uploading') }}</span>
                                         </div>
                                     </div>
-                                    @error('document_english_score')
+                                    @error('document_language_certificate')
                                         <div class="my-3 p-3 bg-red-50 border border-red-200 rounded-lg">
                                             <div class="flex items-center">
                                                 <svg class="h-4 w-4 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
