@@ -538,11 +538,15 @@
                 </div>
     
                 <!-- Important Notice -->
-                <div class="p-4 rounded-lg border flex items-start space-x-3 bg-blue-50 border-blue-200 text-blue-800">
+                <div class="p-4 rounded-lg border flex items-start bg-blue-50 border-blue-200 text-blue-800">
                     <div class="flex-shrink-0">
-                        <i data-lucide="alert-triangle" class="h-5 w-5"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mt-1" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 9v2m0 4h.01M12 5a7 7 0 1 1-6.93 6.41" />
+                        </svg>
                     </div>
-                    <div class="text-left">
+                    <div class="text-left ml-1">
                         <h1 class="text-lg font-semibold mb-2">{{ __('applicant/review-and-submit.before_submitting') }}</h1>
                         <ul class="text-sm space-y-1">
                             <li>• {{ __('applicant/review-and-submit.review_notice_1') }}</li>

@@ -59,7 +59,7 @@ return [
     'document_requirements' => 'Document Requirements:',
     'requirement_clear' => '• All documents must be clear and legible',
     'requirement_original' => '• Official documents should be in original language',
-    'requirement_translation' => '• Translations must be certified if documents are not in English',
+    'requirement_translation' => '• Translations must be certified if documents are not in English / Russian',
     'requirement_filename' => '• File names should be descriptive and professional',
     'requirement_pages' => '• Ensure all pages are included for multi-page documents',
     'previous' => 'Previous',

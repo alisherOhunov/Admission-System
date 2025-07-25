@@ -44,7 +44,7 @@ return [
     'document_requirements_title' => 'Document Requirements:',
     'doc_tip_1' => '• All documents must be clear and legible',
     'doc_tip_2' => '• Official documents should be in original language',
-    'doc_tip_3' => '• Translations must be certified if documents are not in English',
+    'doc_tip_3' => '• Translations must be certified if documents are not in English / Russian',
     'doc_tip_4' => '• File names should be descriptive and professional',
     'doc_tip_5' => '• Ensure all pages are included for multi-page documents',
     'previous' => 'Previous',

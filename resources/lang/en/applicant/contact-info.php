@@ -34,7 +34,7 @@ return [
     'document_requirements' => 'Document Requirements',
     'req_clear' => '• All documents must be clear and legible',
     'req_original' => '• Official documents should be in original language',
-    'req_translation' => '• Translations must be certified if documents are not in English',
+    'req_translation' => '• Translations must be certified if documents are not in English / Russian',
     'req_filename' => '• File names should be descriptive and professional',
     'req_pages' => '• Ensure all pages are included for multi-page documents',
     'previous' => 'Previous',

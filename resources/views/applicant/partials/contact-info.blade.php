@@ -185,24 +185,33 @@
                             </div>
                         </div>
 
-                        <div class="bg-blue-50 border border-blue-200 rounded-md p-4">
-                            <p class="text-sm font-medium text-blue-900 mb-2">
-                                {{ __('applicant/contact-info.contact_tips_title') }}
-                            </p>
-                            <ul class="text-sm text-blue-800 space-y-1">
-                                <li>
-                                    • {{ __('applicant/contact-info.tip_email') }}
-                                </li>
-                                <li>
-                                    • {{ __('applicant/contact-info.tip_phone') }}
-                                </li>
-                                <li>
-                                    • {{ __('applicant/contact-info.tip_address') }}
-                                </li>
-                                <li>
-                                    • {{ __('applicant/contact-info.tip_contact') }}
-                                </li>
-                            </ul>
+                        <div class="flex items-start bg-blue-50 border border-blue-200 rounded-md p-4 text-blue-700">
+                            <div class="flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-1" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 9v2m0 4h.01M12 5a7 7 0 1 1-6.93 6.41" />
+                                </svg>
+                            </div>
+                            <div class="ml-3 text-left">
+                                <p class="text-sm font-medium mb-2">
+                                    {{ __('applicant/contact-info.contact_tips_title') }}
+                                </p>
+                                <ul class="text-sm space-y-1">
+                                    <li>
+                                        • {{ __('applicant/contact-info.tip_email') }}
+                                    </li>
+                                    <li>
+                                        • {{ __('applicant/contact-info.tip_phone') }}
+                                    </li>
+                                    <li>
+                                        • {{ __('applicant/contact-info.tip_address') }}
+                                    </li>
+                                    <li>
+                                        • {{ __('applicant/contact-info.tip_contact') }}
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
 
@@ -349,17 +358,26 @@
                                 </div>
 
                                 <!-- Upload Tips -->
-                                <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                                    <p class="text-sm font-medium text-blue-900 mb-1">
-                                        {{ __('applicant/contact-info.document_requirements') }}
-                                    </p>
-                                    <ul class="text-sm text-blue-800 space-y-1">
-                                        <li>{{ __('applicant/contact-info.req_clear') }}</li>
-                                        <li>{{ __('applicant/contact-info.req_original') }}</li>
-                                        <li>{{ __('applicant/contact-info.req_translation') }}</li>
-                                        <li>{{ __('applicant/contact-info.req_filename') }}</li>
-                                        <li>{{ __('applicant/contact-info.req_pages') }}</li>
-                                    </ul>
+                                <div class="flex items-start bg-blue-50 border border-blue-200 rounded-lg p-3 text-blue-700">
+                                    <div class="flex-shrink-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-1" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M12 9v2m0 4h.01M12 5a7 7 0 1 1-6.93 6.41" />
+                                        </svg>
+                                    </div>
+                                    <div class="ml-3 text-left">
+                                        <p class="text-sm font-medium mb-1">
+                                            {{ __('applicant/contact-info.document_requirements') }}
+                                        </p>
+                                        <ul class="text-sm space-y-1">
+                                            <li>{{ __('applicant/contact-info.req_clear') }}</li>
+                                            <li>{{ __('applicant/contact-info.req_original') }}</li>
+                                            <li>{{ __('applicant/contact-info.req_translation') }}</li>
+                                            <li>{{ __('applicant/contact-info.req_filename') }}</li>
+                                            <li>{{ __('applicant/contact-info.req_pages') }}</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
