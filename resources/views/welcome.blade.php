@@ -27,7 +27,7 @@
               >Sign In</a
             >
             <a
-              href="{{ route('login') }}"
+              href="{{ route('register') }}"
               class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
               >Get Started</a
             >
@@ -53,7 +53,7 @@
           </p>
           <div class="mt-8 flex items-center justify-center gap-x-6">
             <a
-              href="{{ route('login') }}"
+              href="{{ route('register') }}"
               class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
             >
               Start Your Application
