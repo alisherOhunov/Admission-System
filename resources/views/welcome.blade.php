@@ -144,10 +144,10 @@
         </p>
         <div class="mt-8">
           <a
-            href="{{ route('login') }}"
+            href="{{ route('register') }}"
             class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-blue-600 bg-white hover:bg-gray-100"
           >
-            Start Your Application Today
+            Sign Up and Start Your Application Today
             <svg
               class="ml-2 h-4 w-4"
               fill="none"
@@ -170,7 +170,7 @@
     <footer class="bg-gray-800 text-white py-4">
       <div class="mx-auto max-w-7xl">
         <div class="text-center text-gray-400">
-          <p>&copy; 2025 U-PRESS LLC. All right reserved.</p>
+          <p>&copy; 2025 U-PRESS LLC. All rights reserved.</p>
       </div>
       </div>
     </footer>
