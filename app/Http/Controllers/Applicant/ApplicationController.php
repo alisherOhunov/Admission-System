@@ -112,7 +112,14 @@ class ApplicationController extends Controller
         $uploadedDocuments = $application->documents()->pluck('type')->toArray();
 
         foreach ($documentTypes as $type => $config) {
-            if ($config['required'] && ! in_array($type, $uploadedDocuments)) {
+            $isRequired = $config['required'];
+
+            // Make visa_proof required if has_visa is true
+            if ($type === 'visa_proof' && $application->has_visa == 1) {
+                $isRequired = true;
+            }
+
+            if ($isRequired && ! in_array($type, $uploadedDocuments)) {
                 $validator->errors()->add(
                     "document_{$type}",
                     "The {$config['label']} document is required before submitting."

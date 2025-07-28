@@ -241,12 +241,12 @@
                 });
                 
                 this.$watch('currentStep', (newStep) => {
-                    if (newStep === 5) {
+                    if (newStep === 5 || newStep === 2) {
                         this.collectAllFormData();
                     }
                 });
 
-                if (this.currentStep === 5) {
+                if (this.currentStep === 5 || this.currentStep === 2) {
                     // Add delay on page load to ensure programSelector component has finished
                     setTimeout(() => this.collectAllFormData(), 200);
                 };

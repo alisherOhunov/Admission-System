@@ -167,6 +167,7 @@
                                     Do you have a visa? <span class="text-red-500 ml-1"></span>
                                 </label>
                                 <select name="has_visa" id="has_visa"
+                                    @change="collectAllFormData()"
                                     class="mt-1 flex h-10 w-full rounded-md border px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm form-input"
                                 >
                                     <option value="" @selected(old('has_visa', $application->has_visa ?? null) === null)>
@@ -242,9 +243,8 @@
                                                 <span class="text-md font-medium">Visa Proof</span>
                                                 <span
                                                     class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
-                                                    :class="uploaded ? 'bg-green-100 text-green-800' :
-                                                        'bg-gray-100 text-gray-800'"
-                                                    x-text="uploaded ? '{{ __('applicant/contact-info.uploaded') }}' : '{{ __('applicant/contact-info.optional') }}'">
+                                                    :class="uploaded ? 'bg-green-100 text-green-800' : (getFieldValue('has_visa') === '1' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800')"
+                                                    x-text="uploaded ? '{{ __('applicant/contact-info.uploaded') }}' : (getFieldValue('has_visa') === '1' ? 'Required' : '{{ __('applicant/contact-info.optional') }}')">
                                                 </span>
                                             </div>
                                             <p class="text-sm text-gray-500 mb-2">Upload information about your visa status</p>
@@ -288,7 +288,16 @@
                                                 <span class="text-sm text-gray-600">{{ __('applicant/contact-info.uploading') }}</span>
                                             </div>
                                         </div>
-
+                                        @error('document_visa_proof')
+                                            <div class="my-3 p-3 bg-red-50 border border-red-200 rounded-lg">
+                                                <div class="flex items-center">
+                                                    <svg class="h-4 w-4 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                                                    </svg>
+                                                    <p class="text-sm text-red-600">{{ $message }}</p>
+                                                </div>
+                                            </div>
+                                        @enderror
                                         <!-- Success State (shown after successful upload) -->
                                         <div x-show="uploaded" x-transition
                                             class="bg-green-50 border border-green-200 rounded-lg p-4">
