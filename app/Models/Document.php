@@ -40,14 +40,14 @@ class Document extends Model
             'transcript' => [
                 'label' => 'Academic Transcripts',
                 'description' => 'Official transcripts from previous institutions',
-                'required' => false,
+                'required' => true,
                 'formats' => ['PDF'],
                 'max_size' => '10MB',
             ],
             'diploma' => [
                 'label' => 'Diploma/Certificates',
                 'description' => 'Graduation certificates and diplomas',
-                'required' => false,
+                'required' => true,
                 'formats' => ['PDF', 'JPG', 'PNG'],
                 'max_size' => '10MB',
             ],
@@ -70,6 +70,13 @@ class Document extends Model
                 'description' => 'Your current CV/Resume (required for graduate programs)',
                 'required' => false,
                 'formats' => ['PDF', 'DOC', 'DOCX'],
+                'max_size' => '5MB',
+            ],
+            'visa_proof' => [
+                'label' => 'Visa Proof',
+                'description' => 'Upload a document supporting your visa application (required if visa selected)',
+                'required' => false,
+                'formats' => ['PDF', 'JPG', 'PNG'],
                 'max_size' => '5MB',
             ],
         ];

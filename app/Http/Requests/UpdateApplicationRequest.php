@@ -64,7 +64,7 @@ class UpdateApplicationRequest extends FormRequest
             'previous_gpa' => 'nullable|string|max:10',
             'degree_earned' => 'nullable|string|max:64',
             'graduation_date' => 'sometimes|nullable|date|before_or_equal:today',
-            'language_test_type' => 'sometimes|nullable|in:IELTS,TOEFL,Duolingo,Other',
+            'language_test_type' => 'sometimes|nullable|in:IELTS,TOEFL,Duolingo,No Certificate,Other',
             'language_test_score' => 'sometimes|nullable|string|max:20',
             'language_test_date' => 'sometimes|nullable|date|before_or_equal:today',
             'level' => 'nullable|in:bachelors,masters',

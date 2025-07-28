@@ -20,6 +20,7 @@ return [
     'ielts_academic' => 'IELTS Academic',
     'toefl_ibt' => 'TOEFL iBT',
     'duolingo' => 'Duolingo English Test',
+    'no_certificate' => 'No Certificate',
     'other' => 'Other',
     'language_test_type_help' => 'Select the language proficiency test you have taken or plan to take',
     'cambridge' => 'Cambridge English',

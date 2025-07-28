@@ -128,6 +128,7 @@
                                         <option value="IELTS" @selected(old('language_test_type', $application->language_test_type ?? '') == 'IELTS')>{{ __('applicant/academic-background.ielts_academic') }}</option>
                                         <option value="TOEFL" @selected(old('language_test_type', $application->language_test_type ?? '') == 'TOEFL')>{{ __('applicant/academic-background.toefl_ibt') }}</option>
                                         <option value="Duolingo" @selected(old('language_test_type', $application->language_test_type ?? '') == 'Duolingo')>{{ __('applicant/academic-background.duolingo') }}</option>
+                                        <option value="No Certificate" @selected(old('language_test_type', $application->language_test_type ?? '') == 'No Certificate')>{{ __('applicant/academic-background.no_certificate') }}</option>
                                         <option value="Other" @selected(old('language_test_type', $application->language_test_type ?? '') == 'OTHER')>{{ __('applicant/academic-background.other') }}</option>
                                     </select>
                                     <p class="mt-2 text-gray-500">{{ __('applicant/academic-background.language_test_type_help') }}</p>
@@ -249,8 +250,8 @@
                                             <span
                                                 class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                                                 :class="uploaded ? 'bg-green-100 text-green-800' :
-                                                        'bg-gray-100 text-gray-800'"
-                                                    x-text="uploaded ? '{{ __('applicant/academic-background.uploaded') }}' : '{{ __('applicant/academic-background.optional') }}'">
+                                                        'bg-red-100 text-red-800'"
+                                                    x-text="uploaded ? '{{ __('applicant/academic-background.uploaded') }}' : '{{ __('applicant/academic-background.required') }}'">
                                             </span>
                                         </div>
                                         <p class="text-sm text-gray-500 mb-2">{{ __('applicant/academic-background.diploma_description') }}</p>
@@ -378,8 +379,8 @@
                                             <span
                                                 class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                                                 :class="uploaded ? 'bg-green-100 text-green-800' :
-                                                        'bg-gray-100 text-gray-800'"
-                                                    x-text="uploaded ? '{{ __('applicant/academic-background.uploaded') }}' : '{{ __('applicant/academic-background.optional') }}'">
+                                                        'bg-red-100 text-red-800'"
+                                                    x-text="uploaded ? '{{ __('applicant/academic-background.uploaded') }}' : '{{ __('applicant/academic-background.required') }}'">
                                             </span>
                                         </div>
                                         <p class="block text-xs text-gray-500 mb-2">{{ __('applicant/academic-background.transcripts_description') }}</p>
