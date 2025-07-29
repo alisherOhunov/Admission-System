@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'welcome_back' => 'Welcome back',
+    'welcome_back' => 'Welcome',
     'track_your_application' => 'Track your application status and manage your university admission process',
     'current_application_active' => ':name application period is currently active.',
     'application_overview' => 'Application Overview',
