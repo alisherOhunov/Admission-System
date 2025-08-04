@@ -49,7 +49,7 @@
             Welcome to the online admission system for foreign students of Tashkent Pharmaceutical Institute!
           </p>
           <p class="mt-4 text-lg leading-8 text-gray-600 max-w-3xl mx-auto">
-            Apply to our university with confidence and ease.
+            Apply to our institute with confidence and ease.
           </p>
           <div class="mt-8 flex items-center justify-center gap-x-6">
             <a
