@@ -289,14 +289,14 @@
                                 <p class="text-sm text-blue-700">{{ __('applicant/dashboard.application_support_desc')}}</p>
                             </div>
                             <div class="space-y-3">
-                                <a href="https://tsuos.uz/en/admission-for-international-students-2025/" target="_blank" class="w-full inline-flex justify-center items-center gap-2 px-4 py-2 h-10 bg-blue-600 text-white font-medium rounded-lg shadow-sm hover:bg-blue-600/90 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors text-sm">
+                                <a href="https://pharmi.uz/qabul" target="_blank" class="w-full inline-flex justify-center items-center gap-2 px-4 py-2 h-10 bg-blue-600 text-white font-medium rounded-lg shadow-sm hover:bg-blue-600/90 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors text-sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
                                         <rect width="20" height="16" x="2" y="4" rx="2"></rect>
                                         <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
                                     </svg>
                                     {{ __('applicant/dashboard.contact_support')}}
                                 </a>
-                                <a href="https://tsuos.uz/en/admission-for-international-students-2025/" target="_blank" class="w-full inline-flex justify-center items-center gap-2 px-4 py-2 h-10 bg-blue-600 text-white font-medium rounded-lg shadow-sm hover:bg-blue-600/90 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors text-sm">
+                                <a href="https://pharmi.uz/qabul" target="_blank" class="w-full inline-flex justify-center items-center gap-2 px-4 py-2 h-10 bg-blue-600 text-white font-medium rounded-lg shadow-sm hover:bg-blue-600/90 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors text-sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
                                         <path d="M12 7v14"></path>
                                         <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path>

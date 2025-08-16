@@ -37,7 +37,7 @@
 
                             <a href="{{ auth()->user()->isApplicant() ? route('applicant.dashboard') : route('admin.dashboard') }}"
                                 class="flex items-center space-x-2">
-                                <img src="https://admission.myprojects.uz/favicon.ico" alt="Logo"
+                                <img src="{{ asset('images/logo.png') }}" alt="Logo"
                                         width="48" height="48" style="display: block;">
                                 <span class="text-xl font-bold text-gray-900">{{ config('app.name') }}</span>
                             </a>

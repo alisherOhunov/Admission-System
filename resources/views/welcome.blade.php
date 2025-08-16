@@ -15,7 +15,7 @@
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
           <div class="flex items-center space-x-2">
-            <img src="https://admission.myprojects.uz/favicon.ico" alt="Logo"
+            <img src="{{ asset('images/logo.png') }}" alt="Logo"
             width="48" height="48" style="display: block;">
             <span class="text-xl font-bold text-gray-900">{{ config('app.name') }}</span>
           </div>
@@ -46,10 +46,10 @@
             <span class="text-blue-600">Admission for international students</span>
           </h1>
           <p class="mt-6 text-lg leading-8 text-gray-800 max-w-7xl mx-auto">
-            Welcome to the online admission system for foreign students of Tashkent State University of Oriental Studies!
+            Welcome to the online admission system for foreign students of Tashkent Pharmaceutical Institute!
           </p>
           <p class="mt-4 text-lg leading-8 text-gray-600 max-w-3xl mx-auto">
-            Apply to our university with confidence and ease.
+            Apply to our institute with confidence and ease.
           </p>
           <div class="mt-8 flex items-center justify-center gap-x-6">
             <a
