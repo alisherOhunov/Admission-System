@@ -15,7 +15,7 @@
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
           <div class="flex items-center space-x-2">
-            <img src="https://admission.myprojects.uz/favicon.ico" alt="Logo"
+            <img src="{{ asset('images/logo.png') }}" alt="Logo"
             width="48" height="48" style="display: block;">
             <span class="text-xl font-bold text-gray-900">{{ config('app.name') }}</span>
           </div>
