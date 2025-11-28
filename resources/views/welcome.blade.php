@@ -46,7 +46,7 @@
             <span class="text-blue-600">Admission for international students</span>
           </h1>
           <p class="mt-6 text-lg leading-8 text-gray-800 max-w-7xl mx-auto">
-            Welcome to the online admission system for foreign students of Tashkent State University of Oriental Studies!
+            Welcome to the online admission system for foreign students of State Academy of Sports of Uzbekistan!
           </p>
           <p class="mt-4 text-lg leading-8 text-gray-600 max-w-3xl mx-auto">
             Apply to our university with confidence and ease.
