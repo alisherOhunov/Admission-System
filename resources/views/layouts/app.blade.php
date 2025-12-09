@@ -44,7 +44,7 @@
                         </div>
 
                         <!-- Desktop Navigation -->
-                        <nav class="hidden md:flex items-center space-x-8">
+                        <nav class="hidden md:flex items-center space-x-8" x-data="{ openSettings: false }">
                             @if (auth()->user()->isApplicant())
                                 <a href="{{ route('applicant.dashboard') }}"
                                     class="flex items-center space-x-2 text-gray-600 hover:text-gray-900 {{ request()->routeIs('applicant.dashboard') ? 'text-blue-600 font-medium' : '' }}">
@@ -97,6 +97,54 @@
                                     </svg>
                                     <span>Applications</span>
                                 </a>
+                                <div class="relative">
+                                    <button 
+                                        @click="openSettings = !openSettings"
+                                        class="flex items-center space-x-2 text-gray-600 hover:text-gray-900 
+                                        {{ request()->routeIs('admin.applications.settings.*') ? 'text-blue-600 font-medium' : '' }}">
+                                        
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="lucide lucide-settings h-4 w-4">
+                                            <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                        </svg>
+
+                                        <span>Settings</span>
+
+                                        <svg class="w-4 h-4 transform transition"
+                                            :class="{ 'rotate-180': openSettings }"
+                                            fill="none" stroke="currentColor" stroke-width="2"
+                                            viewBox="0 0 24 24">
+                                            <path d="M6 9l6 6 6-6"/>
+                                        </svg>
+                                    </button>
+
+                                    <div 
+                                        x-show="openSettings"
+                                        @click.away="openSettings = false"
+                                        x-transition
+                                        class="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 
+                                            border border-gray-200 z-20">
+
+                                        <a href="{{ route('admin.applications.settings.periods') }}"
+                                        class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            Periods
+                                        </a>
+
+                                        <a href="{{ route('admin.applications.settings.periods') }}"
+                                        class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            Programs
+                                        </a>
+
+                                        <a href="{{ route('admin.applications.settings.periods') }}"
+                                        class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            Site Settings
+                                        </a>
+
+                                    </div>
+                                </div>
                             @endif
                         </nav>
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ApplicationsController;
+use App\Http\Controllers\Admin\ApplicationPeriodsSettingsController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Applicant\ApplicationController;
 use App\Http\Controllers\Applicant\DashboardController as ApplicantDashboardController;
@@ -69,6 +70,12 @@ Route::middleware(['auth', 'admin', 'verified'])->prefix('admin')->name('admin.'
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::get('/applications', [ApplicationsController::class, 'index'])->name('applications.index');
     Route::get('/applications/export', [ApplicationsController::class, 'export'])->name('applications.export');
+    Route::get('/applications/settings/periods', [ApplicationPeriodsSettingsController::class, 'index'])->name('applications.settings.periods');
+    Route::post('/applications/settings/periods', [ApplicationPeriodsSettingsController::class, 'store'])->name('applications.settings.periods.store');
+    Route::get('/applications/settings/periods/{period}/edit', [ApplicationPeriodsSettingsController::class, 'edit'])->name('applications.settings.periods.edit');
+    Route::put('/applications/settings/periods/{period}', [ApplicationPeriodsSettingsController::class, 'update'])->name('applications.settings.periods.update');
+    Route::delete('/applications/settings/periods/{period}', [ApplicationPeriodsSettingsController::class, 'destroy'])->name('applications.settings.periods.destroy');
+    Route::post('/applications/settings/periods/{period}/activate', [ApplicationPeriodsSettingsController::class, 'activate'])->name('applications.settings.periods.activate');
     Route::get('/applications/{application_id}', [ApplicationsController::class, 'show'])->name('applications.show');
     Route::post('/applications/{application_id}/status', [ApplicationsController::class, 'updateStatus'])->name('applications.status');
     Route::post('/applications/{application_id}/notes', [ApplicationsController::class, 'addNote'])->name('applications.notes');
