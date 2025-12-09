@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\Admin\ApplicationsController;
 use App\Http\Controllers\Admin\ApplicationPeriodsSettingsController;
+use App\Http\Controllers\Admin\ApplicationsController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Applicant\ApplicationController;
 use App\Http\Controllers\Applicant\DashboardController as ApplicantDashboardController;
 use App\Http\Controllers\Auth\AuthController;
@@ -81,6 +82,8 @@ Route::middleware(['auth', 'admin', 'verified'])->prefix('admin')->name('admin.'
     Route::post('/applications/{application_id}/notes', [ApplicationsController::class, 'addNote'])->name('applications.notes');
     Route::get('/applications/{application_id}/document/{file_id}', [ApplicationsController::class, 'getApplicantDocument'])->name('applications.getApplicantDocument');
     Route::get('/applications/{application_id}/view-document/{file_id}', [ApplicationsController::class, 'viewApplicantDocument'])->name('applications.view-document');
+    Route::get('/applications/settings/site', [SiteSettingController::class, 'index'])->name('applications.settings.index');
+    Route::post('/applications/settings/site/update', [SiteSettingController::class, 'update'])->name('applications.settings.update');
 });
 
 // Error Pages

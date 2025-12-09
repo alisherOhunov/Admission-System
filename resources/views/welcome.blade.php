@@ -1,3 +1,10 @@
+@php
+    $universityName = 'State Academy of Sports of Uzbekistan!';
+    $universityFile = storage_path('app/university_name.txt');
+    if (File::exists($universityFile)) {
+        $universityName = File::get($universityFile);
+    }
+@endphp
 <!doctype html>
 <html lang="en">
   <head>
@@ -46,7 +53,7 @@
             <span class="text-blue-600">Admission for international students</span>
           </h1>
           <p class="mt-6 text-lg leading-8 text-gray-800 max-w-7xl mx-auto">
-            Welcome to the online admission system for foreign students of State Academy of Sports of Uzbekistan!
+            Welcome to the online admission system for foreign students of {{ $universityName }}
           </p>
           <p class="mt-4 text-lg leading-8 text-gray-600 max-w-3xl mx-auto">
             Apply to our university with confidence and ease.

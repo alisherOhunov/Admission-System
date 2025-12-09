@@ -138,7 +138,7 @@
                                             Programs
                                         </a>
 
-                                        <a href="{{ route('admin.applications.settings.periods') }}"
+                                        <a href="{{ route('admin.applications.settings.index') }}"
                                         class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                                             Site Settings
                                         </a>

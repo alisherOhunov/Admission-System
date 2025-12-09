@@ -2,17 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Exports\ApplicationsExport;
 use App\Http\Controllers\Controller;
-use App\Models\Application;
 use App\Models\ApplicationPeriod;
-use App\Models\Document;
-use App\Models\Program;
-use App\Models\StaffNote;
-use App\Notifications\ApplicationStatusUpdated;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Maatwebsite\Excel\Facades\Excel;
 
 class ApplicationPeriodsSettingsController extends Controller
 {
@@ -26,21 +18,21 @@ class ApplicationPeriodsSettingsController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name'       => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'start_date' => 'required|date',
-            'end_date'   => 'required|date|after_or_equal:start_date',
+            'end_date' => 'required|date|after_or_equal:start_date',
         ]);
 
         ApplicationPeriod::create($validated);
 
         return redirect()->route('admin.applications.settings.periods')
-                        ->with('success', 'Application period added successfully.');
+            ->with('success', 'Application period added successfully.');
     }
 
     public function activate(ApplicationPeriod $period)
     {
         ApplicationPeriod::where('is_active', true)->update(['is_active' => false]);
-        
+
         $period->update(['is_active' => true]);
 
         return back()->with('success', 'Application period activated successfully.');
@@ -50,13 +42,13 @@ class ApplicationPeriodsSettingsController extends Controller
     {
         return view('admin.applications.edit-period', compact('period'));
     }
-    
+
     public function update(Request $request, ApplicationPeriod $period)
     {
         $validated = $request->validate([
-            'name'       => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'start_date' => 'required|date',
-            'end_date'   => 'required|date|after_or_equal:start_date',
+            'end_date' => 'required|date|after_or_equal:start_date',
         ]);
 
         $period->update($validated);
