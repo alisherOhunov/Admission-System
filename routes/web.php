@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ApplicationPeriodsSettingsController;
+use App\Http\Controllers\Admin\ProgramsSettingsController;
 use App\Http\Controllers\Admin\ApplicationsController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\SiteSettingController;
@@ -77,6 +78,13 @@ Route::middleware(['auth', 'admin', 'verified'])->prefix('admin')->name('admin.'
     Route::put('/applications/settings/periods/{period}', [ApplicationPeriodsSettingsController::class, 'update'])->name('applications.settings.periods.update');
     Route::delete('/applications/settings/periods/{period}', [ApplicationPeriodsSettingsController::class, 'destroy'])->name('applications.settings.periods.destroy');
     Route::post('/applications/settings/periods/{period}/activate', [ApplicationPeriodsSettingsController::class, 'activate'])->name('applications.settings.periods.activate');
+    Route::get('/applications/settings/programs', [ProgramsSettingsController::class, 'index'])->name('applications.settings.programs');
+    Route::post('/applications/settings/programs', [ProgramsSettingsController::class, 'store'])->name('applications.settings.programs.store');
+    Route::get('/applications/settings/programs/{program}/edit', [ProgramsSettingsController::class, 'edit'])->name('applications.settings.programs.edit');
+    Route::put('/applications/settings/programs/{program}', [ProgramsSettingsController::class, 'update'])->name('applications.settings.programs.update');
+    Route::delete('/applications/settings/programs/{program}', [ProgramsSettingsController::class, 'destroy'])->name('applications.settings.programs.destroy');
+    Route::post('/applications/settings/programs/{program}/activate', [ProgramsSettingsController::class, 'activate'])->name('applications.settings.programs.activate');
+    Route::post('/applications/settings/programs/{program}/de-activate', [ProgramsSettingsController::class, 'deActivate'])->name('applications.settings.programs.de-activate');
     Route::get('/applications/{application_id}', [ApplicationsController::class, 'show'])->name('applications.show');
     Route::post('/applications/{application_id}/status', [ApplicationsController::class, 'updateStatus'])->name('applications.status');
     Route::post('/applications/{application_id}/notes', [ApplicationsController::class, 'addNote'])->name('applications.notes');
