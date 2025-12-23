@@ -96,8 +96,10 @@ class ApplicationsController extends Controller
         ]);
 
         if ($oldStatus !== $request->status) {
-            $application->load('user');
-            dispatch(function () use ($application) {
+            $applicationId = $application->id;
+            
+            dispatch(function () use ($applicationId) {
+                $application = Application::with('user')->find($applicationId);
                 $application->user->notify(new ApplicationStatusUpdated($application));
             })->afterResponse();
         }

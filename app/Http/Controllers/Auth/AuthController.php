@@ -76,9 +76,9 @@ class AuthController extends Controller
         ]);
 
         Auth::login($user);
-        dispatch(function () use ($user) {
-            $user->sendEmailVerificationNotification();
-        })->afterResponse();
+
+        Auth::login($user);
+        $user->sendEmailVerificationNotification();
 
         return redirect()->route('verification.notice');
     }
