@@ -12,7 +12,8 @@
         </div>
     </div>
 
-    <div class="overflow-x-auto">
+    <!-- Desktop Table View (hidden on mobile) -->
+    <div class="hidden md:block overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-white">
                 <tr>
@@ -70,14 +71,14 @@
                         <td class="px-4 py-4 whitespace-nowrap text-left text-sm font-medium">
                             <div class="flex items-center justify-start space-x-2">
                                 <a href="{{ route('admin.applications.show', $application->id) }}" title="{{ __('admin/index.view') }}">
-                                    <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3" aria-label="{{ __('admin/index.view') }}">
+                                    <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3" aria-label="{{ __('admin/index.view') }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye h-4 w-4">
                                             <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path>
                                             <circle cx="12" cy="12" r="3"></circle>
                                         </svg>
                                     </button>
                                 </a>
-                                <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3" title="{{ __('admin/index.more') }}">
+                                <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3" title="{{ __('admin/index.more') }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis h-4 w-4">
                                         <circle cx="12" cy="12" r="1"></circle>
                                         <circle cx="19" cy="12" r="1"></circle>
@@ -102,6 +103,97 @@
                 @endforelse
             </tbody>
         </table>
+    </div>
+
+    <!-- Mobile Card View (visible on mobile only) -->
+    <div class="md:hidden">
+        @forelse($applications as $application)
+            <div class="border-b border-gray-200 p-4 hover:bg-gray-50 transition-colors duration-150">
+                <!-- Applicant Info -->
+                <div class="flex justify-between items-start mb-3">
+                    <div class="flex-1">
+                        <h3 class="text-base font-semibold text-gray-900">
+                            {{ $application->user->first_name .' '. $application->user->last_name}}
+                        </h3>
+                        <p class="text-sm text-gray-500 mt-1">{{ $application->user->email }}</p>
+                        <p class="text-xs text-gray-400 mt-1">{{ __('admin/index.application_id') }} {{ $application->id }}</p>
+                    </div>
+                    @php $statusData = $application->getStatusData() @endphp
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $statusData['color'] }} {{ $statusData['bg'] }} ml-2">
+                        {{ $statusData['label'] }}
+                    </span>
+                </div>
+
+                <!-- Application Details -->
+                <div class="space-y-2 mb-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-medium text-gray-500">{{ __('admin/index.th_level') }}</span>
+                        <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold bg-gray-100 text-foreground capitalize">
+                            {{ $application->level ?? __('admin/index.not_specified') }}
+                        </span>
+                    </div>
+
+                    <div class="flex items-start justify-between">
+                        <span class="text-xs font-medium text-gray-500">{{ __('admin/index.th_program') }}</span>
+                        <div class="text-right">
+                            <p class="text-sm font-medium text-gray-900">
+                                {{ $application->program->name ?? __('admin/index.not_selected') }}
+                            </p>
+                            @if($application->program)
+                                <p class="text-xs text-gray-500">{{ $application->program->department }}</p>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-medium text-gray-500">{{ __('admin/index.th_country') }}</span>
+                        <span class="text-sm text-gray-900">
+                            @if ($application->nationality)
+                                @foreach (config('countries') as $code => $name)
+                                    {{ $application->nationality == $code ? $name : '' }}
+                                @endforeach
+                            @else
+                                {{ __('admin/index.not_specified') }}
+                            @endif
+                        </span>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-medium text-gray-500">{{ __('admin/index.th_submitted') }}</span>
+                        <span class="text-sm text-gray-900">
+                            {{ $application->submitted_at ? $application->submitted_at->format('M j, Y') : __('not_submitted') }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="flex items-center justify-end space-x-2 pt-3 border-t border-gray-100">
+                    <a href="{{ route('admin.applications.show', $application->id) }}" title="{{ __('admin/index.view') }}">
+                        <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3" aria-label="{{ __('admin/index.view') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye h-4 w-4">
+                                <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </button>
+                    </a>
+                    <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3" title="{{ __('admin/index.more') }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis h-4 w-4">
+                            <circle cx="12" cy="12" r="1"></circle>
+                            <circle cx="19" cy="12" r="1"></circle>
+                            <circle cx="5" cy="12" r="1"></circle>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        @empty
+            <div class="flex flex-col items-center justify-center py-12 px-4">
+                <svg class="h-12 w-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <p class="text-gray-500 text-sm">{{ __('admin/index.no_results') }}</p>
+                <p class="text-gray-400 text-xs mt-1">{{ __('admin/index.try_adjusting') }}</p>
+            </div>
+        @endforelse
     </div>
 
     <!-- Pagination -->

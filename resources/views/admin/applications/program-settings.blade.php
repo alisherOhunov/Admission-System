@@ -1,43 +1,43 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-4xl mx-auto py-8" x-data="{ open: false }">
-    <h1 class="text-2xl font-bold mb-6">Programs</h1>
+<div class="max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-6 lg:py-8" x-data="{ open: false }">
+    <h1 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Programs</h1>
 
-    <div class="mb-6">
+    <div class="mb-4 sm:mb-6">
         <button 
             @click="open = !open" 
-            class="px-4 py-2 text-blue font-medium rounded-md shadow hover:bg-gray-200">
+            class="w-full sm:w-auto px-3 sm:px-4 py-2 text-blue font-medium rounded-md shadow hover:bg-gray-200 text-sm sm:text-base">
             + Add Program
         </button>
     </div>
 
-    <div x-show="open" x-transition class="mb-6 bg-white shadow rounded-lg p-6 border border-gray-200">
-        <form method="POST" action="{{ route('admin.applications.settings.programs.store') }}" class="space-y-4">
+    <div x-show="open" x-transition class="mb-4 sm:mb-6 bg-white shadow rounded-lg p-4 sm:p-6 border border-gray-200">
+        <form method="POST" action="{{ route('admin.applications.settings.programs.store') }}" class="space-y-3 sm:space-y-4">
             @csrf
 
             <div>
-                <label class="block text-sm font-medium text-gray-700">Program Name</label>
+                <label class="block text-xs sm:text-sm font-medium text-gray-700">Program Name</label>
                 <input type="text" name="name" value="{{ old('name') }}" 
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm 
-                    focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                    focus:ring-indigo-500 focus:border-indigo-500 text-sm py-2 px-3" required>
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700">Degree Level</label>
+                <label class="block text-xs sm:text-sm font-medium text-gray-700">Degree Level</label>
                 <select name="degree_level"
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm 
-                    focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                    focus:ring-indigo-500 focus:border-indigo-500 text-sm py-2 px-3" required>
                     <option value="bachelors">Bachelor's</option>
                     <option value="masters">Master's</option>
                 </select>
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700">Code</label>
+                <label class="block text-xs sm:text-sm font-medium text-gray-700">Code</label>
                 <input type="text" name="code" value="{{ old('code') }}" 
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm 
-                    focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                    focus:ring-indigo-500 focus:border-indigo-500 text-sm py-2 px-3" required>
             </div>
 
             {{-- Optional fields kept hidden or nullable --}}
@@ -45,15 +45,15 @@
             <input type="hidden" name="description">
             <input type="hidden" name="requirements">
 
-            <div class="flex justify-end space-x-3">
+            <div class="flex flex-col-reverse sm:flex-row sm:justify-end gap-2 sm:gap-3">
                 <button type="button" @click="open = false" 
-                    class="px-4 py-2 bg-red-600 text-white font-medium rounded-md shadow 
+                    class="w-full sm:w-auto px-3 sm:px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md shadow 
                     hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400">
                     Cancel
                 </button>
 
                 <button type="submit"
-                    class="px-4 py-2 bg-blue-600 text-white font-medium rounded-md shadow 
+                    class="w-full sm:w-auto px-3 sm:px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md shadow 
                     hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
                     Save
                 </button>
@@ -61,8 +61,8 @@
         </form>
     </div>
 
-    {{-- Programs Table --}}
-    <div class="mt-8 bg-white shadow-sm rounded-2xl">
+    {{-- Desktop Programs Table --}}
+    <div class="hidden md:block mt-6 sm:mt-8 bg-white shadow-sm rounded-xl sm:rounded-2xl overflow-hidden">
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-white">
                 <tr>
@@ -125,7 +125,7 @@
                                     method="POST" class="inline">
                                     @csrf
                                     <button type="submit"
-                                        class="px-3 py-1 bg-green-500 text-white text-xs rounded-md hover:bg-blue-400">
+                                        class="px-3 py-1 bg-green-500 text-white text-xs rounded-md hover:bg-green-600">
                                         Activate
                                     </button>
                                 </form>
@@ -156,6 +156,82 @@
             </tbody>
 
         </table>
+    </div>
+
+    {{-- Mobile Programs Card View --}}
+    <div class="md:hidden mt-6 space-y-4">
+        @forelse($programs as $program)
+            <div class="bg-white shadow-sm rounded-xl border border-gray-200 p-4">
+                <div class="flex items-start justify-between mb-3">
+                    <div class="flex-1 min-w-0">
+                        <h3 class="text-base font-semibold text-gray-900">{{ $program->name }}</h3>
+                        <p class="text-xs text-gray-500">#{{ $program->id }}</p>
+                    </div>
+                    @if($program->is_active)
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 ml-2 flex-shrink-0">Active</span>
+                    @else
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-200 text-gray-700 ml-2 flex-shrink-0">Inactive</span>
+                    @endif
+                </div>
+
+                <div class="space-y-2 text-sm mb-4">
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Degree Level:</span>
+                        <span class="text-gray-900 font-medium">{{ ucfirst($program->degree_level) }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Code:</span>
+                        <span class="text-gray-900 font-medium">{{ $program->code }}</span>
+                    </div>
+                </div>
+
+                <div class="pt-3 border-t border-gray-100">
+                    @if($program->is_active)
+                        {{-- Active program - only show Deactivate --}}
+                        <form action="{{ route('admin.applications.settings.programs.de-activate', $program->id) }}" 
+                            method="POST">
+                            @csrf
+                            <button type="submit" name="deactivate" value="1"
+                                class="w-full px-3 py-2 bg-red-600 text-white text-sm font-medium rounded-md hover:bg-red-700">
+                                Deactivate
+                            </button>
+                        </form>
+                    @else
+                        {{-- Inactive program - show Edit, Activate, Delete --}}
+                        <div class="flex flex-col gap-2">
+                            <a href="{{ route('admin.applications.settings.programs.edit', $program->id) }}" 
+                                class="w-full text-center px-3 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700">
+                                Edit
+                            </a>
+
+                            <form action="{{ route('admin.applications.settings.programs.activate', $program->id) }}" 
+                                method="POST">
+                                @csrf
+                                <button type="submit"
+                                    class="w-full px-3 py-2 bg-green-500 text-white text-sm font-medium rounded-md hover:bg-green-600">
+                                    Activate
+                                </button>
+                            </form>
+
+                            <form action="{{ route('admin.applications.settings.programs.destroy', $program->id) }}" 
+                                method="POST"
+                                onsubmit="return confirm('Are you sure you want to delete this program?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                    class="w-full px-3 py-2 bg-red-600 text-white text-sm font-medium rounded-md hover:bg-red-700">
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        @empty
+            <div class="bg-white shadow-sm rounded-xl border border-gray-200 p-6 text-center">
+                <p class="text-sm text-gray-500">No programs available.</p>
+            </div>
+        @endforelse
     </div>
 </div>
 @endsection

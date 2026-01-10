@@ -1,28 +1,28 @@
 <div x-show="currentStep === {{ $step }}" x-transition>
     <div class="max-w-4xl mx-auto">
         <div class="bg-white shadow-sm rounded-lg">
-            <div class="px-6 py-4 border-b border-gray-200">
-                <div class="flex items-center space-x-2 mb-4">
-                    <span class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-blue-100 text-blue-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user h-6 w-6">
+            <div class="px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-200">
+                <div class="flex items-center space-x-2 mb-3 sm:mb-4">
+                    <span class="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-blue-100 text-blue-600 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sm:w-6 sm:h-6">
                             <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
                             <circle cx="12" cy="7" r="4"></circle>
                         </svg>
                     </span>
-                    <h1 class="text-2xl font-medium">{{ __('applicant/personal-info.section_title')}}</h1>
+                    <h1 class="text-lg sm:text-xl lg:text-2xl font-medium">{{ __('applicant/personal-info.section_title')}}</h1>
                 </div>
-                <p class="text-gray-600 text-md mt-1">
+                <p class="text-gray-600 text-sm sm:text-base">
                     {{ __('applicant/personal-info.section_subtitle')}}
                 </p>
             </div>
 
-            <div class="p-6">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="p-4 sm:p-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
                     <!-- Left Column -->
-                    <div class="space-y-6">
-                        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                    <div class="space-y-4 sm:space-y-6">
+                        <div class="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2">
                             <div>
-                                <label for="first_name" class="block text-sm font-medium text-gray-700">
+                                <label for="first_name" class="block text-xs sm:text-sm font-medium text-gray-700">
                                     {{ __('applicant/personal-info.first_name')}}<span class="text-red-500">*</span>
                                 </label>
                                 <input
@@ -32,86 +32,86 @@
                                     name="first_name"
                                     placeholder="Enter your first name"
                                     value="{{ old('first_name', Auth::user()->first_name) }}"
-                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
+                                    class="mt-1 block w-full px-3 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500"
                                 >
                                 @error('first_name')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-xs sm:text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div>
-                                <label for="last_name" class="block text-sm font-medium text-gray-700">{{ __('applicant/personal-info.last_name')}}
+                                <label for="last_name" class="block text-xs sm:text-sm font-medium text-gray-700">{{ __('applicant/personal-info.last_name')}}
                                     <span class="text-red-500">*</span></label>
                                 <input type="text" id="last_name" name="last_name" placeholder="Enter your last name" value="{{ old('last_name', Auth::user()->last_name) }}"
-                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
+                                    class="mt-1 block w-full px-3 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500"
                                 >
                                 @error('last_name')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-xs sm:text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                        <div class="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2">
                             <div>
-                                <label for="date_of_birth" class="block text-sm font-medium text-gray-700">
+                                <label for="date_of_birth" class="block text-xs sm:text-sm font-medium text-gray-700">
                                     {{ __('applicant/personal-info.date_of_birth')}} <span class="text-red-500">*</span>
                                 </label>
                                 <input type="date" id="date_of_birth" name="date_of_birth"
                                     value="{{ old('date_of_birth', isset($application->date_of_birth) ? $application->date_of_birth->format('Y-m-d') : '') }}"
-                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm">
+                                    class="mt-1 block w-full px-3 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500">
                                 @error('date_of_birth')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-xs sm:text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div>
-                                <label for="gender" class="block text-sm font-medium text-gray-700">{{ __('applicant/personal-info.gender')}}</label>
+                                <label for="gender" class="block text-xs sm:text-sm font-medium text-gray-700">{{ __('applicant/personal-info.gender')}}</label>
                                 <select id="gender" name="gender"
-                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
+                                    class="mt-1 block w-full px-3 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500"
                                 >
                                     <option value="">{{ __('applicant/personal-info.select_gender')}}</option>
                                     <option value="1" @selected(old('gender', $application->gender ?? '') == '1')>{{ __('applicant/personal-info.gender_male')}}</option>
                                     <option value="2" @selected(old('gender', $application->gender ?? '') == '2')>{{ __('applicant/personal-info.gender_female')}}</option>
                                 </select>
                                 @error('gender')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-xs sm:text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                        <div class="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2">
                             <div>
-                                <label for="family_status" class="block text-sm font-medium text-gray-700">{{ __('applicant/personal-info.family_status')}}
+                                <label for="family_status" class="block text-xs sm:text-sm font-medium text-gray-700">{{ __('applicant/personal-info.family_status')}}
                                 <span class="text-red-500">*</span>
                                 </label>
                                 <select id="family_status" name="family_status"
-                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
+                                    class="mt-1 block w-full px-3 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500"
                                 >
                                     <option value="">{{ __('applicant/personal-info.select_family_status')}}</option>
                                     <option value="1" @selected(old('family_status', $application->family_status ?? '') == '1')>{{ __('applicant/personal-info.family_status_single')}}</option>
                                     <option value="2" @selected(old('family_status', $application->family_status ?? '') == '2')>{{ __('applicant/personal-info.family_status_married')}}</option>
                                 </select>
                                 @error('family_status')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-xs sm:text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div>
-                                <label for="passport_number" class="block text-sm font-medium text-gray-700">
+                                <label for="passport_number" class="block text-xs sm:text-sm font-medium text-gray-700">
                                     {{ __('applicant/personal-info.passport_number')}} <span class="text-red-500">*</span>
                                 </label>
                                 <input type="text" id="passport_number" name="passport_number" placeholder="Enter your passport number"
                                     value="{{ old('passport_number', $application->passport_number ?? '') }}"
-                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm">
+                                    class="mt-1 block w-full px-3 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500">
                                 @error('passport_number')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-xs sm:text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                        <div class="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2">
                             <div>
-                                <label for="nationality" class="block text-sm font-medium text-gray-700">{{ __('applicant/personal-info.nationality')}}
+                                <label for="nationality" class="block text-xs sm:text-sm font-medium text-gray-700">{{ __('applicant/personal-info.nationality')}}
                                     <span class="text-red-500">*</span></label>
                                     <select name="nationality"  aria-label="Select Nationality"
-                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
+                                        class="mt-1 block w-full px-3 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500"
                                     >
                                     <option value="" class="text-muted-foreground">Select your country</option>
                                     @foreach (config('countries') as $code => $name)
@@ -119,26 +119,26 @@
                                     @endforeach
                                 </select>
                                 @error('nationality')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-xs sm:text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div>
-                                <label for="native_language" class="block text-sm font-medium text-gray-700">
+                                <label for="native_language" class="block text-xs sm:text-sm font-medium text-gray-700">
                                     {{ __('applicant/personal-info.native_language')}} <span class="text-red-500">*</span>
                                 </label>
                                 <input type="text" id="native_language" name="native_language" placeholder="Enter your native language"
                                 value="{{ old('native_language', $application->native_language ?? '') }}"
-                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm">
+                                class="mt-1 block w-full px-3 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500">
                                 @error('native_language')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                <p class="mt-1 text-xs sm:text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
                         <div>
-                            <label for="country_of_birth" class="block text-sm font-medium text-gray-700">Country of Birth
+                            <label for="country_of_birth" class="block text-xs sm:text-sm font-medium text-gray-700">Country of Birth
                                 <span class="text-red-500">*</span></label>
                                 <select name="country_of_birth"  aria-label="Select country_of_birth"
-                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
+                                    class="mt-1 block w-full px-3 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500"
                                 >
                                 <option value="" class="text-muted-foreground">Select your country of birth</option>
                                 @foreach (config('countries') as $code => $name)
@@ -146,20 +146,20 @@
                                 @endforeach
                             </select>
                             @error('country_of_birth')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                <p class="mt-1 text-xs sm:text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
-                        <div class="flex items-start bg-blue-50 border border-blue-200 rounded-md p-4 text-blue-700">
+                        <div class="flex items-start bg-blue-50 border border-blue-200 rounded-md p-3 sm:p-4 text-blue-700">
                             <div class="flex-shrink-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-1" fill="none"
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 mt-0.5 sm:mt-1" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M12 9v2m0 4h.01M12 5a7 7 0 1 1-6.93 6.41" />
                                 </svg>
                             </div>
-                            <div class="ml-3 text-left">
-                                <p class="text-sm font-medium mb-2">{{ __('applicant/personal-info.note_title')}}</p>
-                                <ul class="text-sm space-y-1">
+                            <div class="ml-2 sm:ml-3 text-left">
+                                <p class="text-xs sm:text-sm font-medium mb-1 sm:mb-2">{{ __('applicant/personal-info.note_title')}}</p>
+                                <ul class="text-xs sm:text-sm space-y-0.5 sm:space-y-1">
                                     <li>{{ __('applicant/personal-info.note_1')}}</li>
                                     <li>{{ __('applicant/personal-info.note_2')}}</li>
                                     <li>{{ __('applicant/personal-info.note_3')}}</li>
@@ -171,9 +171,9 @@
                     <!-- Right Column -->
                     <div>
                         <div class="bg-white border border-gray-200 rounded-lg shadow-sm h-fit">
-                            <div class="px-6 py-4 border-b border-gray-200">
-                                <h2 class="text-lg font-medium flex items-center space-x-2">
-                                    <svg class="h-5 w-5 text-blue-600" fill="none" stroke="currentColor"
+                            <div class="px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-200">
+                                <h2 class="text-base sm:text-lg font-medium flex items-center space-x-2">
+                                    <svg class="h-4 w-4 sm:h-5 sm:w-5 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
@@ -181,30 +181,30 @@
                                     </svg>
                                     <span>{{ __('applicant/personal-info.documents_section_title')}}</span>
                                 </h2>
-                                <p class="text-sm text-gray-600 mt-1">{{ __('applicant/personal-info.documents_section_description')}}</p>
+                                <p class="text-xs sm:text-sm text-gray-600 mt-1">{{ __('applicant/personal-info.documents_section_description')}}</p>
                             </div>
 
-                            <div class="p-6 space-y-4">
+                            <div class="p-4 sm:p-6 space-y-3 sm:space-y-4">
                                 <div>
-                                    <div x-data="documentUpload('passport', @js($documents->get('passport')))" class="border rounded-lg p-4">
+                                    <div x-data="documentUpload('passport', @js($documents->get('passport')))" class="border rounded-lg p-3 sm:p-4">
                                         <div class="mb-3">
                                             <div class="flex items-center space-x-2 mb-1">
-                                                <svg class="h-4 w-4 text-gray-400" fill="none"
+                                                <svg class="h-3.5 w-3.5 sm:h-4 sm:w-4 text-gray-400 flex-shrink-0" fill="none"
                                                     stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         stroke-width="2"
                                                         d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
                                                     </path>
                                                 </svg>
-                                                <span class="text-md font-medium">{{ __('applicant/personal-info.passport_label')}}</span>
+                                                <span class="text-sm sm:text-base font-medium">{{ __('applicant/personal-info.passport_label')}}</span>
                                                 <span
-                                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                                    class="inline-flex items-center px-2 sm:px-2.5 py-0.5 rounded-full text-xs font-medium"
                                                     :class="uploaded ? 'bg-green-100 text-green-800' :
                                                         'bg-red-100 text-red-800'"
                                                     x-text="uploaded ? 'Uploaded' : 'Required'">
                                                 </span>
                                             </div>
-                                            <p class="text-sm text-gray-500 mb-2">
+                                            <p class="text-xs sm:text-sm text-gray-500 mb-2">
                                                 {{ __('applicant/personal-info.passport_description')}}
                                             </p>
                                             <div class="text-xs text-gray-500">
@@ -213,7 +213,7 @@
                                         </div>
 
                                         <div x-show="!uploaded" x-transition
-                                            class="border-2 border-dashed rounded-lg p-4 text-center transition-colors"
+                                            class="border-2 border-dashed rounded-lg p-3 sm:p-4 text-center transition-colors"
                                             :class="isDragging ? 'border-blue-400 bg-blue-50' :
                                                 'border-gray-300 hover:border-gray-400'"
                                             @dragover.prevent="isDragging = true"
@@ -221,9 +221,9 @@
                                             @drop.prevent="handleDrop($event)">
 
                                             <div x-show="!uploading">
-                                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                                <div class="flex flex-col items-center justify-center pt-4 pb-5 sm:pt-5 sm:pb-6">
                                                     <label for="passport-file" class="cursor-pointer">
-                                                        <svg class="mx-auto h-10 w-10 text-gray-400 mb-2"
+                                                        <svg class="mx-auto h-8 w-8 sm:h-10 sm:w-10 text-gray-400 mb-2"
                                                             fill="none" stroke="currentColor"
                                                             viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -231,11 +231,11 @@
                                                                 d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
                                                             </path>
                                                         </svg>
-                                                        <span class="text-md font-medium text-gray-900">
+                                                        <span class="text-sm sm:text-base font-medium text-gray-900 block">
                                                             {{ __('applicant/personal-info.upload_click')}}
                                                         </span>
-                                                        <span class="text-sm text-gray-500">{{ __('applicant/personal-info.upload_or_drag')}}</span>
-                                                        <span class="text-md text-gray-500">
+                                                        <span class="text-xs sm:text-sm text-gray-500 block mt-1">{{ __('applicant/personal-info.upload_or_drag')}}</span>
+                                                        <span class="text-xs sm:text-sm text-gray-500 block mt-1">
                                                             {{ __('applicant/personal-info.upload_formats')}}
                                                         </span>
                                                         <input id="passport-file" name="passport" type="file"
@@ -246,50 +246,50 @@
                                             </div>
 
                                             <!-- Loading State -->
-                                            <div x-show="uploading" class="flex flex-col items-center">
+                                            <div x-show="uploading" class="flex flex-col items-center py-4">
                                                 <div
-                                                    class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mb-2">
+                                                    class="animate-spin rounded-full h-5 w-5 sm:h-6 sm:w-6 border-b-2 border-blue-600 mb-2">
                                                 </div>
-                                                <span class="text-sm text-gray-600">{{ __('applicant/personal-info.uploading')}}</span>
+                                                <span class="text-xs sm:text-sm text-gray-600">{{ __('applicant/personal-info.uploading')}}</span>
                                             </div>
                                         </div>
                                         @error('document_passport')
-                                            <div class="my-3 p-3 bg-red-50 border border-red-200 rounded-lg">
+                                            <div class="my-2 sm:my-3 p-2 sm:p-3 bg-red-50 border border-red-200 rounded-lg">
                                                 <div class="flex items-center">
-                                                    <svg class="h-4 w-4 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                                    <svg class="h-3.5 w-3.5 sm:h-4 sm:w-4 text-red-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
                                                     </svg>
-                                                    <p class="text-sm text-red-600">{{ $message }}</p>
+                                                    <p class="text-xs sm:text-sm text-red-600">{{ $message }}</p>
                                                 </div>
                                             </div>
                                         @enderror
                                         <!-- Success State (shown after successful upload) -->
                                         <div x-show="uploaded" x-transition
-                                            class="bg-green-50 border border-green-200 rounded-lg p-4">
+                                            class="bg-green-50 border border-green-200 rounded-lg p-3 sm:p-4">
                                             <div class="flex items-center justify-between">
-                                                <div class="flex items-center space-x-3">
+                                                <div class="flex items-center space-x-2 sm:space-x-3 min-w-0 flex-1">
                                                     <div class="flex-shrink-0">
-                                                        <svg class="h-8 w-8 text-green-600" fill="currentColor"
+                                                        <svg class="h-6 w-6 sm:h-8 sm:w-8 text-green-600" fill="currentColor"
                                                             viewBox="0 0 24 24">
                                                             <path
                                                                 d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
                                                         </svg>
                                                     </div>
                                                     <div class="flex-1 min-w-0">
-                                                        <p class="text-sm font-medium text-green-900"
-                                                            x-text="fileName.length > 17 ? fileName.slice(0, 17) + '...' : fileName">
+                                                        <p class="text-xs sm:text-sm font-medium text-green-900 truncate"
+                                                            x-text="fileName">
                                                         </p>
-                                                        <p class="text-sm text-green-700">
+                                                        <p class="text-xs sm:text-sm text-green-700">
                                                             <span x-text="fileSize"></span><br>
                                                         </p>
                                                     </div>
                                                 </div>
-                                                <div class="flex items-center space-x-2">
+                                                <div class="flex items-center space-x-1 sm:space-x-2 ml-2 flex-shrink-0">
                                                     <!-- Download Button - only show when fileId exists -->
                                                     <template x-if="fileId">
                                                         <a :href="`/applicant/application/{{ $application->id }}/download-document/${fileId}`"
-                                                            class="text-green-600 hover:text-green-800 transition-colors"  aria-label="Download document">
-                                                            <svg class="h-5 w-5" fill="none"
+                                                            class="text-green-600 hover:text-green-800 transition-colors p-1"  aria-label="Download document">
+                                                            <svg class="h-4 w-4 sm:h-5 sm:w-5" fill="none"
                                                                 stroke="currentColor" viewBox="0 0 24 24">
                                                                 <path stroke-linecap="round"
                                                                     stroke-linejoin="round" stroke-width="2"
@@ -302,9 +302,9 @@
                                                     <!-- Remove Button -->
                                                     @if(!in_array($application->status, ['submitted', 'accepted', 're_submitted', 'rejected']))
                                                         <button @click="removeFile()" aria-label="Remove document"
-                                                            class="text-red-500 hover:text-red-700 transition-colors"
+                                                            class="text-red-500 hover:text-red-700 transition-colors p-1"
                                                             type="button">
-                                                            <svg class="h-5 w-5" fill="none" stroke="currentColor"
+                                                            <svg class="h-4 w-4 sm:h-5 sm:w-5" fill="none" stroke="currentColor"
                                                                 viewBox="0 0 24 24">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                     stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -317,31 +317,31 @@
 
                                         <!-- Error State -->
                                         <div x-show="error" x-transition
-                                            class="bg-red-50 border border-red-200 rounded-lg p-4 mt-2">
+                                            class="bg-red-50 border border-red-200 rounded-lg p-3 sm:p-4 mt-2">
                                             <div class="flex items-center">
-                                                <svg class="h-5 w-5 text-red-400 mr-2" fill="currentColor"
+                                                <svg class="h-4 w-4 sm:h-5 sm:w-5 text-red-400 mr-2 flex-shrink-0" fill="currentColor"
                                                     viewBox="0 0 20 20">
                                                     <path fill-rule="evenodd"
                                                         d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
                                                         clip-rule="evenodd"></path>
                                                 </svg>
-                                                <span class="text-sm text-red-800" x-text="errorMessage"></span>
+                                                <span class="text-xs sm:text-sm text-red-800" x-text="errorMessage"></span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="flex items-start bg-blue-50 border border-blue-200 rounded-lg p-3 text-blue-700">
+                                <div class="flex items-start bg-blue-50 border border-blue-200 rounded-lg p-2 sm:p-3 text-blue-700">
                                     <div class="flex-shrink-0">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-1" fill="none"
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 mt-0.5 sm:mt-1" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M12 9v2m0 4h.01M12 5a7 7 0 1 1-6.93 6.41" />
                                         </svg>
                                     </div>
-                                    <div class="ml-3 text-left">
-                                        <p class="text-sm font-medium mb-1">{{ __('applicant/personal-info.upload_tips_title')}}</p>
-                                        <ul class="text-sm space-y-1">
+                                    <div class="ml-2 sm:ml-3 text-left">
+                                        <p class="text-xs sm:text-sm font-medium mb-1">{{ __('applicant/personal-info.upload_tips_title')}}</p>
+                                        <ul class="text-xs sm:text-sm space-y-0.5 sm:space-y-1">
                                             <li>{{ __('applicant/personal-info.upload_tip_1')}}</li>
                                             <li>{{ __('applicant/personal-info.upload_tip_2')}}</li>
                                             <li>{{ __('applicant/personal-info.upload_tip_3')}}</li>
@@ -352,30 +352,25 @@
                         </div>
                     </div>
                 </div>
+                 <!-- Navigation Buttons -->
+                <div class="flex flex-col-reverse sm:flex-row sm:justify-end gap-3 pt-6 sm:pt-8 border-t mt-6 sm:mt-8">
+                    <button type="submit"
+                            class="w-full sm:w-auto flex items-center justify-center px-3 sm:px-4 py-2 border border-gray-300 shadow-sm text-xs sm:text-sm font-medium rounded-md text-gray-700 bg-white hover:enabled:bg-gray-50 disabled:opacity-50"
+                            @disabled(in_array($application->status, ['submitted', 're_submitted', 'accepted', 'rejected', 'under_review']))>
+                        <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3-3m0 0l-3 3m3-3v12"></path>
+                        </svg>
+                        <span>{{ __('applicant/personal-info.save_progress')}}</span>
+                    </button>
 
-                <!-- Navigation Buttons -->
-                <div class="flex justify-end pt-8 border-t mt-8">
-                    <div class="flex items-center space-x-4">
-                        <button type="submit"
-                                class="flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:enabled:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400 disabled:border-gray-200"
-                                @disabled(in_array($application->status, ['submitted', 're_submitted', 'accepted', 'rejected', 'under_review']))>
-                            <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3-3m0 0l-3 3m3-3v12">
-                                </path>
-                            </svg>
-                            <span>{{ __('applicant/personal-info.save_progress')}}</span>
-                        </button>
-
-                        <button @click="currentStep = 2" type="button"
-                            class="flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
-                            {{ __('applicant/personal-info.next')}}
-                            <svg class="h-4 w-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </button>
-                    </div> 
+                    <button @click="currentStep = 2" type="button"
+                        class="w-full sm:w-auto flex items-center justify-center px-3 sm:px-4 py-2 border border-transparent text-xs sm:text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                        {{ __('applicant/personal-info.next')}}
+                        <svg class="h-4 w-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
                 </div>
             </div>
         </div>

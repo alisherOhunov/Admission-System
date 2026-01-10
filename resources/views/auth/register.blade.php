@@ -12,15 +12,18 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="bg-gray-50 font-sans antialiased" x-data="registerForm()">
-    <div class="min-h-screen flex flex-col justify-center py-12">
+<body class="bg-gray-50">
+    <div class="min-h-screen flex flex-col justify-center py-6 sm:py-12 px-4 sm:px-6 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
-            <div class="flex justify-center items-center space-x-1">
-                <img src="{{ asset('images/logo.png') }}" alt="Logo"
-                    width="48" height="48" style="display: block;">
-                <span class="text-2xl font-bold text-gray-900">{{ config('app.name') }}</span>
+            <div class="flex justify-center">
+                <div class="flex items-center space-x-2">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo"
+                    class="w-10 h-10 sm:w-12 sm:h-12" style="display: block;">
+                    <span class="text-xl sm:text-2xl font-bold text-gray-900">{{ config('app.name') }}</span>
+                </div>
             </div>
-            <h2 class="mt-5 text-center text-2xl font-bold tracking-tight text-gray-900">
+
+            <h2 class="mt-4 sm:mt-6 text-center text-2xl sm:text-3xl font-bold tracking-tight text-gray-900">
                 {{ __('auth.title') }}
             </h2>
             <p class="mt-2 text-center text-sm text-gray-600">
@@ -31,127 +34,146 @@
             </p>
         </div>
 
-        <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-            <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
-                <div class="p-4 pb-0 text-center">
-                    <h3 class="text-2xl font-semibold text-gray-900">{{ __('auth.get_started') }}</h3>
-                </div>
+        <div class="mt-6 sm:mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+            <div class="bg-white py-6 sm:py-8 px-4 shadow rounded-lg sm:px-10" x-data="registerForm()">
 
-                <div class="p-6 pt-0">
+                <form class="space-y-5 sm:space-y-6" method="POST" action="{{ route('register') }}" @submit="handleSubmit">
+                    @csrf
+
                     @if ($errors->any())
-                        <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-                            @foreach ($errors->all() as $error)
-                                <p class="text-sm text-red-600">{{ $error }}</p>
-                            @endforeach
+                        <div class="bg-red-50 border border-red-200 rounded-md p-3 sm:p-4">
+                            <div class="flex">
+                                <svg class="h-5 w-5 text-red-400 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                                </svg>
+                                <div class="ml-3">
+                                    @foreach ($errors->all() as $error)
+                                        <p class="text-sm text-red-800">{{ $error }}</p>
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
                     @endif
 
                     @if (session('success'))
-                        <div class="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-                            <p class="text-sm text-green-600">{{ session('success') }}</p>
+                        <div class="bg-green-50 border border-green-200 rounded-md p-3 sm:p-4">
+                            <div class="flex">
+                                <svg class="h-5 w-5 text-green-400 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                                <div class="ml-3">
+                                    <p class="text-sm text-green-800">{{ session('success') }}</p>
+                                </div>
+                            </div>
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('register') }}" class="space-y-6" @submit="handleSubmit">
-                        @csrf
-
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label for="first_name" class="block text-sm font-medium text-gray-700 mb-2">
-                                    {{ __('auth.first_name') }}
-                                </label>
-                                <input
-                                    type="text"
-                                    id="first_name"
-                                    name="first_name"
-                                    x-model="form.first_name"
-                                    value="{{ old('first_name') }}"
-                                    placeholder="{{ __('auth.first_name') }}"
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors"
-                                    required autofocus
-                                />
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
+                        <div>
+                            <label for="first_name" class="block text-sm font-medium text-gray-700">
+                                {{ __('auth.first_name') }}
+                            </label>
+                            <div class="mt-1">
+                                <input type="text"
+                                       id="first_name"
+                                       name="first_name"
+                                       x-model="form.first_name"
+                                       value="{{ old('first_name') }}"
+                                       placeholder="{{ __('auth.first_name') }}"
+                                       class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-sm"
+                                       required autofocus />
                             </div>
+                        </div>
 
-                            <div>
-                                <label for="last_name" class="block text-sm font-medium text-gray-700 mb-2">
-                                    {{ __('auth.last_name') }}
-                                </label>
+                        <div>
+                            <label for="last_name" class="block text-sm font-medium text-gray-700">
+                                {{ __('auth.last_name') }}
+                            </label>
+                            <div class="mt-1">
                                 <input type="text"
                                        id="last_name"
                                        name="last_name"
                                        x-model="form.last_name"
                                        value="{{ old('last_name') }}"
                                        placeholder="{{ __('auth.last_name') }}"
-                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors"
+                                       class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-sm"
                                        required />
                             </div>
                         </div>
+                    </div>
 
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
-                                {{ __('auth.email') }}
-                            </label>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700">
+                            {{ __('auth.email') }}
+                        </label>
+                        <div class="mt-1">
                             <input type="email"
                                    id="email"
                                    name="email"
                                    x-model="form.email"
                                    value="{{ old('email') }}"
                                    placeholder="{{ __('auth.enter_your_email') }}"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors"
+                                   class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-sm"
                                    required />
                         </div>
+                    </div>
 
-                        <div>
-                            <label for="password" class="block text-sm font-medium text-gray-700">
-                                {{ __('auth.password') }}
-                            </label>
-                            <div class="mt-1 relative">
-                                <input id="password" name="password" :type="showPassword ? 'text' : 'password'"
-                                       x-model="form.password"
-                                       autocomplete="current-password" required
-                                       placeholder="{{ __('auth.create_password') }}"
-                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors">
-                                <button type="button" @click="showPassword = !showPassword"  aria-label="Toggle password visibility" class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                                    <svg x-show="!showPassword" class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                    </svg>
-                                    <svg x-show="showPassword" class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"></path>
-                                    </svg>
-                                </button>
-                            </div>
+                    <div x-data="{ showPassword: false }">
+                        <label for="password" class="block text-sm font-medium text-gray-700">
+                            {{ __('auth.password') }}
+                        </label>
+                        <div class="mt-1 relative">
+                            <input id="password"
+                                   name="password"
+                                   :type="showPassword ? 'text' : 'password'"
+                                   x-model="form.password"
+                                   autocomplete="new-password"
+                                   required
+                                   placeholder="{{ __('auth.create_password') }}"
+                                   class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-sm pr-10">
+                            <button type="button" @click="showPassword = !showPassword" aria-label="Toggle password visibility" class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                <svg x-show="!showPassword" class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                </svg>
+                                <svg x-show="showPassword" class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"></path>
+                                </svg>
+                            </button>
                         </div>
+                    </div>
 
-                        <div>
-                            <label for="password_confirmation" class="block text-sm font-medium text-gray-700">
-                                {{ __('auth.confirm_password') }}
-                            </label>
-                            <div class="mt-1 relative">
-                                <input :type="showConfirmPassword ? 'text' : 'password'"
-                                       id="password_confirmation"
-                                       name="password_confirmation"
-                                       x-model="form.password_confirmation"
-                                       placeholder="{{ __('auth.confirm_your_password') }}"
-                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors"
-                                       :class="{ 'border-red-500': !passwordsMatch && form.password_confirmation }"
-                                       required />
-                                <button type="button" @click="showConfirmPassword = !showConfirmPassword"  aria-label="Toggle password visibility" class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                                    <svg x-show="!showConfirmPassword" class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                    </svg>
-                                    <svg x-show="showConfirmPassword" class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"></path>
-                                    </svg>
-                                </button>
-                            </div>
-                            <p x-show="!passwordsMatch && form.password_confirmation" x-transition class="mt-1 text-sm text-red-600">
-                                {{ __('auth.password_not_match') }}
-                            </p>
+                    <div x-data="{ showConfirmPassword: false }">
+                        <label for="password_confirmation" class="block text-sm font-medium text-gray-700">
+                            {{ __('auth.confirm_password') }}
+                        </label>
+                        <div class="mt-1 relative">
+                            <input :type="showConfirmPassword ? 'text' : 'password'"
+                                   id="password_confirmation"
+                                   name="password_confirmation"
+                                   x-model="form.password_confirmation"
+                                   autocomplete="new-password"
+                                   placeholder="{{ __('auth.confirm_your_password') }}"
+                                   class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-sm pr-10"
+                                   :class="{ 'border-red-500': !passwordsMatch && form.password_confirmation }"
+                                   required />
+                            <button type="button" @click="showConfirmPassword = !showConfirmPassword" aria-label="Toggle password visibility" class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                <svg x-show="!showConfirmPassword" class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                </svg>
+                                <svg x-show="showConfirmPassword" class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"></path>
+                                </svg>
+                            </button>
                         </div>
+                        <p x-show="!passwordsMatch && form.password_confirmation" x-transition class="mt-2 text-sm text-red-600">
+                            {{ __('auth.password_not_match') }}
+                        </p>
+                    </div>
 
-                        <div class="flex items-start space-x-2">
+                    <div class="flex items-start">
+                        <div class="flex items-center h-5">
                             <input type="checkbox"
                                    id="terms"
                                    name="terms"
@@ -160,7 +182,9 @@
                                    class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                                    {{ old('terms') ? 'checked' : '' }}
                                    required />
-                            <label for="terms" class="text-sm text-gray-600">
+                        </div>
+                        <div class="ml-2 text-sm">
+                            <label for="terms" class="text-gray-600">
                                 {{ __('auth.agree_to_terms') }}
                                 <a href="#" class="font-medium text-university-600 hover:text-university-500">
                                     {{ __('auth.terms_of_service') }}
@@ -171,36 +195,38 @@
                                 </a>
                             </label>
                         </div>
+                    </div>
 
+                    <div>
                         <div class="flex justify-center mb-4">
                             {!! app('captcha')->display() !!}
                         </div>
-                        
                         <button type="submit"
-                                class="w-full flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors">
-                            <span>{{ __('auth.create_account') }}</span>
+                                class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            {{ __('auth.create_account') }}
                         </button>
-                    </form>
+                    </div>
+                </form>
 
-                    <div class="mt-6">
-                        <div class="relative">
-                            <div class="absolute inset-0 flex items-center">
-                                <div class="w-full border-t border-gray-300"></div>
-                            </div>
-                            <div class="relative flex justify-center text-sm">
-                                <span class="bg-white px-2 text-gray-500">{{ __('auth.already_have_account') }}?</span>
-                            </div>
+                <div class="mt-6">
+                    <div class="relative">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-300"></div>
                         </div>
-                        <div class="mt-4 text-center">
-                            <a href="{{ route('login') }}" class="font-medium text-university-600 hover:text-university-500">
-                                {{ __('auth.sign_in_here') }}
-                            </a>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="bg-white px-2 text-gray-500">{{ __('auth.already_have_account') }}?</span>
                         </div>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <a href="{{ route('login') }}" class="font-medium text-university-600 hover:text-university-500">
+                            {{ __('auth.sign_in_here') }}
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</body>
 
     <script>
         function registerForm() {

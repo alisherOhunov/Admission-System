@@ -13,17 +13,17 @@
 </head>
 
 <body class="bg-gray-50">
-    <div class="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div class="min-h-screen flex flex-col justify-center py-6 sm:py-12 px-4 sm:px-6 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <div class="flex justify-center">
                 <div class="flex items-center space-x-2">
-                <img src="{{ asset('images/logo.png') }}" alt="Logo"
-                width="48" height="48" style="display: block;">
-                    <span class="text-2xl font-bold text-gray-900">{{ config('app.name') }}</span>
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo"
+                    class="w-10 h-10 sm:w-12 sm:h-12" style="display: block;">
+                    <span class="text-xl sm:text-2xl font-bold text-gray-900">{{ config('app.name') }}</span>
                 </div>
             </div>
 
-            <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+            <h2 class="mt-4 sm:mt-6 text-center text-2xl sm:text-3xl font-bold tracking-tight text-gray-900">
                 {{ __('auth.sign_in_existing_account') }}
             </h2>
             <p class="mt-2 text-center text-sm text-gray-600">
@@ -36,18 +36,18 @@
             </p>
         </div>
 
-        <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-            <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div class="mt-6 sm:mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+            <div class="bg-white py-6 sm:py-8 px-4 shadow rounded-lg sm:px-10">
 
                 <x-auth-session-status class="mb-4" :status="session('status')" />
 
-                <form class="space-y-6" method="POST" action="{{ route('login') }}">
+                <form class="space-y-5 sm:space-y-6" method="POST" action="{{ route('login') }}">
                     @csrf
 
                     @if ($errors->any())
-                        <div class="bg-red-50 border border-red-200 rounded-md p-4">
+                        <div class="bg-red-50 border border-red-200 rounded-md p-3 sm:p-4">
                             <div class="flex">
-                                <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                                <svg class="h-5 w-5 text-red-400 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
                                 </svg>
                                 <div class="ml-3">
@@ -67,7 +67,7 @@
                             <input id="email" name="email" type="email" autocomplete="email" required
                                    value="{{ old('email') }}"
                                    placeholder="{{ __('auth.enter_your_email') }}"
-                                   class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                   class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-sm">
                         </div>
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                     </div>
@@ -79,7 +79,7 @@
                         <div class="mt-1 relative">
                             <input id="password" name="password" :type="showPassword ? 'text' : 'password'" autocomplete="current-password" required
                                    placeholder="{{ __('auth.enter_password') }}"
-                                   class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm pr-10">
+                                   class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-sm pr-10">
                             <button type="button" @click="showPassword = !showPassword" aria-label="Toggle password visibility" class="absolute inset-y-0 right-0 pr-3 flex items-center">
                                 <svg x-show="!showPassword" class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -103,7 +103,9 @@
 
                     <div>
                         <div class="flex justify-center mb-4">
-                            {!! app('captcha')->display() !!}
+                            <div class="p-4">
+                                {!! app('captcha')->display() !!}
+                            </div>
                         </div>
                         <button type="submit"
                                 class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
