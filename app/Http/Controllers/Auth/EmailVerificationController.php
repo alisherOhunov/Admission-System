@@ -34,7 +34,7 @@ class EmailVerificationController extends Controller
         }
 
         $userId = $request->user()->id;
-        
+
         dispatch(function () use ($userId) {
             User::find($userId)->sendEmailVerificationNotification();
         })->afterResponse();

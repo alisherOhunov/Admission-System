@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Applicant;
 use App\Http\Controllers\Controller;
 use App\Models\ApplicationPeriod;
 use App\Models\Program;
+use App\Models\SiteSetting;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -14,6 +15,7 @@ class DashboardController extends Controller
         $user = Auth::user();
         $application = $user->getCurrentApplication();
         $currentPeriod = ApplicationPeriod::where('is_active', true)->first();
+        $settings = SiteSetting::getOrCreate();
         $selectedProgram = null;
 
         if ($application && $application->program_id) {
@@ -31,7 +33,8 @@ class DashboardController extends Controller
             'application',
             'currentPeriod',
             'selectedProgram',
-            'progress'
+            'progress',
+            'settings'
         ));
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\ApplicationPeriodsSettingsController;
-use App\Http\Controllers\Admin\ProgramsSettingsController;
 use App\Http\Controllers\Admin\ApplicationsController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\ProgramsSettingsController;
 use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Applicant\ApplicationController;
 use App\Http\Controllers\Applicant\DashboardController as ApplicantDashboardController;
@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,18 +22,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Home/Landing Page
-Route::get('/', function () {
-    if (auth()->check()) {
-        $user = auth()->user();
-        if ($user->isApplicant()) {
-            return redirect()->route('applicant.dashboard');
-        } else {
-            return redirect()->route('admin.dashboard');
-        }
-    }
-
-    return view('welcome');
-})->name('home');
+Route::get('/', [WelcomeController::class, 'index'])->name('home');
 
 // Authentication Routes
 Route::middleware('guest')->group(function () {

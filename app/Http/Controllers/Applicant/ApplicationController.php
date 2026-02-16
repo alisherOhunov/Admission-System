@@ -24,6 +24,7 @@ class ApplicationController extends Controller
         $application = $user->getCurrentApplication();
         $programs = Program::active()->get()->groupBy('degree_level');
         $currentPeriod = ApplicationPeriod::where('is_active', true)->first();
+        $settings = Setting::getOrCreate();
 
         if (! $application && $currentPeriod) {
             $application = Application::create([
@@ -35,7 +36,7 @@ class ApplicationController extends Controller
         }
         $documents = $application ? $application->getImportantDocuments() : collect();
 
-        return view('applicant.application', compact('application', 'programs', 'currentPeriod', 'documents'));
+        return view('applicant.application', compact('application', 'programs', 'currentPeriod', 'documents', 'settings'));
     }
 
     public function updateApplication(UpdateApplicationRequest $request)

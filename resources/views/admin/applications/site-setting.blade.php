@@ -38,7 +38,7 @@
         <!-- Header -->
         <div class="mb-8 text-center">
             <h1 class="text-3xl font-bold text-gray-900">Site Settings</h1>
-            <p class="mt-2 text-gray-600">Manage your site logo, favicon, and university name</p>
+            <p class="mt-2 text-gray-600">Manage your site logo, favicon, university name, and help links</p>
         </div>
 
         <!-- Single Form for All Settings -->
@@ -51,6 +51,8 @@
                 logoFileName: '', 
                 faviconFileName: '',
                 universityName: '{{ $universityName }}',
+                contactSupportLink: '{{ $contactSupportLink ?? '' }}',
+                studentAccommodationLink: '{{ $studentAccommodationLink ?? '' }}',
                 previewLogo(event) {
                     const file = event.target.files[0];
                     if (file) {
@@ -118,6 +120,52 @@
                         <p class="mt-2 text-sm text-gray-500">
                             This name is displayed on the welcome page
                         </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Help Links Section -->
+            <div class="bg-white shadow-sm rounded-2xl">
+                <div class="p-6">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Help Links</h2>
+                    <p class="text-sm text-gray-600 mb-6">These links appear in the "Need Help?" section for applicants and in the Dormitory area. They open in a new tab.</p>
+                    
+                    <div class="space-y-4">
+                        <!-- Contact Support Link -->
+                        <div>
+                            <label for="contact_support_link" class="block text-sm font-medium text-gray-700 mb-2">
+                                Contact Support Link
+                            </label>
+                            <input 
+                                type="url" 
+                                id="contact_support_link"
+                                name="contact_support_link" 
+                                x-model="contactSupportLink"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                placeholder="https://example.com/support"
+                            >
+                            <p class="mt-2 text-sm text-gray-500">
+                                Link for "Contact Support" button
+                            </p>
+                        </div>
+
+                        <!-- Student Accommodation Link -->
+                        <div>
+                            <label for="student_accommodation_link" class="block text-sm font-medium text-gray-700 mb-2">
+                                Information about Student Accommodation Link
+                            </label>
+                            <input 
+                                type="url" 
+                                id="student_accommodation_link"
+                                name="student_accommodation_link" 
+                                x-model="studentAccommodationLink"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                placeholder="https://example.com/accommodation"
+                            >
+                            <p class="mt-2 text-sm text-gray-500">
+                                Link for "Information about student accommodation" button
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>

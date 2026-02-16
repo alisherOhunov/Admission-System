@@ -19,6 +19,7 @@
                     <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">{{ __('admin/index.th_applicant') }}</th>
                     <th scope="col" class="px-4 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">{{ __('admin/index.th_level') }}</th>
                     <th scope="col" class="px-4 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">{{ __('admin/index.th_program') }}</th>
+                    <th scope="col" class="px-4 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">{{ __('admin/index.th_period') }}</th>
                     <th scope="col" class="px-4 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">{{ __('admin/index.th_country') }}</th>
                     <th scope="col" class="px-4 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">{{ __('admin/index.th_submitted') }}</th>
                     <th scope="col" class="px-4 py-3 text-left text-sm font-medium text-gray-500 tracking-wider">{{ __('admin/index.th_status') }}</th>
@@ -48,6 +49,11 @@
                                 <div class="text-sm text-gray-500">{{ $application->program->department }}</div>
                             @endif
                         </td>
+                        <td class="px-4 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900">
+                                {{ $application->applicationPeriod->name ??__('admin/index.not_selected') }}
+                            </div>
+                        </td>
                         <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
                             @if ($application->nationality)
                                 @foreach (config('countries') as $code => $name)
@@ -59,7 +65,7 @@
                             @endif
                         </td>
                         <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {{ $application->submitted_at ? $application->submitted_at->format('M j, Y') : __('not_submitted') }}
+                            {{ $application->submitted_at ? $application->submitted_at->format('M j, Y') :$application->created_at->format('M j, Y') }}
                         </td>
                         <td class="px-4 py-4 whitespace-nowrap">
                             @php $statusData = $application->getStatusData() @endphp
@@ -68,7 +74,7 @@
                             </span>
                         </td>
                         <td class="px-4 py-4 whitespace-nowrap text-left text-sm font-medium">
-                            <div class="flex items-center justify-start space-x-2">
+                            <div class="flex items-center justify-start">
                                 <a href="{{ route('admin.applications.show', $application->id) }}" title="{{ __('admin/index.view') }}">
                                     <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3" aria-label="{{ __('admin/index.view') }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye h-4 w-4">

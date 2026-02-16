@@ -97,7 +97,7 @@
                                 @enderror
                             </div>
                             <div>
-                                <a href="https://tsuos.uz/en/talabalar-turar-joylari/" target="_blank" class="text-blue-600 underline">
+                                <a href="{{ $settings->accommodation_info_url }}" target="_blank" class="text-blue-600 underline">
                                 Information about student accommodation
                                 </a>
                             </div>
