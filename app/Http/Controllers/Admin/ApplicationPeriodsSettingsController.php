@@ -75,6 +75,12 @@ class ApplicationPeriodsSettingsController extends Controller
 
     public function destroy(ApplicationPeriod $period)
     {
+        if ($period->applications()->exists()) {
+            return redirect()
+                ->route('admin.applications.settings.periods')
+                ->with('error', 'Cannot delete this application period because it has associated applications.');
+        }
+
         // Check if this is an active period
         if ($period->is_active) {
             // Count other active periods
