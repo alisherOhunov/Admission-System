@@ -152,22 +152,16 @@
                 <div class="bg-white shadow-sm rounded-2xl">
                     <div>
                         <div class="border-b border-gray-200 py-4">
-                            <p class="text-2xl font-medium text-gray-900 mb-4 text-center">{{ __('applicant/dashboard.application_periods')}}</p>
+                            <p class="text-2xl font-medium text-gray-900 mb-4 text-center">{{ __('applicant/dashboard.application_period')}}</p>
                         </div>
                         <div class="p-6 space-y-4">
                             @foreach($periods as $period)
                                 <div class="border-b border-gray-100 last:border-0 pb-4 last:pb-0">
                                     <div class="mb-2 flex items-center justify-between">
                                         <p class="text-lg font-bold text-gray-900">{{ $period->name }}</p>
-                                        @if($period->is_active)
-                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                                {{ __('applicant/dashboard.open')}}
-                                            </span>
-                                        @else
-                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                                                {{ __('applicant/dashboard.closed')}}
-                                            </span>
-                                        @endif
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                            {{ __('applicant/dashboard.open')}}
+                                        </span>
                                     </div>
                                     <div class="space-y-1 text-sm">
                                         <div class="flex justify-between">
@@ -189,7 +183,7 @@
                 <!-- Application Status Breakdown -->
                 <div class="bg-white shadow-sm rounded-2xl">
                     <div class="p-6">
-                        <p class="text-2xl font-medium text-gray-900 mb-4">{{ __('admin/dashboard.application_status') }}</p>
+                        <p class="text-2xl font-medium text-gray-900 mb-4 text-center">{{ __('admin/dashboard.application_status') }}</p>
                         <div class="space-y-3">
                             <div class="flex items-center justify-between">
                                 <span class="text-sm text-gray-600">{{ __('admin/dashboard.status_submitted') }}</span>

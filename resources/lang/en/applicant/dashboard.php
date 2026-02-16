@@ -33,7 +33,6 @@ return [
     'quick_actions' => 'Quick Actions',
     'view_application' => 'View Application',
     'application_period' => 'Application Period',
-    'application_periods' => 'Application Periods',
     'start_date' => 'Started:',
     'end_date' => 'Deadline:',
     'active' => 'Active Period',

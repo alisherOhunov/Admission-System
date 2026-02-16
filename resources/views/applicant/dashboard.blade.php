@@ -240,22 +240,16 @@
                 <div class="bg-white shadow-sm rounded-2xl">
                     <div>
                         <div class="border-b border-gray-200 py-4">
-                            <h3 class="text-2xl font-medium text-gray-900 mb-4 text-center">{{ __('applicant/dashboard.application_periods')}}</h3>
+                            <h3 class="text-2xl font-medium text-gray-900 mb-4 text-center">{{ __('applicant/dashboard.application_period')}}</h3>
                         </div>
                         <div class="p-6 space-y-4">
                             @foreach($periods as $period)
                                 <div class="border-b border-gray-100 last:border-0 pb-4 last:pb-0">
                                     <div class="mb-2 flex items-center justify-between">
                                         <h4 class="font-bold text-gray-900">{{ $period->name }}</h4>
-                                        @if($period->is_active)
-                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                                {{ __('applicant/dashboard.open')}}
-                                            </span>
-                                        @else
-                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                                                {{ __('applicant/dashboard.closed')}}
-                                            </span>
-                                        @endif
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                            {{ __('applicant/dashboard.open')}}
+                                        </span>
                                     </div>
                                     <div class="space-y-1 text-sm">
                                         <div class="flex justify-between">

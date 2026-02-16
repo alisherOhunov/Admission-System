@@ -15,7 +15,7 @@ class DashboardController extends Controller
         $user = Auth::user();
         $application = $user->getCurrentApplication();
         $settings = SiteSetting::getOrCreate();
-        $periods = ApplicationPeriod::orderBy('start_date', 'desc')->get();
+        $periods = ApplicationPeriod::where('is_active', true)->orderBy('start_date', 'desc')->get();
         $selectedProgram = null;
 
         if ($application && $application->program_id) {

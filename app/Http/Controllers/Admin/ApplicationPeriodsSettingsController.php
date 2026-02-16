@@ -78,7 +78,7 @@ class ApplicationPeriodsSettingsController extends Controller
         if ($period->applications()->exists()) {
             return redirect()
                 ->route('admin.applications.settings.periods')
-                ->with('error', 'Cannot delete this application period because it has associated applications.');
+                ->with('error', 'Cannot be deleted because there is information related to this application period');
         }
 
         // Check if this is an active period

@@ -68,7 +68,7 @@ class ProgramsSettingsController extends Controller
         if ($program->applications()->exists()) {
             return redirect()
                 ->route('admin.applications.settings.programs')
-                ->with('error', 'Cannot delete this program because it has associated applications.');
+                ->with('error', 'Cannot be deleted because there is information related to this program of study');
         }
 
         if ($program->is_active) {
