@@ -65,6 +65,12 @@ class ProgramsSettingsController extends Controller
 
     public function destroy(Program $program)
     {
+        if ($program->applications()->exists()) {
+            return redirect()
+                ->route('admin.applications.settings.programs')
+                ->with('error', 'Cannot delete this program because it has associated applications.');
+        }
+
         if ($program->is_active) {
             return redirect()
                 ->route('admin.applications.settings.programs')
