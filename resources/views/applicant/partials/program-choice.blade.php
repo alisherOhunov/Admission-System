@@ -73,8 +73,14 @@
                                         class="text-red-500">*</span></label>
                                 <select id="application_period_id" name="application_period_id"
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                                    <option value="">{{ __('applicant/program-choice.select_start_term') }}
-                                    </option>
+                                    <option value="">{{ __('applicant/program-choice.select_start_term') }}</option>
+
+                                    @if($application->application_period_id && $application->applicationPeriod && $application->application_period_id != $currentPeriod->id)
+                                        <option value="{{ $application->application_period_id }}" selected disabled>
+                                            {{ $application->applicationPeriod->name }} (Closed)
+                                        </option>
+                                    @endif
+
                                     <option value="{{ $currentPeriod->id }}" @selected(old('application_period_id', $application->application_period_id ?? '') == $currentPeriod->id)>
                                         {{ $currentPeriod->name }}
                                     </option>
