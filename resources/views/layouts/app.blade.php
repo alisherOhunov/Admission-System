@@ -13,6 +13,16 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <!-- Alpine.js x-cloak style -->
+    <style>
+        [x-cloak] { display: none !important; }
+
+        /* Prevent bold text from being too bold - use semibold instead */
+        .font-bold {
+            font-weight: 600 !important;
+        }
+    </style>
 </head>
 
 <body class="bg-gray-50 font-sans antialiased">
@@ -121,11 +131,12 @@
                                         </svg>
                                     </button>
 
-                                    <div 
+                                    <div
                                         x-show="openSettings"
+                                        x-cloak
                                         @click.away="openSettings = false"
                                         x-transition
-                                        class="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 
+                                        class="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2
                                             border border-gray-200 z-20">
 
                                         <a href="{{ route('admin.applications.settings.periods') }}"
@@ -175,7 +186,7 @@
                             </button>
 
                             <!-- Dropdown menu -->
-                            <div x-show="open" @click.away="open = false" x-transition
+                            <div x-show="open" x-cloak @click.away="open = false" x-transition
                                 class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
                                 <div class="p-2 px-4">
                                     <div class="text-sm font-medium text-gray-900">

@@ -52,7 +52,7 @@
                                     </button>
 
                                     @if ($status !== 'accepted' && $status !== 'require_resubmit')
-                                        <div x-show="showModal" x-transition
+                                        <div x-show="showModal" x-cloak x-transition
                                             class="fixed inset-0 z-40 flex items-center justify-center bg-black bg-opacity-50">
                                             <div @click.away="showModal = false"
                                                 class="bg-white rounded-2xl shadow-lg p-6 w-full max-w-md z-50">
@@ -98,7 +98,7 @@
                                                                 {{ __('admin/show.status.require_resubmit') }}</option>
                                                         </select>
                                                     </div>
-                                                    <div x-show="showNotesField" x-transition class="mb-4">
+                                                    <div x-show="showNotesField" x-cloak x-transition class="mb-4">
                                                         <label for="statusNote"
                                                             class="block text-sm font-medium text-gray-700 mb-1">
                                                             {{ __('admin/show.notes') }} <span
@@ -113,7 +113,7 @@
                                                         </p>
                                                     </div>
 
-                                                    <div x-show="errorMessage" x-transition class="mb-4">
+                                                    <div x-show="errorMessage" x-cloak x-transition class="mb-4">
                                                         <div class="bg-red-50 border border-red-200 rounded-lg p-3">
                                                             <p class="text-sm text-red-600" x-text="errorMessage"></p>
                                                         </div>
@@ -610,7 +610,7 @@
                                         <p class="text-sm font-medium text-gray-700 mb-1">
                                             {{ __('applicant/review-and-submit.start_term') }}
                                         </p>
-                                        <p class="text-gray-900 capitalize">{{ $application->start_term ? preg_replace('/(\D+)(\d+)/', '$1 $2', $application->start_term) : __('applicant/review-and-submit.not_specified') }}</p>
+                                        <p class="text-gray-900 capitalize">{{ $application->applicationPeriod ? preg_replace('/(\D+)(\d+)/', '$1 $2', $application->applicationPeriod->name) : __('applicant/review-and-submit.not_specified') }}</p>
                                     </div>
 
                                     <div class="flex items-center space-x-2">
@@ -735,7 +735,7 @@
                                 </div>
                                 <div class="flex" id="timeline-status-display" x-data="{ applicationStatus: '{{ $application->status }}' }"
                                     x-show="applicationStatus !== 'under_review' && applicationStatus !== 'draft' && applicationStatus !== 'submitted'"
-                                    x-transition>
+                                    x-cloak x-transition>
                                     <div class="mr-3 mt-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"

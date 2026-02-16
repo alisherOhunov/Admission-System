@@ -31,11 +31,26 @@ class ApplicationPeriodsSettingsController extends Controller
 
     public function activate(ApplicationPeriod $period)
     {
-        ApplicationPeriod::where('is_active', true)->update(['is_active' => false]);
-
         $period->update(['is_active' => true]);
 
         return back()->with('success', 'Application period activated successfully.');
+    }
+
+    public function deactivate(ApplicationPeriod $period)
+    {
+        // Count other active periods
+        $activePeriodsCount = ApplicationPeriod::where('is_active', true)
+            ->where('id', '!=', $period->id)
+            ->count();
+
+        // Prevent deactivation if this is the last active period
+        if ($activePeriodsCount === 0) {
+            return back()->with('error', 'Cannot deactivate the last active period. Please ensure at least one period remains active.');
+        }
+
+        $period->update(['is_active' => false]);
+
+        return back()->with('success', 'Application period deactivated successfully.');
     }
 
     public function edit(ApplicationPeriod $period)
@@ -60,10 +75,19 @@ class ApplicationPeriodsSettingsController extends Controller
 
     public function destroy(ApplicationPeriod $period)
     {
+        // Check if this is an active period
         if ($period->is_active) {
-            return redirect()
-                ->route('admin.applications.settings.periods')
-                ->with('error', 'You cannot delete the active period. Please activate another period before deleting this one.');
+            // Count other active periods
+            $activePeriodsCount = ApplicationPeriod::where('is_active', true)
+                ->where('id', '!=', $period->id)
+                ->count();
+
+            // Prevent deletion if this is the last active period
+            if ($activePeriodsCount === 0) {
+                return redirect()
+                    ->route('admin.applications.settings.periods')
+                    ->with('error', 'Cannot delete the last active period. Please ensure at least one period remains active.');
+            }
         }
 
         $period->delete();

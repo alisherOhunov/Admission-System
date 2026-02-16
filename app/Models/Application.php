@@ -31,7 +31,6 @@ class Application extends Model
         'language_test_type',
         'language_test_score',
         'language_test_date',
-        'start_term',
         'needs_dormitory',
         'status',
         'submitted_at',
@@ -110,7 +109,7 @@ class Application extends Model
             $this->phone,
             $this->previous_institution,
             $this->degree_earned,
-            $this->start_term,
+            $this->application_period_id,
             $this->permanent_country,
             $this->permanent_state,
             $this->permanent_city,
@@ -128,7 +127,7 @@ class Application extends Model
     public function getStatusData()
     {
         $statuses = [
-            'draft' => ['label' => 'Draft', 'bg' => 'bg-gray-100', 'svg_color' => 'text-gray-500', 'color' => 'text-gray-800'],
+            'draft' => ['label' => 'Not Submitted', 'bg' => 'bg-gray-100', 'svg_color' => 'text-gray-500', 'color' => 'text-gray-800'],
             'submitted' => ['label' => 'Submitted', 'bg' => 'bg-blue-100', 'svg_color' => 'text-blue-500', 'color' => 'text-blue-800'],
             'require_resubmit' => ['label' => 'Require Resubmit', 'bg' => 'bg-blue-100', 'svg_color' => 'text-blue-500', 'color' => 'text-blue-800'],
             're_submitted' => ['label' => 'ReSubmitted', 'bg' => 'bg-blue-100', 'svg_color' => 'text-blue-500', 'color' => 'text-blue-800'],

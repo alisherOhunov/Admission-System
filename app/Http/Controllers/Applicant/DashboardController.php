@@ -14,8 +14,8 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
         $application = $user->getCurrentApplication();
-        $currentPeriod = ApplicationPeriod::where('is_active', true)->first();
         $settings = SiteSetting::getOrCreate();
+        $periods = ApplicationPeriod::orderBy('start_date', 'desc')->get();
         $selectedProgram = null;
 
         if ($application && $application->program_id) {
@@ -31,10 +31,10 @@ class DashboardController extends Controller
         return view('applicant.dashboard', compact(
             'user',
             'application',
-            'currentPeriod',
+            'periods',
             'selectedProgram',
             'progress',
             'settings'
         ));
-    }
+}
 }

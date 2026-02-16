@@ -479,7 +479,7 @@
                                     <p class="text-sm font-medium text-gray-700">
                                         {{ __('applicant/review-and-submit.start_term') }}
                                     </p>
-                                    <p class="text-gray-900 capitalize" x-text="getFieldValue('start_term')?.replace(/([a-zA-Z]+)(\d+)/, '$1 $2') || '{{ __('applicant/review-and-submit.not_specified') }}'"></p>
+                                    <p class="text-gray-900 capitalize">{{ $application->applicationPeriod ? preg_replace('/(\D+)(\d+)/', '$1 $2', $application->applicationPeriod->name) : __('applicant/review-and-submit.not_specified') }}</p>
                                 </div>
     
                                 <div class="flex items-center space-x-2">

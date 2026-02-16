@@ -69,7 +69,7 @@ class UpdateApplicationRequest extends FormRequest
             'language_test_date' => 'sometimes|nullable|date|before_or_equal:today',
             'level' => 'nullable|in:bachelors,masters',
             'program_id' => 'nullable|exists:programs,id',
-            'start_term' => 'nullable|string|max:50',
+            'application_period_id' => 'nullable|exists:application_periods,id',
             'needs_dormitory' => 'boolean',
         ];
     }

@@ -11,20 +11,6 @@
             <p class="mt-2 text-gray-600">{{ __('applicant/dashboard.track_your_application') }}</p>
         </div>
 
-        <!-- Current Application Period Alert -->
-        @if($currentPeriod)
-        <div class="mb-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <div class="flex items-center">
-                <svg class="h-5 w-5 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0h6m-6 0l-1 6.5a2 2 0 002 2.5h6a2 2 0 002-2.5L16 7"></path>
-                </svg>
-                <div class="text-blue-800">
-                    {{ __('applicant/dashboard.current_application_active', ['name' => $currentPeriod->name]) }}
-                </div>
-            </div>
-        </div>
-        @endif
-
         <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
             <!-- Main Content -->
             <div class="lg:col-span-2 space-y-6">
@@ -249,31 +235,40 @@
                     </div>
                 </div>
 
-                <!-- Application Period -->
-                @if($currentPeriod)
+                <!-- Application Periods -->
+                @if($periods->isNotEmpty())
                 <div class="bg-white shadow-sm rounded-2xl">
                     <div>
                         <div class="border-b border-gray-200 py-4">
-                            <h3 class="text-2xl font-medium text-gray-900 mb-4 text-center">{{ __('applicant/dashboard.application_period')}}</h3>
+                            <h3 class="text-2xl font-medium text-gray-900 mb-4 text-center">{{ __('applicant/dashboard.application_periods')}}</h3>
                         </div>
-                        <div class="p-6">
-                            <div class="mb-4">
-                                <h4 class="font-bold text-gray-900">{{ $currentPeriod->name }}</h4>
-                                <span class="text-sm text-gray-600">{{ __('applicant/dashboard.currently_active')}}</span>
-                            </div>
-                            <div class="space-y-1 text-sm">
-                                <div class="flex justify-between">
-                                    <span class="text-gray-600">{{ __('applicant/dashboard.start_date')}}</span>
-                                    <span>{{ \Carbon\Carbon::parse($currentPeriod->start_date)->format('m/d/Y') }}</span>
+                        <div class="p-6 space-y-4">
+                            @foreach($periods as $period)
+                                <div class="border-b border-gray-100 last:border-0 pb-4 last:pb-0">
+                                    <div class="mb-2 flex items-center justify-between">
+                                        <h4 class="font-bold text-gray-900">{{ $period->name }}</h4>
+                                        @if($period->is_active)
+                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                {{ __('applicant/dashboard.open')}}
+                                            </span>
+                                        @else
+                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                                {{ __('applicant/dashboard.closed')}}
+                                            </span>
+                                        @endif
+                                    </div>
+                                    <div class="space-y-1 text-sm">
+                                        <div class="flex justify-between">
+                                            <span class="text-gray-600">{{ __('applicant/dashboard.start_date')}}</span>
+                                            <span>{{ \Carbon\Carbon::parse($period->start_date)->format('m/d/Y') }}</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span class="text-gray-600">{{ __('applicant/dashboard.end_date')}}</span>
+                                            <span>{{ \Carbon\Carbon::parse($period->end_date)->format('m/d/Y') }}</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="flex justify-between">
-                                    <span class="text-gray-600">{{ __('applicant/dashboard.end_date')}}</span>
-                                    <span>{{ \Carbon\Carbon::parse($currentPeriod->end_date)->format('m/d/Y') }}</span>
-                                </div>
-                            </div>
-                            <span class="mt-4 inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
-                                {{ __('applicant/dashboard.active')}}
-                            </span>
+                            @endforeach
                         </div>
                     </div>
                 </div>

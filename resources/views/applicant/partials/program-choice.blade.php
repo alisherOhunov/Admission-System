@@ -68,18 +68,22 @@
                             </div>
 
                             <div>
-                                <label for="start_term"
+                                <label for="application_period_id"
                                     class="block text-sm font-medium text-gray-700">{{ __('applicant/program-choice.start_term') }}<span
                                         class="text-red-500">*</span></label>
-                                <select id="start_term" name="start_term"
+                                <select id="application_period_id" name="application_period_id"
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                                     <option value="">{{ __('applicant/program-choice.select_start_term') }}
                                     </option>
-                                    <option value="{{ $currentPeriod->name }}" @selected(old('start_term', $application->start_term ?? '') == $currentPeriod->name)>{{ $currentPeriod->name }}</option>
+                                    @foreach($activePeriods as $period)
+                                        <option value="{{ $period->id }}" @selected(old('application_period_id', $application->application_period_id ?? '') == $period->id)>
+                                            {{ $period->name }}
+                                        </option>
+                                    @endforeach
                                 </select>
                                 <p class="mt-2 text-gray-500">
                                     {{ __('applicant/program-choice.start_term_placeholder') }}</p>
-                                @error('start_term')
+                                @error('application_period_id')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
@@ -97,7 +101,7 @@
                                 @enderror
                             </div>
                             <div>
-                                <a href="{{ $settings->accommodation_info_url }}" target="_blank" class="text-blue-600 underline">
+                                <a href="{{ $settings->student_accommodation_link }}" target="_blank" class="text-blue-600 underline">
                                 Information about student accommodation
                                 </a>
                             </div>

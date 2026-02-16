@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Exports\ApplicationsExport;
 use App\Http\Controllers\Controller;
 use App\Models\Application;
+use App\Models\ApplicationPeriod;
 use App\Models\Document;
 use App\Models\Program;
 use App\Models\StaffNote;
@@ -27,6 +28,10 @@ class ApplicationsController extends Controller
             $query->byLevel($request->level);
         }
 
+        if ($request->filled('period')) {
+            $query->where('application_period_id', $request->period);
+        }
+
         if ($request->filled('search')) {
             $search = $request->get('search');
             $query->whereHas('user', function ($q) use ($search) {
@@ -44,12 +49,13 @@ class ApplicationsController extends Controller
 
         $applications = $query->latest('submitted_at')->paginate(20);
         $programs = Program::active()->get();
+        $periods = ApplicationPeriod::orderBy('start_date', 'desc')->get();
 
         if ($request->header('HX-Request')) {
             return view('admin.applications.partials.table', compact('applications', 'programs'));
         }
 
-        return view('admin.applications.index', compact('applications', 'programs'));
+        return view('admin.applications.index', compact('applications', 'programs', 'periods'));
     }
 
     public function export(Request $request)

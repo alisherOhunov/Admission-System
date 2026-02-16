@@ -10,6 +10,7 @@ use App\Models\Application;
 use App\Models\ApplicationPeriod;
 use App\Models\Document;
 use App\Models\Program;
+use App\Models\SiteSetting;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -23,20 +24,19 @@ class ApplicationController extends Controller
         $user = Auth::user();
         $application = $user->getCurrentApplication();
         $programs = Program::active()->get()->groupBy('degree_level');
-        $currentPeriod = ApplicationPeriod::where('is_active', true)->first();
-        $settings = Setting::getOrCreate();
+        $settings = SiteSetting::getOrCreate();
+        $activePeriods = ApplicationPeriod::where('is_active', true)->get();
 
-        if (! $application && $currentPeriod) {
+        if (! $application) {
             $application = Application::create([
                 'user_id' => $user->id,
-                'application_period_id' => $currentPeriod->id,
                 'email' => $user->email,
                 'status' => 'draft',
             ]);
         }
         $documents = $application ? $application->getImportantDocuments() : collect();
 
-        return view('applicant.application', compact('application', 'programs', 'currentPeriod', 'documents', 'settings'));
+        return view('applicant.application', compact('application', 'programs', 'activePeriods', 'documents', 'settings'));
     }
 
     public function updateApplication(UpdateApplicationRequest $request)
@@ -51,11 +51,11 @@ class ApplicationController extends Controller
         ]);
 
         $programs = Program::active()->get()->groupBy('degree_level');
-        $currentPeriod = $application->applicationPeriod;
+        $activePeriods = ApplicationPeriod::where('is_active', true)->get();
         $documents = $application ? $application->getImportantDocuments() : collect();
 
         return response()
-            ->view('applicant.application', compact('application', 'programs', 'currentPeriod', 'documents'))
+            ->view('applicant.application', compact('application', 'programs', 'activePeriods', 'documents'))
             ->header('X-Update-Success', 'true');
     }
 
@@ -76,7 +76,7 @@ class ApplicationController extends Controller
             'language_test_score' => 'Language Test Score',
             'language_test_date' => 'Language Test Date',
             'program_id' => 'Program',
-            'start_term' => 'Start Term',
+            'application_period_id' => 'Start Term',
             'family_status' => 'Family Status',
         ];
 

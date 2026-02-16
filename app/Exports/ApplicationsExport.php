@@ -31,6 +31,10 @@ class ApplicationsExport implements FromCollection, WithHeadings, WithMapping
             $query->byLevel($this->request->level);
         }
 
+        if ($this->request->filled('period')) {
+            $query->where('application_period_id', $this->request->period);
+        }
+
         if ($this->request->filled('search')) {
             $search = $this->request->get('search');
             $query->whereHas('user', function ($q) use ($search) {

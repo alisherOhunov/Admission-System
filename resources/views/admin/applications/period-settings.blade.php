@@ -4,6 +4,34 @@
 <div class="max-w-4xl mx-auto py-8" x-data="{ open: false }">
     <h1 class="text-2xl font-bold mb-6">Application Periods</h1>
 
+    <!-- Success Message -->
+    @if(session('success'))
+        <div class="mb-6 bg-green-50 border border-green-200 rounded-md p-4">
+            <div class="flex">
+                <svg class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                </svg>
+                <div class="ml-3">
+                    <p class="text-sm font-medium text-green-800">{{ session('success') }}</p>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    <!-- Error Message -->
+    @if(session('error'))
+        <div class="mb-6 bg-red-50 border border-red-200 rounded-md p-4">
+            <div class="flex">
+                <svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+                </svg>
+                <div class="ml-3">
+                    <p class="text-sm font-medium text-red-800">{{ session('error') }}</p>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <div class="mb-6">
         <button 
             @click="open = !open" 
@@ -12,7 +40,7 @@
         </button>
     </div>
 
-    <div x-show="open" x-transition class="mb-6 bg-white shadow rounded-lg p-6 border border-gray-200">
+    <div x-show="open" x-cloak x-transition class="mb-6 bg-white shadow rounded-lg p-6 border border-gray-200">
         <form method="POST" action="{{ route('admin.applications.settings.periods.store') }}" class="space-y-4">
             @csrf
 
@@ -82,32 +110,36 @@
                             @endif
                         </td>
                         <td class="whitespace-nowrap text-sm font-medium">
-                            <div class="flex justify-center items-center">
-                                @if(!$period->is_active)
-                                    <div class="flex space-x-4">
-                                        <a href="{{ route('admin.applications.settings.periods.edit', $period->id) }}" 
-                                        class="px-3 py-1 bg-blue-600 text-white text-xs rounded-md hover:bg-blue-700">
-                                            Edit
-                                        </a>
-                                        <form action="{{ route('admin.applications.settings.periods.activate', $period->id) }}" method="POST" class="inline">
-                                            @csrf
-                                            <button type="submit" class="px-3 py-1 bg-blue-600 text-white text-xs rounded-md hover:bg-blue-700">
-                                                Activate
-                                            </button>
-                                        </form>
-                                        
-                                        <form action="{{ route('admin.applications.settings.periods.destroy', $period->id) }}" method="POST" class="inline"
-                                            onsubmit="return confirm('Are you sure you want to delete this period?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="px-3 py-1 bg-red-600 text-white text-xs rounded-md hover:bg-red-700">
-                                                Delete
-                                            </button>
-                                        </form>
-                                    </div>
+                            <div class="flex justify-center items-center space-x-4">
+                                <a href="{{ route('admin.applications.settings.periods.edit', $period->id) }}"
+                                    class="px-3 py-1 bg-blue-600 text-white text-xs rounded-md hover:bg-blue-700">
+                                    Edit
+                                </a>
+
+                                @if($period->is_active)
+                                    <form action="{{ route('admin.applications.settings.periods.deactivate', $period->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        <button type="submit" class="w-24 px-3 py-1 bg-blue-500 text-white text-xs rounded-md hover:bg-blue-600">
+                                            Deactivate
+                                        </button>
+                                    </form>
                                 @else
-                                    <span class="text-sm text-green-400">Current Active</span>
+                                    <form action="{{ route('admin.applications.settings.periods.activate', $period->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        <button type="submit" class="w-24 px-3 py-1 bg-green-500 text-white text-xs rounded-md hover:bg-green-600">
+                                            Activate
+                                        </button>
+                                    </form>
                                 @endif
+
+                                <form action="{{ route('admin.applications.settings.periods.destroy', $period->id) }}" method="POST" class="inline"
+                                    onsubmit="return confirm('Are you sure you want to delete this period?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="px-3 py-1 bg-red-600 text-white text-xs rounded-md hover:bg-red-700">
+                                        Delete
+                                    </button>
+                                </form>
                             </div>
                         </td>
                     </tr>

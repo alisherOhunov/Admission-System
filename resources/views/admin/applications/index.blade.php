@@ -31,18 +31,18 @@
                                    hx-get="{{ route('admin.applications.index') }}"
                                    hx-trigger="keyup changed delay:300ms, search"
                                    hx-target="#applications-container"
-                                   hx-include="[name='status'], [name='level']"
+                                   hx-include="[name='status'], [name='level'], [name='period']"
                                    hx-indicator="#loading-indicator"
                                    hx-swap="innerHTML">
                         </div>
 
                         <!-- Status Filter -->
-                        <select name="status" 
+                        <select name="status"
                                 class="block w-36 px-3 py-2 border border-gray-300 bg-white rounded-lg shadow-sm focus:ring-1 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                                 hx-get="{{ route('admin.applications.index') }}"
                                 hx-trigger="change"
                                 hx-target="#applications-container"
-                                hx-include="[name='search'], [name='level']"
+                                hx-include="[name='search'], [name='level'], [name='period']"
                                 hx-indicator="#loading-indicator"
                                 hx-swap="innerHTML"
                                 aria-label="{{ __('admin/index.status_filter') }}">
@@ -53,21 +53,38 @@
                             <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>{{ __('admin/index.status_rejected')}}</option>
                             <option value="require_resubmit" {{ request('status') == 'require_resubmit' ? 'selected' : '' }}>{{ __('admin/index.status_require_resubmit')}}</option>
                             <option value="re_submitted" {{ request('status') == 're_submitted' ? 'selected' : '' }}>{{ __('admin/index.status_re_submitted')}}</option>
+                            <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}>{{ __('admin/index.status_draft')}}</option>
                         </select>
 
                         <!-- Level Filter -->
-                        <select name="level" 
+                        <select name="level"
                                 class="block w-36 px-3 py-2 border border-gray-300 bg-white rounded-lg shadow-sm focus:ring-1 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                                 hx-get="{{ route('admin.applications.index') }}"
                                 hx-trigger="change"
                                 hx-target="#applications-container"
-                                hx-include="[name='search'], [name='status']"
+                                hx-include="[name='search'], [name='status'], [name='period']"
                                 hx-indicator="#loading-indicator"
                                 hx-swap="innerHTML"
                                 aria-label="{{ __('admin/index.level_filter') }}">
                             <option value="">{{ __('admin/index.level_all')}}</option>
                             <option value="masters" {{ request('level') == 'masters' ? 'selected' : '' }}>{{ __('admin/index.level_masters')}}</option>
                             <option value="bachelors" {{ request('level') == 'bachelors' ? 'selected' : '' }}>{{ __('admin/index.level_bachelors')}}</option>
+                        </select>
+
+                        <!-- Period Filter -->
+                        <select name="period"
+                                class="block w-36 px-3 py-2 border border-gray-300 bg-white rounded-lg shadow-sm focus:ring-1 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                hx-get="{{ route('admin.applications.index') }}"
+                                hx-trigger="change"
+                                hx-target="#applications-container"
+                                hx-include="[name='search'], [name='status'], [name='level']"
+                                hx-indicator="#loading-indicator"
+                                hx-swap="innerHTML"
+                                aria-label="{{ __('admin/index.period_filter') }}">
+                            <option value="">{{ __('admin/index.period_all')}}</option>
+                            @foreach($periods as $period)
+                                <option value="{{ $period->id }}" {{ request('period') == $period->id ? 'selected' : '' }}>{{ $period->name }}</option>
+                            @endforeach
                         </select>
 
                         <!-- Loading Indicator -->
@@ -123,15 +140,17 @@
 function exportApplications() {
     const status = document.querySelector('select[name="status"]')?.value || '';
     const level = document.querySelector('select[name="level"]')?.value || '';
+    const period = document.querySelector('select[name="period"]')?.value || '';
     const search = document.querySelector('input[name="search"]')?.value || '';
-    
+
     const params = new URLSearchParams();
     if (status) params.append('status', status);
     if (level) params.append('level', level);
+    if (period) params.append('period', period);
     if (search) params.append('search', search);
-    
+
     const exportUrl = '{{ route("admin.applications.export") }}' + '?' + params.toString();
-    
+
     window.location.href = exportUrl;
 }
 </script>
