@@ -31,26 +31,15 @@ class ApplicationPeriodsSettingsController extends Controller
 
     public function activate(ApplicationPeriod $period)
     {
+        // Deactivate all other active periods
+        ApplicationPeriod::where('is_active', true)
+            ->where('id', '!=', $period->id)
+            ->update(['is_active' => false]);
+
+        // Activate the selected period
         $period->update(['is_active' => true]);
 
         return back()->with('success', 'Application period activated successfully.');
-    }
-
-    public function deactivate(ApplicationPeriod $period)
-    {
-        // Count other active periods
-        $activePeriodsCount = ApplicationPeriod::where('is_active', true)
-            ->where('id', '!=', $period->id)
-            ->count();
-
-        // Prevent deactivation if this is the last active period
-        if ($activePeriodsCount === 0) {
-            return back()->with('error', 'Cannot deactivate the last active period. Please ensure at least one period remains active.');
-        }
-
-        $period->update(['is_active' => false]);
-
-        return back()->with('success', 'Application period deactivated successfully.');
     }
 
     public function edit(ApplicationPeriod $period)
@@ -79,21 +68,6 @@ class ApplicationPeriodsSettingsController extends Controller
             return redirect()
                 ->route('admin.applications.settings.periods')
                 ->with('error', 'Cannot be deleted because there is information related to this application period');
-        }
-
-        // Check if this is an active period
-        if ($period->is_active) {
-            // Count other active periods
-            $activePeriodsCount = ApplicationPeriod::where('is_active', true)
-                ->where('id', '!=', $period->id)
-                ->count();
-
-            // Prevent deletion if this is the last active period
-            if ($activePeriodsCount === 0) {
-                return redirect()
-                    ->route('admin.applications.settings.periods')
-                    ->with('error', 'Cannot delete the last active period. Please ensure at least one period remains active.');
-            }
         }
 
         $period->delete();

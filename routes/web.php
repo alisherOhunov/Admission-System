@@ -68,7 +68,6 @@ Route::middleware(['auth', 'admin', 'verified'])->prefix('admin')->name('admin.'
     Route::put('/applications/settings/periods/{period}', [ApplicationPeriodsSettingsController::class, 'update'])->name('applications.settings.periods.update');
     Route::delete('/applications/settings/periods/{period}', [ApplicationPeriodsSettingsController::class, 'destroy'])->name('applications.settings.periods.destroy');
     Route::post('/applications/settings/periods/{period}/activate', [ApplicationPeriodsSettingsController::class, 'activate'])->name('applications.settings.periods.activate');
-    Route::post('/applications/settings/periods/{period}/deactivate', [ApplicationPeriodsSettingsController::class, 'deactivate'])->name('applications.settings.periods.deactivate');
     Route::get('/applications/settings/programs', [ProgramsSettingsController::class, 'index'])->name('applications.settings.programs');
     Route::post('/applications/settings/programs', [ProgramsSettingsController::class, 'store'])->name('applications.settings.programs.store');
     Route::get('/applications/settings/programs/{program}/edit', [ProgramsSettingsController::class, 'edit'])->name('applications.settings.programs.edit');

@@ -110,36 +110,32 @@
                             @endif
                         </td>
                         <td class="whitespace-nowrap text-sm font-medium">
-                            <div class="flex justify-center items-center space-x-4">
-                                <a href="{{ route('admin.applications.settings.periods.edit', $period->id) }}"
-                                    class="px-3 py-1 bg-blue-600 text-white text-xs rounded-md hover:bg-blue-700">
-                                    Edit
-                                </a>
-
-                                @if($period->is_active)
-                                    <form action="{{ route('admin.applications.settings.periods.deactivate', $period->id) }}" method="POST" class="inline">
-                                        @csrf
-                                        <button type="submit" class="w-24 px-3 py-1 bg-blue-500 text-white text-xs rounded-md hover:bg-blue-600">
-                                            Deactivate
-                                        </button>
-                                    </form>
+                            <div class="flex justify-center items-center">
+                                @if(!$period->is_active)
+                                    <div class="flex space-x-4">
+                                        <a href="{{ route('admin.applications.settings.periods.edit', $period->id) }}" 
+                                        class="px-3 py-1 bg-blue-600 text-white text-xs rounded-md hover:bg-blue-700">
+                                            Edit
+                                        </a>
+                                        <form action="{{ route('admin.applications.settings.periods.activate', $period->id) }}" method="POST" class="inline">
+                                            @csrf
+                                            <button type="submit" class="px-3 py-1 bg-blue-600 text-white text-xs rounded-md hover:bg-blue-700">
+                                                Activate
+                                            </button>
+                                        </form>
+                                        
+                                        <form action="{{ route('admin.applications.settings.periods.destroy', $period->id) }}" method="POST" class="inline"
+                                            onsubmit="return confirm('Are you sure you want to delete this period?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="px-3 py-1 bg-red-600 text-white text-xs rounded-md hover:bg-red-700">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    </div>
                                 @else
-                                    <form action="{{ route('admin.applications.settings.periods.activate', $period->id) }}" method="POST" class="inline">
-                                        @csrf
-                                        <button type="submit" class="w-24 px-3 py-1 bg-green-500 text-white text-xs rounded-md hover:bg-green-600">
-                                            Activate
-                                        </button>
-                                    </form>
+                                    <span class="text-sm text-green-400">Current Active</span>
                                 @endif
-
-                                <form action="{{ route('admin.applications.settings.periods.destroy', $period->id) }}" method="POST" class="inline"
-                                    onsubmit="return confirm('Are you sure you want to delete this period?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="px-3 py-1 bg-red-600 text-white text-xs rounded-md hover:bg-red-700">
-                                        Delete
-                                    </button>
-                                </form>
                             </div>
                         </td>
                     </tr>

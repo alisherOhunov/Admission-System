@@ -21,13 +21,13 @@ class DashboardController extends Controller
             'require_resubmit' => Application::byStatus('require_resubmit')->count(),
         ];
 
-        $periods = ApplicationPeriod::where('is_active', true)->orderBy('start_date', 'desc')->get();
+        $activePeriod = ApplicationPeriod::where('is_active', true)->first();
 
         $recentApplications = Application::with(['user', 'program'])
             ->latest('submitted_at')
             ->limit(5)
             ->get();
 
-        return view('admin.dashboard', compact('stats', 'recentApplications', 'periods'));
+        return view('admin.dashboard', compact('stats', 'recentApplications', 'activePeriod'));
     }
 }

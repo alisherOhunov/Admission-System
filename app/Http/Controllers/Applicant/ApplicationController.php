@@ -25,18 +25,19 @@ class ApplicationController extends Controller
         $application = $user->getCurrentApplication();
         $programs = Program::active()->get()->groupBy('degree_level');
         $settings = SiteSetting::getOrCreate();
-        $activePeriods = ApplicationPeriod::where('is_active', true)->get();
+        $currentPeriod = ApplicationPeriod::where('is_active', true)->first();
 
-        if (! $application) {
+        if (! $application && $currentPeriod) {
             $application = Application::create([
                 'user_id' => $user->id,
+                'application_period_id' => $currentPeriod->id,
                 'email' => $user->email,
                 'status' => 'draft',
             ]);
         }
         $documents = $application ? $application->getImportantDocuments() : collect();
 
-        return view('applicant.application', compact('application', 'programs', 'activePeriods', 'documents', 'settings'));
+        return view('applicant.application', compact('application', 'programs', 'currentPeriod', 'documents', 'settings'));
     }
 
     public function updateApplication(UpdateApplicationRequest $request)
@@ -51,11 +52,11 @@ class ApplicationController extends Controller
         ]);
 
         $programs = Program::active()->get()->groupBy('degree_level');
-        $activePeriods = ApplicationPeriod::where('is_active', true)->get();
+        $currentPeriod = $application->applicationPeriod;
         $documents = $application ? $application->getImportantDocuments() : collect();
 
         return response()
-            ->view('applicant.application', compact('application', 'programs', 'activePeriods', 'documents'))
+            ->view('applicant.application', compact('application', 'programs', 'currentPeriod', 'documents'))
             ->header('X-Update-Success', 'true');
     }
 

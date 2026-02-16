@@ -75,11 +75,9 @@
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                                     <option value="">{{ __('applicant/program-choice.select_start_term') }}
                                     </option>
-                                    @foreach($activePeriods as $period)
-                                        <option value="{{ $period->id }}" @selected(old('application_period_id', $application->application_period_id ?? '') == $period->id)>
-                                            {{ $period->name }}
-                                        </option>
-                                    @endforeach
+                                    <option value="{{ $currentPeriod->id }}" @selected(old('application_period_id', $application->application_period_id ?? '') == $currentPeriod->id)>
+                                        {{ $currentPeriod->name }}
+                                    </option>
                                 </select>
                                 <p class="mt-2 text-gray-500">
                                     {{ __('applicant/program-choice.start_term_placeholder') }}</p>
