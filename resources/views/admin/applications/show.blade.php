@@ -105,7 +105,7 @@
                                                                 class="text-red-500">*</span>
                                                         </label>
                                                         <textarea id="statusNote" name="admin_resubmission_comment"
-                                                            placeholder="Please provide reason for resubmission requirement..."
+                                                            placeholder="{{ __('admin/show.note_placeholder') }}"
                                                             class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                                                             rows="3" :required="newStatus === 'require_resubmit'" @input="errorMessage = ''"></textarea>
                                                         <p class="text-xs text-gray-500 mt-1">
@@ -749,7 +749,7 @@
                                         <p class="text-sm font-medium text-gray-900">
                                             <span>{{ __('admin/show.application') }} </span>
                                             <span
-                                                id="timeline-status-badge">{{ ucwords(str_replace('_', ' ', $status)) }}
+                                                id="timeline-status-badge">{{ $application->getStatusData()['label'] }}
                                             </span>
                                         </p>
                                         <p class="text-xs text-gray-500">
@@ -820,7 +820,7 @@
                         const updateButton = document.getElementById('update-status-button');
                         if (updateButton) {
                             updateButton.disabled = true;
-                            updateButton.textContent = 'Status Locked';
+                            updateButton.textContent = '{{ __('admin/show.status_locked') }}';
                         }
                     }
 

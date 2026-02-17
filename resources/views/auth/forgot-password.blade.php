@@ -24,10 +24,10 @@
                 </div>
 
                 <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-                    Reset your password
+                    {{ __('auth.forgot_password_heading') }}
                 </h2>
                 <p class="mt-2 text-center text-sm text-gray-600">
-                    Enter your email address and we'll send you a link to reset your password.
+                    {{ __('auth.forgot_password_subtitle') }}
                 </p>
             </div>
 
@@ -52,12 +52,12 @@
 
                         <div>
                             <label for="email" class="block text-sm font-medium text-gray-700">
-                                Email address
+                                {{ __('auth.email') }}
                             </label>
                             <div class="mt-1">
-                                <input id="email" name="email" type="email" required 
+                                <input id="email" name="email" type="email" required
                                     value="{{ old('email') }}"
-                                    placeholder="Enter your email"
+                                    placeholder="{{ __('auth.email_placeholder') }}"
                                     class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm @error('email') border-red-300 @enderror">
                                 @error('email')
                                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -71,13 +71,13 @@
                             </div>
                             <button type="submit" 
                                     class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                Send Password Reset Email
+                                {{ __('auth.send_reset_email') }}
                             </button>
                         </div>
 
                         <div class="text-center">
                             <a href="{{ route('login') }}" class="font-medium text-gray-600 hover:text-gray-500">
-                                Back to Login
+                                {{ __('auth.back_to_login') }}
                             </a>
                         </div>
                     </form>

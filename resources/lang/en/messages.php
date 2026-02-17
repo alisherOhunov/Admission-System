@@ -36,6 +36,10 @@ return [
     'application_cannot_edit' => 'You cannot edit a submitted application.',
     'document_uploaded' => 'Document uploaded successfully.',
     'document_removed' => 'Document removed successfully.',
+    'upload_failed' => 'Upload failed',
+    'upload_failed_retry' => 'Upload failed. Please try again.',
+    'remove_failed' => 'Failed to remove file',
+    'remove_failed_retry' => 'Failed to remove file. Please try again.',
     'profile_updated' => 'Profile updated successfully.',
 
     // Period-Specific Messages

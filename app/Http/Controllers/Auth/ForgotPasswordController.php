@@ -25,7 +25,7 @@ class ForgotPasswordController extends Controller
 
         if (! $user) {
             throw ValidationException::withMessages([
-                'email' => ['This email is not registered in our system.'],
+                'email' => [__('auth.email_not_registered')],
             ]);
         }
 

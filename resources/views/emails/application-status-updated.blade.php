@@ -30,7 +30,7 @@
                     <tr>
                         <td style="padding: 20px 30px 30px; text-align: center;">
                             <h1 style="font-size: 24px; font-weight: 600; color: #111827; margin: 0 0 16px;">
-                                Hello {{ $user->first_name .' '. $user->last_name }}!
+                                {{ __('notifications.hello') }} {{ $user->first_name .' '. $user->last_name }}!
                             </h1>
 
                             <!-- Status Badge -->
@@ -48,7 +48,7 @@
                             @if($showComment && $adminComment)
                             <div style="background-color: #fef3c7; border-left: 4px solid #f59e0b; padding: 16px; margin: 24px 0; text-align: left; border-radius: 4px;">
                                 <h3 style="font-size: 16px; font-weight: 600; color: #92400e; margin: 0 0 8px;">
-                                    Admin Comments:
+                                    {{ __('notifications.admin_comments') }}
                                 </h3>
                                 <p style="font-size: 14px; color: #92400e; margin: 0; line-height: 1.4;">
                                     {{ $adminComment }}
@@ -62,19 +62,19 @@
                                     <td style="background-color: #2563EB; border-radius: 8px;">
                                         <a href="{{ url('/applicant/dashboard') }}"
                                             style="display: inline-block; padding: 12px 24px; color: #ffffff; text-decoration: none; font-weight: 500; font-size: 16px; border-radius: 8px;">
-                                            View Application
+                                            {{ __('notifications.view_application') }}
                                         </a>
                                     </td>
                                 </tr>
                             </table>
 
                             <p style="font-size: 14px; color: #9ca3af; margin: 0 0 20px;">
-                                If you have any questions, please contact our admissions team.
+                                {{ __('notifications.contact_admissions') }}
                             </p>
 
                             <div style="font-size: 14px; color: #6b7280; margin-bottom: 20px;">
-                                Best regards,<br>
-                                {{ config('app.name') }} Admissions Team
+                                {{ __('notifications.best_regards') }}<br>
+                                {{ config('app.name') }} {{ __('notifications.admissions_team') }}
                             </div>
                         </td>
                     </tr>
@@ -83,7 +83,7 @@
                     <tr>
                         <td
                             style="padding: 20px 30px; text-align: center; font-size: 12px; color: #9ca3af; background-color: #f9fafb; border-top: 1px solid #e5e7eb;">
-                            © {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
+                            © {{ date('Y') }} {{ config('app.name') }}. {{ __('notifications.all_rights_reserved') }}
                         </td>
                     </tr>
                 </table>

@@ -191,7 +191,7 @@
                                             <a :href="`/applicant/application/{{ $application->id }}/view-document/${getDocuments()['passport']?.id}`"
                                             target="_blank"
                                             class="text-green-600 hover:text-green-800 transition-colors"
-                                            title="View">
+                                            title="{{ __('common.view') }}">
                                                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -201,7 +201,7 @@
                                             </a>
                                             <a :href="`/applicant/application/{{ $application->id }}/download-document/${getDocuments()['passport']?.id}`"
                                             class="text-blue-600 hover:text-blue-800 transition-colors"
-                                            title="{{ __('Download') }}">
+                                            title="{{ __('common.download') }}">
                                                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -311,7 +311,7 @@
                                             <a :href="`/applicant/application/{{ $application->id }}/view-document/${getDocuments()['visa_proof']?.id}`"
                                             target="_blank"
                                             class="text-green-600 hover:text-green-800 transition-colors"
-                                            title="View">
+                                            title="{{ __('common.view') }}">
                                                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -321,7 +321,7 @@
                                             </a>
                                             <a :href="`/applicant/application/{{ $application->id }}/download-document/${getDocuments()['visa_proof']?.id}`"
                                             class="text-blue-600 hover:text-blue-800 transition-colors"
-                                            title="{{ __('Download') }}">
+                                            title="{{ __('common.download') }}">
                                                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -419,7 +419,7 @@
                                             <a :href="`/applicant/application/{{ $application->id }}/view-document/${getDocuments()[key]?.id}`"
                                             target="_blank"
                                             class="text-green-600 hover:text-green-800 transition-colors"
-                                            title="View">
+                                            title="{{ __('common.view') }}">
                                                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -431,7 +431,7 @@
                                             <!-- Download Button -->
                                             <a :href="`/applicant/application/{{ $application->id }}/download-document/${getDocuments()[key]?.id}`"
                                             class="text-blue-600 hover:text-blue-800 transition-colors"
-                                            title="Download">
+                                            title="{{ __('common.download') }}">
                                                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -507,7 +507,7 @@
                                             <a :href="`/applicant/application/{{ $application->id }}/view-document/${getDocuments()[key]?.id}`"
                                             target="_blank"
                                             class="text-green-600 hover:text-green-800 transition-colors"
-                                            title="View">
+                                            title="{{ __('common.view') }}">
                                                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -519,7 +519,7 @@
                                             <!-- Download Button -->
                                             <a :href="`/applicant/application/{{ $application->id }}/download-document/${getDocuments()[key]?.id}`"
                                             class="text-blue-600 hover:text-blue-800 transition-colors"
-                                            title="Download">
+                                            title="{{ __('common.download') }}">
                                                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />

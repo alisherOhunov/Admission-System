@@ -383,7 +383,7 @@
 
                     if (!response.ok) {
                         const data = await response.json();
-                        throw new Error(data.error || 'Upload failed');
+                        throw new Error(data.error || '{{ __('messages.upload_failed') }}');
                     }
 
                     const data = await response.json();
@@ -410,7 +410,7 @@
                 } catch (error) {
                     this.uploading = false;
                     this.error = true;
-                    this.errorMessage = error.message || 'Upload failed. Please try again.';
+                    this.errorMessage = error.message || '{{ __('messages.upload_failed_retry') }}';
                 }
             },
 
@@ -434,7 +434,7 @@
                         headers: { 'X-Requested-With': 'XMLHttpRequest' }
                     });
 
-                    if (!response.ok) throw new Error('Failed to remove file');
+                    if (!response.ok) throw new Error('{{ __('messages.remove_failed') }}');
                     
                     this.uploading = false;
                     this.resetFileState();
@@ -448,7 +448,7 @@
                 } catch (error) {
                     this.uploading = false;
                     this.error = true;
-                    this.errorMessage = error.message || 'Failed to remove file. Please try again.';
+                    this.errorMessage = error.message || '{{ __('messages.remove_failed_retry') }}';
                 }
             },
 

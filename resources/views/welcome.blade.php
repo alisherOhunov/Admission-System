@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ config('app.name') }} - International Student Admission Platform</title>
+    <title>{{ config('app.name') }} - {{ __('welcome.tagline') }}</title>
     <link rel="preload" href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap"></noscript>
     
@@ -24,12 +24,12 @@
             <a
               href="{{ route('login') }}"
               class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900"
-              >Sign In</a
+              >{{ __('welcome.sign_in') }}</a
             >
             <a
               href="{{ route('register') }}"
               class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
-              >Get Started</a
+              >{{ __('welcome.get_started') }}</a
             >
           </div>
         </div>
@@ -43,20 +43,20 @@
           <h1
             class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl"
           >
-            <span class="text-blue-600">Admission for international students</span>
+            <span class="text-blue-600">{{ __('welcome.hero_title') }}</span>
           </h1>
           <p class="mt-6 text-lg leading-8 text-gray-800 max-w-7xl mx-auto">
-            Welcome to the online admission system for foreign students of {{ $settings->university_name }}
+            {{ __('welcome.welcome_subtitle', ['university' => $settings->university_name]) }}
           </p>
           <p class="mt-4 text-lg leading-8 text-gray-600 max-w-3xl mx-auto">
-            Apply to our university with confidence and ease.
+            {{ __('welcome.hero_subtitle') }}
           </p>
           <div class="mt-8 flex items-center justify-center gap-x-6">
             <a
               href="{{ route('register') }}"
               class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
             >
-              Start Your Application
+              {{ __('welcome.start_application') }}
               <svg
                 class="ml-2 h-4 w-4"
                 fill="none"
@@ -75,7 +75,7 @@
               href="{{ route('login') }}"
               class="inline-flex items-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
             >
-              Sign In
+              {{ __('welcome.sign_in') }}
             </a>
           </div>
         </div>
@@ -87,10 +87,10 @@
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
           <h2 class="text-3xl font-bold text-gray-900 sm:text-4xl">
-            Simple Application Process
+            {{ __('welcome.steps_heading') }}
           </h2>
           <p class="mt-4 text-lg text-gray-600">
-            Get started in just a few easy steps
+            {{ __('welcome.steps_subtitle') }}
           </p>
         </div>
 
@@ -101,9 +101,9 @@
             >
               <span class="text-white font-bold text-xl">1</span>
             </div>
-            <h3 class="text-xl font-semibold mb-2">Create Account</h3>
+            <h3 class="text-xl font-semibold mb-2">{{ __('welcome.step1_title') }}</h3>
             <p class="text-gray-600">
-              Sign up and verify your email to get started
+              {{ __('welcome.step1_desc') }}
             </p>
           </div>
           <div class="text-center">
@@ -112,9 +112,9 @@
             >
               <span class="text-white font-bold text-xl">2</span>
             </div>
-            <h3 class="text-xl font-semibold mb-2">Complete Application</h3>
+            <h3 class="text-xl font-semibold mb-2">{{ __('welcome.step2_title') }}</h3>
             <p class="text-gray-600">
-              Fill out your personal, academic, and program information
+              {{ __('welcome.step2_desc') }}
             </p>
           </div>
           <div class="text-center">
@@ -123,9 +123,9 @@
             >
               <span class="text-white font-bold text-xl">3</span>
             </div>
-            <h3 class="text-xl font-semibold mb-2">Submit & Track</h3>
+            <h3 class="text-xl font-semibold mb-2">{{ __('welcome.step3_title') }}</h3>
             <p class="text-gray-600">
-              Submit your application and track its progress in real-time
+              {{ __('welcome.step3_desc') }}
             </p>
           </div>
         </div>
@@ -136,18 +136,17 @@
     <section class="py-20 bg-blue-600">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
         <h2 class="text-3xl font-bold text-white sm:text-4xl">
-          Ready to Start Your Journey?
+          {{ __('welcome.cta_heading') }}
         </h2>
         <p class="mt-4 text-lg text-white">
-          Join thousands of students who have successfully applied through our
-          platform
+          {{ __('welcome.cta_body') }}
         </p>
         <div class="mt-8">
           <a
             href="{{ route('register') }}"
             class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-blue-600 bg-white hover:bg-gray-100"
           >
-            Sign Up and Start Your Application Today
+            {{ __('welcome.cta_button') }}
             <svg
               class="ml-2 h-4 w-4"
               fill="none"
@@ -170,7 +169,7 @@
     <footer class="bg-gray-800 text-white py-4">
       <div class="mx-auto max-w-7xl">
         <div class="text-center text-gray-400">
-          <p>&copy; 2025 U-PRESS LLC. All rights reserved.</p>
+          <p>&copy; {{ date('Y') }} {{ config('app.name') }}. {{ __('welcome.footer_rights') }}</p>
       </div>
       </div>
     </footer>

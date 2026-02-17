@@ -96,7 +96,7 @@
                                             {{ $application->program->name ?? __('admin/dashboard.program_not_selected') }}
                                         </p>
                                         <p class="text-xs text-gray-500">
-                                            ID: {{ $application->id }}
+                                            {{ __('common.id') }}: {{ $application->id }}
                                             @if($application->submitted_at)
                                                 • {{ __('admin/dashboard.submitted_at', ['date' => $application->submitted_at->format('M j, Y')]) }}
                                             @endif

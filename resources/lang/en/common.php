@@ -62,6 +62,11 @@ return [
     'no_results' => 'No results found',
     'no_records' => 'No records found',
 
+    // Common Labels (additional)
+    'id' => 'ID',
+    'complete' => 'complete',
+    'unnamed_period' => 'Unnamed Period',
+
     // Common Phrases
     'are_you_sure' => 'Are you sure?',
     'please_wait' => 'Please wait...',

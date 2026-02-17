@@ -30,7 +30,7 @@ class ProfileController extends Controller
         ]);
 
         if (! empty($validated['new_password']) && ! Hash::check($validated['current_password'], $user->password)) {
-            return back()->withErrors(['current_password' => 'Current password is incorrect']);
+            return back()->withErrors(['current_password' => __('auth.current_password_incorrect')]);
         }
 
         $user->update([

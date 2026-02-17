@@ -4,8 +4,8 @@
 <div class="container mx-auto px-4 py-8">
     <div class="max-w-md mx-auto">
         <div class="mb-6">
-            <h1 class="text-2xl font-bold text-gray-900">Edit Admission Period</h1>
-            <p class="mt-2 text-sm text-gray-600">Update the admission period details below.</p>
+            <h1 class="text-2xl font-bold text-gray-900">{{ __('admin/settings.edit_period') }}</h1>
+            <p class="mt-2 text-sm text-gray-600">{{ __('admin/settings.edit_period_subtitle') }}</p>
         </div>
 
         <div class="bg-white shadow rounded-lg p-6 border border-gray-200">
@@ -14,7 +14,7 @@
                 @method('PUT')
 
                 <div>
-                    <label for="name" class="block text-sm font-medium text-gray-700">Period Name</label>
+                    <label for="name" class="block text-sm font-medium text-gray-700">{{ __('admin/settings.period_name') }}</label>
                     <input type="text" 
                         id="name" 
                         name="name" 
@@ -27,7 +27,7 @@
                 </div>
 
                 <div>
-                    <label for="start_date" class="block text-sm font-medium text-gray-700">Start Date</label>
+                    <label for="start_date" class="block text-sm font-medium text-gray-700">{{ __('admin/settings.start_date') }}</label>
                     <input type="date" 
                         id="start_date" 
                         name="start_date" 
@@ -40,7 +40,7 @@
                 </div>
 
                 <div>
-                    <label for="end_date" class="block text-sm font-medium text-gray-700">End Date</label>
+                    <label for="end_date" class="block text-sm font-medium text-gray-700">{{ __('admin/settings.end_date') }}</label>
                     <input type="date" 
                         id="end_date" 
                         name="end_date" 
@@ -55,12 +55,12 @@
                 <div class="flex justify-end space-x-3 pt-4">
                     <a href="{{ route('admin.applications.settings.periods') }}" 
                         class="px-4 py-2 bg-red-600 text-white font-medium rounded-md shadow hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400">
-                        Cancel
+                        {{ __('admin/settings.cancel') }}
                     </a>
 
-                    <button type="submit" 
+                    <button type="submit"
                         class="px-4 py-2 bg-blue-600 text-white font-medium rounded-md shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        Update Period
+                        {{ __('admin/settings.update_period') }}
                     </button>
                 </div>
             </form>

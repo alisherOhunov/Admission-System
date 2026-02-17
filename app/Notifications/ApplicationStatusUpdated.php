@@ -39,7 +39,7 @@ class ApplicationStatusUpdated extends Notification
         $statusMessages = $this->getStatusMessages();
 
         return (new MailMessage)
-            ->subject('Application Status Update - '.config('app.name'))
+            ->subject(__('notifications.status_update_subject').config('app.name'))
             ->view('emails.application-status-updated', [
                 'application' => $this->application,
                 'user' => $notifiable,
@@ -58,23 +58,23 @@ class ApplicationStatusUpdated extends Notification
     {
         return match ($this->application->status) {
             'under_review' => [
-                'title' => 'Application Under Review',
-                'message' => 'Your application is currently being reviewed by our admissions team. We will notify you once a decision has been made.',
+                'title' => __('notifications.under_review_title'),
+                'message' => __('notifications.under_review_message'),
                 'color' => '#f59e0b',
             ],
             'accepted' => [
-                'title' => 'Congratulations! Application Accepted',
-                'message' => 'We are pleased to inform you that your application has been accepted. Welcome to our program!',
+                'title' => __('notifications.accepted_title'),
+                'message' => __('notifications.accepted_message'),
                 'color' => '#10b981',
             ],
             'rejected' => [
-                'title' => 'Application Decision',
-                'message' => 'After careful consideration, we regret to inform you that your application was not accepted at this time.',
+                'title' => __('notifications.rejected_title'),
+                'message' => __('notifications.rejected_message'),
                 'color' => '#ef4444',
             ],
             'require_resubmit' => [
-                'title' => 'Application Requires Resubmission',
-                'message' => 'Your application requires some additional information or corrections. Please review the comments below and resubmit your application.',
+                'title' => __('notifications.require_resubmit_title'),
+                'message' => __('notifications.require_resubmit_message'),
                 'color' => '#f59e0b',
             ],
         };

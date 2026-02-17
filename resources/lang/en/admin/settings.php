@@ -73,6 +73,15 @@ return [
     'update_all_settings' => 'Update All Settings',
     'updating' => 'Updating...',
 
+    // Edit Period page
+    'edit_period_subtitle' => 'Update the admission period details below.',
+    'update_period' => 'Update Period',
+
+    // Edit Program page
+    'edit_program_subtitle' => 'Update the program details below.',
+    'update_program' => 'Update Program',
+    'degree_level' => 'Degree Level',
+
     // Form Labels
     'create' => 'Create',
     'update' => 'Update',

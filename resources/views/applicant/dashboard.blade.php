@@ -95,7 +95,7 @@
                             <div>
                                 <div class="flex justify-between text-sm mb-2">
                                     <span>{{ __('applicant/dashboard.progress') }}</span>
-                                    <span>{{ round($progress) }}% complete</span>
+                                    <span>{{ round($progress) }}% {{ __('common.complete') }}</span>
                                 </div>
                                 <div class="w-full bg-gray-200 rounded-full h-2">
                                     <div class="bg-blue-600 h-2 rounded-full" style="width: {{ $progress }}%"></div>

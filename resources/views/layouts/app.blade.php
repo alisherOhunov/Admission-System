@@ -9,7 +9,7 @@
     <link rel="preload" href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap"></noscript>
 
-    <title>@yield('title', config('app.name') .' - International Student Admission Platform')</title>
+    <title>@yield('title', config('app.name') . ' - ' . __('welcome.tagline'))</title>
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])

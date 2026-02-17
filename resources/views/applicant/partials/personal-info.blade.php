@@ -110,7 +110,7 @@
                             <div>
                                 <label for="nationality" class="block text-sm font-medium text-gray-700">{{ __('applicant/personal-info.nationality')}}
                                     <span class="text-red-500">*</span></label>
-                                    <select name="nationality"  aria-label="Select Nationality"
+                                    <select name="nationality" aria-label="{{ __('applicant/personal-info.select_nationality') }}"
                                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
                                     >
                                     <option value="" class="text-muted-foreground">{{ __('applicant/personal-info.select_nationality') }}</option>
@@ -137,7 +137,7 @@
                         <div>
                             <label for="country_of_birth" class="block text-sm font-medium text-gray-700">{{ __('applicant/personal-info.country_of_birth') }}
                                 <span class="text-red-500">*</span></label>
-                                <select name="country_of_birth"  aria-label="Select country_of_birth"
+                                <select name="country_of_birth" aria-label="{{ __('applicant/personal-info.select_country_of_birth') }}"
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
                                 >
                                 <option value="" class="text-muted-foreground">{{ __('applicant/personal-info.select_country_of_birth') }}</option>

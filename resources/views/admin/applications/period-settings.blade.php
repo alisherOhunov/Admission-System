@@ -93,7 +93,7 @@
                 @forelse($periods as $period)
                     <tr class="hover:bg-gray-50 transition-colors duration-150 text-left">
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm font-medium text-gray-900">{{ $period->name ?? 'Unnamed Period' }}</div>
+                            <div class="text-sm font-medium text-gray-900">{{ $period->name ?? __('common.unnamed_period') }}</div>
                             <div class="text-xs text-gray-500">#{{ $period->id }}</div>
                         </td>
                         <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">

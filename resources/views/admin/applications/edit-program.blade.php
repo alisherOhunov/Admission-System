@@ -4,8 +4,8 @@
 <div class="container mx-auto px-4 py-8">
     <div class="max-w-md mx-auto">
         <div class="mb-6">
-            <h1 class="text-2xl font-bold text-gray-900">Edit Program</h1>
-            <p class="mt-2 text-sm text-gray-600">Update the program details below.</p>
+            <h1 class="text-2xl font-bold text-gray-900">{{ __('admin/settings.edit_program') }}</h1>
+            <p class="mt-2 text-sm text-gray-600">{{ __('admin/settings.edit_program_subtitle') }}</p>
         </div>
 
         <div class="bg-white shadow rounded-lg p-6 border border-gray-200">
@@ -18,7 +18,7 @@
 
                 {{-- Program Name --}}
                 <div>
-                    <label for="name" class="block text-sm font-medium text-gray-700">Program Name</label>
+                    <label for="name" class="block text-sm font-medium text-gray-700">{{ __('admin/settings.program_name') }}</label>
                     <input type="text" 
                            id="name" 
                            name="name" 
@@ -33,7 +33,7 @@
 
                 {{-- Degree Level --}}
                 <div>
-                    <label for="degree_level" class="block text-sm font-medium text-gray-700">Degree Level</label>
+                    <label for="degree_level" class="block text-sm font-medium text-gray-700">{{ __('admin/settings.degree_level') }}</label>
                     <select id="degree_level" 
                             name="degree_level" 
                             class="mt-1 block w-full border-gray-300 rounded-md shadow-sm 
@@ -57,7 +57,7 @@
 
                 {{-- Program Code --}}
                 <div>
-                    <label for="code" class="block text-sm font-medium text-gray-700">Program Code</label>
+                    <label for="code" class="block text-sm font-medium text-gray-700">{{ __('admin/settings.program_code') }}</label>
                     <input type="text" 
                            id="code" 
                            name="code" 
@@ -75,13 +75,13 @@
                     <a href="{{ route('admin.applications.settings.programs') }}" 
                         class="px-4 py-2 bg-red-600 text-white font-medium rounded-md shadow 
                                hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400">
-                        Cancel
+                        {{ __('admin/settings.cancel') }}
                     </a>
 
-                    <button type="submit" 
-                        class="px-4 py-2 bg-blue-600 text-white font-medium rounded-md shadow 
+                    <button type="submit"
+                        class="px-4 py-2 bg-blue-600 text-white font-medium rounded-md shadow
                                hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        Update Program
+                        {{ __('admin/settings.update_program') }}
                     </button>
                 </div>
 

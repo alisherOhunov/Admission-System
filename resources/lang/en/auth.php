@@ -36,5 +36,38 @@ return [
     'password_placeholder' => 'Enter your password',
     'error_default' => 'There was an error with your submission.',
     'logout_success' => 'You have been logged out successfully.',
+    'invalid_credentials' => 'The provided credentials do not match our records.',
+    'email_not_registered' => 'This email is not registered in our system.',
+    'current_password_incorrect' => 'Current password is incorrect',
     'verification_link_sent' => 'Verification link sent!',
+
+    // Forgot Password page
+    'forgot_password_heading' => 'Reset your password',
+    'forgot_password_subtitle' => "Enter your email address and we'll send you a link to reset your password.",
+    'send_reset_email' => 'Send Password Reset Email',
+    'back_to_login' => 'Back to Login',
+
+    // Reset Password page
+    'reset_password_heading' => 'Reset Password',
+    'reset_password_button' => 'Reset Password',
+
+    // Profile Settings page
+    'profile_settings_title' => 'Profile Settings',
+    'profile_settings_subtitle' => 'Manage your account settings and preferences',
+    'profile_info_heading' => 'Profile Information',
+    'profile_info_description' => "Update your account's profile information and email address.",
+    'current_password' => 'Current Password',
+    'current_password_placeholder' => 'Enter your current password',
+    'new_password' => 'New Password',
+    'new_password_placeholder' => 'Enter a new password',
+    'confirm_new_password' => 'Confirm New Password',
+    'confirm_new_password_placeholder' => 'Enter the new password again',
+    'save_changes' => 'Save Changes',
+
+    // Verify Email page
+    'verify_email_heading' => 'Verify Your Email Address',
+    'verify_email_check' => 'Before continuing, please check your email for a verification link.',
+    'verify_email_request' => "If you didn't receive the email, click the button below to request another.",
+    'resend_verification' => 'Resend Verification Email',
+    'use_different_account' => 'Use a different account',
 ];

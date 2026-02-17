@@ -43,7 +43,7 @@ class AuthController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => __('auth.invalid_credentials'),
         ])->withInput();
     }
 
@@ -90,6 +90,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/')->with('success', 'You have been logged out successfully.');
+        return redirect('/')->with('success', __('auth.logout_success'));
     }
 }
