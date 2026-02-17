@@ -33,12 +33,12 @@
                             <div>
                                 <div class="text-sm font-medium text-gray-900">{{ $application->user->first_name .' '. $application->user->last_name}}</div>
                                 <div class="text-xs text-gray-500">{{ $application->user->email }}</div>
-                                <div class="text-xs text-gray-400">ID: {{ $application->id }}</div>
+                                <div class="text-xs text-gray-400">{{ __('common.id') }}: {{ $application->id }}</div>
                             </div>
                         </td>
                         <td class="px-2 py-3 whitespace-nowrap">
                             <div class="inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-gray-100 text-foreground capitalize">
-                                {{ $application->level ?? __('admin/index.not_specified') }}
+                                {{ $application->level ? __('degrees.' . $application->level) : __('admin/index.not_specified') }}
                             </div>
                         </td>
                         <td class="px-2 py-3">

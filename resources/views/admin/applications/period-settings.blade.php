@@ -134,7 +134,7 @@
                                         </form>
                                     </div>
                                 @else
-                                    <span class="text-sm text-green-400">{{ __('common.active') }}</span>
+                                    <span class="text-sm text-green-600 font-medium">{{ __('admin/settings.current_active') }}</span>
                                 @endif
                             </div>
                         </td>

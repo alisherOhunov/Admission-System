@@ -73,6 +73,9 @@ return [
     'update_all_settings' => 'Update All Settings',
     'updating' => 'Updating...',
 
+    // Period status
+    'current_active' => 'Current Active',
+
     // Edit Period page
     'edit_period_subtitle' => 'Update the admission period details below.',
     'update_period' => 'Update Period',
