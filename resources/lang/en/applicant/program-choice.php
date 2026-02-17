@@ -14,6 +14,7 @@ return [
     'program_of_study_placeholder' => 'Select the program you wish to apply for',
     'start_term' => 'Preferred Start Term',
     'select_start_term' => 'Select a start term',
+    'closed' => 'Closed',
     'start_term_placeholder' => 'When would you like to begin your studies?',
     'needs_dormitory' => 'Do you need a dormitory for accommodation during your studies?',
     'program_preview_title' => 'Master of Science in Data Science',

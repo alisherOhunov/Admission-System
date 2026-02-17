@@ -45,6 +45,6 @@ class ProfileController extends Controller
             ]);
         }
 
-        return redirect()->route('profile.settings')->with('success', 'Profile updated successfully!');
+        return redirect()->route('profile.settings')->with('success', __('messages.profile_updated'));
     }
 }

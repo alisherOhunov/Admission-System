@@ -26,21 +26,21 @@ class ProgramsSettingsController extends Controller
         Program::create($validated);
 
         return redirect()->route('admin.applications.settings.programs')
-            ->with('success', 'Program added successfully.');
+            ->with('success', __('messages.program_created'));
     }
 
     public function activate(Program $program)
     {
         $program->update(['is_active' => true]);
 
-        return back()->with('success', 'Program activated successfully.');
+        return back()->with('success', __('messages.program_activated'));
     }
 
     public function deActivate(Program $program)
     {
         $program->update(['is_active' => false]);
 
-        return back()->with('success', 'Program deactivated successfully.');
+        return back()->with('success', __('messages.program_deactivated'));
     }
 
     public function edit(Program $program)
@@ -60,7 +60,7 @@ class ProgramsSettingsController extends Controller
 
         return redirect()
             ->route('admin.applications.settings.programs')
-            ->with('success', 'Program updated successfully.');
+            ->with('success', __('messages.program_updated'));
     }
 
     public function destroy(Program $program)
@@ -68,19 +68,19 @@ class ProgramsSettingsController extends Controller
         if ($program->applications()->exists()) {
             return redirect()
                 ->route('admin.applications.settings.programs')
-                ->with('error', 'Cannot be deleted because there is information related to this program of study');
+                ->with('error', __('messages.cannot_delete_program_in_use'));
         }
 
         if ($program->is_active) {
             return redirect()
                 ->route('admin.applications.settings.programs')
-                ->with('error', 'You cannot delete an active program. Please deactivate it before deleting.');
+                ->with('error', __('messages.cannot_delete_active_program'));
         }
 
         $program->delete();
 
         return redirect()
             ->route('admin.applications.settings.programs')
-            ->with('success', 'Program deleted successfully.');
+            ->with('success', __('messages.program_deleted'));
     }
 }

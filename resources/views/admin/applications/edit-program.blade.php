@@ -41,11 +41,11 @@
                             required>
 
                         <option value="bachelors" {{ old('degree_level', $program->degree_level) === 'bachelors' ? 'selected' : '' }}>
-                            Bachelor's
+                            {{ __('degrees.bachelors') }}
                         </option>
 
                         <option value="masters" {{ old('degree_level', $program->degree_level) === 'masters' ? 'selected' : '' }}>
-                            Master's
+                            {{ __('degrees.masters') }}
                         </option>
 
                     </select>

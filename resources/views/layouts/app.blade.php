@@ -67,7 +67,7 @@
                                         <path d="M13 17V5"></path>
                                         <path d="M8 17v-3"></path>
                                     </svg>
-                                    <span>Dashboard</span>
+                                    <span>{{ __('navigation.dashboard') }}</span>
                                 </a>
                                 <a href="{{ route('applicant.application') }}"
                                     class="flex items-center space-x-2 text-gray-600 hover:text-gray-900 {{ request()->routeIs('applicant.application') ? 'text-blue-600 font-medium' : '' }}">
@@ -79,7 +79,7 @@
                                         <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
                                         <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                                     </svg>
-                                    <span>My Application</span>
+                                    <span>{{ __('navigation.my_application') }}</span>
                                 </a>
                             @else
                                 <a href="{{ route('admin.dashboard') }}"
@@ -93,7 +93,7 @@
                                         <path d="M13 17V5"></path>
                                         <path d="M8 17v-3"></path>
                                     </svg>
-                                    <span>Dashboard</span>
+                                    <span>{{ __('navigation.dashboard') }}</span>
                                 </a>
                                 <a href="{{ route('admin.applications.index') }}"
                                     class="flex items-center space-x-2 text-gray-600 hover:text-gray-900 {{ request()->routeIs('admin.applications.*') ? 'text-blue-600 font-medium' : '' }}">
@@ -105,7 +105,7 @@
                                         <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
                                         <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                                     </svg>
-                                    <span>Applications</span>
+                                    <span>{{ __('navigation.applications') }}</span>
                                 </a>
                                 <div class="relative">
                                     <button 
@@ -121,7 +121,7 @@
                                             <circle cx="12" cy="12" r="3"></circle>
                                         </svg>
 
-                                        <span>Settings</span>
+                                        <span>{{ __('navigation.settings') }}</span>
 
                                         <svg class="w-4 h-4 transform transition"
                                             :class="{ 'rotate-180': openSettings }"
@@ -141,17 +141,17 @@
 
                                         <a href="{{ route('admin.applications.settings.periods') }}"
                                         class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                            Periods
+                                            {{ __('navigation.application_periods') }}
                                         </a>
 
                                         <a href="{{ route('admin.applications.settings.programs') }}"
                                         class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                            Programs
+                                            {{ __('navigation.programs') }}
                                         </a>
 
                                         <a href="{{ route('admin.applications.settings.index') }}"
                                         class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                            Site Settings
+                                            {{ __('navigation.site_settings') }}
                                         </a>
 
                                     </div>
@@ -194,7 +194,7 @@
                                     <div class="text-xs text-gray-600">{{ auth()->user()->email }}</div>
                                     <div
                                         class="inline-block px-2 text-xs font-semibold text-gray-800 bg-gray-100 rounded-full shadow-sm">
-                                        {{ auth()->user()->role === 2 ? 'Admin' : 'Applicant' }}
+                                        {{ auth()->user()->role === 2 ? __('roles.admin') : __('roles.applicant') }}
                                     </div>
                                 </div>
                                 <div class="border-t border-gray-100"></div>
@@ -211,7 +211,7 @@
                                         </path>
                                         <circle cx="12" cy="12" r="3"></circle>
                                     </svg>
-                                    <span>Settings</span>
+                                    <span>{{ __('navigation.profile') }}</span>
                                 </a>
                                 <div class="border-t border-gray-100"></div>
                                 <form method="POST" action="{{ route('logout') }}" class="block">
@@ -226,7 +226,7 @@
                                             <polyline points="16 17 21 12 16 7"></polyline>
                                             <line x1="21" x2="9" y1="12" y2="12"></line>
                                         </svg>
-                                        <span>Log out</span>
+                                        <span>{{ __('navigation.logout') }}</span>
                                     </button>
                                 </form>
                             </div>
@@ -239,15 +239,14 @@
                     <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t">
                         @if (auth()->user()->isApplicant())
                             <a href="{{ route('applicant.dashboard') }}"
-                                class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">Dashboard</a>
+                                class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">{{ __('navigation.dashboard') }}</a>
                             <a href="{{ route('applicant.application') }}"
-                                class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">My
-                                Application</a>
+                                class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">{{ __('navigation.my_application') }}</a>
                         @else
                             <a href="{{ route('admin.dashboard') }}"
-                                class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">Dashboard</a>
+                                class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">{{ __('navigation.dashboard') }}</a>
                             <a href="{{ route('admin.applications.index') }}"
-                                class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">Applications</a>
+                                class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">{{ __('navigation.applications') }}</a>
                         @endif
                     </div>
                 </div>

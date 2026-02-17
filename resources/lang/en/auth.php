@@ -35,4 +35,6 @@ return [
     'email_placeholder' => 'Enter your email',
     'password_placeholder' => 'Enter your password',
     'error_default' => 'There was an error with your submission.',
+    'logout_success' => 'You have been logged out successfully.',
+    'verification_link_sent' => 'Verification link sent!',
 ];

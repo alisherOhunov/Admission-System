@@ -18,10 +18,4 @@ return [
     'view_reports' => 'View Reports',
     'system_settings' => 'System Settings',
     'application_status' => 'Application Status',
-    'status_submitted' => 'Submitted',
-    'status_re_submitted' => 'ReSubmitted',
-    'status_under_review' => 'Under Review',
-    'status_require_resubmit' => 'Require ReSubmit',
-    'status_accepted' => 'Accepted',
-    'status_rejected' => 'Rejected',
 ];

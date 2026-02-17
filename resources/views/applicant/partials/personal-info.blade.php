@@ -30,7 +30,7 @@
                                     type="text"
                                     id="first_name"
                                     name="first_name"
-                                    placeholder="Enter your first name"
+                                    placeholder="{{ __('applicant/personal-info.first_name_placeholder') }}"
                                     value="{{ old('first_name', Auth::user()->first_name) }}"
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
                                 >
@@ -41,7 +41,7 @@
                             <div>
                                 <label for="last_name" class="block text-sm font-medium text-gray-700">{{ __('applicant/personal-info.last_name')}}
                                     <span class="text-red-500">*</span></label>
-                                <input type="text" id="last_name" name="last_name" placeholder="Enter your last name" value="{{ old('last_name', Auth::user()->last_name) }}"
+                                <input type="text" id="last_name" name="last_name" placeholder="{{ __('applicant/personal-info.last_name_placeholder') }}" value="{{ old('last_name', Auth::user()->last_name) }}"
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
                                 >
                                 @error('last_name')
@@ -97,7 +97,7 @@
                                 <label for="passport_number" class="block text-sm font-medium text-gray-700">
                                     {{ __('applicant/personal-info.passport_number')}} <span class="text-red-500">*</span>
                                 </label>
-                                <input type="text" id="passport_number" name="passport_number" placeholder="Enter your passport number"
+                                <input type="text" id="passport_number" name="passport_number" placeholder="{{ __('applicant/personal-info.passport_number_placeholder') }}"
                                     value="{{ old('passport_number', $application->passport_number ?? '') }}"
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm">
                                 @error('passport_number')
@@ -113,7 +113,7 @@
                                     <select name="nationality"  aria-label="Select Nationality"
                                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
                                     >
-                                    <option value="" class="text-muted-foreground">Select your country</option>
+                                    <option value="" class="text-muted-foreground">{{ __('applicant/personal-info.select_nationality') }}</option>
                                     @foreach (config('countries') as $code => $name)
                                         <option value="{{ $code }}" @selected(old('nationality', $application->nationality ?? '') == $code)>{{ $name }}</option>
                                     @endforeach
@@ -126,7 +126,7 @@
                                 <label for="native_language" class="block text-sm font-medium text-gray-700">
                                     {{ __('applicant/personal-info.native_language')}} <span class="text-red-500">*</span>
                                 </label>
-                                <input type="text" id="native_language" name="native_language" placeholder="Enter your native language"
+                                <input type="text" id="native_language" name="native_language" placeholder="{{ __('applicant/personal-info.native_language_placeholder') }}"
                                 value="{{ old('native_language', $application->native_language ?? '') }}"
                                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm">
                                 @error('native_language')
@@ -135,12 +135,12 @@
                             </div>
                         </div>
                         <div>
-                            <label for="country_of_birth" class="block text-sm font-medium text-gray-700">Country of Birth
+                            <label for="country_of_birth" class="block text-sm font-medium text-gray-700">{{ __('applicant/personal-info.country_of_birth') }}
                                 <span class="text-red-500">*</span></label>
                                 <select name="country_of_birth"  aria-label="Select country_of_birth"
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-university-500 focus:border-university-500 sm:text-sm"
                                 >
-                                <option value="" class="text-muted-foreground">Select your country of birth</option>
+                                <option value="" class="text-muted-foreground">{{ __('applicant/personal-info.select_country_of_birth') }}</option>
                                 @foreach (config('countries') as $code => $name)
                                     <option value="{{ $code }}" @selected(old('country_of_birth', $application->country_of_birth ?? '') == $code)>{{ $name }}</option>
                                 @endforeach
@@ -201,7 +201,7 @@
                                                     class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                                                     :class="uploaded ? 'bg-green-100 text-green-800' :
                                                         'bg-red-100 text-red-800'"
-                                                    x-text="uploaded ? 'Uploaded' : 'Required'">
+                                                    x-text="uploaded ? '{{ __('applicant/personal-info.uploaded') }}' : '{{ __('applicant/personal-info.required') }}'">
                                                 </span>
                                             </div>
                                             <p class="text-sm text-gray-500 mb-2">

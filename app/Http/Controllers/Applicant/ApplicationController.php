@@ -64,21 +64,21 @@ class ApplicationController extends Controller
     {
         $application = $request->getApplication();
         $requiredFields = [
-            'nationality' => 'Nationality',
-            'country_of_birth' => 'Country of Birth',
-            'passport_number' => 'Passport Number',
-            'date_of_birth' => 'Date of Birth',
-            'native_language' => 'Native Language',
-            'phone' => 'Phone',
-            'permanent_street' => 'Permanent Street Address',
-            'previous_institution' => 'Previous school, college or institution',
-            'previous_gpa' => 'Previous GPA',
-            'degree_earned' => 'Degree Earned',
-            'language_test_score' => 'Language Test Score',
-            'language_test_date' => 'Language Test Date',
-            'program_id' => 'Program',
-            'application_period_id' => 'Start Term',
-            'family_status' => 'Family Status',
+            'nationality'           => __('applicant/review-and-submit.nationality'),
+            'country_of_birth'      => __('applicant/review-and-submit.country_of_birth'),
+            'passport_number'       => __('applicant/review-and-submit.passport_number'),
+            'date_of_birth'         => __('applicant/review-and-submit.date_of_birth'),
+            'native_language'       => __('applicant/review-and-submit.native_language'),
+            'phone'                 => __('applicant/review-and-submit.phone'),
+            'permanent_street'      => __('applicant/review-and-submit.permanent_street'),
+            'previous_institution'  => __('applicant/review-and-submit.previous_institution'),
+            'previous_gpa'          => __('applicant/review-and-submit.previous_gpa'),
+            'degree_earned'         => __('applicant/review-and-submit.degree_earned'),
+            'language_test_score'   => __('applicant/review-and-submit.language_test_score'),
+            'language_test_date'    => __('applicant/review-and-submit.language_test_date'),
+            'program_id'            => __('applicant/review-and-submit.program'),
+            'application_period_id' => __('applicant/review-and-submit.start_term'),
+            'family_status'         => __('applicant/review-and-submit.family_status'),
         ];
 
         $validator = Validator::make([], []);
@@ -86,7 +86,7 @@ class ApplicationController extends Controller
         // Validate required fields
         foreach ($requiredFields as $field => $label) {
             if (empty($application->$field)) {
-                $validator->errors()->add($field, "The {$label} field is required before submitting.");
+                $validator->errors()->add($field, __('messages.field_required', ['field' => $label]));
             }
         }
 
@@ -102,7 +102,7 @@ class ApplicationController extends Controller
             'submitted_at' => now(),
         ]);
 
-        return back()->with('success', 'Application submitted successfully!');
+        return back()->with('success', __('messages.application_submitted'));
     }
 
     /**
@@ -124,7 +124,7 @@ class ApplicationController extends Controller
             if ($isRequired && ! in_array($type, $uploadedDocuments)) {
                 $validator->errors()->add(
                     "document_{$type}",
-                    "The {$config['label']} document is required before submitting."
+                    __('messages.document_required', ['document' => __('documents.' . $type)])
                 );
             }
         }
@@ -159,7 +159,7 @@ class ApplicationController extends Controller
             DB::commit();
 
             return response()->json([
-                'message' => 'Document uploaded successfully',
+                'message' => __('messages.document_uploaded'),
                 'document' => [
                     'id' => $document->id,
                     'filename' => $document->filename,
@@ -230,7 +230,7 @@ class ApplicationController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Document removed successfully',
+                'message' => __('messages.document_removed'),
             ], 200);
 
         } catch (\Exception $e) {

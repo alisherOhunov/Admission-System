@@ -47,13 +47,13 @@
                                 hx-swap="innerHTML"
                                 aria-label="{{ __('admin/index.status_filter') }}">
                             <option value="">{{ __('admin/index.status_all')}}</option>
-                            <option value="submitted" {{ request('status') == 'submitted' ? 'selected' : '' }}>{{ __('admin/index.status_submitted')}}</option>
-                            <option value="under_review" {{ request('status') == 'under_review' ? 'selected' : '' }}>{{ __('admin/index.status_under_review')}}</option>
-                            <option value="accepted" {{ request('status') == 'accepted' ? 'selected' : '' }}>{{ __('admin/index.status_accepted')}}</option>
-                            <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>{{ __('admin/index.status_rejected')}}</option>
-                            <option value="require_resubmit" {{ request('status') == 'require_resubmit' ? 'selected' : '' }}>{{ __('admin/index.status_require_resubmit')}}</option>
-                            <option value="re_submitted" {{ request('status') == 're_submitted' ? 'selected' : '' }}>{{ __('admin/index.status_re_submitted')}}</option>
-                            <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}>{{ __('admin/index.status_draft')}}</option>
+                            <option value="submitted" {{ request('status') == 'submitted' ? 'selected' : '' }}>{{ __('status.submitted')}}</option>
+                            <option value="under_review" {{ request('status') == 'under_review' ? 'selected' : '' }}>{{ __('status.under_review')}}</option>
+                            <option value="accepted" {{ request('status') == 'accepted' ? 'selected' : '' }}>{{ __('status.accepted')}}</option>
+                            <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>{{ __('status.rejected')}}</option>
+                            <option value="require_resubmit" {{ request('status') == 'require_resubmit' ? 'selected' : '' }}>{{ __('status.require_resubmit')}}</option>
+                            <option value="re_submitted" {{ request('status') == 're_submitted' ? 'selected' : '' }}>{{ __('status.re_submitted')}}</option>
+                            <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}>{{ __('status.draft')}}</option>
                         </select>
 
                         <!-- Level Filter -->
@@ -67,8 +67,8 @@
                                 hx-swap="innerHTML"
                                 aria-label="{{ __('admin/index.level_filter') }}">
                             <option value="">{{ __('admin/index.level_all')}}</option>
-                            <option value="masters" {{ request('level') == 'masters' ? 'selected' : '' }}>{{ __('admin/index.level_masters')}}</option>
-                            <option value="bachelors" {{ request('level') == 'bachelors' ? 'selected' : '' }}>{{ __('admin/index.level_bachelors')}}</option>
+                            <option value="masters" {{ request('level') == 'masters' ? 'selected' : '' }}>{{ __('degrees.masters')}}</option>
+                            <option value="bachelors" {{ request('level') == 'bachelors' ? 'selected' : '' }}>{{ __('degrees.bachelors')}}</option>
                         </select>
 
                         <!-- Period Filter -->

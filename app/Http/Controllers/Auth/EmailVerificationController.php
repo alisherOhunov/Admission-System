@@ -39,6 +39,6 @@ class EmailVerificationController extends Controller
             User::find($userId)->sendEmailVerificationNotification();
         })->afterResponse();
 
-        return back()->with('message', 'Verification link sent!');
+        return back()->with('message', __('auth.verification_link_sent'));
     }
 }

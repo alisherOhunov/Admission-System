@@ -164,20 +164,20 @@
                                 <label
                                     for="has_visa"
                                     class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 form-label form-label-required">
-                                    Do you have a visa? <span class="text-red-500 ml-1"></span>
+                                    {{ __('applicant/contact-info.has_visa') }} <span class="text-red-500 ml-1"></span>
                                 </label>
                                 <select name="has_visa" id="has_visa"
                                     @change="collectAllFormData()"
                                     class="mt-1 flex h-10 w-full rounded-md border px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm form-input"
                                 >
                                     <option value="" @selected(old('has_visa', $application->has_visa ?? null) === null)>
-                                        Select your visa status
+                                        {{ __('applicant/contact-info.select_visa_status') }}
                                     </option>
                                     <option value="1" @selected(old('has_visa', $application->has_visa ?? null) === true)>
-                                        Yes
+                                        {{ __('common.yes') }}
                                     </option>
                                     <option value="0" @selected(old('has_visa', $application->has_visa ?? null) === false)>
-                                        No
+                                        {{ __('common.no') }}
                                     </option>
                                 </select>
                                 @error('has_visa')
@@ -240,14 +240,14 @@
                                     <div x-data="documentUpload('visa_proof', @js($documents->get('visa_proof')))" class="border rounded-lg p-4">
                                         <div class="mb-3">
                                             <div class="flex items-center space-x-2 mb-1">
-                                                <span class="text-md font-medium">Visa Proof</span>
+                                                <span class="text-md font-medium">{{ __('applicant/contact-info.visa_proof') }}</span>
                                                 <span
                                                     class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                                                     :class="uploaded ? 'bg-green-100 text-green-800' : (getFieldValue('has_visa') === '1' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800')"
-                                                    x-text="uploaded ? '{{ __('applicant/contact-info.uploaded') }}' : (getFieldValue('has_visa') === '1' ? 'Required' : '{{ __('applicant/contact-info.optional') }}')">
+                                                    x-text="uploaded ? '{{ __('applicant/contact-info.uploaded') }}' : (getFieldValue('has_visa') === '1' ? '{{ __('applicant/contact-info.required') }}' : '{{ __('applicant/contact-info.optional') }}')">
                                                 </span>
                                             </div>
-                                            <p class="text-sm text-gray-500 mb-2">Upload information about your visa status</p>
+                                            <p class="text-sm text-gray-500 mb-2">{{ __('applicant/contact-info.visa_proof_hint') }}</p>
                                             <div class="text-xs text-gray-500">{{ __('applicant/contact-info.file_formats') }}</div>
                                         </div>
 

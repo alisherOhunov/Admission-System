@@ -74,7 +74,7 @@
                                 clip-rule="evenodd" />
                         </svg>
                         <div class="text-left">
-                            <p class="font-semibold mb-1">Success!</p>
+                            <p class="font-semibold mb-1">{{ __('applicant/review-and-submit.success') }}</p>
                             <p class="text-sm">{{ session('success') }}</p>
                         </div>
                     </div>
@@ -169,7 +169,7 @@
                             </div>
                             <div>
                                 <p class="text-sm font-medium text-gray-700">
-                                    Country of Birth
+                                    {{ __('applicant/review-and-submit.country_of_birth') }}
                                 </p>
                                 <p class="text-gray-900" x-text="getCountryName(getFieldValue('country_of_birth')) || '{{ __('applicant/review-and-submit.not_specified') }}'"></p>
                             </div>
@@ -182,7 +182,7 @@
                                     <div class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm">
                                         <div>
                                             <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">
-                                                Passport
+                                                {{ __('documents.passport') }}
                                             </p>
                                             <p class="text-sm font-medium text-gray-800" x-text="getDocuments()['passport']?.original_name">
                                             </p>
@@ -211,7 +211,7 @@
                                     </div>
                                 </div>
                                 <div x-show="!getDocuments()['passport']" class="flex items-center justify-center py-4 text-gray-500">
-                                    <span class="text-sm">No documents uploaded yet!</span>
+                                    <span class="text-sm">{{ __('documents.no_documents_uploaded') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -282,12 +282,12 @@
                                         </p>
                                     </div>
                                     <div>
-                                        <p class="text-sm font-medium text-gray-700">Do you Have a visa?</p>
-                                        <p class="text-gray-900" 
-                                            x-text="getFieldValue('has_visa') == '1' 
-                                                    ? 'Yes' 
-                                                    : (getFieldValue('has_visa') == '0' 
-                                                        ? 'No' 
+                                        <p class="text-sm font-medium text-gray-700">{{ __('applicant/review-and-submit.has_visa') }}</p>
+                                        <p class="text-gray-900"
+                                            x-text="getFieldValue('has_visa') == '1'
+                                                    ? '{{ __('common.yes') }}'
+                                                    : (getFieldValue('has_visa') == '0'
+                                                        ? '{{ __('common.no') }}'
                                                         : '{{ __('applicant/review-and-submit.not_specified') }}')">
                                         </p>
                                     </div>
@@ -302,7 +302,7 @@
                                     <div class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm">
                                         <div>
                                             <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">
-                                                Visa Proof
+                                                {{ __('documents.visa_proof') }}
                                             </p>
                                             <p class="text-sm font-medium text-gray-800" x-text="getDocuments()['visa_proof']?.original_name">
                                             </p>
@@ -331,7 +331,7 @@
                                     </div>
                                 </div>
                                 <div x-show="!getDocuments()['visa_proof']" class="flex items-center justify-center py-4 text-gray-500">
-                                    <span class="text-sm">No documents uploaded yet!</span>
+                                    <span class="text-sm">{{ __('documents.no_documents_uploaded') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -408,7 +408,7 @@
                                     {{ __('applicant/review-and-submit.uploaded_documents') }}
                                 </p>
     
-                                <template x-for="[key, label] in [['transcript', 'Transcript'], ['diploma', 'Diploma'], ['language_certificate', 'Language Certificate']]" :key="key">
+                                <template x-for="[key, label] in [['transcript', '{{ __('documents.transcript') }}'], ['diploma', '{{ __('documents.diploma') }}'], ['language_certificate', '{{ __('documents.language_certificate') }}']]" :key="key">
                                     <div x-show="getDocuments()[key]" class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm mb-2">
                                         <div>
                                             <p class="text-xs text-gray-500 uppercase tracking-wide mb-1" x-text="label"></p>
@@ -442,7 +442,7 @@
                                 </template>
                                 <div x-show="!['transcript', 'diploma', 'language_certificate'].some(key => getDocuments()[key])" 
                                     class="flex items-center justify-center py-4 text-gray-500">
-                                    <span class="text-sm">No documents uploaded yet!</span>
+                                    <span class="text-sm">{{ __('documents.no_documents_uploaded') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -496,7 +496,7 @@
                                     {{ __('applicant/review-and-submit.uploaded_documents') }}
                                 </p>
     
-                                <template x-for="[key, label] in [['motivation_letter', 'Motivation Letter'], ['cv', 'CV']]" :key="key">
+                                <template x-for="[key, label] in [['motivation_letter', '{{ __('documents.motivation_letter') }}'], ['cv', '{{ __('documents.cv') }}']]" :key="key">
                                     <div x-show="getDocuments()[key]" class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm mb-2">
                                         <div>
                                             <p class="text-xs text-gray-500 uppercase tracking-wide mb-1" x-text="label"></p>
@@ -530,7 +530,7 @@
                                 </template>
                                 <div x-show="!['motivation_letter', 'cv'].some(key => getDocuments()[key])" 
                                     class="flex items-center justify-center py-4 text-gray-500">
-                                    <span class="text-sm">No documents uploaded yet!</span>
+                                    <span class="text-sm">{{ __('documents.no_documents_uploaded') }}</span>
                                 </div>
                             </div>
                         </div>

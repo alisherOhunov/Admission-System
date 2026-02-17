@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="max-w-4xl mx-auto py-8" x-data="{ open: false }">
-    <h1 class="text-2xl font-bold mb-6">Application Periods</h1>
+    <h1 class="text-2xl font-bold mb-6">{{ __('admin/settings.application_periods') }}</h1>
 
     <!-- Success Message -->
     @if(session('success'))
@@ -33,10 +33,10 @@
     @endif
 
     <div class="mb-6">
-        <button 
-            @click="open = !open" 
+        <button
+            @click="open = !open"
             class="px-4 py-2 text-blue font-medium rounded-md shadow hover:bg-gray-200">
-            + Add Period
+            + {{ __('admin/settings.add_period') }}
         </button>
     </div>
 
@@ -45,34 +45,34 @@
             @csrf
 
             <div>
-                <label class="block text-sm font-medium text-gray-700">Name</label>
-                <input type="text" name="name" value="{{ old('name') }}" 
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" 
+                <label class="block text-sm font-medium text-gray-700">{{ __('common.name') }}</label>
+                <input type="text" name="name" value="{{ old('name') }}"
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     required>
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700">Start Date</label>
-                <input type="date" name="start_date" value="{{ old('start_date') }}" 
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" 
+                <label class="block text-sm font-medium text-gray-700">{{ __('admin/settings.start_date') }}</label>
+                <input type="date" name="start_date" value="{{ old('start_date') }}"
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     required>
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700">End Date</label>
-                <input type="date" name="end_date" value="{{ old('end_date') }}" 
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" 
+                <label class="block text-sm font-medium text-gray-700">{{ __('admin/settings.end_date') }}</label>
+                <input type="date" name="end_date" value="{{ old('end_date') }}"
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     required>
             </div>
             <div class="flex justify-end space-x-3">
-                <button type="button" @click="open = false" 
+                <button type="button" @click="open = false"
                     class="px-4 py-2 bg-red-600 text-white font-medium rounded-md shadow hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400">
-                    Cancel
+                    {{ __('common.cancel') }}
                 </button>
 
-                <button type="submit" 
+                <button type="submit"
                     class="px-4 py-2 bg-blue-600 text-white font-medium rounded-md shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    Save
+                    {{ __('common.save') }}
                 </button>
             </div>
         </form>
@@ -82,11 +82,11 @@
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-white">
                 <tr>
-                    <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500">Name</th>
-                    <th scope="col" class="px-4 py-3 text-left text-sm font-medium text-gray-500">Start Date</th>
-                    <th scope="col" class="px-4 py-3 text-left text-sm font-medium text-gray-500">End Date</th>
-                    <th scope="col" class="px-4 py-3 text-left text-sm font-medium text-gray-500">Status</th>
-                    <th scope="col" class="px-6 py-3 text-center text-sm font-medium text-gray-500">Actions</th>
+                    <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-500">{{ __('common.name') }}</th>
+                    <th scope="col" class="px-4 py-3 text-left text-sm font-medium text-gray-500">{{ __('admin/settings.start_date') }}</th>
+                    <th scope="col" class="px-4 py-3 text-left text-sm font-medium text-gray-500">{{ __('admin/settings.end_date') }}</th>
+                    <th scope="col" class="px-4 py-3 text-left text-sm font-medium text-gray-500">{{ __('common.status') }}</th>
+                    <th scope="col" class="px-6 py-3 text-center text-sm font-medium text-gray-500">{{ __('common.actions') }}</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-200">
@@ -104,37 +104,37 @@
                         </td>
                         <td class="px-4 py-4 whitespace-nowrap">
                             @if($period->is_active)
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Active</span>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">{{ __('common.active') }}</span>
                             @else
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-200 text-gray-700">Inactive</span>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-200 text-gray-700">{{ __('common.inactive') }}</span>
                             @endif
                         </td>
                         <td class="whitespace-nowrap text-sm font-medium">
                             <div class="flex justify-center items-center">
                                 @if(!$period->is_active)
                                     <div class="flex space-x-4">
-                                        <a href="{{ route('admin.applications.settings.periods.edit', $period->id) }}" 
+                                        <a href="{{ route('admin.applications.settings.periods.edit', $period->id) }}"
                                         class="px-3 py-1 bg-blue-600 text-white text-xs rounded-md hover:bg-blue-700">
-                                            Edit
+                                            {{ __('common.edit') }}
                                         </a>
                                         <form action="{{ route('admin.applications.settings.periods.activate', $period->id) }}" method="POST" class="inline">
                                             @csrf
                                             <button type="submit" class="px-3 py-1 bg-blue-600 text-white text-xs rounded-md hover:bg-blue-700">
-                                                Activate
+                                                {{ __('common.activate') }}
                                             </button>
                                         </form>
-                                        
+
                                         <form action="{{ route('admin.applications.settings.periods.destroy', $period->id) }}" method="POST" class="inline"
-                                            onsubmit="return confirm('Are you sure you want to delete this period?');">
+                                            onsubmit="return confirm('{{ __('messages.confirm_delete_period') }}');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="px-3 py-1 bg-red-600 text-white text-xs rounded-md hover:bg-red-700">
-                                                Delete
+                                                {{ __('common.delete') }}
                                             </button>
                                         </form>
                                     </div>
                                 @else
-                                    <span class="text-sm text-green-400">Current Active</span>
+                                    <span class="text-sm text-green-400">{{ __('common.active') }}</span>
                                 @endif
                             </div>
                         </td>
@@ -142,7 +142,7 @@
                 @empty
                     <tr>
                         <td colspan="5" class="px-6 py-4 text-center text-sm text-gray-500">
-                            No periods available.
+                            {{ __('common.no_data') }}
                         </td>
                     </tr>
                 @endforelse

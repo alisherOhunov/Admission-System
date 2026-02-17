@@ -77,7 +77,7 @@
 
                                     @if($application->application_period_id && $application->applicationPeriod && $application->application_period_id != $currentPeriod->id)
                                         <option value="{{ $application->application_period_id }}" selected disabled>
-                                            {{ $application->applicationPeriod->name }} (Closed)
+                                            {{ $application->applicationPeriod->name }} ({{ __('applicant/program-choice.closed') }})
                                         </option>
                                     @endif
 
@@ -106,7 +106,7 @@
                             </div>
                             <div>
                                 <a href="{{ $settings->student_accommodation_link }}" target="_blank" class="text-blue-600 underline">
-                                Information about student accommodation
+                                {{ __('admin/settings.student_accommodation_link') }}
                                 </a>
                             </div>
                         </div>

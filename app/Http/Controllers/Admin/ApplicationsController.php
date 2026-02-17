@@ -68,10 +68,10 @@ class ApplicationsController extends Controller
             \Log::error('Applications export failed: '.$e->getMessage());
 
             if ($request->header('HX-Request')) {
-                return response()->json(['error' => 'Export failed. Please try again.'], 500);
+                return response()->json(['error' => __('messages.operation_failed')], 500);
             }
 
-            return redirect()->back()->with('error', 'Export failed. Please try again.');
+            return redirect()->back()->with('error', __('messages.operation_failed'));
         }
     }
 

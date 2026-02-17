@@ -26,7 +26,7 @@ class ApplicationPeriodsSettingsController extends Controller
         ApplicationPeriod::create($validated);
 
         return redirect()->route('admin.applications.settings.periods')
-            ->with('success', 'Application period added successfully.');
+            ->with('success', __('messages.period_created'));
     }
 
     public function activate(ApplicationPeriod $period)
@@ -39,7 +39,7 @@ class ApplicationPeriodsSettingsController extends Controller
         // Activate the selected period
         $period->update(['is_active' => true]);
 
-        return back()->with('success', 'Application period activated successfully.');
+        return back()->with('success', __('messages.period_activated'));
     }
 
     public function edit(ApplicationPeriod $period)
@@ -59,7 +59,7 @@ class ApplicationPeriodsSettingsController extends Controller
 
         return redirect()
             ->route('admin.applications.settings.periods')
-            ->with('success', 'Application period updated successfully.');
+            ->with('success', __('messages.period_updated'));
     }
 
     public function destroy(ApplicationPeriod $period)
@@ -67,13 +67,13 @@ class ApplicationPeriodsSettingsController extends Controller
         if ($period->applications()->exists()) {
             return redirect()
                 ->route('admin.applications.settings.periods')
-                ->with('error', 'Cannot be deleted because there is information related to this application period');
+                ->with('error', __('messages.cannot_delete_period_in_use'));
         }
 
         $period->delete();
 
         return redirect()
             ->route('admin.applications.settings.periods')
-            ->with('success', 'Application period deleted successfully.');
+            ->with('success', __('messages.period_deleted'));
     }
 }

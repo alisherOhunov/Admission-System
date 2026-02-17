@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="max-w-4xl mx-auto py-8" x-data="{ open: false }">
-    <h1 class="text-2xl font-bold mb-6">Programs</h1>
+    <h1 class="text-2xl font-bold mb-6">{{ __('admin/settings.programs') }}</h1>
 
     <!-- Success Message -->
     @if(session('success'))
@@ -36,7 +36,7 @@
         <button
             @click="open = !open"
             class="px-4 py-2 text-blue font-medium rounded-md shadow hover:bg-gray-200">
-            + Add Program
+            + {{ __('admin/settings.add_program') }}
         </button>
     </div>
 
@@ -45,26 +45,26 @@
             @csrf
 
             <div>
-                <label class="block text-sm font-medium text-gray-700">Program Name</label>
-                <input type="text" name="name" value="{{ old('name') }}" 
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm 
+                <label class="block text-sm font-medium text-gray-700">{{ __('admin/settings.program_name') }}</label>
+                <input type="text" name="name" value="{{ old('name') }}"
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm
                     focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700">Degree Level</label>
+                <label class="block text-sm font-medium text-gray-700">{{ __('admin/settings.program_level') }}</label>
                 <select name="degree_level"
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm 
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm
                     focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
-                    <option value="bachelors">Bachelor's</option>
-                    <option value="masters">Master's</option>
+                    <option value="bachelors">{{ __('degrees.bachelors') }}</option>
+                    <option value="masters">{{ __('degrees.masters') }}</option>
                 </select>
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700">Code</label>
-                <input type="text" name="code" value="{{ old('code') }}" 
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm 
+                <label class="block text-sm font-medium text-gray-700">{{ __('admin/settings.program_code') }}</label>
+                <input type="text" name="code" value="{{ old('code') }}"
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm
                     focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
             </div>
 
@@ -74,16 +74,16 @@
             <input type="hidden" name="requirements">
 
             <div class="flex justify-end space-x-3">
-                <button type="button" @click="open = false" 
-                    class="px-4 py-2 bg-red-600 text-white font-medium rounded-md shadow 
+                <button type="button" @click="open = false"
+                    class="px-4 py-2 bg-red-600 text-white font-medium rounded-md shadow
                     hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400">
-                    Cancel
+                    {{ __('common.cancel') }}
                 </button>
 
                 <button type="submit"
-                    class="px-4 py-2 bg-blue-600 text-white font-medium rounded-md shadow 
+                    class="px-4 py-2 bg-blue-600 text-white font-medium rounded-md shadow
                     hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    Save
+                    {{ __('common.save') }}
                 </button>
             </div>
         </form>
@@ -94,11 +94,11 @@
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-white">
                 <tr>
-                    <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Name</th>
-                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-500">Degree Level</th>
-                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-500">Code</th>
-                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-500">Status</th>
-                    <th class="px-6 py-3 text-center text-sm font-medium text-gray-500">Actions</th>
+                    <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">{{ __('common.name') }}</th>
+                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-500">{{ __('admin/settings.program_level') }}</th>
+                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-500">{{ __('admin/settings.program_code') }}</th>
+                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-500">{{ __('common.status') }}</th>
+                    <th class="px-6 py-3 text-center text-sm font-medium text-gray-500">{{ __('common.actions') }}</th>
                 </tr>
             </thead>
 
@@ -111,7 +111,7 @@
                     </td>
 
                     <td class="px-4 py-4  text-sm text-gray-900">
-                        {{ ucfirst($program->degree_level) }}
+                        {{ __('degrees.' . $program->degree_level) }}
                     </td>
 
                     <td class="px-4 py-4  text-sm text-gray-900">
@@ -120,11 +120,11 @@
 
                     <td class="px-4 py-4 ">
                         @if($program->is_active)
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full 
-                                text-xs font-medium bg-green-100 text-green-800">Active</span>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full
+                                text-xs font-medium bg-green-100 text-green-800">{{ __('common.active') }}</span>
                         @else
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full 
-                                text-xs font-medium bg-gray-200 text-gray-700">Inactive</span>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full
+                                text-xs font-medium bg-gray-200 text-gray-700">{{ __('common.inactive') }}</span>
                         @endif
                     </td>
 
@@ -133,39 +133,39 @@
                             
                             {{-- ACTIVE PROGRAM → only Deactivate --}}
                             @if($program->is_active)
-                                <form action="{{ route('admin.applications.settings.programs.de-activate', $program->id) }}" 
+                                <form action="{{ route('admin.applications.settings.programs.de-activate', $program->id) }}"
                                     method="POST">
                                     @csrf
                                     <button type="submit" name="deactivate" value="1"
                                         class="px-3 py-1 bg-red-600 text-white text-xs rounded-md hover:bg-red-700">
-                                        Deactivate
+                                        {{ __('common.deactivate') }}
                                     </button>
                                 </form>
 
                             @else
 
-                                <a href="{{ route('admin.applications.settings.programs.edit', $program->id) }}" 
+                                <a href="{{ route('admin.applications.settings.programs.edit', $program->id) }}"
                                     class="px-3 py-1 bg-blue-600 text-white text-xs rounded-md hover:bg-blue-700">
-                                    Edit
+                                    {{ __('common.edit') }}
                                 </a>
 
-                                <form action="{{ route('admin.applications.settings.programs.activate', $program->id) }}" 
+                                <form action="{{ route('admin.applications.settings.programs.activate', $program->id) }}"
                                     method="POST" class="inline">
                                     @csrf
                                     <button type="submit"
                                         class="px-3 py-1 bg-green-500 text-white text-xs rounded-md hover:bg-blue-400">
-                                        Activate
+                                        {{ __('common.activate') }}
                                     </button>
                                 </form>
 
-                                <form action="{{ route('admin.applications.settings.programs.destroy', $program->id) }}" 
+                                <form action="{{ route('admin.applications.settings.programs.destroy', $program->id) }}"
                                     method="POST" class="inline"
-                                    onsubmit="return confirm('Are you sure you want to delete this program?');">
+                                    onsubmit="return confirm('{{ __('messages.confirm_delete_program') }}');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
                                         class="px-3 py-1 bg-red-600 text-white text-xs rounded-md hover:bg-red-700">
-                                        Delete
+                                        {{ __('common.delete') }}
                                     </button>
                                 </form>
 
@@ -177,7 +177,7 @@
                 @empty
                 <tr>
                     <td colspan="5" class="px-6 py-4 text-center text-sm text-gray-500">
-                        No programs available.
+                        {{ __('common.no_data') }}
                     </td>
                 </tr>
                 @endforelse

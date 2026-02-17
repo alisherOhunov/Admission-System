@@ -153,27 +153,27 @@
                         <p class="text-2xl font-medium text-gray-900 mb-4 text-center">{{ __('admin/dashboard.application_status') }}</p>
                         <div class="space-y-3">
                             <div class="flex items-center justify-between">
-                                <span class="text-sm text-gray-600">{{ __('admin/dashboard.status_submitted') }}</span>
+                                <span class="text-sm text-gray-600">{{ __('status.submitted') }}</span>
                                 <span class="font-medium text-blue-800">{{ $stats['submitted'] }}</span>
                             </div>
                             <div class="flex items-center justify-between">
-                                <span class="text-sm text-gray-600">{{ __('admin/dashboard.status_require_resubmit') }}</span>
+                                <span class="text-sm text-gray-600">{{ __('status.require_resubmit') }}</span>
                                 <span class="font-medium text-blue-800">{{ $stats['require_resubmit'] }}</span>
                             </div>
                             <div class="flex items-center justify-between">
-                                <span class="text-sm text-gray-600">{{ __('admin/dashboard.status_re_submitted') }}</span>
+                                <span class="text-sm text-gray-600">{{ __('status.re_submitted') }}</span>
                                 <span class="font-medium text-blue-800">{{ $stats['re_submitted'] }}</span>
                             </div>
                             <div class="flex items-center justify-between">
-                                <span class="text-sm text-gray-600">{{ __('admin/dashboard.status_under_review') }}</span>
+                                <span class="text-sm text-gray-600">{{ __('status.under_review') }}</span>
                                 <span class="font-medium text-yellow-600">{{ $stats['under_review'] }}</span>
                             </div>
                             <div class="flex items-center justify-between">
-                                <span class="text-sm text-gray-600">{{ __('admin/dashboard.status_accepted') }}</span>
+                                <span class="text-sm text-gray-600">{{ __('status.accepted') }}</span>
                                 <span class="font-medium text-green-600">{{ $stats['accepted'] }}</span>
                             </div>
                             <div class="flex items-center justify-between">
-                                <span class="text-sm text-gray-600">{{ __('admin/dashboard.status_rejected') }}</span>
+                                <span class="text-sm text-gray-600">{{ __('status.rejected') }}</span>
                                 <span class="font-medium text-red-600">{{ $stats['rejected'] }}</span>
                             </div>
                         </div>

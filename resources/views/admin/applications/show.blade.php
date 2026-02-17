@@ -35,7 +35,7 @@
 
                             <div id="status-badge"
                                 class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent {{ $statusData['color'] }} {{ $statusData['bg'] }}">
-                                {{ ucwords(str_replace('_', ' ', $status)) }}
+                                {{ __('status.' . $status) }}
                             </div>
 
                             <div class="relative" x-data="{ open: false }">
@@ -72,7 +72,7 @@
                                                     </label>
                                                     <span id="current-status-display"
                                                         class="inline-block text-sm font-semibold px-3 py-1 rounded-full {{ $statusData['color'] . ' ' . $statusData['bg'] ?? 'bg-gray-100 text-gray-800' }}">
-                                                        {{ ucwords(str_replace('_', ' ', $status)) }}
+                                                        {{ __('status.' . $status) }}
                                                     </span>
                                                 </div>
                                                 <form
@@ -89,13 +89,13 @@
                                                             class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
                                                             required>
                                                             <option value="under_review">
-                                                                {{ __('admin/show.status.under_review') }}</option>
-                                                            <option value="accepted">{{ __('admin/show.status.accepted') }}
+                                                                {{ __('status.under_review') }}</option>
+                                                            <option value="accepted">{{ __('status.accepted') }}
                                                             </option>
-                                                            <option value="rejected">{{ __('admin/show.status.rejected') }}
+                                                            <option value="rejected">{{ __('status.rejected') }}
                                                             </option>
                                                             <option value="require_resubmit">
-                                                                {{ __('admin/show.status.require_resubmit') }}</option>
+                                                                {{ __('status.require_resubmit') }}</option>
                                                         </select>
                                                     </div>
                                                     <div x-show="showNotesField" x-cloak x-transition class="mb-4">
@@ -253,7 +253,7 @@
                                 </div>
                                 <div>
                                     <p class="text-sm font-medium text-gray-700 mb-1">
-                                        Country of Birth
+                                        {{ __('admin/show.country_of_birth') }}
                                     </p>
                                     <p class="text-gray-900">
                                         @if ($application->country_of_birth)
@@ -270,14 +270,14 @@
                                 @if (isset($documents['passport']))
                                     <div>
                                         <p class="text-md font-semibold text-gray-800 mb-2">
-                                            Uploaded documents
+                                            {{ __('documents.uploaded_documents') }}
                                         </p>
 
                                         <div
                                             class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm">
                                             <div>
                                                 <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">
-                                                    Passport
+                                                    {{ __('documents.passport') }}
                                                 </p>
                                                 <p class="text-sm font-medium text-gray-800">
                                                     {{ $documents['passport']['original_name'] }}
@@ -288,7 +288,7 @@
                                                 <a href="/admin/applications/{{ $application->id }}/view-document/{{ $documents['passport']['id'] }}"
                                                     target="_blank"
                                                     class="text-green-600 hover:text-green-800 transition-colors"
-                                                    title="View">
+                                                    title="{{ __('common.view') }}">
                                                     <svg class="h-5 w-5" fill="none" stroke="currentColor"
                                                         viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -300,7 +300,7 @@
                                                 </a>
                                                 <a href="/admin/applications/{{ $application->id }}/document/{{ $documents['passport']['id'] }}"
                                                     class="text-blue-600 hover:text-blue-800 transition-colors"
-                                                    title="{{ __('Download') }}">
+                                                    title="{{ __('common.download') }}">
                                                     <svg class="h-5 w-5" fill="none" stroke="currentColor"
                                                         viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -397,9 +397,9 @@
                                             </p>
                                         </div>
                                         <div>
-                                            <p class="text-sm font-medium text-gray-700">Do you Have a visa?</p>
+                                            <p class="text-sm font-medium text-gray-700">{{ __('admin/show.has_visa') }}</p>
                                             <p class="text-gray-900">
-                                                {{ $application->has_visa === true ? 'Yes' : ($application->has_visa === false ? 'No' : __('applicant/review-and-submit.not_specified')) }}
+                                                {{ $application->has_visa === true ? __('common.yes') : ($application->has_visa === false ? __('common.no') : __('applicant/review-and-submit.not_specified')) }}
                                             </p>
                                         </div>
                                     </div>
@@ -407,14 +407,14 @@
                                 @if (isset($documents['visa_proof']))
                                     <div>
                                         <p class="text-md font-semibold text-gray-800 mb-2">
-                                            Uploaded documents
+                                            {{ __('documents.uploaded_documents') }}
                                         </p>
 
                                         <div
                                             class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm">
                                             <div>
                                                 <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">
-                                                    Visa proof
+                                                    {{ __('documents.visa_proof') }}
                                                 </p>
                                                 <p class="text-sm font-medium text-gray-800">
                                                     {{ $documents['visa_proof']['original_name'] }}
@@ -425,7 +425,7 @@
                                                 <a href="/admin/applications/{{ $application->id }}/view-document/{{ $documents['visa_proof']['id'] }}"
                                                     target="_blank"
                                                     class="text-green-600 hover:text-green-800 transition-colors"
-                                                    title="View">
+                                                    title="{{ __('common.view') }}">
                                                     <svg class="h-5 w-5" fill="none" stroke="currentColor"
                                                         viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -437,7 +437,7 @@
                                                 </a>
                                                 <a href="/admin/applications/{{ $application->id }}/document/{{ $documents['visa_proof']['id'] }}"
                                                     class="text-blue-600 hover:text-blue-800 transition-colors"
-                                                    title="{{ __('Download') }}">
+                                                    title="{{ __('common.download') }}">
                                                     <svg class="h-5 w-5" fill="none" stroke="currentColor"
                                                         viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -516,19 +516,19 @@
                                         {{ __('applicant/review-and-submit.language_proficiency') }}
                                     </p>
                                     <div class="flex items-center space-x-4 text-sm">
-                                        <span class="text-gray-900">Type: {{ $application->language_test_type }}</span>
+                                        <span class="text-gray-900">{{ __('admin/show.type_label') }}: {{ $application->language_test_type }}</span>
                                         <span class="text-gray-500">•</span>
                                         <span class="text-gray-900">{{ __('applicant/review-and-submit.score') }}:
                                             {{ $application->language_test_score }}</span>
                                         <span class="text-gray-500">•</span>
                                         <span class="text-gray-700">
-                                            Date: {{ optional($application->language_test_date)->format('Y/m/d') }}
+                                            {{ __('admin/show.date_label') }}: {{ optional($application->language_test_date)->format('Y/m/d') }}
                                         </span>
                                     </div>
                                 </div>
                                 <div>
                                     <p class="text-sm font-semibold text-gray-800 mb-2">
-                                        Uploaded Documents
+                                        {{ __('documents.uploaded_documents') }}
                                     </p>
 
                                     @foreach (['transcript' => 'Transcript', 'diploma' => 'Diploma', 'language_certificate' => 'Language Certificate'] as $key => $label)
@@ -537,7 +537,7 @@
                                                 class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm mb-2">
                                                 <div>
                                                     <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">
-                                                        {{ $label }}
+                                                        {{ __('documents.' . $key) }}
                                                     </p>
                                                     <p class="text-sm font-medium text-gray-800">
                                                         {{ $documents[$key]['original_name'] }}
@@ -547,7 +547,7 @@
                                                     <a href="/admin/applications/{{ $application->id }}/view-document/{{ $documents[$key]['id'] }}"
                                                         target="_blank"
                                                         class="text-green-600 hover:text-green-800 transition-colors"
-                                                        title="View">
+                                                        title="{{ __('common.view') }}">
                                                         <svg class="h-5 w-5" fill="none" stroke="currentColor"
                                                             viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -559,7 +559,7 @@
                                                     </a>
                                                     <a href="/admin/applications/{{ $application->id }}/document/{{ $documents[$key]['id'] }}"
                                                         class="text-blue-600 hover:text-blue-800 transition-colors"
-                                                        title="Download">
+                                                        title="{{ __('common.download') }}">
                                                         <svg class="h-5 w-5" fill="none" stroke="currentColor"
                                                             viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -624,7 +624,7 @@
                                 </div>
                                 <div>
                                     <p class="text-sm font-semibold text-gray-800 mb-2">
-                                        Uploaded Documents
+                                        {{ __('documents.uploaded_documents') }}
                                     </p>
 
                                     @foreach (['motivation_letter' => 'Motivation Letter', 'cv' => 'Curriculum Vitae (CV)',] as $key => $label)
@@ -633,7 +633,7 @@
                                                 class="flex items-center justify-between border border-gray-200 rounded-lg bg-gray-50 px-4 py-3 shadow-sm mb-2">
                                                 <div>
                                                     <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">
-                                                        {{ $label }}
+                                                        {{ __('documents.' . $key) }}
                                                     </p>
                                                     <p class="text-sm font-medium text-gray-800">
                                                         {{ $documents[$key]['original_name'] }}
@@ -643,7 +643,7 @@
                                                     <a href="/admin/applications/{{ $application->id }}/view-document/{{ $documents[$key]['id'] }}"
                                                         target="_blank"
                                                         class="text-green-600 hover:text-green-800 transition-colors"
-                                                        title="View">
+                                                        title="{{ __('common.view') }}">
                                                         <svg class="h-5 w-5" fill="none" stroke="currentColor"
                                                             viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -655,7 +655,7 @@
                                                     </a>
                                                     <a href="/admin/applications/{{ $application->id }}/document/{{ $documents[$key]['id'] }}"
                                                         class="text-blue-600 hover:text-blue-800 transition-colors"
-                                                        title="Download">
+                                                        title="{{ __('common.download') }}">
                                                         <svg class="h-5 w-5" fill="none" stroke="currentColor"
                                                             viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -729,7 +729,7 @@
                                     </div>
                                     <div class="flex-1">
                                         <p class="text-sm font-medium text-gray-900">
-                                            {{ __('admin/show.application') . ' ' . __('admin/show.status.under_review') }}
+                                            {{ __('admin/show.application') . ' ' . __('status.under_review') }}
                                         </p>
                                     </div>
                                 </div>

@@ -127,13 +127,13 @@ class Application extends Model
     public function getStatusData()
     {
         $statuses = [
-            'draft' => ['label' => 'Not Submitted', 'bg' => 'bg-gray-100', 'svg_color' => 'text-gray-500', 'color' => 'text-gray-800'],
-            'submitted' => ['label' => 'Submitted', 'bg' => 'bg-blue-100', 'svg_color' => 'text-blue-500', 'color' => 'text-blue-800'],
-            'require_resubmit' => ['label' => 'Require Resubmit', 'bg' => 'bg-blue-100', 'svg_color' => 'text-blue-500', 'color' => 'text-blue-800'],
-            're_submitted' => ['label' => 'ReSubmitted', 'bg' => 'bg-blue-100', 'svg_color' => 'text-blue-500', 'color' => 'text-blue-800'],
-            'under_review' => ['label' => 'Under Review', 'bg' => 'bg-yellow-100', 'svg_color' => 'text-yellow-500', 'color' => 'text-yellow-800'],
-            'accepted' => ['label' => 'Accepted', 'bg' => 'bg-green-100', 'svg_color' => 'text-green-500', 'color' => 'text-green-800'],
-            'rejected' => ['label' => 'Rejected', 'bg' => 'bg-red-100', 'svg_color' => 'text-red-500', 'color' => 'text-red-800'],
+            'draft' => ['label' => __('status.draft'), 'bg' => 'bg-gray-100', 'svg_color' => 'text-gray-500', 'color' => 'text-gray-800'],
+            'submitted' => ['label' => __('status.submitted'), 'bg' => 'bg-blue-100', 'svg_color' => 'text-blue-500', 'color' => 'text-blue-800'],
+            'require_resubmit' => ['label' => __('status.require_resubmit'), 'bg' => 'bg-blue-100', 'svg_color' => 'text-blue-500', 'color' => 'text-blue-800'],
+            're_submitted' => ['label' => __('status.re_submitted'), 'bg' => 'bg-blue-100', 'svg_color' => 'text-blue-500', 'color' => 'text-blue-800'],
+            'under_review' => ['label' => __('status.under_review'), 'bg' => 'bg-yellow-100', 'svg_color' => 'text-yellow-500', 'color' => 'text-yellow-800'],
+            'accepted' => ['label' => __('status.accepted'), 'bg' => 'bg-green-100', 'svg_color' => 'text-green-500', 'color' => 'text-green-800'],
+            'rejected' => ['label' => __('status.rejected'), 'bg' => 'bg-red-100', 'svg_color' => 'text-red-500', 'color' => 'text-red-800'],
         ];
 
         return $statuses[$this->status] ?? $statuses['draft'];
